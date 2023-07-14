@@ -38,7 +38,7 @@ if(isset($_POST['submit'])){
         <div class="field image d-flex  justify-content-center align-items-center">
           <!-- circle img -->
 
-          <img src="../image/user-profile/mylove.jpg" class="img-circle mb-4" alt="">
+          <img src="../image/user-profile/mylove.jpg" class="img-circle mb-4" id="show_photo" alt="">
 
           <div class="d-flex  justify-content-center align-items-center cover-icon">
             <i class="fa-solid fa-camera fa-xl camera_icon" style="color: #4e9c81;"></i>
@@ -67,9 +67,11 @@ if(isset($_POST['submit'])){
         </div>
         <div class="field input">
           <label>Password</label>
-          <input type="password" name="password" placeholder="Enter your password" required>
+          <input type="password" name="password" id="passwordInput" placeholder="Enter your password" required>
           <i class="fas fa-eye eye"></i>
+          
         </div>
+        <div id="passwordRequirements" class="text-danger"></div>
         <div class="field button">
           <input type="submit" name="submit" value="Continue to Chat">
         </div>
