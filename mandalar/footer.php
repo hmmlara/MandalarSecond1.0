@@ -22,6 +22,14 @@
         <script src="js/jquery.flexslider-min.js"></script>
         <!-- Main -->
         <script src="js/main.js"></script>
+        <!-- Scroll Reavel Js -->
+        <script src="https://unpkg.com/scrollreveal">
+
+        </script>
+        <script src="js//scroll.js"></script>
+        <script src="js/category.js"></script>
+
+
         <script>
             document.addEventListener("DOMContentLoaded", function() {
                 var priceSlider = document.getElementById("priceSlider");
