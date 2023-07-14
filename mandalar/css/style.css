@@ -15,40 +15,8 @@
     background-color: #fff;
   }
   
-  /* Home Component */
-  /* #home {
-    padding-top: 80px;
-  }
-   */
-  .category-image {
-    height: 200px;
-    object-fit: contain;
-  }
-  
-  /* Filter Component */
-  #filter {
-    padding: 40px 0;
-  }
-  
-  .custom-card {
-    height: 100%;
-    border-radius: 10px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
-  
-  .custom-card select {
-    border: none;
-    border-radius: 5px;
-    padding: 8px;
-    width: 100%;
-    background-color: #f0f0f0;
-  }
-  
-  .custom-card .noUi-target {
-    height: 6px;
-    border-radius: 5px;
-    background-color: #f0f0f0;
-  }
+
+
   
   /* .custom-card .noUi-connect {
     background-color: #4e9c81;;

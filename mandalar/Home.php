@@ -1,62 +1,72 @@
 <?php include_once "./nav.php"; ?>
         <div class="container-xl"   >
-            <!-- Home Component -->
+            <!-- Category Component -->
             <section id="home" class="">
-                <div class="container-xxl ">
+                <div class="container-xxl">
                     <div class="row">
-                        <div class="col-md-3 mb-4">
+                        <div class="col-3 mb-4">
                             <div class="card">
                                 <img src="image/Category/car-image.png" class="p-2 card-img-top category-image" alt="Cars" />
                                 <div class="card-body">
-                                    <div class="custom-control custom-checkbox">
-                                        <input type="checkbox" class="custom-control-input" id="carCheckbox" />
-                                        <label class="custom-control-label" for="carCheckbox">Cars</label>
+                                    <div class="custom-control custom-radio">
+                                        <input type="radio" class="custom-control-input" id="carRadio" name="category" />
+                                        <label class="custom-control-label" for="carRadio">Cars</label>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-3 mb-4">
+                        <div class="col-3 mb-4">
                             <div class="card">
                                 <img src="image/Category/phone.png" class="card-img-top p-2 category-image" alt="Phones" />
                                 <div class="card-body">
-                                    <div class="custom-control custom-checkbox">
-                                        <input type="checkbox" class="custom-control-input" id="phoneCheckbox" />
-                                        <label class="custom-control-label" for="phoneCheckbox">
-										Phones
-									</label>
+                                    <div class="custom-control custom-radio">
+                                        <input type="radio" class="custom-control-input" id="phoneRadio" name="category" />
+                                        <label class="custom-control-label" for="phoneRadio">Phones</label>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-3 mb-4">
+                        <div class="col-3 col  mb-4">
                             <div class="card">
                                 <img src="image/Category/bikes.png" class="card-img-top p-2 category-image" alt="Bikes" />
                                 <div class="card-body">
-                                    <div class="custom-control custom-checkbox">
-                                        <input type="checkbox" class="custom-control-input" id="bikeCheckbox" />
-                                        <label class="custom-control-label" for="bikeCheckbox">
-										Bikes
-									</label>
+                                    <div class="custom-control custom-radio">
+                                        <input type="radio" class="custom-control-input" id="bikeRadio" name="category" />
+                                        <label class="custom-control-label" for="bikeRadio">Bikes</label>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-3 mb-4">
+                        <div class="col-3 mb-4">
                             <div class="card">
                                 <img src="image/Category/computer.png" class="card-img-top p-2 category-image" alt="Computers" />
                                 <div class="card-body">
-                                    <div class="custom-control custom-checkbox">
-                                        <input type="checkbox" class="custom-control-input" id="computerCheckbox" />
-                                        <label class="custom-control-label" for="computerCheckbox">
-										Computers
-									</label>
+                                    <div class="custom-control custom-radio">
+                                        <input type="radio" class="custom-control-input" id="computerRadio" name="category" />
+                                        <label class="custom-control-label" for="computerRadio">Computers</label>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col-md-3 col-sm-6 mb-4">
+                            <!-- Second item -->
+                        </div>
+                        <div class="col-md-3 col-sm-6 mb-4">
+                            <!-- Third item -->
+                        </div>
+                        <div class="col-md-3 col-sm-6 mb-4">
+                            <!-- Fourth item -->
+                        </div>
+                        <div class="col-md-3 col-sm-6 mb-4">
+                            <!-- Fifth item -->
+                        </div>
+                    </div>
                 </div>
             </section>
+            
+            
 
             <!-- Filter Component -->
 
@@ -89,7 +99,7 @@
                             <div class="card custom-card">
                                 <div class="card-body">
                                     <div class="custom-control custom-radio">
-                                        <input type="radio" class="custom-control-input" id="newCondition" name="condition" checked />
+                                        <input type="radio" class="custom-control-input" id="newCondition" name="condition"  />
                                         <label class="custom-control-label" for="newCondition">New</label>
                                     </div>
                                     <div class="custom-control custom-radio">
@@ -114,7 +124,7 @@
                                     <h5 class="card-title">Product 1</h5>
                                     <div class="d-flex justify-content-between align-items-center">
                                         <div class="d-flex align-items-center">
-                                            <img src="image/profiles/Profile.png" class="rounded-circle" alt="Seller 1" style="width: 30px; height: auto" />
+                                            <img src="image/profiles/Profile.png" class="rounded-circle profile-on-card" alt="Seller 1"  />
                                             <span class="ml-2 card-text">Seller 1</span>
                                         </div>
                                         <div>
@@ -141,7 +151,7 @@
                                     <h5 class="card-title">Product 2</h5>
                                     <div class="d-flex justify-content-between align-items-center">
                                         <div class="d-flex align-items-center">
-                                            <img src="image/profiles/Profile.png" class="rounded-circle profile-on-card" alt="Seller 2" style="width: 30px; height: auto" />
+                                            <img src="image/user-profile/99b847b47e05626961b6ae115feca94c.jpg" class="rounded-circle profile-on-card" alt="Seller 2" />
                                             <span class="ml-2 card-text">Seller 2</span>
                                         </div>
                                         <div>
@@ -168,7 +178,7 @@
                                     <h5 class="card-title">Product 3</h5>
                                     <div class="d-flex justify-content-between align-items-center">
                                         <div class="d-flex align-items-center">
-                                            <img src="image/profiles/Profile.png" class="rounded-circle" alt="Seller 3" style="width: 30px; height: auto" />
+                                            <img src="image/user-profile/mylove.jpg" class="rounded-circle profile-on-card" alt="Seller 3"  />
                                             <span class="ml-2 card-text">Seller 3</span>
                                         </div>
                                         <div>

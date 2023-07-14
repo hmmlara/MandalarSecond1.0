@@ -1,4 +1,9 @@
 .category-image{
-    height: 80px;
+    height: 60px;
     object-fit: contain;
+}
+
+.custom-control-input{
+    width: 0.5rem;
+    height: 0.5rem;
 }
