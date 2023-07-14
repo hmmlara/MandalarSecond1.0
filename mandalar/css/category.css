@@ -18,7 +18,7 @@
 }
 
 .radio-image input[type="radio"]:checked+img {
-    border: 2px solid #212529;
+    border: 2px solid #4e9c81;
     /* Add any desired styling when an option is selected */
 }
 
@@ -32,8 +32,10 @@
     border: 0.5px solid #c0bfbf;
     box-sizing: border-box;
     border-radius: 0px;
+    transition: o.3s ease-in-out;
 }
 
 .category-row .col-2 .card:hover {
-    box-shadow: 1px 1px 10px #757575
+    box-shadow: 1px 1px 10px #757575;
+    transform: translateZ(10px);
 }

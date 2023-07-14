@@ -5,3 +5,16 @@
 .flitter-row .col-4 {
     padding: 5px;
 }
+  /* Customize the slider background color */
+  .noUi-target .noUi-connect {
+    background-color: #4e9c84;
+  }
+
+  /* Customize the slider handle color */
+  /* .noUi-target .noUi-handle {
+  } */
+
+   input[type="radio"]:active + label:before {
+    background-color: #4e9c84; /* Desired color for the active state */
+  }
+

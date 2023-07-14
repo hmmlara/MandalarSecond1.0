@@ -94,12 +94,21 @@ img {
 }
 .message:hover{
   color: #4e9c81;
+  background-color: white;
+  border-radius: 30%;
+  padding: 6px;
 }
 .bell:hover{
   color: #4e9c81;
+  background-color: white;
+  border-radius: 30%;
+  padding: 6px;
 }
 .user:hover{
   color: #4e9c81;
+  background-color: white;
+  border-radius: 30%;
+  padding: 6px;
 }
 /* .fa-heart:hover{
   border: red;

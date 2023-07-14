@@ -85,11 +85,11 @@
                     <div class="card custom-card">
                         <div class="card-body">
                             <div class="custom-control custom-radio">
-                                <input type="radio" class="custom-control-input" id="newCondition" name="condition" />
+                                <input type="radio" class="custom-control-input status-radio" id="newCondition" name="condition" />
                                 <label class="custom-control-label" for="newCondition">New</label>
                             </div>
                             <div class="custom-control custom-radio">
-                                <input type="radio" class="custom-control-input" id="usedCondition" name="condition" />
+                                <input type="radio" class="custom-control-input status-radio" id="usedCondition" name="condition" />
                                 <label class="custom-control-label" for="usedCondition">Used</label>
                             </div>
                         </div>
@@ -103,7 +103,7 @@
     <section id="products" class="">
 
         <div class="row ">
-            <div class="col-md-4 col-sm-4  col-lg-3 mb-4 ">
+            <div class="col-md-4 col-sm-6  col-lg-3 mb-4 ">
                 <div class="card product-card-by-nay">
                     <img src="image/products/product-image.jfif" class="card-img-top product-image" alt="Product 1" />
                     <div class="card-body">
