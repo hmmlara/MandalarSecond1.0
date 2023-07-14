@@ -89,7 +89,7 @@ body{
   cursor: pointer;
   margin-top: 13px;
 }
-.form form .field i{
+.form form .field .eye{
   position: absolute;
   right: 15px;
   top: 70%;

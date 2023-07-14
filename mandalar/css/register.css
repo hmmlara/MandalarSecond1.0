@@ -1,0 +1,27 @@
+.img-circle{
+    width: 125px;
+    height: 125px;
+    border-radius: 50%;
+    overflow: hidden;
+ 
+}
+.image{
+    position: relative;
+}
+
+.cover-icon{
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    background: rgb(238, 238, 238);
+    border-radius: 50%;
+   
+    right: 35%;
+    top:63%
+}
+
+
+.field .hideinputfile input[type="file"]
+{
+    display: none;
+}
