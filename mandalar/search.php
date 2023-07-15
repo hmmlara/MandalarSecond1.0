@@ -62,7 +62,7 @@
 		<title>Product Detail Page</title>
 	</head>
 	<body>
-		<div class="fh5co-loader"></div>
+		<div id="loader"></div>
 
 		<header id="aa-header">
 			<!-- start header top  -->
@@ -255,6 +255,7 @@
 				</div>
 			</div>
 		</section>
+		<script src="js/loader.js"></script>
 
 		<script>
 			// Initialize Swiper

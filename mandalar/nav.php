@@ -35,6 +35,7 @@
 
 	<!-- Theme style  -->
 	<link rel="stylesheet" href="css/style2.css">
+	<link rel="stylesheet" href="css/loader.css">
 	<style></style>
 </head>
 
@@ -139,3 +140,4 @@
 			</div>
 			<!-- / header bottom  -->
 		</header>
+		<div id="loader"></div>

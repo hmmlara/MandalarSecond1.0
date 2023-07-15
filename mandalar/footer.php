@@ -28,6 +28,7 @@
         </script>
         <script src="js//scroll.js"></script>
         <script src="js/category.js"></script>
+        <script src="js/loader.js"></script>
 
         <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
         <script>

@@ -44,7 +44,7 @@
 		<title>Product Detail Page</title>
 	</head>
 	<body>
-	<div class="fh5co-loader"></div>
+	<div id="loader"></div>
 
 <div id="page">
 	<header id="aa-header">
@@ -528,6 +528,7 @@
 
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 		<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+		<script src="js/loader.js"></script>
 		<script>
 			var swiper = new Swiper(".swiper-container", {
 				pagination: {

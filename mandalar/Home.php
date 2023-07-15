@@ -1,4 +1,5 @@
 <?php include_once "./nav.php"; ?>
+
 <div class="container-xl">
     <!-- Category Component -->
     <section id="home" class="">
