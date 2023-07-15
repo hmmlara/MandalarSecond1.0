@@ -2,7 +2,7 @@
   $hostname = "localhost";
   $username = "root";
   $password = "";
-  $dbname = "chatapp";
+  $dbname = "mandalar";
 
   $conn = mysqli_connect($hostname, $username, $password, $dbname);
   if(!$conn){
