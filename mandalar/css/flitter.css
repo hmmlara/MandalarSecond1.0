@@ -1,3 +1,7 @@
 .custom-card {
     height: 80px;
-  }
+}
+
+.flitter-row .col-4 {
+    padding: 5px;
+}
