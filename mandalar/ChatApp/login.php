@@ -19,7 +19,7 @@
         <div class="field input">
           <label>Password</label>
           <input type="password" name="password" placeholder="Enter your password" required>
-          <i class="fas fa-eye eye"></i>
+          <i class="fas fa-eye"></i>
         </div>
         <div class="field button">
           <input type="submit" name="submit" value="Continue to Chat">
@@ -28,6 +28,7 @@
       <div class="link">Not yet signed up? <a href="index.php">Signup now</a></div>
     </section>
   </div>
+  
   <script src="javascript/pass-show-hide.js"></script>
   <script src="javascript/login.js"></script>
 

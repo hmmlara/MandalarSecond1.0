@@ -21,7 +21,6 @@ body{
   border-radius: 16px;
   box-shadow: 0 0 128px 0 rgba(0,0,0,0.1),
               0 32px 64px -48px rgba(0,0,0,0.5);
-
 }
 
 /* Login & Signup Form CSS Start */
@@ -89,7 +88,7 @@ body{
   cursor: pointer;
   margin-top: 13px;
 }
-.form form .field .eye{
+.form form .field i{
   position: absolute;
   right: 15px;
   top: 70%;
