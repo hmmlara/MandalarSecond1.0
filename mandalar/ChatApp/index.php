@@ -4,27 +4,27 @@ if (isset($_SESSION['unique_id'])) {
   header("location: users.php");
 }
 
-if(isset($_POST['submit'])){
-      //create img
-      $filename=$_FILES['image']['name'];
-      $filesize=$_FILES['image']['size'];
-      $allowed_files=['jpg','png','jpeg','svg'];
-      $temp_path=$_FILES['image']['tmp_name'];
+// if(isset($_POST['submit'])){
+//       //create img
+//       $filename=$_FILES['image']['name'];
+//       $filesize=$_FILES['image']['size'];
+//       $allowed_files=['jpg','png','jpeg','svg'];
+//       $temp_path=$_FILES['image']['tmp_name'];
 
-      $fileinfo=explode('.',$filename);
-      $filetype=end($fileinfo);
-      $maxsize=2000000000;
-      if(in_array($filetype,$allowed_files)){
-          if($filesize<$maxsize)
-          {
-              move_uploaded_file($temp_path,'../image/user-profile/'.$filename);
-          }else{
-              echo "file size exceeds maximum allowed";
-          }
-      }else{
-          echo "file type is not allowed";
-      }
-}
+//       $fileinfo=explode('.',$filename);
+//       $filetype=end($fileinfo);
+//       $maxsize=2000000000;
+//       if(in_array($filetype,$allowed_files)){
+//           if($filesize<$maxsize)
+//           {
+//               move_uploaded_file($temp_path,'../image/user-profile/'.$filename);
+//           }else{
+//               echo "file size exceeds maximum allowed";
+//           }
+//       }else{
+//           echo "file type is not allowed";
+//       }
+// }
 
 ?>
 
@@ -34,14 +34,15 @@ if(isset($_POST['submit'])){
   <div class="wrapper">
     <section class="form signup">
       <header>Realtime Chat App</header>
-      <form action="#" method="POST" enctype="multipart/form-data" autocomplete="off">
+      <form action="" method="POST" enctype="multipart/form-data" autocomplete="off">
         <div class="field image d-flex  justify-content-center align-items-center">
           <!-- circle img -->
-
+          <i class="fa-solid fa-xmark fa-xl cancel-icon"></i>
           <img src="../image/user-profile/mylove.jpg" class="img-circle mb-4" id="show_photo" alt="">
 
           <div class="d-flex  justify-content-center align-items-center cover-icon">
             <i class="fa-solid fa-camera fa-xl camera_icon" style="color: #4e9c81;"></i>
+            <!-- <i class="fa-solid fa-camera" style="color: #fafcff;"></i> -->
           </div>
           <!-- file hidden -->
           <div class="hideinputfile">
@@ -67,13 +68,13 @@ if(isset($_POST['submit'])){
         </div>
         <div class="field input">
           <label>Password</label>
-          <input type="password" name="password" id="passwordInput" placeholder="Enter your password" required>
+          <input type="password" name="password" id="passwordInput" placeholder="Enter your password" minlength="6" maxlength="15">
           <i class="fas fa-eye eye"></i>
           
         </div>
         <div id="passwordRequirements" class="text-danger"></div>
         <div class="field button">
-          <input type="submit" name="submit" value="Continue to Chat">
+          <input type="submit" name="" value="Continue to Chat">
         </div>
       </form>
       <div class="link">Already signed up? <a href="login.php">Login now</a></div>
