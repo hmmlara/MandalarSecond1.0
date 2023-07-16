@@ -4,13 +4,13 @@
     <section id="home" class="">
         <div class="container-xxl">
             <div class="row">
-                <div class="col-3 mb-4">
+                <div class="col-2 mb-4">
                     <label class="card radio-image">
                         <input type="radio" class="custom-control-input" name="category" value="Cars" />
                         <img src="image/Category/car-image.png" class="p-2 card-img-top category-image" alt="Cars" />
                     </label>
                 </div>
-                <div class="col-3 mb-4">
+                <div class="col-2 mb-4">
 
                     <label class="card radio-image">
                         <input type="radio" class="custom-control-input" name="category" value="Phones" />
@@ -18,13 +18,27 @@
                     </label>
 
                 </div>
-                <div class="col-3 col mb-4">
+                <div class="col-2 col mb-4">
                     <label class="card radio-image">
                         <input type="radio" class="custom-control-input" name="category" value="Bikes" />
                         <img src="image/Category/bikes.png" class="card-img-top p-2 category-image" alt="Bikes" />
                     </label>
                 </div>
-                <div class="col-3 mb-4">
+                <div class="col-2 mb-4">
+                    <label class="card radio-image">
+                        <input type="radio" class="custom-control-input" name="category" value="Computers" />
+                        <img src="image/Category/computer.png" class="card-img-top p-2 category-image"
+                            alt="Computers" />
+                    </label>
+                </div>
+                <div class="col-2 mb-4">
+                    <label class="card radio-image">
+                        <input type="radio" class="custom-control-input" name="category" value="Computers" />
+                        <img src="image/Category/computer.png" class="card-img-top p-2 category-image"
+                            alt="Computers" />
+                    </label>
+                </div>
+                <div class="col-2 mb-4">
                     <label class="card radio-image">
                         <input type="radio" class="custom-control-input" name="category" value="Computers" />
                         <img src="image/Category/computer.png" class="card-img-top p-2 category-image"

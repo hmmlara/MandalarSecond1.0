@@ -18,24 +18,30 @@
 }
 
 .radio-image input[type="radio"]:checked+img {
-    border: 2px solid #4e9c81;
+    border: 3px solid #4e9c81;
     /* Add any desired styling when an option is selected */
 }
 
 .category-row .col-2 {
-    padding: 0px;
+    padding: 6px;
     box-shadow: none;
 }
 
 .category-row .col-2 .card {
-    box-shadow: none;
-    border: 0.5px solid #c0bfbf;
     box-sizing: border-box;
     border-radius: 0px;
-    transition: o.3s ease-in-out;
+    transition: 0.3s ease-in-out;
+    box-shadow: 1px 1px -5px #757575;
 }
 
 .category-row .col-2 .card:hover {
-    box-shadow: 1px 1px 10px #757575;
-    transform: translateZ(10px);
+    box-shadow: 0 0 18px 0 rgba(22, 79, 7, 0.4), 0 32px 64px -48px rgba(33, 248, 36, 0.8);
+    transform: translateZ(-40px);
 }
+
+
+/* .category-image {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+} */

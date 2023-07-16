@@ -5,16 +5,24 @@
 .flitter-row .col-4 {
     padding: 5px;
 }
-  /* Customize the slider background color */
-  .noUi-target .noUi-connect {
-    background-color: #4e9c84;
-  }
 
-  /* Customize the slider handle color */
-  /* .noUi-target .noUi-handle {
+
+/* Customize the slider background color */
+
+.noUi-target .noUi-connect {
+    background-color: #4e9c84;
+}
+
+
+/* Customize the slider handle color */
+
+
+/* .noUi-target .noUi-handle {
   } */
 
-   input[type="radio"]:active + label:before {
-    background-color: #4e9c84; /* Desired color for the active state */
-  }
-
+.custom-control-input:checked~.custom-control-label::before {
+    background-color: #4e9c84;
+    box-shadow: 0px 0px 2px 2px #5d8277;
+    border: #0f0f0f;
+    /* Replace "red" with the desired color */
+}
