@@ -14,8 +14,8 @@
         }
         ($row['status'] == "Offline now") ? $offline = "offline" : $offline = "";
         ($outgoing_id == $row['unique_id']) ? $hid_me = "hide" : $hid_me = "";
-
-        $output .= '<a href="chat.php?user_id='. $row['unique_id'] .'">
+        if(!empty($msg)){
+            $output .= '<a href="chat.php?user_id='. $row['unique_id'] .'">
                     <div class="content">
                     <img src="php/images/'. $row['img'] .'" alt="">
                     <div class="details">
@@ -25,5 +25,18 @@
                     </div>
                     <div class="status-dot '. $offline .'"><i class="fas fa-circle"></i></div>
                 </a>';
+        }else{
+            $output .= '<a href="chat.php?user_id='. $row['unique_id'] .'">
+                    <div class="content">
+                    <img src="php/images/'. $row['img'] .'" alt="">
+                    <div class="details">
+                        <span>'. $row['fname']. " " . $row['lname'] .'</span>
+                        <p>'. $you . 'sent a image' .'</p>
+                    </div>
+                    </div>
+                    <div class="status-dot '. $offline .'"><i class="fas fa-circle"></i></div>
+                </a>';
+        }
+        
     }
 ?>

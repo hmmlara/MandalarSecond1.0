@@ -31,13 +31,19 @@
       </div>
       <form action="#" class="typing-area">
         <input type="text" class="incoming_id" name="incoming_id" value="<?php echo $user_id; ?>" hidden>
-        <input type="text" name="message" class="input-field" placeholder="Type a message here..." autocomplete="off">
-        <button><i class="fab fa-telegram-plane"></i></button>
+        <input type="text" name="message" class="input-field" id="myInput" placeholder="Type a message here..." autocomplete="off">
+        
+        <div class="img-but" id="myIcon" style="display:block">
+        <i class="fas fa-camera-retro"  ></i>
+        </div>
+          
+        
+        <input type="file" name="image" id="image-input" style="display: none;">
+        <button id="send"><i class="fab fa-telegram-plane "></i></button>
       </form>
     </section>
   </div>
 
   <script src="javascript/chat.js"></script>
-
 </body>
 </html>
