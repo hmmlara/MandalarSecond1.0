@@ -16,7 +16,7 @@
     background: rgb(255, 255, 255);
     border-radius: 50%;
    
-    right: 35%;
+    right: 30%;
     top:63%
 }
 
@@ -25,10 +25,10 @@
     z-index: 9999;
     position: absolute;
     bottom: 140px;
-    right: 140px;
+    right: 90px;
 }
 
-.field .hideinputfile input[type="file"]
+/* .field .hideinputfile input[type="file"]
 {
     display: none;
-}
+} */
