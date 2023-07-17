@@ -1,7 +1,7 @@
 <?php
 include_once __DIR__."/../vendor/db.php";
 
-class CreateUser{
+class Register{
     private $connection="";
     public function createUserAccount($image,$fname,$lname,$email,$password)
     {
@@ -44,6 +44,23 @@ class CreateUser{
          $statement->execute();
          $result=$statement->fetchAll(PDO::FETCH_ASSOC);
          return $result;
+    }
+    public function getUserId($email)
+    {
+        //1.DataBase Connect
+        $this->connection=Database::connect();
+        $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+        //2.sql Statement
+        $sql="select user_id from users where email=:email";
+        $statement=$this->connection->prepare($sql);
+
+        $statement->bindParam(":email",$email);
+
+        //3.execute
+        $statement->execute();
+        $result=$statement->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
     }
 }
 ?>

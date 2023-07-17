@@ -118,11 +118,12 @@ if(isset($_POST['register']))
     if($error_status==false)
     {
         $registercontroller->registerUser($filename,$fname,$lname,$email,$password);
+        $user_id=$registercontroller->getUserId($email);
+        $_SESSION['user_id']=$user_id[0]['user_id'];
+        // $_SESSION['name']=$fname.$lname;
+        // $_SESSION['email']=$email;
 
-        $_SESSION['name']=$fname.$lname;
-        $_SESSION['email']=$email;
-
-        if(isset($_SESSION["name"]) && isset($_SESSION["email"]))
+        if( isset($_SESSION["user_id"]))
         {
             header("location:home.php");
         }

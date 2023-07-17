@@ -3,9 +3,9 @@ session_start();
 include_once "./nav.php";
 
 
-if(isset($_SESSION['name']))
+if(isset($_SESSION['user_id']))
 {
-    echo $_SESSION['name'];
+    echo $_SESSION['user_id'];
 }
 ?>
         <div class="container-xl"   >

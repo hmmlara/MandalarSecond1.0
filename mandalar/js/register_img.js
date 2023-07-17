@@ -33,36 +33,20 @@ $(document).ready(function () {
       return value.replace(/\s/g, ""); // Remove spaces
     });
   });
+// Toggle password visibility
+$("#togglePassword").on("click", function () {
+  var passwordInput = $("#your_pass");
+  var passwordFieldType = passwordInput.attr("type");
 
-  //check password
-  // $("#passwordInput").on("focus keyup", function () {
-
-  //     var password = $("#passwordInput").val();
-  //     var message =
-  //       "The password must contain both an uppercase letter, lowercase letter, one number, and be 6 to 8 characters long.";
-  //     console.log(password.length);
-  //     // Check for uppercase letter and lowercase letter
-  //     if (/(?=.*[A-Z])/.test(password) && /(?=.*[a-z])/.test(password)) {
-  //       message =
-  //         "The password must contain at least one number and be 6 to 8 characters long.";
-  //       // Check for number
-  //       if (/(?=.*\d)/.test(password)) {
-  //         message = "Password must be 8 characters long.";
-  //         if(password.length >= 6 && password.length <= 8){
-  //           message=" ";
-  //         }
-  //       } else {
-  //         message =
-  //           "The password must contain at least one number and be 6 to 8 characters long.";
-  //       }
-  //     }
-
-   
-  //     $("#passwordRequirements").text(message);
-  //   })
-  //   .on("blur", function () {
-  //     $("#passwordRequirements").empty();
-  //   });
+  // Toggle password field type between "password" and "text"
+  if (passwordFieldType === "password") {
+    passwordInput.attr("type", "text");
+    $(this).removeClass("fa-eye").addClass("fa-eye-slash");
+  } else {
+    passwordInput.attr("type", "password");
+    $(this).removeClass("fa-eye-slash").addClass("fa-eye");
+  }
+});
 
 
   $("#passwordInput").on("focus keyup", function () {
