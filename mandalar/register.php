@@ -3,10 +3,7 @@ session_start();
 include_once "controller/registerController.php";
 $registercontroller = new RegisterController;
 $getuserlist = $registercontroller->getUserList();
-foreach ($getuserlist as $key => $users_email) {
-    # code...
-    var_dump($users_email["email"]);
-}
+
 
 if (isset($_POST['register'])) {
     $error_status = false;
@@ -182,9 +179,9 @@ if (isset($_POST['register'])) {
                                     echo $email ?>" />
                             </div>
                             <div class="form-group">
-                                <label for="pass"><i class="fa-solid fa-lock"></i></label>
+                                <label for="pass"><i class="fa-solid fa-lock"></i><i  class="fa-solid fa-eye" id="togglePassword"></i></label>
                                 <input type="password" name="pass" id="passwordInput" placeholder="Password" />
-                                <!-- <i class="fas fa-eye eye"></i> -->
+                                
                             </div>
                             <span id="passwordRequirements" class='text-danger'></span>
                             <span class="text-danger">
@@ -215,7 +212,7 @@ if (isset($_POST['register'])) {
     <script src="js/jquery-3.7.0.min.js"></script>
     <script src="mdbbootstrap/js/mdb.min.js"></script>
     <script src="js/register_img.js"></script>
-    <script src="js/pass-show-hide.js"></script>
+    <!-- <script src="js/pass-show-hide.js"></script> -->
 
 </body><!-- This templates was made by Colorlib (https://colorlib.com) -->
 

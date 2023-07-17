@@ -93,8 +93,8 @@ if(isset($_POST["signin"]))
                             </div>
                             <span class="text-danger"><?php if(isset($error_email)) echo $error_email; ?></span>
                             <div class="form-group">
-                                <label for="your_pass"><i class="fa-solid fa-lock"></i></label>
-                                <input type="password" name="pass" id="your_pass" placeholder="Password" />
+                                <label for="your_pass"><i class="fa-solid fa-lock"></i><i  class="fa-solid fa-eye" id="togglePassword"></i></label>
+                                <input type="password" name="pass" id="passwordInput" placeholder="Password" />
 
                             </div>
                             <i  class="fa-solid fa-eye" id="togglePassword"></i>
@@ -122,8 +122,10 @@ if(isset($_POST["signin"]))
 
 
         <!-- JS -->
-        <script src="js/jquery.min.js"></script>
-        <script src="js/main.js"></script>
+        <script src="js/jquery-3.7.0.min.js"></script>
+        <!-- <script src="js/jquery.min.js"></script> -->
+        <!-- <script src="js/main.js"></script> -->
+        <script src="js/register_img.js"></script>
     </body><!-- This templates was made by Colorlib (https://colorlib.com) -->
 
     </html>

@@ -35,7 +35,8 @@ $(document).ready(function () {
   });
 // Toggle password visibility
 $("#togglePassword").on("click", function () {
-  var passwordInput = $("#your_pass");
+  console.log("Click");
+  var passwordInput = $("#passwordInput");
   var passwordFieldType = passwordInput.attr("type");
 
   // Toggle password field type between "password" and "text"
@@ -53,7 +54,6 @@ $("#togglePassword").on("click", function () {
     var password = $("#passwordInput").val();
     var message =
       "The password must contain both an uppercase letter, lowercase letter, one number, and be 6 to 8 characters long.";
-    console.log(password.length);
     // Check for uppercase letter and lowercase letter
     if (/(?=.*[A-Z])/.test(password) && /(?=.*[a-z])/.test(password)) {
       message =
