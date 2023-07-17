@@ -3,10 +3,10 @@ session_start();
 include_once "controller/registerController.php";
 $registercontroller=new RegisterController;
 $getuserlist=$registercontroller->getUserList();
-foreach ($getuserlist as $key => $users_email) {
-    # code...
-    var_dump($users_email["email"]);
-}
+// foreach ($getuserlist as $key => $users_email) {
+//     # code...
+//     var_dump($users_email["email"]);
+// }
 if(isset($_POST["signin"]))
 {
     $error_status=false;
@@ -37,8 +37,11 @@ if(isset($_POST["signin"]))
             {
                 if( $users["password"]==$password)
                 {
+                    $user_id=$registercontroller->getUserId($email);
+                    $_SESSION['user_id']=$user_id[0]['user_id'];
                     header("location:home.php");
-                    $_SESSION['email']=$email;
+
+                    // $_SESSION['email']=$email;
                 }else{
                     $invaildpass="Password is not Incorrect";
                 }
@@ -92,19 +95,23 @@ if(isset($_POST["signin"]))
                             <div class="form-group">
                                 <label for="your_pass"><i class="fa-solid fa-lock"></i></label>
                                 <input type="password" name="pass" id="your_pass" placeholder="Password" />
+
                             </div>
+                            <i  class="fa-solid fa-eye" id="togglePassword"></i>
+
                             <span class="text-danger"><?php if(isset($error_pass)) echo $error_pass; ?></span>
                             <span class="text-danger"><?php if(isset($invaildemail)) echo $invaildemail; ?> <?php if(isset($invaildpass)) echo $invaildpass; ?></span>
                             <div class="form-group form-button">
-                                <input type="submit" name="signin" id="signin" class="form-submit" value="Log in" />
+                                <button  type="submit" name="signin"  class="btn btn-primary form-submit" >Log In</button>
+                                <!-- <input type="submit" name="signin" id="signin" class="form-submit" value="Log in" /> -->
                             </div>
                         </form>
                         <div class="social-login">
                             <span class="social-label">Or login with</span>
                             <ul class="socials">
-                                <li><a href="#"><i class="display-flex-center zmdi zmdi-facebook"></i></a></li>
-                                <li><a href="#"><i class="display-flex-center zmdi zmdi-twitter"></i></a></li>
-                                <li><a href="#"><i class="display-flex-center zmdi zmdi-google"></i></a></li>
+                                <li><a href="#"><i class="fa-brands fa-square-facebook fa-xl" style="color: #3b5998;"></i></a></li>
+                                <li><a href="#"><i class="fa-brands fa-square-twitter fa-xl" style="color: #1da1f2;"></i></a></li>
+                                <li><a href="#"><i class="fa-brands fa-square-google-plus fa-xl" style="color: #4285f4;"></i></a></li>
                             </ul>
                         </div>
                     </div>

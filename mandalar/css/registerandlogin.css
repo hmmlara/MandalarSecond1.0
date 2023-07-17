@@ -369,10 +369,10 @@ label.valid {
   .socials li a {
     text-decoration: none; }
     .socials li a i {
-      width: 30px;
-      height: 30px;
+      /* width: 30px;
+      height: 30px; */
       color: #fff;
-      font-size: 14px;
+      /* font-size: 14px; */
       border-radius: 5px;
       -moz-border-radius: 5px;
       -webkit-border-radius: 5px;
