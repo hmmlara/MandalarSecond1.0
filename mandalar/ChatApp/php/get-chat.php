@@ -1,11 +1,11 @@
 <?php 
     session_start();
-    if(isset($_SESSION['unique_id'])){
+    if(isset($_SESSION['user_id'])){
         include_once "config.php";
-        $outgoing_id = $_SESSION['unique_id'];
+        $outgoing_id = $_SESSION['user_id'];
         $incoming_id = mysqli_real_escape_string($conn, $_POST['incoming_id']);
         $output = "";
-        $sql = "SELECT * , messages.img as mess_img FROM messages LEFT JOIN users ON users.unique_id = messages.outgoing_msg_id
+        $sql = "SELECT * , messages.img as mess_img FROM messages LEFT JOIN users ON users.user_id = messages.outgoing_msg_id
                 WHERE (outgoing_msg_id = {$outgoing_id} AND incoming_msg_id = {$incoming_id})
                 OR (outgoing_msg_id = {$incoming_id} AND incoming_msg_id = {$outgoing_id}) ORDER BY msg_id";
         $query = mysqli_query($conn, $sql);
@@ -21,23 +21,23 @@
                     }else{
                         $output .= '<div class="chat outgoing">
                                 <div class="details">
-                                <img src="php/images/chat_image/'.$row['mess_img'].'" alt="" width=270px height=150px style="border-radius:5px">
+                                <img src="../image/chat-img/'.$row['mess_img'].'" alt="" width=270px height=150px style="border-radius:5px">
                                 </div>
                                 </div>';
                     }
                 }else{
                     if(!empty($row['msg'])){
                         $output .= '<div class="chat incoming">
-                                <img src="php/images/'.$row['img'].'" alt="">
+                                <img src="../image/user-profile/'.$row['img'].'" alt="">
                                 <div class="details">
                                     <p>'. $row['msg'] .'</p>
                                 </div>
                                 </div>';
                     }else{
                         $output .= '<div class="chat incoming">
-                                <img src="php/images/'.$row['img'].'" alt="">
+                                <img src="../image/user-profile/'.$row['img'].'" alt="">
                                 <div class="details">
-                                <img src="php/images/chat_image/'.$row['mess_img'].'" alt=""  style="border-radius:5px; width:270px;height:150px;">
+                                <img src="../image/chat-img/'.$row['mess_img'].'" alt=""  style="border-radius:5px; width:270px;height:150px;">
                                 </div>
                                 </div>';
                     }

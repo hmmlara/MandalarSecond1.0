@@ -125,7 +125,7 @@ if(isset($_POST['register']))
 
         if( isset($_SESSION["user_id"]))
         {
-            header("location:home.php");
+            header("location:chatapp/users.php");
         }
 
     }
