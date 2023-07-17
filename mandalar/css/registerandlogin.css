@@ -80,17 +80,18 @@ h2 {
   font-size: 36px; }
 
 .main {
-  background: #f8f8f8;
+  background: #9c9595;
   padding: 150px 0; }
 
 .clear {
   clear: both; }
 
 body {
-  font-size: 13px;
+  /* font-size: 13px; */
   line-height: 1.8;
   color: #222;
-  background: #f8f8f8;
+  /* background: #f8f8f8; */
+  background-color: #627E8B;
   font-weight: 400;
   font-family: Poppins; }
 
@@ -143,8 +144,8 @@ body {
   -o-transform: translate(-50%, -50%);
   -ms-transform: translate(-50%, -50%); }
 
-.signup {
-  margin-bottom: 150px; }
+/* .signup {
+  margin-bottom: 150px; } */
 
 .signup-content {
   padding: 75px 0; }
@@ -243,7 +244,8 @@ input[type=checkbox]:not(old) {
   margin: 0;
   padding: 0;
   font-size: 1em;
-  display: none; }
+  /* display: none; */
+ }
 
 input[type=checkbox]:not(old) + label {
   display: inline-block;

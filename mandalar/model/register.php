@@ -3,21 +3,21 @@ include_once __DIR__."/../vendor/db.php";
 
 class CreateUser{
     private $connection="";
-    public function createUserAccount($fname,$lname,$email,$password)
+    public function createUserAccount($image,$fname,$lname,$email,$password)
     {
         //1.DataBase Connect
         $this->connection=Database::connect();
         $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
         //2.sql Statement
-        $sql="INSERT INTO users(fname,lname,email,password) VALUES(:first_name,:last_name,:user_email,:user_password)";
+        $sql="INSERT INTO users(fname,lname,email,password,img) VALUES(:first_name,:last_name,:user_email,:user_password,:user_img)";
         $statement=$this->connection->prepare($sql);
 
         $statement->bindParam(":first_name",$fname);
         $statement->bindParam(":last_name",$lname);
         $statement->bindParam(":user_email",$email);
         $statement->bindParam(":user_password",$password);
-        // $statement->bindParam(":image",$filename,);
+        $statement->bindParam(":user_img",$image,);
 
         //3.execute
         if($statement->execute())
@@ -27,6 +27,23 @@ class CreateUser{
         {
             return false;
         }
+    }
+
+    //get All user
+    public function getAllUser()
+    {
+         //1.DataBase Connect
+         $this->connection=Database::connect();
+         $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+ 
+         //2.sql Statement
+         $sql="select * from users";
+         $statement=$this->connection->prepare($sql);
+ 
+         //3.execute
+         $statement->execute();
+         $result=$statement->fetchAll(PDO::FETCH_ASSOC);
+         return $result;
     }
 }
 ?>

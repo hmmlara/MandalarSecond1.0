@@ -1,4 +1,13 @@
-<?php include_once "./nav.php"; ?>
+<?php 
+session_start();
+include_once "./nav.php";
+
+
+if(isset($_SESSION['name']))
+{
+    echo $_SESSION['name'];
+}
+?>
         <div class="container-xl"   >
             <!-- Home Component -->
             <section id="home" class="">
