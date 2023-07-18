@@ -39,7 +39,7 @@ $categorys = $category_model->getCategory();
     <section id="filter" class="">
         <div class="container-xxl">
             <div class="row flitter-row">
-                <div class="col-4 mb-4">
+                <div class="col-sm-4 col-6 mb-4">
                     <div class="card custom-card">
                         <div class="card-body">
                             <select class="browser-default custom-select">
@@ -51,7 +51,7 @@ $categorys = $category_model->getCategory();
                         </div>
                     </div>
                 </div>
-                <div class="col-4 mb-4">
+                <div class="col-sm-4 mb-4 sm-hide">
                     <div class="card custom-card">
                         <div class="card-body">
                             <div id="priceSlider"></div>
@@ -61,7 +61,7 @@ $categorys = $category_model->getCategory();
                         </div>
                     </div>
                 </div>
-                <div class="col-4 mb-4">
+                <div class="col-sm-4 mb-4 col-6">
                     <div class="card custom-card">
                         <div class="card-body">
                             <div class="custom-control custom-radio">
@@ -74,6 +74,16 @@ $categorys = $category_model->getCategory();
                                     name="condition" />
                                 <label class="custom-control-label" for="usedCondition">Used</label>
                             </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4 mb-4  sm-show ">
+                    <div class="card custom-card">
+                        <div class="card-body">
+                            <div id="priceSlider2"></div>
+                            <p id="priceValue2" class="text-center">
+                                0 - 1000
+                            </p>
                         </div>
                     </div>
                 </div>

@@ -31,7 +31,7 @@
 <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 <script src="mdbbootstrap/js/mdb.min.js"></script>
 <script>
-    document.addEventListener("DOMContentLoaded", function() {
+    document.addEventListener("DOMContentLoaded", function () {
         var priceSlider = document.getElementById("priceSlider");
         var priceValue = document.getElementById("priceValue");
 
@@ -43,12 +43,32 @@
                 max: 1000,
             },
         });
-
-        priceSlider.noUiSlider.on("update", function(values, handle) {
+        priceSlider.noUiSlider.on("update", function (values, handle) {
             var min = values[0];
             var max = values[1];
             priceValue.innerHTML = min + " - " + max;
         });
+
+        var priceSlider2 = document.getElementById("priceSlider2");
+        var priceValue2 = document.getElementById("priceValue2");
+
+        noUiSlider.create(priceSlider2, {
+            start: [0, 1000],
+            connect: true,
+            range: {
+                min: 0,
+                max: 1000,
+            },
+        });
+        priceSlider2.noUiSlider.on("update", function (values, handle) {
+            var min = values[0];
+            var max = values[1];
+            priceValue2.innerHTML = min + " - " + max;
+        });
+
+
+
+
     });
 </script>
 </body>

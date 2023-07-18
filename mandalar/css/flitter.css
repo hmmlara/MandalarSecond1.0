@@ -2,7 +2,7 @@
     height: 80px;
 }
 
-.flitter-row .col-4 {
+.flitter-row .col-sm-4 {
     padding: 5px;
 }
 
@@ -25,4 +25,17 @@
     box-shadow: 0px 0px 2px 2px #5d8277;
     border: #0f0f0f;
     /* Replace "red" with the desired color */
+}
+ 
+.sm-show{
+    display: none;
+}
+
+@media (max-width: 570px) {
+.sm-hide{
+    display: none;
+}
+.sm-show{
+    display: block;
+}
 }
