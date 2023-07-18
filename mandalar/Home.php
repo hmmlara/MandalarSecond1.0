@@ -1,61 +1,73 @@
-<?php include_once "./nav.php"; ?>
+<?php 
+session_start();
+include_once "./nav.php";
 
-<div class="container-xl">
-    <!-- Category Component -->
-    <section id="home" class="">
-        <div class="container-xxl">
-            <div class="row category-row">
-                <div class="col-2 mb-1">
-                    <label class="card radio-image">
-                        <input type="radio" class="custom-control-input" name="category" value="Cars" />
-                        <img src="image/Category/car-image.png" class="p-2 card-img-top category-image" alt="Cars" />
-                    </label>
+
+if(isset($_SESSION['user_id']))
+{
+    echo $_SESSION['user_id'];
+}
+?>
+        <div class="container-xl"   >
+            <!-- Home Component -->
+            <section id="home" class="">
+                <div class="container-xxl ">
+                    <div class="row">
+                        <div class="col-md-3 mb-4">
+                            <div class="card">
+                                <img src="image/Category/car-image.png" class="p-2 card-img-top category-image" alt="Cars" />
+                                <div class="card-body">
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" class="custom-control-input" id="carCheckbox" />
+                                        <label class="custom-control-label" for="carCheckbox">Cars</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 mb-4">
+                            <div class="card">
+                                <img src="image/Category/phone.png" class="card-img-top p-2 category-image" alt="Phones" />
+                                <div class="card-body">
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" class="custom-control-input" id="phoneCheckbox" />
+                                        <label class="custom-control-label" for="phoneCheckbox">
+										Phones
+									</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 mb-4">
+                            <div class="card">
+                                <img src="image/Category/bikes.png" class="card-img-top p-2 category-image" alt="Bikes" />
+                                <div class="card-body">
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" class="custom-control-input" id="bikeCheckbox" />
+                                        <label class="custom-control-label" for="bikeCheckbox">
+										Bikes
+									</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 mb-4">
+                            <div class="card">
+                                <img src="image/Category/computer.png" class="card-img-top p-2 category-image" alt="Computers" />
+                                <div class="card-body">
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" class="custom-control-input" id="computerCheckbox" />
+                                        <label class="custom-control-label" for="computerCheckbox">
+										Computers
+									</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-2 mb-1">
+            </section>
 
-                    <label class="card radio-image">
-                        <input type="radio" class="custom-control-input" name="category" value="Phones" />
-                        <img src="image/Category/phone.png" class="card-img-top p-2 category-image" alt="Phones" />
-                    </label>
-
-                </div>
-                <div class="col-2 col mb-1">
-                    <label class="card radio-image">
-                        <input type="radio" class="custom-control-input" name="category" value="Bikes" />
-                        <img src="image/Category/bikes.png" class="card-img-top p-2 category-image" alt="Bikes" />
-                    </label>
-                </div>
-                <div class="col-2 mb-1">
-                    <label class="card radio-image">
-                        <input type="radio" class="custom-control-input" name="category" value="Computers" />
-                        <img src="image/Category/computer.png" class="card-img-top p-2 category-image"
-                            alt="Computers" />
-                    </label>
-                </div>
-                <div class="col-2 mb-1">
-                    <label class="card radio-image">
-                        <input type="radio" class="custom-control-input" name="category" value="Computers" />
-                        <img src="image/Category/computer.png" class="card-img-top p-2 category-image"
-                            alt="Computers" />
-                    </label>
-                </div>
-                <div class="col-2 mb-1">
-                    <label class="card radio-image">
-                        <input type="radio" class="custom-control-input" name="category" value="Computers" />
-                        <img src="image/Category/computer.png" class="card-img-top p-2 category-image"
-                            alt="Computers" />
-                    </label>
-                </div>
-            </div>
-
-        </div>
-    </section>
-
-
-
-
-
-    <!-- Filter Component -->
+            <!-- Filter Component -->
 
     <section id="filter" class="">
         <div class="container-xxl">
