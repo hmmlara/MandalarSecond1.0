@@ -21,7 +21,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/14.6.3/nouislider.min.css" />
     <link rel="stylesheet" href="css/flitter.css" />
     <link rel="stylesheet" href="css/category.css" />
-    <link rel="stylesheet" href="css/style.css" />
     <link rel="stylesheet" href="css/nav.css" />
     <!-- Animate.css -->
     <link rel="stylesheet" href="css/animate.css">
@@ -29,6 +28,8 @@
     <link rel="stylesheet" href="css/icomoon.css">
     <!-- Bootstrap  -->
     <link rel="stylesheet" href="css/bootstrap.css">
+	<link rel="stylesheet" href="css/style.css" />
+
 
     <!-- Flexslider  -->
     <!-- <link rel="stylesheet" href="css/flexslider.css"> -->
@@ -85,7 +86,7 @@
 								<i class="fa-regular fa-message "></i>
 							  </a>
 						
-							  <a class="aa-cart-link user" href="#">
+							  <a class="aa-cart-link user" href="profile.php">
 								<i class="fa-regular fa-user"></i>
 							  </a>
 						</div>

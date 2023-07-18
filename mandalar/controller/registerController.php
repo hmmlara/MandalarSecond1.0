@@ -1,4 +1,5 @@
-<?php include_once __DIR__."/../model/register.php";
+<?php 
+include_once __DIR__."/../model/register.php";
 class RegisterController extends Register{
     public function registerUser($image,$fname,$lname,$email,$password)
     {
