@@ -1,9 +1,9 @@
 <?php include_once "./nav.php";
 include_once "./model/category.php";
 
-var_dump(
-    $category_model->getCategory()
-);
+
+$categorys = $category_model->getCategory();
+
 ?>
 
 <div class="container-xl">
@@ -11,47 +11,20 @@ var_dump(
     <section id="home" class="">
         <div class="container-xxl">
             <div class="row category-row">
-                <div class="col-2 mb-1">
-                    <label class="card radio-image">
-                        <input type="radio" class="custom-control-input" name="category" value="Cars" />
-                        <img src="image/Category/car-image.png" class="p-2 card-img-top category-image" alt="Cars" />
-                    </label>
-                </div>
-                <div class="col-2 mb-1">
+                <?php
+                foreach($categorys as $category){
 
-                    <label class="card radio-image">
-                        <input type="radio" class="custom-control-input" name="category" value="Phones" />
-                        <img src="image/Category/phone.png" class="card-img-top p-2 category-image" alt="Phones" />
-                    </label>
-
-                </div>
-                <div class="col-2 col mb-1">
-                    <label class="card radio-image">
-                        <input type="radio" class="custom-control-input" name="category" value="Bikes" />
-                        <img src="image/Category/bikes.png" class="card-img-top p-2 category-image" alt="Bikes" />
-                    </label>
-                </div>
+                ?>
                 <div class="col-2 mb-1">
                     <label class="card radio-image">
-                        <input type="radio" class="custom-control-input" name="category" value="Computers" />
-                        <img src="image/Category/computer.png" class="card-img-top p-2 category-image"
-                            alt="Computers" />
+                        <input type="radio" class="custom-control-input" name="category" value="<?php echo $category["name"] ?>" />
+                        <img src="<?php echo $category["image"] ?>" class="p-2 card-img-top category-image" alt="<?php echo $category["image"] ?>" />
                     </label>
                 </div>
-                <div class="col-2 mb-1">
-                    <label class="card radio-image">
-                        <input type="radio" class="custom-control-input" name="category" value="Computers" />
-                        <img src="image/Category/computer.png" class="card-img-top p-2 category-image"
-                            alt="Computers" />
-                    </label>
-                </div>
-                <div class="col-2 mb-1">
-                    <label class="card radio-image">
-                        <input type="radio" class="custom-control-input" name="category" value="Computers" />
-                        <img src="image/Category/computer.png" class="card-img-top p-2 category-image"
-                            alt="Computers" />
-                    </label>
-                </div>
+                <?php
+                }
+                ?>
+               
             </div>
 
         </div>
