@@ -1,3 +1,41 @@
 .custom-card {
     height: 80px;
-  }
+}
+
+.flitter-row .col-sm-4 {
+    padding: 5px;
+}
+
+
+/* Customize the slider background color */
+
+.noUi-target .noUi-connect {
+    background-color: #4e9c84;
+}
+
+
+/* Customize the slider handle color */
+
+
+/* .noUi-target .noUi-handle {
+  } */
+
+.custom-control-input:checked~.custom-control-label::before {
+    background-color: #4e9c84;
+    box-shadow: 0px 0px 2px 2px #5d8277;
+    border: #0f0f0f;
+    /* Replace "red" with the desired color */
+}
+ 
+.sm-show{
+    display: none;
+}
+
+@media (max-width: 570px) {
+.sm-hide{
+    display: none;
+}
+.sm-show{
+    display: block;
+}
+}

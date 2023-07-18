@@ -210,8 +210,8 @@
 			</div>
 			<!-- / header bottom  -->
 		</header>
-		<section class="">
-			<div class="container space-with-nav  shadow bg-white overflow-hidden">
+		<section>
+			<div class="container overflow-hidden">
 				<div class="flitter-tab">
 					<div class="navbar">
 						<ul class="nav-list">
@@ -239,7 +239,7 @@
 				</div>
 				
 
-				<div class="swiper-container ">
+				<div class="swiper-container">
 					<div class="swiper-wrapper">
 						<div class="swiper-slide">
 							<div class="tab-content">Content for Tab 1</div>
