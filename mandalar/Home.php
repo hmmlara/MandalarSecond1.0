@@ -1,4 +1,10 @@
-<?php include_once "./nav.php"; ?>
+<?php include_once "./nav.php";
+include_once "./model/category.php";
+
+var_dump(
+    $category_model->getCategory()
+);
+?>
 
 <div class="container-xl">
     <!-- Category Component -->
@@ -86,11 +92,13 @@
                     <div class="card custom-card">
                         <div class="card-body">
                             <div class="custom-control custom-radio">
-                                <input type="radio" class="custom-control-input status-radio" id="newCondition" name="condition" />
+                                <input type="radio" class="custom-control-input status-radio" id="newCondition"
+                                    name="condition" />
                                 <label class="custom-control-label" for="newCondition">New</label>
                             </div>
                             <div class="custom-control custom-radio">
-                                <input type="radio" class="custom-control-input status-radio" id="usedCondition" name="condition" />
+                                <input type="radio" class="custom-control-input status-radio" id="usedCondition"
+                                    name="condition" />
                                 <label class="custom-control-label" for="usedCondition">Used</label>
                             </div>
                         </div>
@@ -111,10 +119,10 @@
                         <h5 class="card-title">Product 1</h5>
                         <div class="d-flex justify-content-between align-items-center">
                             <div class="d-flex align-items-center">
-                                <img src="image/user-profile/mylove.jpg" class="rounded-circle profile-on-card" alt="Seller 1" />
+                                <img src="image/user-profile/mylove.jpg" class="rounded-circle profile-on-card"
+                                    alt="Seller 1" />
                                 <span class="ml-2 card-text">Seller 1</span>
                             </div>
-
                         </div>
                         <div class="mt-3">
                             <i class="far fa-heart mr-2"></i>
@@ -127,12 +135,6 @@
                     </div>
                 </div>
             </div>
-
-
-
-
-
-
         </div>
     </section>
 </div>
