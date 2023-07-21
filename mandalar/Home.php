@@ -5,6 +5,108 @@ include_once "./model/category.php";
 $categorys = $category_model->getCategory();
 
 ?>
+<style>
+    /* Custom select box style for MDB */
+    
+    .custom-select {
+        display: block;
+        width: 100%;
+        height: 38px;
+        padding: 0.375rem 0.75rem;
+        font-size: 1rem;
+        line-height: 1.5;
+        color: #495057;
+        background-color: #fff;
+        background-clip: padding-box;
+        border: 1px solid #ced4da;
+        border-radius: 0.25rem;
+        transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    }
+    
+    .custom-select:focus {
+        border-color: #80bdff;
+        outline: 0;
+        box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+    }
+    /* Style the arrow icon */
+    
+    .custom-select::after {
+        content: '\f107';
+        /* Font Awesome caret-down icon */
+        font-family: 'Font Awesome 5 Free';
+        font-weight: 900;
+        position: absolute;
+        top: 50%;
+        right: 10px;
+        transform: translateY(-50%);
+        pointer-events: none;
+    }
+    /* Optional: Style the dropdown options */
+    
+    .custom-select option {
+        padding: 10px;
+        background-color: #fff;
+        color: #495057;
+    }
+    /* Custom style for image selector */
+    
+    .image-selector {
+        position: relative;
+    }
+    
+    .image-selector .form-control {
+        display: none;
+    }
+    
+    .image-selector label {
+        /* display: block; */
+        margin-top: 8px;
+        width: 100px;
+        height: 100px;
+        background-color: #f0f0f0;
+        border: 2px dashed #ccc;
+        border-radius: 8px;
+        text-align: center;
+        line-height: 100px;
+        font-size: 24px;
+        color: #666;
+        cursor: pointer;
+        transition: border-color 0.2s;
+    }
+    
+    .image-selector img {
+        max-width: 100%;
+        max-height: 100%;
+        border-radius: 8px;
+        margin-top: 10px;
+    }
+    
+    .image-selector label:hover {
+        border-color: #333;
+    }
+    
+    .image-selector label.plus-sign::before {
+        content: '+';
+    }
+    /* Show the selected image preview */
+    
+    .image-selector .form-control:focus+img {
+        display: block;
+    }
+    
+    .preview-image {
+        width: 100px;
+        height: 100px;
+        object-fit: cover;
+        margin-right: 8px;
+        margin-top: 8px;
+        border-radius: 8px;
+    }
+    
+    .image-previews {
+        display: flex;
+    }
+</style>
 
 <div class="container-xl">
     <!-- Category Component -->
@@ -132,7 +234,77 @@ $categorys = $category_model->getCategory();
                     <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
                     <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body">...</div>
+                <div class="modal-body">
+                    <form class="row g-3">
+                        <div class="col-md-12">
+                            <div class="btn-group">
+
+                                <input type="radio" class="btn-check" name="options" id="option2" autocomplete="off" />
+                                <label class="btn btn-secondary" for="option2">New</label>
+
+                                <input type="radio" class="btn-check" name="options" id="option3" autocomplete="off" />
+                                <label class="btn btn-secondary" for="option3">Used</label>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="col-md-4">
+                            <div class="form-outline">
+                                <input type="text" class="form-control" id="validationDefault01" required />
+                                <label for="validationDefault01" class="form-label">Item Name</label>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-outline">
+                                <input type="text" class="form-control" id="validationDefault02" required />
+                                <label for="validationDefault02" class="form-label">Brand</label>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-outline">
+                                <input type="number" class="form-control" id="validationDefault02" required />
+                                <label for="validationDefault02" class="form-label">Price</label>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="col-md-6">
+                            <select class="custom-select">
+                                <option value="option1">Phone</option>
+                                <option value="option2">Computer</option>
+                                <option value="option3">Car</option>
+                                <!-- Add more options here as needed -->
+                            </select>
+
+                        </div>
+                        <div class="col-md-6">
+                            <select class="custom-select">
+                                <option value="option1">Choice Category fist</option>
+
+                                <!-- Add more options here as needed -->
+                            </select>
+
+                        </div>
+                        <hr>
+
+                        <div class="col-md-12 form-outline">
+                            <textarea class="form-control " style="height:100px" id="validationTextarea" placeholder="Required example textarea" required></textarea>
+                            <label for="validationTextarea" class="form-label">Textarea</label>
+                            <div class="invalid-feedback">Please enter a message in the textarea.</div>
+                        </div>
+
+                        <hr>
+                        <div class="col-md-12">
+                            <label class="form-label">Upload Images</label>
+
+                            <div id="imagePreviews" class="image-previews">
+                                <div class="image-selector">
+                                    <label for="imageUpload" class="plus-sign" id="imageLabel">+</label>
+                                    <input type="file" id="imageUpload" class="form-control" accept="image/*" multiple />
+                                </div>
+                            </div>
+
+                        </div>
+                    </form>
+                </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Close</button>
                     <button type="button" class="btn btn-primary">Save changes</button>
@@ -140,4 +312,48 @@ $categorys = $category_model->getCategory();
             </div>
         </div>
     </div>
+    <script>
+        // Function to delete the image preview
+        function deleteImagePreview(imageElement) {
+            const imagePreviewsContainer = document.getElementById("imagePreviews");
+            imagePreviewsContainer.removeChild(imageElement);
+        }
+        // JavaScript to handle multiple image selection and preview
+        document.getElementById("imageUpload").addEventListener("change", function(event) {
+            const imagePreviewsContainer = document.getElementById("imagePreviews");
+            // imagePreviewsContainer.innerHTML = '';
+
+            const files = event.target.files;
+
+            for (let i = 0; i < files.length; i++) {
+                const file = files[i];
+                const reader = new FileReader();
+
+                reader.onload = function() {
+                    const imagePreview = document.createElement("img");
+                    // const imageLabel = document.createElement("h1")
+                    // let content = "image " + i;
+                    // imageLabel.append(content)
+                    imagePreview.src = reader.result;
+                    imagePreview.className = "preview-image";
+                    imagePreviewsContainer.prepend(imagePreview);
+                    // Bind the deleteImagePreview function to the click event of the image
+                    imagePreview.addEventListener("click", function() {
+                        deleteImagePreview(imagePreview);
+                    });
+
+                };
+
+                reader.readAsDataURL(file);
+            }
+
+            // if (files.length === 0) {
+            //     const imageLabel = document.getElementById("imageLabel");
+            //     imageLabel.style.display = "block";
+            // } else {
+            //     const imageLabel = document.getElementById("imageLabel");
+            //     imageLabel.style.display = "none";
+            // }
+        });
+    </script>
     <?php include_once "./footer.php"; ?>
