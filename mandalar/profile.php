@@ -1,24 +1,98 @@
 <?php
 session_start();
-include_once "nav.php";
 include_once "controller/profileController.php";
+include_once "controller/userController.php";
+
 $getalluserlist = new ProfileController();
 $getAllUser = $getalluserlist->getUserList();
 
+
+
+$updateUserDetails = new UserController();
 if (isset($_SESSION['user_id'])) {
-    echo $_SESSION['user_id'];
+    $user_id = $_SESSION['user_id'];
 }
+//echo $user_id;
 
 foreach ($getAllUser as $key => $user) {
     if ($user['user_id'] == $_SESSION["user_id"]) {
-        $username = $user["fname"] . " " . $user["lname"];
+        $userid = $user['user_id'];
+        $userfname = $user["fname"];
+        $userlname = $user["lname"];
         $userbio = $user['bio'];
         $useremail = $user['email'];
         $userimg = $user['img'];
-        echo $userimg;
+        $userbio = $user['bio'];
+       
+
     }
     # code...
 }
+
+ $getPersonalInfo=$updateUserDetails->UserInfo($_SESSION['user_id']);
+// var_dump($getPersonalInfo);
+// echo $getPersonalInfo[0]['img'];
+
+
+// save change btn
+if (isset($_POST["save"])) {
+    $error_status = false;
+    if (!empty($_POST["update_fname"])) {
+        $update_fname = $_POST["update_fname"];
+  
+    } else {
+        $error_status = true;
+    }
+
+    if (!empty($_POST["update_lname"])) {
+        $update_lname = $_POST["update_lname"];
+    
+    } else {
+        $error_status = true;
+    }
+
+
+    if(empty($update_bio))
+    {
+        $update_bio=$getPersonalInfo[0]['bio'];
+    }else{
+        $update_bio = $_POST['update_bio'];
+
+    }
+
+   
+    if(empty($_FILES['image']['name']))
+    {
+        $filename = $getPersonalInfo[0]["img"];
+    }else{
+        $filename = $_FILES['image']['name'];
+        $filesize = $_FILES['image']['size'];
+        $allowed_files = ['jpg', 'png', 'jpeg', 'svg'];
+        $temp_path = $_FILES['image']['tmp_name'];
+
+        $fileinfo = explode('.', $filename);
+        $filetype = end($fileinfo);
+        $maxsize = 2000000000;
+        if (in_array($filetype, $allowed_files)) {
+            if ($filesize < $maxsize) {
+                move_uploaded_file($temp_path, 'image/user-profile/' . $filename);
+            } else {
+                echo "file size exceeds maximum allowed";
+            }
+        }
+    }
+       
+
+    if ($error_status == false) {
+        $updateUser = $updateUserDetails->UpdateUser($userid, $update_fname, $update_lname, $update_bio, $filename);
+        header("Location: " . $_SERVER['PHP_SELF']);
+    //     echo '<script>window.location.reload();
+    // </script>';
+
+    }
+}
+include_once "nav.php";
+
 ?>
 <link rel="stylesheet" href="css/profile.css">
 <link rel="stylesheet" href="css/search.css" />
@@ -41,19 +115,101 @@ foreach ($getAllUser as $key => $user) {
                 <div class="userprofile">
                     <img src="image/user-profile/<?php echo $userimg; ?>" alt="" class="userimg ml-3">
                 </div>
+                <div class="dropdown float-end mt-4 mr-3">
+
+                    <a href="" data-bs-toggle="dropdown" aria-expanded="false"><i
+                            class="fa-solid fa-ellipsis-vertical fa-xl  text-muted"></i></a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#editprofilemodel"
+                                href="#">Edit Profile</a></li>
+                        <li><a class="dropdown-item" href="#">Another action</a></li>
+                        <li><a class="dropdown-item" href="#">Something else here</a></li>
+                    </ul>
+                </div>
                 <h3 class="username">
-                    <?php echo $username; ?>
+                    <?php echo $userfname . " " . $userlname; ?>
                 </h3>
-                <h5 class="address">Mandalay, Myanmar</h5>
+                <h5 class="address text-muted mb-4">Mandalay, Myanmar</h5>
+                <h6 class="address text-muted mb-4">
+                    <?php if (!empty($userbio)) {
+                        echo $userbio;
+                    } else {
+                        echo "No Bio ....";
+                    } ?>
+                </h6>
                 <i class="fa-brands fa-square-facebook fa-xl icon" style="color: #3b5998;"></i>
                 <i class="fa-brands fa-square-twitter fa-xl icon" style="color: #1da1f2;"></i>
                 <i class="fa-brands fa-square-google-plus fa-xl icon" style="color: #4285f4;"></i>
-                <button class="messageuser btn btn-info">Message</button>
+                <div class="allbtn">
+                    <button class="messageuser btn btn-info">Message</button>
+                    <button class="logout btn btn-danger">Log Out</button>
+                </div>
             </div>
 
         </div>
     </div>
-    <section>
+    <!-- Modal -->
+    <form action="" method="post" enctype="multipart/form-data">
+        <div class="modal fade" id="editprofilemodel" tabindex="-1" data-bs-backdrop="static"
+            aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Profile</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body row text-center">
+                        <!-- cross btn -->
+                        <div id="cross" class="d-none">
+                            <i class="fa-solid fa-xmark fa-xl cancel-icon  "></i>
+                        </div>
+                        <div class=" d-flex justify-content-center">
+                            <img src="image/user-profile/<?php echo $userimg; ?>" alt="" name=""
+                                class="edituserimg ml-3 ">
+                        </div>
+                        <!-- hidden file -->
+                        <div class="hideinputfile">
+                            <input type="file" name="image" id="inputphoto" class="d-none">
+                        </div>
+                        <div class="col-md-12 mt-5 d-flex">
+                            <div class="col-md-6 ">
+                                <input type="text" class="text-center border-bottom hideborder" name="update_fname"
+                                    placeholder="Enter First Name" id="updateuser_fname"
+                                    value="<?php echo $userfname ?>">
+                            </div>
+                            <div class="col-md-6">
+                                <input type="text" class="text-center border-bottom hideborder" name="update_lname"
+                                    placeholder="Enter Last Name" id="updateuse_lrname"
+                                    value="<?php echo $userlname ?>">
+                            </div>
+                        </div>
+                        <!-- <div class="col-md-12 mt-3">
+                    <input type="text" class="text-center border-bottom hideborder" name="" id="" value="" placeholder="<?php if (!empty($userbio)) {
+                        echo $userbio;
+                    } else {
+                        echo "Describe yourself...";
+                    } ?>">
+                </div> -->
+                        <div class="col-md-12 mt-3">
+                            <input type="text" class="text-center border-bottom hideborder" name="update_bio" id=""
+                                value=""
+                                placeholder="<?php if (!empty($userbio)) {
+                                    echo $userbio;
+                                } else {
+                                    echo "Describe yourself...";
+                                } ?>">
+                        </div>
+                    </div>
+                    <div class="modal-footer d-flex justify-content-center">
+                        <button type="submit" name="save" class="btn btn-info" id="saveChangeBtn">Save changes</button>
+                        <button type="button" class="btn btn-warning" data-bs-dismiss="modal">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <section class="mt-3">
         <div class="container overflow-hidden">
             <div class="flitter-tab">
                 <div class="navbar">
@@ -89,8 +245,11 @@ foreach ($getAllUser as $key => $user) {
             </div>
         </div>
     </section>
-    <script src="js/loader.js"></script>
 
+    <script src="js/jquery-3.7.0.min.js"></script>
+    <script src="js/loader.js"></script>
+    <script src="js/profile.js"></script>
+    
     <script>
         // Initialize Swiper
         var swiper = new Swiper(".swiper-container", {

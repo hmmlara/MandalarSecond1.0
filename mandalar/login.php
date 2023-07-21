@@ -97,7 +97,7 @@ if(isset($_POST["signin"]))
                                 <input type="password" name="pass" id="passwordInput" placeholder="Password" />
 
                             </div>
-                            <i  class="fa-solid fa-eye" id="togglePassword"></i>
+                            <!-- <i  class="fa-solid fa-eye" id="togglePassword"></i> -->
 
                             <span class="text-danger"><?php if(isset($error_pass)) echo $error_pass; ?></span>
                             <span class="text-danger"><?php if(isset($invaildemail)) echo $invaildemail; ?> <?php if(isset($invaildpass)) echo $invaildpass; ?></span>

@@ -81,7 +81,7 @@
                                             <i class="fa-regular fa-message "></i>
                                         </a>
 
-                                        <a class="aa-cart-link user" href="#">
+                                        <a class="aa-cart-link user" href="profile.php">
                                             <i class="fa-regular fa-user"></i>
                                         </a>
                                     </div>
