@@ -60,12 +60,28 @@ $(document).ready(function() {
 
         // passwrod error
 
-        if($('#password').val()==='') {
-          $('#password-error').css('display', 'block');
-          error=true;
-        }else{
-          $('#password-error').css('display', 'none');
-        }
+        // if($('#password').val()==='') {
+        //   $('#password-error').css('display', 'block');
+        //   error=true;
+        // }else{
+        //   $('#password-error').css('display', 'none');
+        // }
+
+        const password = $('#password').val();
+const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+
+if (password === '') {
+  $('#password-error').text('Password is required').css('display', 'block');
+  error = true;
+} else if (!passwordRegex.test(password)) {
+  $('#password-error').text('Password must contain at least one capital letter, one small letter, one number, and one special character').css('display', 'block');
+  error = true;
+} else {
+  $('#password-error').css('display', 'none');
+}
+
+
+        
 
         // nrc error
 
@@ -84,7 +100,6 @@ $(document).ready(function() {
             if (xhr.readyState === XMLHttpRequest.DONE) {
               if (xhr.status === 200) {
                 let data = xhr.response;
-                console.log(data);
                 if(data === "success"){
                   alert('Delivery Account Created Successfully');
                  // Clear form inputs
@@ -102,8 +117,7 @@ $(document).ready(function() {
                   $('#nrc_back_img').append('<div class="pre_img">Front photo</div>');
 
                 }else{
-                  errorText.style.display = "block";
-                  errorText.textContent = data;
+                  alert(data);
                 }
               }
             }

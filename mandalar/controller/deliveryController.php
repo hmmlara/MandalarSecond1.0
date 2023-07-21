@@ -5,10 +5,10 @@ class DeliveryController extends Delivery{
         return $this->createDeliveryAccount($name,$phone,$password,$nrc,$new_deli_profile_img_name,$new_front_nrc_image_name,$new_back_nrc_image_name,$city);
     }
 
-    // public function getUserList()
-    // {
-    //     return $this->getAllUser();
-    // }
+    public function getDeliveryList()
+    {
+        return $this->getAllDelivery();
+    }
     // public function getUserInfo($email)
     // {
     //     return $this->getUserId($email);
