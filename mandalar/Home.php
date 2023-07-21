@@ -15,16 +15,18 @@ $categorys = $category_model->getCategory();
                 foreach($categorys as $category){
 
                 ?>
-                <div class="col-2 mb-1">
-                    <label class="card radio-image">
-                        <input type="radio" class="custom-control-input" name="category" value="<?php echo $category["name"] ?>" />
-                        <img src="<?php echo $category["image"] ?>" class="p-2 card-img-top category-image" alt="<?php echo $category["image"] ?>" />
+                    <div class="col-2 mb-1">
+                        <label class="card radio-image">
+                        <input type="radio" class="custom-control-input" name="category" value="<?php echo $category["
+                            name"] ?>" />
+                        <img src="<?php echo $category[" image"] ?>" class="p-2 card-img-top category-image" alt="
+                        <?php echo $category["image"] ?>" />
                     </label>
-                </div>
-                <?php
+                    </div>
+                    <?php
                 }
                 ?>
-               
+
             </div>
 
         </div>
@@ -65,13 +67,11 @@ $categorys = $category_model->getCategory();
                     <div class="card custom-card">
                         <div class="card-body">
                             <div class="custom-control custom-radio">
-                                <input type="radio" class="custom-control-input status-radio" id="newCondition"
-                                    name="condition" />
+                                <input type="radio" class="custom-control-input status-radio" id="newCondition" name="condition" />
                                 <label class="custom-control-label" for="newCondition">New</label>
                             </div>
                             <div class="custom-control custom-radio">
-                                <input type="radio" class="custom-control-input status-radio" id="usedCondition"
-                                    name="condition" />
+                                <input type="radio" class="custom-control-input status-radio" id="usedCondition" name="condition" />
                                 <label class="custom-control-label" for="usedCondition">Used</label>
                             </div>
                         </div>
@@ -102,8 +102,7 @@ $categorys = $category_model->getCategory();
                         <h5 class="card-title">Product 1</h5>
                         <div class="d-flex justify-content-between align-items-center">
                             <div class="d-flex align-items-center">
-                                <img src="image/user-profile/mylove.jpg" class="rounded-circle profile-on-card"
-                                    alt="Seller 1" />
+                                <img src="image/user-profile/mylove.jpg" class="rounded-circle profile-on-card" alt="Seller 1" />
                                 <span class="ml-2 card-text">Seller 1</span>
                             </div>
                         </div>
@@ -120,5 +119,25 @@ $categorys = $category_model->getCategory();
             </div>
         </div>
     </section>
-</div>
-<?php include_once "./footer.php"; ?>
+    <!-- Post -->
+    <button type="button" class="btn btn-primary" data-mdb-toggle="modal" data-mdb-target="#exampleModal">
+        Launch demo modal
+    </button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">...</div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <?php include_once "./footer.php"; ?>

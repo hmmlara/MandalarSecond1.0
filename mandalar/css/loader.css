@@ -4,6 +4,7 @@
     height: 100%;
     background-color: #f3f3f3;
     z-index: 888;
+    /* display: none; */
 }
 
 #loader {
