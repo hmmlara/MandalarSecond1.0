@@ -26,16 +26,65 @@
     border: #0f0f0f;
     /* Replace "red" with the desired color */
 }
- 
-.sm-show{
+
+
+/* Reset default styles for select box */
+
+.custom-select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    padding: 10px;
+    border: 2px solid #ccc;
+    border-radius: 6px;
+    font-size: 16px;
+    background-color: #fff;
+    width: 200px;
+    cursor: pointer;
+    outline: none;
+    position: relative;
+    z-index: 1;
+}
+
+
+/* Style the arrow icon */
+
+.custom-select::after {
+    content: "\f0d7";
+    /* Font Awesome arrow-down icon */
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    pointer-events: none;
+}
+
+
+/* Add a subtle transition effect */
+
+.custom-select:hover,
+.custom-select:focus {
+    border-color: #aaa;
+}
+
+
+/* Optional: Style the dropdown options */
+
+.custom-select option {
+    padding: 10px;
+}
+
+.sm-show {
     display: none;
 }
 
 @media (max-width: 570px) {
-.sm-hide{
-    display: none;
-}
-.sm-show{
-    display: block;
-}
+    .sm-hide {
+        display: none;
+    }
+    .sm-show {
+        display: block;
+    }
 }
