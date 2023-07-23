@@ -117,14 +117,14 @@ $categorys = $category_model->getCategory();
                 foreach($categorys as $category){
 
                 ?>
-                    <div class="col-2 mb-1">
+                    <!-- <div class="col-2 mb-1">
                         <label class="card radio-image">
                         <input type="radio" class="custom-control-input" name="category" value="<?php echo $category["
                             name"] ?>" />
                         <img src="<?php echo $category[" image"] ?>" class="p-2 card-img-top category-image" alt="
                         <?php echo $category["image"] ?>" />
                     </label>
-                    </div>
+                    </div> -->
                     <?php
                 }
                 ?>
@@ -235,49 +235,52 @@ $categorys = $category_model->getCategory();
                     <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form class="row g-3">
+                    <form class="row g-3" id="form" action="#" method="POST" enctype="multipart/form-data" >
                         <div class="col-md-12">
-                            <div class="btn-group">
+                            <div class="btn-group" id="">
 
-                                <input type="radio" class="btn-check" name="options" id="option2" autocomplete="off" />
+                                <input type="radio" class="btn-check" name="options" id="option2" autocomplete="off" value="new" />
                                 <label class="btn btn-secondary" for="option2">New</label>
 
-                                <input type="radio" class="btn-check" name="options" id="option3" autocomplete="off" />
+                                <input type="radio" class="btn-check" name="options" id="option3" autocomplete="off" value="used" checked/>
                                 <label class="btn btn-secondary" for="option3">Used</label>
                             </div>
                         </div>
                         <hr>
                         <div class="col-md-4">
                             <div class="form-outline">
-                                <input type="text" class="form-control" id="validationDefault01" required />
+                                <input type="text" class="form-control" id="item-name" name="item_name" required />
                                 <label for="validationDefault01" class="form-label">Item Name</label>
                             </div>
+                            <span class="text-danger" id="name-error" style="display:none;">Need to fill item name!!!</span>
+
                         </div>
                         <div class="col-md-4">
                             <div class="form-outline">
-                                <input type="text" class="form-control" id="validationDefault02" required />
+                                <input type="text" class="form-control" id="brand" name="brand" required />
                                 <label for="validationDefault02" class="form-label">Brand</label>
                             </div>
+                            <span class="text-danger" id="brand-error" style="display:none;">Need to fill brand name!!!</span>
                         </div>
                         <div class="col-md-4">
                             <div class="form-outline">
-                                <input type="number" class="form-control" id="validationDefault02" required />
+                                <input type="number" class="form-control" id="price" name="price" required />
                                 <label for="validationDefault02" class="form-label">Price</label>
                             </div>
+                            <span class="text-danger" id="price-error" style="display:none;">Need to fill price!!!</span>
                         </div>
                         <hr>
                         <div class="col-md-6">
-                            <select class="custom-select">
-                                <option value="option1">Phone</option>
+                            <select class="custom-select" id="post-category" name="post_category">
+                                <!-- <option value="option1">Phone</option>
                                 <option value="option2">Computer</option>
-                                <option value="option3">Car</option>
+                                <option value="option3">Car</option> -->
                                 <!-- Add more options here as needed -->
                             </select>
 
                         </div>
                         <div class="col-md-6">
-                            <select class="custom-select">
-                                <option value="option1">Choice Category fist</option>
+                            <select class="custom-select" id="post_subcategory" name="post_subcategory">
 
                                 <!-- Add more options here as needed -->
                             </select>
@@ -286,7 +289,7 @@ $categorys = $category_model->getCategory();
                         <hr>
 
                         <div class="col-md-12 form-outline">
-                            <textarea class="form-control " style="height:100px" id="validationTextarea" placeholder="Required example textarea" required></textarea>
+                            <textarea class="form-control " name="text_area" style="height:100px" id="validationTextarea" placeholder="Required example textarea" required></textarea>
                             <label for="validationTextarea" class="form-label">Textarea</label>
                             <div class="invalid-feedback">Please enter a message in the textarea.</div>
                         </div>
@@ -297,21 +300,24 @@ $categorys = $category_model->getCategory();
 
                             <div id="imagePreviews" class="image-previews">
                                 <div class="image-selector">
-                                    <label for="imageUpload" class="plus-sign" id="imageLabel">+</label>
-                                    <input type="file" id="imageUpload" class="form-control" accept="image/*" multiple />
+                                    <label for="imageUpload" class="plus-sign" id="imageLabel"></label>
+                                    <input type="file" id="imageUpload" name="post_img" class="form-control" accept="image/*" multiple />
                                 </div>
                             </div>
+                            <span class="text-danger" id="imagePreviews_error" style="display:none;">Need to fill image!!!</span>
 
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
+                    <button type="button" class="btn btn-primary" name="submit" id="post_save">Save changes</button>
                 </div>
             </div>
         </div>
     </div>
+    <div id="output"></div>
     <!-- model end -->
+    <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
     <script src="js/post.js"></script>
     <?php include_once "./footer.php"; ?>
