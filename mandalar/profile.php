@@ -103,8 +103,8 @@ include_once "nav.php";
 <body>
     <div class="container">
         <div class="row ">
-            <div class="col-md-12 bg-info"
-                style="height: 200px; border-top-left-radius:1em; border-top-right-radius:1em">
+            <div class="col-md-12 "
+                style="height: 200px; border-top-left-radius:1em; border-top-right-radius:1em; background-color:#627E8B">
 
             </div>
         </div>

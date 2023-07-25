@@ -1,7 +1,7 @@
 $(document).ready(function(){
   if($(".edituserimg").attr("src")!=="image/user-profile/mylove.jpg")
     {
-      console.log("Something")
+      
       $("#cross").removeClass("d-none");
     }
     
