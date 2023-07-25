@@ -8,16 +8,16 @@
 
 
     
-    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
-    <!-- <link rel="stylesheet" href="mdbbootstrap/css/mdb.min.css"> -->
+    <!-- <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css"> -->
+    <link rel="stylesheet" href="mdbbootstrap/css/mdb.min.css">
 
     <!-- <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" /> -->
     <link rel="stylesheet" href="../mandalar/fontawesome-free-6.4.0-web/css/all.min.css" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mdbootstrap/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mdbootstrap/css/mdb.min.css" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mdbootstrap/css/mdb.min.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/css/mdb.min.css" />
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mdbootstrap/css/bootstrap.min.css" /> -->
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mdbootstrap/css/mdb.min.css" /> -->
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mdbootstrap/css/mdb.min.css" /> -->
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css" /> -->
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/css/mdb.min.css" /> -->
     <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" /> -->
     <link rel="stylesheet" href="css/products.css" />
     <link rel="stylesheet" href="css/category.css" />
@@ -73,12 +73,12 @@
                                         </a>
                                         
                                         <div class="dropdown" >
-                                            <a class="aa-cart-link bell"  role="button"  id="dropdownMenuButton"
+                                            <a class="aa-cart-link bell" style="display:inline-block;width:120px"  role="button"  id="dropdownMenuButton"
                                                 data-mdb-toggle="dropdown" >
                                                 
                                                 <i class="fa-regular fa-bell"></i>
                                                 <span class="aa-cart-notify" style="color: #4e9c81;">10</span>
-                                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                <ul class="dropdown-menu"  aria-labelledby="dropdownMenuButton">
                                                     <li class="dropdown-item" href="#">Action</li>
                                                     <li class="dropdown-item" href="#">Another action</li>
                                                     <li class="dropdown-item" href="#">Something else here</li>
