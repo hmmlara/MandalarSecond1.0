@@ -21,7 +21,9 @@ document.getElementById("imageUpload").addEventListener("change", function(event
             // imageLabel.append(content)
             imagePreview.src = reader.result;
             imagePreview.className = "preview-image";
-            imagePreviewsContainer.prepend(imagePreview);
+            
+            imagePreviewsContainer.prepand(div);
+            
             // Bind the deleteImagePreview function to the click event of the image
             imagePreview.addEventListener("click", function() {
                 deleteImagePreview(imagePreview);

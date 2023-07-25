@@ -299,7 +299,7 @@ $categorys = $category_model->getCategory();
                             <label class="form-label">Upload Images</label>
 
                             <div id="imagePreviews" class="image-previews">
-                                <div class="image-selector">
+                                <div class="image-selector col-3">
                                     <label for="imageUpload" class="plus-sign" id="imageLabel"></label>
                                     <input type="file" id="imageUpload" name="post_img" class="form-control" accept="image/*" multiple />
                                 </div>
