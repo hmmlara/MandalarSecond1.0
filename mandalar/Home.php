@@ -313,4 +313,6 @@ $categorys = $category_model->getCategory();
         </div>
     </div>
 
+    <!-- model end -->
+    <script src="js/post.js"></script>
     <?php include_once "./footer.php"; ?>
