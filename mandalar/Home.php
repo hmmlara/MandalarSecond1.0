@@ -109,22 +109,22 @@ $categorys = $category_model->getCategory();
 </style>
 
 <div class="container-xl">
-    <!-- Category Component -->
-    <section id="home" class="">
+
+  <!-- Category Component -->
+  <section id="home" class="">
         <div class="container-xxl">
             <div class="row category-row">
                 <?php
                 foreach($categorys as $category){
 
                 ?>
-                    <!-- <div class="col-2 mb-1">
+                    <div class="col-2 mb-1">
                         <label class="card radio-image">
-                        <input type="radio" class="custom-control-input" name="category" value="<?php echo $category["
-                            name"] ?>" />
-                        <img src="<?php echo $category[" image"] ?>" class="p-2 card-img-top category-image" alt="
-                        <?php echo $category["image"] ?>" />
+                        <input type="radio" class="custom-control-input" name="category" value="<?php echo $category["id"] ?>" />
+                        <img src="<?php echo $category["img"] ?>" class="p-2  category-image" alt="
+                        <?php echo $category["img"] ?>" />
                     </label>
-                    </div> -->
+                    </div>
                     <?php
                 }
                 ?>
@@ -146,8 +146,8 @@ $categorys = $category_model->getCategory();
                 <div class="col-sm-4 col-6 mb-4">
                     <div class="card custom-card">
                         <div class="card-body">
-                            <select class="browser-default custom-select">
-                                <option value="">Select Brand</option>
+                            <select class="browser-default custom-select" id="sub-catgory-fliter">
+                                <option value="">Select Category fist</option>
                                 <option value="1">Brand 1</option>
                                 <option value="2">Brand 2</option>
                                 <option value="3">Brand 3</option>
