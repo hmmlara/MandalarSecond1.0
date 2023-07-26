@@ -36,9 +36,11 @@ $(document).ready(function () {
       url: "getAllFollow.php",
       dataType: "json",
       success: function (response) {
-        if (from_id == response[0].from_id && to_id == response[0].to_id) {
+        for (let i = 0; i < response.length; i++) {
+          const obj = response[i];
+          if (from_id == obj.from_id && to_id == obj.to_id) {
             console.log("It Equal")
-          id = response[0].id;
+          id = obj.id;
           console.log(id);
           $.ajax({
             type: "POST",
@@ -49,6 +51,8 @@ $(document).ready(function () {
             },
           });
         }
+        }
+        
       },
     });
     e.preventDefault();
