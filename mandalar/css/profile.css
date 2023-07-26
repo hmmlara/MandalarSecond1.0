@@ -1,0 +1,32 @@
+
+.userprofile
+{
+    /* height: 200px;
+    background-color: skyblue; */
+    position: relative;
+    
+}
+
+.userimg{
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    object-fit: cover;
+    position: absolute;
+    bottom:-100px;
+    border: 10px solid rgb(255, 255, 255);
+}
+.username,.address,.icon
+{
+    position: relative;
+    bottom: -100px;
+}
+.messageuser{
+    position: relative;
+    bottom: -150px;
+    left: -83px;
+}
+.address
+{
+    opacity: 0.5;
+}
