@@ -39,7 +39,7 @@ if(isset($_POST["signin"]))
                 {
                     $user_id=$registercontroller->getUserId($email);
                     $_SESSION['user_id']=$user_id[0]['user_id'];
-                    header("location:chatapp/users.php");
+                    header("location:home.php");
 
                     // $_SESSION['email']=$email;
                 }else{

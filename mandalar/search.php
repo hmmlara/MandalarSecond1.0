@@ -6,10 +6,10 @@ $searchAlluser = new SearchController();
 if (isset($_GET['searchinput'])) {
 
 	$searchinput = $_GET['searchinput'];
-	echo $searchinput;
+	// echo $searchinput;
 	$searchUsers = $searchAlluser->searchAllUser($searchinput);
 
-	var_dump($searchUsers);
+	// var_dump($searchUsers);
 
 }
 
@@ -77,12 +77,7 @@ if (isset($_GET['searchinput'])) {
                                     <!-- Text based logo -->
                                     <img src="image/logoimg/logo-no-background.png" class="logo" width="200px"
                                         height="auto" alt="as">
-                                    <!-- <a href="index.html">
-                          <span class="fa fa-shopping-cart"></span>
-                          <p>daily<strong>Shop</strong> <span>Your Shopping Partner</span></p>
-                        </a> -->
-                                    <!-- img based logo -->
-                                    <!-- <a href="index.html"><img src="img/logo.jpg" alt="logo img"></a> -->
+                                 
                                 </div>
                                 <!-- / logo  -->
                                 <!-- cart box -->
@@ -160,9 +155,26 @@ if (isset($_GET['searchinput'])) {
 					<div class="swiper-slide mr-3">
 						<div class="tab-content">
 							<div class="row">
-								<div class="col-md-12 bg-success ">
-									Hello
-								</div>
+								<?php
+									foreach ($searchUsers as $key => $user) {
+								?>
+								<a href="searchprofile.php?id=<?php echo $user['user_id'] ?>">
+									<div class="col-md-12 rounded d-flex p-2 border pointer text-dark">
+										<div class="col-md-1">
+											<img src="../mandalar/image/user-profile/<?php echo $user["img"] ?>" class="usersearchimg" alt="">
+										</div>	
+										<div class="col-md-8">
+											<h5><?php echo $user["fname"]." ".$user['lname']  ?></h5>
+										</div>
+										<div class="col-md-3 d-flex align-items-center justify-content-end">
+											<i class="fa-solid fa-arrow-right fa-2xl"></i>
+										</div>
+									</div>
+								</a>
+								<?php
+									}
+								?>
+								
 							</div>
 						</div>
 					</div>

@@ -123,8 +123,9 @@
 </body>
 <!-- Modernizr JS -->
 <script src="js/modernizr-2.6.2.min.js"></script>
+<script src="mdbbootstrap/js/mdb.min.js"></script>
 <!-- <script src="mdbbootstrap/js/mdb.min.js"></script> -->
 <script src="js/jquery-3.7.0.min.js"></script>
-<script src="bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- <script src="bootstrap/js/bootstrap.bundle.min.js"></script> -->
 <script src="js/searchbox.js"></script>
 </html>

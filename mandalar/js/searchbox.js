@@ -4,9 +4,6 @@ $(document).ready(function() {
 
         var searchValue = $("#search-box").val();
         console.log(searchValue);
-
-        
-
         // Get the current URL
         var currentURL = window.location.href;
 
@@ -27,9 +24,24 @@ $(document).ready(function() {
                     console.error(error);
                 }
             });
-        }else
-        {
+        }
 
+        if (currentURL.includes('search.php')) {
+            // If the current location is not search.php, redirect to search.php with the search value
+            window.location.href = "search.php?searchinput=" + encodeURIComponent(searchValue);
+            $.ajax({
+                type: "POST",
+                url: "search.php",
+                data: { searchinput: searchValue },
+                success: function(response) {
+                    // Handle the response data here if needed
+                    console.log(response);
+                   
+                },
+                error: function(error) {
+                    console.error(error);
+                }
+            });
         }
     });
 });
