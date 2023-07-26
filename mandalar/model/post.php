@@ -66,5 +66,27 @@ class Post{
         $result=$statement->fetchAll(PDO::FETCH_ASSOC);
         return $result;
     }
+    public function getPostByFlitter($flitteringData)
+    {
+        // $category = ($flitteringData['category'] == null)? "" : $flitteringData['$category'] ;
+        // $subCategory = $flitteringData['subCategory'];
+        // $minPrice = $flitteringData['min-price'];
+        // $maxPrice = $flitteringData['max-price'];
+        // $newUsed = $flitteringData['new-used'];
+        //1.DataBase Connect
+        $this->connection=Database::connect();
+        $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+        //2.sql Statement
+        $sql="select * from post";
+        $statement=$this->connection->prepare($sql);
+
+        // $statement->bindParam(":id",$flitteringData);
+
+        //3.execute
+        $statement->execute();
+        $result=$statement->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
+    }
 }
 ?>
