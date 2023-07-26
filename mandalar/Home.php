@@ -138,7 +138,7 @@ $categorys = $category_model->getCategory();
 
         </div>
     </section>
-    
+
     <!-- Filter Component -->
     <section id="filter" class="">
         <div class="container-xxl">
@@ -331,4 +331,5 @@ $categorys = $category_model->getCategory();
     <!-- model end -->
     <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
     <script src="js/post.js"></script>
+    <script src="js/flitter.js"></script>
     <?php include_once "./footer.php"; ?>
