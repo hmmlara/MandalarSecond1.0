@@ -54,7 +54,19 @@ radioButtons.forEach(function (radio) {
 	});
 });
 
+//Post Flittering Data 
 function PostFliteringData(obj){
     console.log(obj);
 
 }
+
+//Log Selected Value
+function logSelectedValue() {
+    const selectElement = document.querySelector("#sub-catgory-fliter");
+    const selectedValue = selectElement.value;
+    fliteringData.subCategory = selectedValue;
+    PostFliteringData(fliteringData)
+    console.log("Selected value: " + selectedValue);
+  }
+
+  document.querySelector("#sub-catgory-fliter").addEventListener("change", logSelectedValue);
