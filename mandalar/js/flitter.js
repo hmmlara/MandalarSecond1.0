@@ -1,6 +1,6 @@
 const fliteringData =  {"category":null,"subCategory":null,"min-price":"unlimited","max-price":"unlimited","new-used":'unlimited'}
 // Optional: Add JavaScript to handle radio button changes or retrieve the selected value
-const radioButtons = document.querySelectorAll('input[type="radio"]');
+const radioButtons = document.querySelectorAll(".category");
 radioButtons.forEach(function (radio) {
 	radio.addEventListener("change", function () {
 		const selectedValue = this.value;
@@ -108,8 +108,15 @@ function logSelectedValue() {
 		var max = values[1];
 		priceValue2.innerHTML = min + " - " + max;
 	});
+});
 
-
-
-
+const NewUserradioButtons = document.querySelectorAll(".status-radio");
+NewUserradioButtons.forEach(function (radio) {
+	radio.addEventListener("change", function () {
+		const selectedValue = this.value;
+		console.log(selectedValue); // Replace with your desired logic
+        fliteringData["new-used"] = selectedValue
+        PostFliteringData(fliteringData);
+		
+	});
 });

@@ -124,7 +124,7 @@ $categorys = $category_model->getCategory();
                     ?>
                     <div class="col-2 mb-1">
                         <label class="card radio-image">
-                            <input type="radio" class="custom-control-input" name="category"
+                            <input type="radio" class="custom-control-input category" name="category"
                                 value="<?php echo $category["id"] ?>" />
                             <img src="<?php echo $category["img"] ?>" class="p-2  category-image" alt="
                         <?php echo $category["img"] ?>" />
@@ -169,12 +169,12 @@ $categorys = $category_model->getCategory();
                     <div class="card custom-card">
                         <div class="card-body">
                             <div class="custom-control custom-radio">
-                                <input type="radio" class="custom-control-input status-radio" id="newCondition"
+                                <input type="radio" class="custom-control-input status-radio" value="1" id="newCondition"
                                     name="condition" />
                                 <label class="custom-control-label" for="newCondition">New</label>
                             </div>
                             <div class="custom-control custom-radio">
-                                <input type="radio" class="custom-control-input status-radio" id="usedCondition"
+                                <input type="radio" class="custom-control-input status-radio" value="0" id="usedCondition"
                                     name="condition" />
                                 <label class="custom-control-label" for="usedCondition">Used</label>
                             </div>
