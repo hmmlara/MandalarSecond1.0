@@ -174,7 +174,7 @@ $categorys = $category_model->getCategory();
                                 <label class="custom-control-label" for="newCondition">New</label>
                             </div>
                             <div class="custom-control custom-radio">
-                                <input type="radio" class="custom-control-input status-radio" value="0" id="usedCondition"
+                                <input type="radio" class="custom-control-input status-radio" checked value="0" id="usedCondition"
                                     name="condition" />
                                 <label class="custom-control-label" for="usedCondition">Used</label>
                             </div>

@@ -1,4 +1,5 @@
-const fliteringData = { "category": null, "subCategory": null, "min-price": "unlimited", "max-price": "unlimited", "new-used": 'unlimited' }
+const fliteringData = { "category": null, "subCategory": null, "min-price": null, "max-price": null, "new-used": null }
+const productContainer = document.querySelector("#products")
     //Post Flittering Data 
 function PostFliteringData(obj) {
     let FlitteringReq = new XMLHttpRequest();
@@ -9,20 +10,50 @@ function PostFliteringData(obj) {
     FlitteringReq.onload = () => {
         if (xhr1.status === 200) {
             try {
+                console.log(FlitteringReq.response)
                 let dataList = JSON.parse(FlitteringReq.response);
                 console.log(dataList);
-
+                productContainer.innerHTML = ''
+                dataList.forEach(
+                    (val, index) => {
+                        productContainer.innerHTML += `
+                        <div class="col-md-4 col-sm-6  col-lg-3 mb-4 ">
+                <div class="card product-card-by-nay">
+                    <img src="image/products/product-image.jfif" class="card-img-top product-image" alt="Product 1" />
+                    <div class="card-body">
+                        <h5 class="card-title">Product 1</h5>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="d-flex align-items-center">
+                                <img src="image/user-profile/mylove.jpg" class="rounded-circle profile-on-card"
+                                    alt="Seller 1" />
+                                <span class="ml-2 card-text">Seller 1</span>
+                            </div>
+                        </div>
+                        <div class="mt-3">
+                            <i class="far fa-heart mr-2"></i>
+                            <span class="reaction-count">5</span>
+                            <i class="far fa-plus-square ml-3"></i>
+                            <span class="save-count">18</span>
+                            <i class="far fa-eye ml-3"></i>
+                            <span class="view-count">50</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                        `
+                    }
+                )
 
 
                 dataList.forEach((data) => {
 
                 });
             } catch (error) {
-                console.log("Error parsing response as JSON:", error);
+                console.error("Error parsing response as JSON:", error);
                 // Handle the JSON parsing error here, e.g., show an error message to the user
             }
         } else {
-            console.log("Request failed. Status:", FlitteringReq.status);
+            console.error("Request failed. Status:", FlitteringReq.status);
             // Handle other error scenarios here, e.g., show an error message to the user
         }
     };
