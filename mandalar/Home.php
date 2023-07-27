@@ -169,12 +169,12 @@ $categorys = $category_model->getCategory();
                     <div class="card custom-card">
                         <div class="card-body">
                             <div class="custom-control custom-radio">
-                                <input type="radio" class="custom-control-input status-radio" value="1" id="newCondition"
+                                <input type="radio" class="custom-control-input status-radio" value="new" id="newCondition"
                                     name="condition" />
                                 <label class="custom-control-label" for="newCondition">New</label>
                             </div>
                             <div class="custom-control custom-radio">
-                                <input type="radio" class="custom-control-input status-radio" checked value="0" id="usedCondition"
+                                <input type="radio" class="custom-control-input status-radio" checked value="used" id="usedCondition"
                                     name="condition" />
                                 <label class="custom-control-label" for="usedCondition">Used</label>
                             </div>
