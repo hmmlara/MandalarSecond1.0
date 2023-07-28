@@ -1,6 +1,7 @@
 <?php
 
 include_once "./controller/postController.php";
+$user_id=3;
 $id=$_GET['id'];
 $post_controller=new PostController();
 $posts=$post_controller->getPost($id);
@@ -183,7 +184,7 @@ $posts=$post_controller->getPost($id);
 							<?php echo $post['description'];  ?>
 							</p>
 							<div class="product-buttons">
-								<button class="btn btn-secondary" id="product-like">
+								<button class="btn btn-secondary" id="product-like" data-post-id="<?php echo $id; ?>" data-user-id="<?php echo $user_id; ?>">
 									<i class="fas fa-thumbs-up"></i> 20
 								</button>
 								<button class="btn btn-secondary comment-btn">
@@ -533,6 +534,7 @@ $posts=$post_controller->getPost($id);
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 		<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 		<!-- <script src="js/loader.js"></script> -->
+		<script src="js/product-detail.js"></script>
 		<script>
 			var swiper = new Swiper(".swiper-container", {
 				pagination: {
