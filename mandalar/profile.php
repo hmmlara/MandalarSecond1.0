@@ -89,6 +89,12 @@ if (isset($_POST["save"])) {
 
     }
 }
+
+//update NRCNumber
+if(isset($_POST['enterNRC']))
+{
+
+}
 include_once "nav.php";
 
 ?>
@@ -150,7 +156,7 @@ include_once "nav.php";
                     <button type="button" class="btn btn-danger" id="verify" data-mdb-toggle="modal" data-mdb-target="#vmodal">Verify Your Account</button>
 
                     <!-- Modal -->
-                    <form action="" method="post">
+                    <form action="" method="post" enctype="multipart/form-data">
                     <div class="modal fade" id="vmodal" tabindex="-1" aria-labelledby="exampleModalLabel"
                         aria-hidden="true">
                         <div class="modal-dialog">
@@ -163,7 +169,7 @@ include_once "nav.php";
                                 <div class="modal-body">
                                     <div class="form-outline">
                                         <input type="text" id="form12" class="form-control" />
-                                        <label class="form-label" for="form12">Example label</label>
+                                        <label class="form-label" for="form12">Enter Your NRC Number</label>
                                     </div>
                                     <div class="frontimg ">
                                         <img src="" alt="" class="">
@@ -177,7 +183,7 @@ include_once "nav.php";
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary"
                                         data-mdb-dismiss="modal">Close</button>
-                                    <button type="button" class="btn btn-primary">Save changes</button>
+                                    <button type="button" class="btn btn-primary" name="enterNRC">Save changes</button>
                                 </div>
                             </div>
                         </div>
