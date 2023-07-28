@@ -138,7 +138,6 @@ $categorys = $category_model->getCategory();
                     <?php
                 }
                 ?>
-
             </div>
 
         </div>
