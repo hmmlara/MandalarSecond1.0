@@ -46,3 +46,23 @@
 	display: flex;
 	justify-content: center;
 }
+
+.usersearchimg{
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+    /* position: absolute;
+    bottom:-100px;
+    border: 10px solid rgb(255, 255, 255); */
+}
+.pointer{
+	transition: 0.2s ease-in-out;
+	
+}
+
+.pointer:hover{
+	cursor: pointer;
+	transform: scale(1.01);
+	background-color: rgb(211, 210, 210);
+}
