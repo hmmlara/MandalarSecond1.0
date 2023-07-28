@@ -1,3 +1,19 @@
+<?php 
+//session_start();
+include_once "controller/profileController.php";
+include_once "controller/userController.php";
+
+$getalluserlist = new ProfileController();
+$getAllUser = $getalluserlist->getUserList();
+
+
+
+$updateUserDetails = new UserController();
+if (isset($_SESSION['user_id'])) {
+    $user_id = $_SESSION['user_id'];
+    echo $user_id;
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -77,11 +93,9 @@
                                                 data-mdb-toggle="dropdown" >
                                                 
                                                 <i class="fa-regular fa-bell"></i>
-                                                <span class="aa-cart-notify" style="color: #4e9c81;">10</span>
+                                                <span class="aa-cart-notify" style="color: #4e9c81;">0</span>
                                                 <ul class="dropdown-menu"  aria-labelledby="dropdownMenuButton">
-                                                    <li class="dropdown-item" href="#">Action</li>
-                                                    <li class="dropdown-item" href="#">Another action</li>
-                                                    <li class="dropdown-item" href="#">Something else here</li>
+                                                    
                                                 </ul>
                                             </a>
                                         </div>

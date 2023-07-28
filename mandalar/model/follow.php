@@ -81,5 +81,24 @@ public function deletefollowing($id)
     }
 
 }
+
+public function noti($to_id)
+{
+    //1.DataBase Connect
+    $this->connection=Database::connect();
+    $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+    $sql="SELECT * FROM follow WHERE to_id = :userId AND is_read = 0 ORDER BY timestamp DESC";
+    $statement=$this->connection->prepare($sql);
+
+    // $statement->bindParam(":from_id",$from_id);
+    $statement->bindParam(":userId",$to_id);
+    // $statement->bindParam(":follow",1);
+
+    //3.execute
+    $statement->execute();
+    $result=$statement->fetchAll(PDO::FETCH_ASSOC);
+    return $result;
+}
 }
 ?>

@@ -56,4 +56,5 @@ $(document).ready(function(){
     //   if($(".edituserimg").attr()=="image/user-profile/mylove.jpg"){
     //     $("#cross").addClass("d-none");
     // }
+    
 })
