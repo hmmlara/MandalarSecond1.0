@@ -202,7 +202,7 @@ $categorys = $category_model->getCategory();
     <!-- Product Cards -->
     <section id="products" class="">
 
-        <div class="row ">
+        <div class="row">
             <div class="col-md-4 col-sm-6  col-lg-3 mb-4 ">
                 <div class="card product-card-by-nay">
                     <img src="image/products/product-image.jfif" class="card-img-top product-image" alt="Product 1" />
