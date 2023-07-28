@@ -183,7 +183,7 @@ $posts=$post_controller->getPost($id);
 							<?php echo $post['description'];  ?>
 							</p>
 							<div class="product-buttons">
-								<button class="btn btn-secondary">
+								<button class="btn btn-secondary" id="product-like">
 									<i class="fas fa-thumbs-up"></i> 20
 								</button>
 								<button class="btn btn-secondary comment-btn">
@@ -530,8 +530,9 @@ $posts=$post_controller->getPost($id);
 		</main>
 
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 		<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
-		<script src="js/loader.js"></script>
+		<!-- <script src="js/loader.js"></script> -->
 		<script>
 			var swiper = new Swiper(".swiper-container", {
 				pagination: {
@@ -585,13 +586,20 @@ $posts=$post_controller->getPost($id);
 				const likeBtn = comment.querySelector(".comment-like");
 				const replyBtn = comment.querySelector(".comment-reply");
 
-				likeBtn.addEventListener("click", function () {
-					// Perform like action
-				});
+				// likeBtn.addEventListener("click", function () {
+				// 	// Perform like action
+				// });
 
-				replyBtn.addEventListener("click", function () {
-					// Perform reply action
-				});
+				// replyBtn.addEventListener("click", function () {
+				// 	// Perform reply action
+				// });
+			});
+
+			let product_like=document.getElementById("product-like");
+			product_like.addEventListener("click", function () {
+				console.log("clicked");
+				this.classList.toggle("btn-secondary");
+    			this.classList.toggle("btn-primary");
 			});
 		</script>
 	</body>
