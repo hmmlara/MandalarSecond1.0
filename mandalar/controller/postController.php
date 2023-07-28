@@ -17,5 +17,11 @@ class PostController extends Post{
     // {
     //     return $this->getUserId($email);
     // }
+    public function getPostList(){
+        return $this->getAllPost();
+    }
+    public function getPost($id){
+        return $this->getPostById($id);
+    }
 }
 ?>

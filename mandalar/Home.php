@@ -1,5 +1,10 @@
-<?php include_once "./nav.php";
+<?php 
+include_once "./nav.php";
 include_once "./model/category.php";
+include_once "./controller/postController.php";
+$post_controller=new PostController();
+$post_list=$post_controller->getPostList();
+
 
 
 $categorys = $category_model->getCategory();
@@ -308,7 +313,7 @@ $categorys = $category_model->getCategory();
                             <label class="form-label">Upload Images</label>
 
                             <div id="imagePreviews" class="image-previews">
-                                <div class="image-selector col-3">
+                                <div class="image-selector">
                                     <label for="imageUpload" class="plus-sign" id="imageLabel"></label>
                                     <input type="file" id="imageUpload" name="post_img" class="form-control"
                                         accept="image/*" multiple />
