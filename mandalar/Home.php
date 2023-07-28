@@ -1,5 +1,10 @@
-<?php include_once "./nav.php";
+<?php 
+include_once "./nav.php";
 include_once "./model/category.php";
+include_once "./controller/postController.php";
+$post_controller=new PostController();
+$post_list=$post_controller->getPostList();
+
 
 
 $categorys = $category_model->getCategory();
@@ -197,28 +202,37 @@ $categorys = $category_model->getCategory();
     <section id="products" class="">
 
         <div class="row ">
-            <div class="col-md-4 col-sm-6  col-lg-3 mb-4 ">
-                <div class="card product-card-by-nay">
-                    <img src="image/products/product-image.jfif" class="card-img-top product-image" alt="Product 1" />
-                    <div class="card-body">
-                        <h5 class="card-title">Product 1</h5>
-                        <div class="d-flex justify-content-between align-items-center">
-                            <div class="d-flex align-items-center">
-                                <img src="image/user-profile/mylove.jpg" class="rounded-circle profile-on-card" alt="Seller 1" />
-                                <span class="ml-2 card-text">Seller 1</span>
+            <?php foreach ($post_list as $post) {
+                # code...
+            ?>
+            
+                <a href="productDetail.php?id=<?php echo $post['id'] ?>" class="col-md-4 col-sm-6  col-lg-3 mb-4 ">
+                    <div class="card product-card-by-nay">
+                    <?php
+                            $images = glob('image/post_img/'.$post['photo_folder'].'/*.{jpg,png,gif}', GLOB_BRACE);
+                            ?>
+                        <img src="<?php echo $images[0] ?>" class="card-img-top product-image" alt="Product 1" />
+                        <div class="card-body">
+                            <h5 class="card-title"><?php echo $post['item'] ?></h5>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="d-flex align-items-center">
+                                    <img src="image/user-profile/<?php echo $post['user_img']  ?>" class="rounded-circle profile-on-card" alt="Seller 1" />
+                                    <span class="ml-2 card-text"><?php echo $post['fname']." ".$post['lname'] ?></span>
+                                </div>
+                            </div>
+                            <div class="mt-3">
+                                <i class="far fa-heart mr-2"></i>
+                                <span class="reaction-count">5</span>
+                                <i class="far fa-plus-square ml-3"></i>
+                                <span class="save-count">18</span>
+                                <i class="far fa-eye ml-3"></i>
+                                <span class="view-count">50</span>
                             </div>
                         </div>
-                        <div class="mt-3">
-                            <i class="far fa-heart mr-2"></i>
-                            <span class="reaction-count">5</span>
-                            <i class="far fa-plus-square ml-3"></i>
-                            <span class="save-count">18</span>
-                            <i class="far fa-eye ml-3"></i>
-                            <span class="view-count">50</span>
-                        </div>
                     </div>
-                </div>
-            </div>
+            </a>
+            
+            <?php } ?>
         </div>
     </section>
     <!-- Post -->
@@ -299,9 +313,9 @@ $categorys = $category_model->getCategory();
                             <label class="form-label">Upload Images</label>
 
                             <div id="imagePreviews" class="image-previews">
-                                <div class="image-selector col-3">
+                                <div class="image-selector">
                                     <label for="imageUpload" class="plus-sign" id="imageLabel"></label>
-                                    <input type="file" id="imageUpload" name="post_img" class="form-control" accept="image/*" multiple />
+                                    <input type="file" id="imageUpload" name="post_img[]" class="form-control" accept="image/*" multiple />
                                 </div>
                             </div>
                             <span class="text-danger" id="imagePreviews_error" style="display:none;">Need to fill image!!!</span>

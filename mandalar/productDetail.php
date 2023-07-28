@@ -1,3 +1,12 @@
+<?php
+
+include_once "./controller/postController.php";
+$id=$_GET['id'];
+$post_controller=new PostController();
+$posts=$post_controller->getPost($id);
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -34,11 +43,11 @@
 		<script src="js/modernizr-2.6.2.min.js"></script>
 		<link rel="stylesheet" href="../mandalar/fontawesome-free-6.4.0-web/css/all.min.css" />
 		<link rel="stylesheet" href="/mdbbootstrap/css/mdb.min.css">
-		 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mdbootstrap/css/bootstrap.min.css" />
-		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mdbootstrap/css/mdb.min.css" />
-		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mdbootstrap/css/mdb.min.css" /> 
-		 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css" />
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/css/mdb.min.css" /> 
+		 <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mdbootstrap/css/bootstrap.min.css" /> -->
+		<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mdbootstrap/css/mdb.min.css" /> -->
+		<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mdbootstrap/css/mdb.min.css" />  -->
+		 <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css" /> -->
+		<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/css/mdb.min.css" />  -->
 		<link rel="stylesheet" href="css/nav.css">
 		<link rel="stylesheet" href="css/style2.css">
 		<title>Product Detail Page</title>
@@ -139,27 +148,23 @@
 		<main>
 			<div class="container my-5">
 				<div class="row">
+					<?php foreach ($posts as $post) {
+						$images = glob('image/post_img/'.$post['photo_folder'].'/*.{jpg,png,gif}', GLOB_BRACE);
+					?>
 					<div class="col-md-6">
 						<div class="swiper-container">
 							<div class="swiper-wrapper">
+								<?php 
+									foreach ($images as $image) {
+								?>
 								<div class="swiper-slide card shadow">
 									<img
-										src="image/products/product-image.jfif"
+										src="<?php echo $image;?>"
 										alt="Product Image 1"
 									/>
 								</div>
-								<div class="swiper-slide card shadow">
-									<img
-										src="image/products/product-image2.jfif"
-										alt="Product Image 2"
-									/>
-								</div>
-								<div class="swiper-slide card shadow">
-									<img
-										src="image/products/product-image3.jfif"
-										alt="Product Image 3"
-									/>
-								</div>
+								<?php } ?>
+								
 							</div>
 							<div class="swiper-pagination"></div>
 							<div class="swiper-button-next text-black"></div>
@@ -168,17 +173,14 @@
 					</div>
 					<div class="col-md-6 ps-5">
 						<div class="product-info">
-							<h1>Product Title</h1>
-							<p class="text-muted">Product Category</p>
-							<p class="brand">Brand: Your Brand</p>
-							<p class="product-status">Status: New</p>
-							<h2>$99.99</h2>
+							<h1><?php echo $post['item'];  ?></h1>
+							<p class="text-muted">Category: <?php echo $post['cate_name'];  ?></p>
+							<p class="text-muted">Sub Category: <?php echo $post['sub_name'];  ?></p>
+							<p class="brand">Brand: <?php echo $post['brand'];  ?></p>
+							<p class="product-status">Status: <?php echo $post['new_used'];  ?></p>
+							<h2>mmk <?php echo $post['price'];  ?></h2>
 							<p>
-								Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc
-								dictum semper mi, id tristique mi elementum at. Integer commodo
-								velit at lectus commodo, eget fermentum nisi rhoncus. Duis
-								suscipit mauris lacus, eu cursus risus commodo at. Vivamus nec
-								scelerisque est, sit amet egestas arcu.
+							<?php echo $post['description'];  ?>
 							</p>
 							<div class="product-buttons">
 								<button class="btn btn-secondary">
@@ -194,8 +196,9 @@
 							</div>
 						</div>
 					</div>
+					<?php }?>
 				</div>
-				<div class="comment-section">
+				<div class="comment-section d-none">
 					<h3>Comments</h3>
 					<div class="comments">
 						<div class="comment">
