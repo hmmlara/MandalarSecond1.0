@@ -66,5 +66,37 @@ class Post{
         $result=$statement->fetchAll(PDO::FETCH_ASSOC);
         return $result;
     }
+    public function getAllPost()
+    {
+         //1.DataBase Connect
+         $this->connection=Database::connect();
+         $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+ 
+         //2.sql Statement
+         $sql="SELECT post.*,users.fname,users.lname,users.img as user_img FROM `post` join users on post.seller_id=users.user_id ORDER BY post.post_date DESC";
+         $statement=$this->connection->prepare($sql);
+ 
+         //3.execute
+         $statement->execute();
+         $result=$statement->fetchAll(PDO::FETCH_ASSOC);
+         return $result;
+    }
+    public function getPostById($id)
+    {
+        //1.DataBase Connect
+        $this->connection=Database::connect();
+        $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+        //2.sql Statement
+        $sql="SELECT post.*,users.fname,users.lname,users.img as user_img,category.name as cate_name,sub_category.name as sub_name FROM `post` join users on post.seller_id=users.user_id join sub_category on sub_category.id=post.sub_category_id join category on sub_category.category_id=category.id where post.id=:id";
+        $statement=$this->connection->prepare($sql);
+
+        $statement->bindParam(":id",$id);
+
+        //3.execute
+        $statement->execute();
+        $result=$statement->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
+    }
 }
 ?>
