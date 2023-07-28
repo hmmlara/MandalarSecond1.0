@@ -98,7 +98,7 @@ radioButtons.forEach(function(radio) {
                     subCategoryOption.innerHTML = "";
                     fliteringData.subCategory = data1[0]["id"];
                     console.log(data1[0]['id']);
-                    loadCount += 10
+                    loadCount = 10
                     PostFliteringData(fliteringData);
 
                     data1.forEach((cate) => {
@@ -157,7 +157,7 @@ document.addEventListener("DOMContentLoaded", function() {
         priceValue.innerHTML = min + " - " + max;
         fliteringData["min-price"] = min;
         fliteringData["max-price"] = max;
-        loadCount++;
+        loadCount+=2;
         if (loadCount > 5) {
             PostFliteringData(fliteringData);
 
@@ -181,8 +181,10 @@ document.addEventListener("DOMContentLoaded", function() {
         priceValue2.innerHTML = min + " - " + max;
         fliteringData["min-price"] = min;
         fliteringData["max-price"] = max;
-        loadCount++;
-        if (loadCount > 5) {
+        loadCount+=1;
+        console.clear()
+        console.log(loadCount)
+        if (loadCount > 6) {
             PostFliteringData(fliteringData);
 
         }

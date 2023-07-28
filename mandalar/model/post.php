@@ -66,6 +66,7 @@ class Post
         return $result;
     }
     public function getAllSubCategory($id)
+
     {
         //1.DataBase Connect
         $this->connection = Database::connect();

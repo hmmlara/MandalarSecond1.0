@@ -115,6 +115,14 @@ $categorys = $category_model->getCategory();
     .image-previews {
         display: flex;
     }
+    #PostBtn{
+        position: fixed;
+        right: 40px;
+        bottom: 40px;
+        padding: 30px;
+        font-size: 20px;
+        border-radius: 20px;
+    }
 </style>
 
 <div class="container-xl">
@@ -237,8 +245,8 @@ $categorys = $category_model->getCategory();
         </div>
     </section>
     <!-- Post -->
-    <button type="button" class="btn btn-primary" data-mdb-toggle="modal" data-mdb-target="#exampleModal">
-        Launch demo modal
+    <button type="button" class="btn btn-primary "  id="PostBtn" data-mdb-toggle="modal" data-mdb-target="#exampleModal">
++
     </button>
 
     <!-- Modal -->
