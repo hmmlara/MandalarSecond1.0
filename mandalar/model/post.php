@@ -96,7 +96,7 @@ class Post
         $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
         //2.sql Statement
-        $sql = 'SELECT * FROM `post` WHERE sub_category_id ' . $subCategory . ' and price BETWEEN ' . $minPrice . ' AND ' . $maxPrice . 'And' . $newUsed;
+        $sql = 'SELECT post.*,users.* FROM `post` join users on post.seller_id = users.user_id WHERE sub_category_id ' . $subCategory . ' and price BETWEEN ' . $minPrice . ' AND ' . $maxPrice . 'And' . $newUsed;
         $statement = $this->connection->prepare($sql);
 
         // $statement->bindParam(":id",$flitteringData);

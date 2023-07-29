@@ -4,7 +4,7 @@ include_once "./model/category.php";
 include_once "./controller/postController.php";
 $post_controller = new PostController();
 $post_list = $post_controller->getPostList();
-var_dump($post_list);
+// var_dump($post_list);
 
 
 $categorys = $category_model->getCategory();
