@@ -1,9 +1,9 @@
-<?php 
+<?php
 include_once "./nav.php";
 include_once "./model/category.php";
 include_once "./controller/postController.php";
-$post_controller=new PostController();
-$post_list=$post_controller->getPostList();
+$post_controller = new PostController();
+$post_list = $post_controller->getPostList();
 var_dump($post_list);
 
 
@@ -59,7 +59,7 @@ $categorys = $category_model->getCategory();
     /* Custom style for image selector */
 
     .image-selector {
-        position: relative;
+        display: inline-block;
     }
 
     .image-selector .form-control {
@@ -87,6 +87,7 @@ $categorys = $category_model->getCategory();
         max-height: 100%;
         border-radius: 8px;
         margin-top: 10px;
+
     }
 
     .image-selector label:hover {
@@ -112,10 +113,12 @@ $categorys = $category_model->getCategory();
         border-radius: 8px;
     }
 
-    .image-previews {
-        display: flex;
+    .image-previews img {
+        /* display: flex; */
+        vertical-align: top;
     }
-    #PostBtn{
+
+    #PostBtn {
         position: fixed;
         right: 40px;
         bottom: 40px;
@@ -181,13 +184,13 @@ $categorys = $category_model->getCategory();
                     <div class="card custom-card">
                         <div class="card-body">
                             <div class="custom-control custom-radio">
-                                <input type="radio" class="custom-control-input status-radio" value="new" id="newCondition"
-                                    name="condition" />
+                                <input type="radio" class="custom-control-input status-radio" value="new"
+                                    id="newCondition" name="condition" />
                                 <label class="custom-control-label" for="newCondition">New</label>
                             </div>
                             <div class="custom-control custom-radio">
-                                <input type="radio" class="custom-control-input status-radio" value="used" id="usedCondition"
-                                    name="condition" />
+                                <input type="radio" class="custom-control-input status-radio" value="used"
+                                    id="usedCondition" name="condition" />
                                 <label class="custom-control-label" for="usedCondition">Used</label>
                             </div>
                         </div>
@@ -213,20 +216,25 @@ $categorys = $category_model->getCategory();
         <div class="row ">
             <?php foreach ($post_list as $post) {
                 # code...
-            ?>
-            
+                ?>
+
                 <a href="productDetail.php?id=<?php echo $post['id'] ?>" class="col-md-4 col-sm-6  col-lg-3 mb-4 ">
                     <div class="card product-card-by-nay">
-                    <?php
-                            $images = glob('image/post_img/'.$post['photo_folder'].'/*.{jpg,png,gif}', GLOB_BRACE);
-                            ?>
+                        <?php
+                        $images = glob('image/post_img/' . $post['photo_folder'] . '/*.{jpg,png,gif}', GLOB_BRACE);
+                        ?>
                         <img src="<?php echo $images[0] ?>" class="card-img-top product-image" alt="Product 1" />
                         <div class="card-body">
-                            <h5 class="card-title"><?php echo $post['item'] ?></h5>
+                            <h5 class="card-title">
+                                <?php echo $post['item'] ?>
+                            </h5>
                             <div class="d-flex justify-content-between align-items-center">
                                 <div class="d-flex align-items-center">
-                                    <img src="image/user-profile/<?php echo $post['user_img']  ?>" class="rounded-circle profile-on-card" alt="Seller 1" />
-                                    <span class="ml-2 card-text"><?php echo $post['fname']." ".$post['lname'] ?></span>
+                                    <img src="image/user-profile/<?php echo $post['user_img'] ?>"
+                                        class="rounded-circle profile-on-card" alt="Seller 1" />
+                                    <span class="ml-2 card-text">
+                                        <?php echo $post['fname'] . " " . $post['lname'] ?>
+                                    </span>
                                 </div>
                             </div>
                             <div class="mt-3">
@@ -239,14 +247,14 @@ $categorys = $category_model->getCategory();
                             </div>
                         </div>
                     </div>
-            </a>
-            
+                </a>
+
             <?php } ?>
         </div>
     </section>
     <!-- Post -->
-    <button type="button" class="btn btn-primary "  id="PostBtn" data-mdb-toggle="modal" data-mdb-target="#exampleModal">
-+
+    <button type="button" class="btn btn-primary " id="PostBtn" data-mdb-toggle="modal" data-mdb-target="#exampleModal">
+        +
     </button>
 
     <!-- Modal -->
@@ -327,9 +335,9 @@ $categorys = $category_model->getCategory();
                         <div class="col-md-12">
                             <label class="form-label">Upload Images</label>
 
-                            <div id="imagePreviews" class="image-previews">
+                            <div id="imagePreviews" class=" image-previews">
                                 <div class="image-selector">
-                                    <label for="imageUpload" class="plus-sign" id="imageLabel"></label>
+                                    <label for="imageUpload" cl0ass="plus-sign" id="imageLabel">+</label>
                                     <input type="file" id="imageUpload" name="post_img[]" class="form-control"
                                         accept="image/*" multiple />
                                 </div>
