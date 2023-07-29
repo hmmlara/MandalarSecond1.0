@@ -141,8 +141,8 @@ $categorys = $category_model->getCategory();
                         <div class="col-2 mb-1">
                             <label class="card radio-image">
                         <input type="radio" class="custom-control-input category" name="category"
-                            value="<?php echo $category[" id"] ?>" />
-                        <img src="<?php echo $category[" img"] ?>" class="p-2 category-image" alt="
+                            value="<?php echo $category["id"] ?>" />
+                        <img src="<?php echo $category["img"] ?>" class="p-2 category-image" alt="
                         <?php echo $category["img"] ?>" />
                     </label>
                         </div>
