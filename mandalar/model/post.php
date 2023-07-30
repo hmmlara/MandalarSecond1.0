@@ -98,5 +98,41 @@ class Post{
         $result=$statement->fetchAll(PDO::FETCH_ASSOC);
         return $result;
     }
+    public function takeFreezeMoney($id)
+    {
+        //1.DataBase Connect
+        $this->connection=Database::connect();
+        $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+        //2.sql Statement
+        $sql="SELECT * FROM `post` WHERE buyer_id=:id AND status != 'sold_out'";
+        $statement=$this->connection->prepare($sql);
+
+        $statement->bindParam(":id",$id);
+
+        //3.execute
+        $statement->execute();
+        $result=$statement->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
+    }
+// buyer update post
+    public function newBuyer($user_id,$buyer_info_id,$status,$post_id){
+        $this->connection=Database::connect();
+        $this->connection->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
+
+        $sql="UPDATE post SET  buyer_id = :buyer_id, buyer_info_id = :buyer_info_id, status=:status WHERE id=:id
+        ";
+        $statement=$this->connection->prepare($sql);
+        $statement->bindParam(":buyer_id",$user_id);
+        $statement->bindParam(":buyer_info_id",$buyer_info_id);
+        $statement->bindParam(":status",$status);
+        $statement->bindParam(":id",$post_id);
+        if($statement->execute()){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
 }
 ?>
