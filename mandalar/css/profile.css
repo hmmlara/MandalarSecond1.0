@@ -79,3 +79,43 @@
     width: 250px;
     
   }   */
+  .frontimg {
+    position: relative;
+}
+
+/* .image-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 200px;
+    border: 1px solid #000;
+} */
+
+.plus-signfront {
+    position: absolute;
+    top: 35%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 32px;
+    font-weight: bold;
+    /* color: #000; */
+}
+
+.plus-signback {
+    position: absolute;
+    top: 78%;
+    right: 45%;
+    transform: translate(-50%, -50%);
+    font-size: 32px;
+    /* font-weight: bold;
+    color: #000; */
+}
+
+.fimage-container img{
+    object-fit:fill;
+}
+
+.bimage-container img{
+    object-fit: fill;
+}

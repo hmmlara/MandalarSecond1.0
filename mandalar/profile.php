@@ -1,12 +1,14 @@
 <?php
 session_start();
+
 include_once "controller/profileController.php";
 include_once "controller/userController.php";
+include_once "controller/nrcController.php";
 
 $getalluserlist = new ProfileController();
 $getAllUser = $getalluserlist->getUserList();
 
-
+$enterNrcimg=new NrcController();
 
 $updateUserDetails = new UserController();
 if (isset($_SESSION['user_id'])) {
@@ -28,6 +30,15 @@ foreach ($getAllUser as $key => $user) {
     }
     # code...
 }
+$getNrcUser=$enterNrcimg->getAll();
+//var_dump($getNrcUser);
+
+foreach ($getNrcUser as $key => $wait) {
+    # code...
+    $wait=$wait["to_id"];
+   
+}
+
 
 $getPersonalInfo = $updateUserDetails->UserInfo($_SESSION['user_id']);
 // var_dump($getPersonalInfo);
@@ -84,8 +95,7 @@ if (isset($_POST["save"])) {
     if ($error_status == false) {
         $updateUser = $updateUserDetails->UpdateUser($userid, $update_fname, $update_lname, $update_bio, $filename);
         header("Location: " . $_SERVER['PHP_SELF']);
-        //     echo '<script>window.location.reload();
-        // </script>';
+      
 
     }
 }
@@ -93,8 +103,74 @@ if (isset($_POST["save"])) {
 //update NRCNumber
 if(isset($_POST['enterNRC']))
 {
+    $error=false;
+    if(isset($_POST['nrcNumber']))
+    {
+        $nrcNumber=$_POST['nrcNumber'];
+        //echo $nrcNumber;
+    }else{
+        $error=true;
+    }
 
+    if(isset($_FILES['fimg']))
+    {
+        $frontfilename = $_FILES['fimg']['name'];
+        $filesize = $_FILES['fimg']['size'];
+        $allowed_files = ['jpg', 'png', 'jpeg', 'svg'];
+        $temp_path = $_FILES['fimg']['tmp_name'];
+    
+        $fileinfo = explode('.', $frontfilename);
+        $filetype = end($fileinfo);
+        $maxsize = 2000000000;
+        if (in_array($filetype, $allowed_files)) {
+            if ($filesize < $maxsize) {
+                move_uploaded_file($temp_path, 'image/user_nrc/front_nrc/' . $frontfilename);
+            } else {
+                echo "file size exceeds maximum allowed";
+            }
+        }
+    }else{
+        $error=true;
+    }
+    
+
+    if(isset($_FILES['bimg']))
+    {
+        $backfilename = $_FILES['bimg']['name'];
+        // echo $filename;
+        $filesize = $_FILES['bimg']['size'];
+        $allowed_files = ['jpg', 'png', 'jpeg', 'svg'];
+        $temp_path = $_FILES['bimg']['tmp_name'];
+        $fileinfo = explode('.', $backfilename);
+        $filetype = end($fileinfo);
+        $maxsize = 2000000000;
+        if (in_array($filetype, $allowed_files)) {
+            if ($filesize < $maxsize) {
+                move_uploaded_file($temp_path, 'image/user_nrc/back_nrc/' . $backfilename);
+            } else {
+                echo "file size exceeds maximum allowed";
+            }
+        }
+    }else{
+        $error=true;
+    }
+
+    if($error==false)
+    {
+         $Nrc=$enterNrcimg->enterNrc($userid,$nrcNumber,$frontfilename,$backfilename);
+         echo $nrcNumber;
+         header("Location: " . $_SERVER['PHP_SELF']);
+
+    }
 }
+
+// if(isset($_POST["cancelmodel"]))
+// {
+//     echo "LLEEE";
+//     header("Location: " . $_SERVER['PHP_SELF']);
+// }
+
+
 include_once "nav.php";
 
 ?>
@@ -153,11 +229,13 @@ include_once "nav.php";
                         data-mdb-target="#exampleModal">
                         Launch demo modal
                     </button> -->
+                    <?php if(!isset($wait)){?>
                     <button type="button" class="btn btn-danger" id="verify" data-mdb-toggle="modal" data-mdb-target="#vmodal">Verify Your Account</button>
+                    <?php  }?>
 
                     <!-- Modal -->
                     <form action="" method="post" enctype="multipart/form-data">
-                    <div class="modal fade" id="vmodal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                    <div class="modal fade" id="vmodal" tabindex="-1" data-mdb-backdrop="static" aria-labelledby="exampleModalLabel"
                         aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">
@@ -167,29 +245,51 @@ include_once "nav.php";
                                         aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-                                    <div class="form-outline">
-                                        <input type="text" id="form12" class="form-control" />
-                                        <label class="form-label" for="form12">Enter Your NRC Number</label>
+                                    <div class="form-outline red mb-4 px-4">
+                                        <input type="text" id="form12" name="nrcNumber" class="form-control" value="" />
+                                        <label class="form-label "  for="form12">Enter Your NRC Number</label>
                                     </div>
-                                    <div class="frontimg ">
-                                        <img src="" alt="" class="">
-                                        <input type="file" name="" id="selfrontimg">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                        <label for="" class="mb-2 px-5">Enter Your</label>
+                                            <div class="fimage-container  px-4">
+                                                
+                                                <img src=""  class="border border-1 rounded-3" width="100%" height="200px" >
+                                            </div>
+                                            <input type="file" name="fimg" class="d-none" id="selfrontimg" required>
+                                            <i class="fa-solid fa-plus plus-signfront" id="fplus"></i>
+                                            
+                                        </div>
+                                        <div class="col-md-12 mt-3">
+                                        <label for="" class="mb-2 px-5">Enter Your</label>
+                                            <div class="bimage-container px-4">
+                                                <img src=""  class="border border-1 rounded-3"  width="100%" height="200px">
+                                            </div>
+                                            <input type="file" class="d-none" name="bimg" id="selbackimg" required>
+                                            <i class="fa-solid fa-plus plus-signback" id="bplus"></i>
+                                        </div>
+                                        <p class="text-danger"><?php if(!empty($error)){echo "Plz Fill Correctly";} ?></p>
                                     </div>
-                                    <div class="backimg">
-                                        <img src="" alt="">
-                                        <input type="file" name="" id="selbackimg">
-                                    </div>
+                                    
+                                   
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary"
-                                        data-mdb-dismiss="modal">Close</button>
-                                    <button type="button" class="btn btn-primary" name="enterNRC">Save changes</button>
+                                    <button type="submit" class="btn btn-secondary" name="cancelmodel"
+                                        data-mdb-dismiss="modal" id="canceljs">Cancle</button>
+                                    <button type="submit" class="btn btn-primary" name="enterNRC" id="NRCbtn">Save changes</button>
                                 </div>
                             </div>
                         </div>
                     </div>
                     </form>
-                    
+                    <?php
+                    if(isset($wait))
+                        {
+                    ?>
+                    <button class="btn btn-success" disabled id="wait">Waiting</button>
+                    <?php
+                      }
+                    ?>
                     <button class="logout btn btn-danger ms-3">Log Out</button>
                 </div>
             </div>
