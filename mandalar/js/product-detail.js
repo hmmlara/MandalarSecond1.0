@@ -148,7 +148,73 @@ $(document).ready(function() {
             xhr.send(formData);
         }
     });
+    var swiper = new Swiper(".swiper-container", {
+        pagination: {
+            el: ".swiper-pagination",
+        },
+        effect: "cards",
+        cardsEffect: {
+            // ...
+        },
+        loop: true,
+        navigation: {
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev",
+        },
+    });
+
+    var relatedProductsSwiper = new Swiper(".related-products-slider", {
+        slidesPerView: 3,
+        spaceBetween: 20,
+        navigation: {
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev",
+        },
+        breakpoints: {
+            375: {
+                slidesPerView: 1,
+            },
+            768: {
+                slidesPerView: 2,
+            },
+            992: {
+                slidesPerView: 3,
+            },
+        },
+        effect: "coverflow",
+        coverflowEffect: {
+            rotate: 10,
+            slideShadows: false,
+        },
+    });
+
+    const commentBtn = document.querySelector(".comment-btn");
+    const commentSection = document.querySelector(".comment-section");
+
+    commentBtn.addEventListener("click", function() {
+        commentSection.classList.toggle("d-none");
+    });
+
+    const comments = document.querySelectorAll(".comment");
+    comments.forEach(function(comment) {
+        const likeBtn = comment.querySelector(".comment-like");
+        const replyBtn = comment.querySelector(".comment-reply");
+
+        // likeBtn.addEventListener("click", function () {
+        // 	// Perform like action
+        // });
+
+        // replyBtn.addEventListener("click", function () {
+        // 	// Perform reply action
+        // });
+    });
 
     // buy condition end
 
 });
+
+//see Replys
+function seeReplies(e) {
+    console.log()
+    e.target.parentElement.parentElement.parentElement.nextElementSibling.classList.toggle('d-none')
+}
