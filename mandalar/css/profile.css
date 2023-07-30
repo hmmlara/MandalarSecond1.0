@@ -16,17 +16,66 @@
     bottom:-100px;
     border: 10px solid rgb(255, 255, 255);
 }
+
+.cancel-icon
+{
+    z-index: 9999;
+    position: absolute;
+    /* bottom: 140px; */
+    right: 200px;
+    cursor: pointer;
+}
+
+.edituserimg
+{
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 5px solid #627E8B;
+    cursor: pointer;
+}
 .username,.address,.icon
 {
     position: relative;
     bottom: -100px;
+    
 }
-.messageuser{
+.allbtn{
     position: relative;
-    bottom: -150px;
-    left: -83px;
+    bottom: -110px;
+    left: -5px;
 }
-.address
-{
-    opacity: 0.5;
+
+.icon{
+    cursor: pointer;
 }
+
+.hideborder{
+  
+    /* background: transparent; */
+    border-width: 2px;
+    border-top: 0;
+    border-left: 0;
+    border-right: 0;
+    outline: 0;
+    height: 23px;
+    /* border-color: rgb(16, 10, 10); */
+    width: 200px;
+  }  
+
+
+  .error-border {
+    border-color: red; /* Red border for inputs with no value */
+}
+  /* .hideborder:focus{
+  
+    border-width: 20px;
+    border-bottom: 1px solid black;
+    border-top: 0;
+    border-left: 0;
+    border-right: 0;
+    outline-color: white;
+    width: 250px;
+    
+  }   */

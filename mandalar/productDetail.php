@@ -1,9 +1,17 @@
 <?php
 
 include_once "./controller/postController.php";
+include_once "./controller/userController.php";
+include_once "./controller/cityController.php";
+include_once "php/available_money.php";
+$user_id=7;
 $id=$_GET['id'];
 $post_controller=new PostController();
+$user_controller=new UserController();
+$city_controller=new CityController();
 $posts=$post_controller->getPost($id);
+$user_list=$user_controller->UserInfo($user_id);
+$city_list=$city_controller->getCityList();
 ?>
 
 
@@ -183,16 +191,30 @@ $posts=$post_controller->getPost($id);
 							<?php echo $post['description'];  ?>
 							</p>
 							<div class="product-buttons">
-								<button class="btn btn-secondary" id="product-like">
-									<i class="fas fa-thumbs-up"></i> 20
+								<button class="btn " id="product-like" data-post-id="<?php echo $id; ?>" data-user-id="<?php echo $user_id; ?>">
+									<i class="fas fa-thumbs-up"></i> <span id="post-like-count"></span>
 								</button>
 								<button class="btn btn-secondary comment-btn">
 									<i class="fas fa-comment"></i> Comment
 								</button>
-								<button class="btn btn-secondary">
-									<i class="fas fa-heart"></i> 10
+								<button class="btn btn-secondary" id="product-favorite"  data-post-id="<?php echo $id; ?>" data-user-id="<?php echo $user_id; ?>">
+									<i class="fas fa-heart"></i> <span id="post-favorite-count"></span>
 								</button>
-								<button class="btn btn-primary">Add to Cart</button>
+								<?php if($post['status']=="none"){
+								?>
+								<button type="button" style="display:<?php 
+								if($user_id==$post['seller_id'])
+								echo 'none';
+								else{
+									echo 'block';
+								}
+								 ?>" class="btn btn-primary" data-mdb-toggle="modal" data-mdb-target="#exampleModal"> Buy</button>
+								 <?php } else if($post['status']!='none' && $post['status'] !='sold_out'){?>
+									<span>Waiting.........</span>
+									<?php } else if($post['status'] =='sold_out'){ ?>
+										<span>Sold Out</span>
+										<?php } ?>
+								
 							</div>
 						</div>
 					</div>
@@ -527,12 +549,77 @@ $posts=$post_controller->getPost($id);
 					</div>
 				</div>
 			</div>
+			<!-- model start -->
+			<!-- Button trigger modal -->
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+		<?php if($available_money >= $posts[0]['price']){ ?>
+		<form id="buy-form" action="#" method="POST">
+			
+			<div class="row">
+				<div class="col-1"></div>
+				<div class="col-10">
+					<label for="" class="form-label">Phone No</label>
+					<input id="buyer-phone" name="buyer_phone" type="number" class="form-control">
+					<span class="text-danger" id="phone-error" style="display:none;">Need to fill your phone no.!!!</span>
+				</div>
+				<div class="col-1"></div>
+			</div>
+			<div class="row">
+				<div class="col-1"></div>
+				<div class="col-10">
+					<label for="" class="form-label">City</label>
+					<select name="city" id="" class="form-select">
+						<?php foreach ($city_list as $city) { ?>
+						<option value="<?php echo $city['id'] ?>"><?php echo $city['name'] ?></option>
+						<?php } ?>
+					</select>
+				</div>
+				<div class="col-1"></div>
+			</div>
+			<div class="row">
+				<div class="col-1"></div>
+				<div class="col-10">
+					<label for="" class="form-label">Address</label>
+					<textarea id="buyer-address" name="buyer_address" id="" cols="50" rows="5" class="form-control"></textarea>
+					<span class="text-danger" id="address-error" style="display:none;">Need to fill your adress!!!</span>
+				</div>
+				<div class="col-1"></div>
+			</div>
+		</form>
+		<?php }else { ?>
+			<p>not enough balance</p>
+			<?php } ?>
+	  </div>
+      <div class="modal-footer">
+	  <?php if($available_money >= $posts[0]['price']){ ?>
+        <button type="button" class="btn btn-secondary" id="buy-info-close" data-mdb-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" id="buy-btn">Save changes</button>
+		<?php }else { ?>
+			<button type="button" class="btn btn-secondary" id="buy-info-close" data-mdb-dismiss="modal">Close</button>
+		<?php } ?>
+      </div>
+    </div>
+  </div>
+</div>
+			<!-- model end -->
 		</main>
 
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 		<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+		<script src="js/product-detail.js"></script>
 		<!-- <script src="js/loader.js"></script> -->
+		
 		<script>
 			var swiper = new Swiper(".swiper-container", {
 				pagination: {
@@ -595,12 +682,5 @@ $posts=$post_controller->getPost($id);
 				// });
 			});
 
-			let product_like=document.getElementById("product-like");
-			product_like.addEventListener("click", function () {
-				console.log("clicked");
-				this.classList.toggle("btn-secondary");
-    			this.classList.toggle("btn-primary");
-			});
 		</script>
-	</body>
-</html>
+		<?php include_once "./footer.php"; ?>
