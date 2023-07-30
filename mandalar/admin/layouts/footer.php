@@ -29,6 +29,7 @@
 	</div>
 
 	<script src="js/app.js"></script>
+	<script src="/mandalar/mdbbootstrap/js/mdb.min.js"></script>
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script src="../js/deli_image.js"></script>
 	<script src="../js/deli_form.js"></script>

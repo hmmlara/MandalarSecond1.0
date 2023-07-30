@@ -49,12 +49,55 @@ $(document).ready(function(){
         }
     });
 
-    // if (!$('#updateuser_fname').hasClass('border-bottom border-danger') &&
-    //     !$('#updateuse_lrname').hasClass('border-bottom border-danger')) {
-    //     $('#editprofilemodel').modal('hide');
-    // }
-    //   if($(".edituserimg").attr()=="image/user-profile/mylove.jpg"){
-    //     $("#cross").addClass("d-none");
-    // }
+    $(".fimage-container").click(function() {
+      $("#selfrontimg").click();
+    });
+
+    $("#selfrontimg").on("change", function(event) {
+      $("#fplus").addClass("d-none");
+      const selectedFile = event.target.files[0];
+      if (selectedFile) {
+        const reader = new FileReader();
+        reader.onload = function() {
+          const imageUrl = reader.result;
+          $(".fimage-container img").attr("src", imageUrl);
+        };
+        reader.readAsDataURL(selectedFile);
+      }
+    });
+  
+    // Trigger the file input with id "selbackimg" when clicking on the "bimage-container" div
+    $(".bimage-container").click(function() {
+      $("#selbackimg").click();
+    });
+
+    $("#selbackimg").on("change", function(event) {
+      $("#bplus").addClass("d-none");
+      const selectedFile = event.target.files[0];
+      if (selectedFile) {
+        const reader = new FileReader();
+        reader.onload = function() {
+          const imageUrl = reader.result;
+          $(".bimage-container img").attr("src", imageUrl);
+        };
+        reader.readAsDataURL(selectedFile);
+      }
+    });
     
+
+    $("#NRCbtn").on("click",function(e){
+        if($("#form12").val()=="")
+        {
+          $(".red").addClass("border border-danger");
+          e.preventDefault();
+        }
+        $("#verify").addClass("d-none")
+        $("#wait").removeClass("d-none")
+       
+    })
+
+    $("#canceljs").on("click",function()
+    {
+      location.reload();
+    })
 })
