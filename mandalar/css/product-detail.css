@@ -58,4 +58,19 @@ main {
     display: flex;
     justify-content: center;
     align-items: center;
+    z-index: 99999999;
+    /* background-color: #111; */
+    opacity: 1;
+    display: none;
+    backdrop-filter: blur(10px);
+}
+
+.success-overlay span {
+    color: rgb(65, 190, 81);
+    background-color: aliceblue;
+    font-size: large;
+    opacity: 1;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 128px 0 rgba(0, 0, 0, 0.1), 0 32px 64px -48px rgba(0, 0, 0, 0.5);
 }
