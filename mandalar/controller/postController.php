@@ -23,5 +23,13 @@ class PostController extends Post{
     public function getPost($id){
         return $this->getPostById($id);
     }
+    public function getFreezeMoney($id){
+        return $this->takeFreezeMoney($id);
+    }
+    
+// buyer update post
+    public function updateBuyer($user_id,$buyer_info_id,$status,$post_id){
+        return $this->newBuyer($user_id,$buyer_info_id,$status,$post_id);
+    }
 }
 ?>
