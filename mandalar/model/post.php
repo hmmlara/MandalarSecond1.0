@@ -116,23 +116,43 @@ class Post{
         return $result;
     }
 // buyer update post
-    public function newBuyer($user_id,$buyer_info_id,$status,$post_id){
+    public function newBuyer($user_id,$buyer_info_id,$status,$post_id,$buy_date){
         $this->connection=Database::connect();
         $this->connection->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
 
-        $sql="UPDATE post SET  buyer_id = :buyer_id, buyer_info_id = :buyer_info_id, status=:status WHERE id=:id
+        $sql="UPDATE post SET  buyer_id = :buyer_id, buyer_info_id = :buyer_info_id, status=:status,buy_date=:buy_date WHERE id=:id
         ";
         $statement=$this->connection->prepare($sql);
         $statement->bindParam(":buyer_id",$user_id);
         $statement->bindParam(":buyer_info_id",$buyer_info_id);
         $statement->bindParam(":status",$status);
         $statement->bindParam(":id",$post_id);
+        $statement->bindParam(":buy_date",$buy_date);
         if($statement->execute()){
             return true;
         }
         else{
             return false;
         }
+    }
+
+    // favorite
+    public function favoritePostListById($user_id)
+    {
+        //1.DataBase Connect
+        $this->connection=Database::connect();
+        $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+        //2.sql Statement
+        $sql="SELECT favorite.*, post.*,users.fname,users.lname,users.img as user_img FROM `favorite` join post on post.id=favorite.post_id join users on users.user_id=post.seller_id WHERE favorite.user_id=:user_id ORDER BY post.post_date DESC";
+        $statement=$this->connection->prepare($sql);
+
+        $statement->bindParam(":user_id",$user_id);
+
+        //3.execute
+        $statement->execute();
+        $result=$statement->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
     }
 }
 ?>

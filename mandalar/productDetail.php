@@ -4,7 +4,7 @@ include_once "./controller/postController.php";
 include_once "./controller/userController.php";
 include_once "./controller/cityController.php";
 include_once "php/available_money.php";
-$user_id=7;
+$user_id=6;
 $id=$_GET['id'];
 $post_controller=new PostController();
 $user_controller=new UserController();
@@ -90,7 +90,7 @@ $city_list=$city_controller->getCityList();
 				   <!-- cart box -->
 				  <div class="aa-cartbox">
 					<div class=" d-flex justify-content-end" style="width: 230px;">
-						<a class="aa-cart-link heart" href="#">
+						<a class="aa-cart-link heart" href="favorite.php">
 							<i class="fa-solid fa-heart" ></i>
 						  </a>
 						  <a class="aa-cart-link bell" href="#">

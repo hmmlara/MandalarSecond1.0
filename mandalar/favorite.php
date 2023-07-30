@@ -84,8 +84,8 @@ if (isset($_SESSION['user_id'])) {
                                 <!-- cart box -->
                                 <div class="aa-cartbox">
                                     <div class=" d-flex justify-content-end" style="width: 230px;">
-                                        <a class="aa-cart-link heart" href="favorite.php" >
-                                            <i class="fa-solid fa-heart"></i>
+                                        <a class="aa-cart-link heart" href="home.php" >
+                                            <i class="fa-solid fa-house"></i>
                                         </a>
                                         
                                         <div class="dropdown" >
@@ -142,4 +142,63 @@ if (isset($_SESSION['user_id'])) {
 <script src="js/jquery-3.7.0.min.js"></script>
 <!-- <script src="bootstrap/js/bootstrap.bundle.min.js"></script> -->
 <script src="js/searchbox.js"></script>
+</html>
+
+
+<?php
+
+$user_id=6;
+include_once "controller/postController.php";
+$post_controller=new PostController();
+$post_list=$post_controller->favorite_post_list($user_id);
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+<div class="container">
+<section id="products" class="">
+
+<div class="row ">
+    <?php foreach ($post_list as $post) {
+        # code...
+    ?>
+    
+        <a href="productDetail.php?id=<?php echo $post['id'] ?>" class="col-md-4 col-sm-6  col-lg-3 mb-4 ">
+            <div class="card product-card-by-nay">
+            <?php
+                    $images = glob('image/post_img/'.$post['photo_folder'].'/*.{jpg,png,gif}', GLOB_BRACE);
+                    ?>
+                <img src="<?php echo $images[0] ?>" class="card-img-top product-image" alt="Product 1" />
+                <div class="card-body">
+                    <h5 class="card-title"><?php echo $post['item'] ?></h5>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="d-flex align-items-center">
+                            <img src="image/user-profile/<?php echo $post['user_img']  ?>" class="rounded-circle profile-on-card" alt="Seller 1" />
+                            <span class="ml-2 card-text"><?php echo $post['fname']." ".$post['lname'] ?></span>
+                        </div>
+                    </div>
+                    <div class="mt-3">
+                        <i class="far fa-heart mr-2"></i>
+                        <span class="reaction-count">5</span>
+                        <i class="far fa-plus-square ml-3"></i>
+                        <span class="save-count">18</span>
+                        <i class="far fa-eye ml-3"></i>
+                        <span class="view-count">50</span>
+                    </div>
+                </div>
+            </div>
+    </a>
+    
+    <?php } ?>
+</div>
+</section>
+</div>
+</body>
 </html>
