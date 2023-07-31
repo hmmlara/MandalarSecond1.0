@@ -10,6 +10,18 @@ class NrcController extends NRC{
     {
         return $this->getNrcUser();
     }
+
+    public function updateNrc($userid)
+    {
+        return $this->updateNrcStatus($userid);
+    }
+
+    public function deleteNrc($to_id)
+    {
+        return $this->deleteuserNRC($to_id);
+    }
+
+    
 }
 
 ?>

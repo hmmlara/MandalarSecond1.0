@@ -30,7 +30,6 @@ $getNRCusers=$getAllNRCusers->getAll();
                     <table class="table">
                         <thead>
                             <tr>
-                                
                                 <td>No</td>
                                 <td>Name</td>
                                 <td>NRC Number</td>
@@ -38,10 +37,8 @@ $getNRCusers=$getAllNRCusers->getAll();
                                 <td>Action</td>
                             </tr>
                         </thead>
-                        <tbody >
-                            <tr id="showNRCuser">
-                               
-                            </tr>
+                        <tbody class="showNRCuser" id="deletetd">
+                            
                         </tbody>
                     </table>
 				</div>

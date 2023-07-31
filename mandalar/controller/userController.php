@@ -12,6 +12,11 @@ class UserController extends User{
     {
         return $this->UserAllInfo($user_id);
     }
+
+    public function updateUserNRC($nrcNumber,$user_id)
+    {
+        return $this->updateNrc($nrcNumber,$user_id);
+    }
 }
 
 ?>

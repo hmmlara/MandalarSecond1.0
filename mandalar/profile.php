@@ -14,7 +14,6 @@ $updateUserDetails = new UserController();
 if (isset($_SESSION['user_id'])) {
     $user_id = $_SESSION['user_id'];
 }
-//echo $user_id;
 
 foreach ($getAllUser as $key => $user) {
     if ($user['user_id'] == $_SESSION["user_id"]) {
@@ -25,20 +24,27 @@ foreach ($getAllUser as $key => $user) {
         $useremail = $user['email'];
         $userimg = $user['img'];
         $userbio = $user['bio'];
-
-
+        echo $user_id;
     }
-    # code...
 }
 $getNrcUser=$enterNrcimg->getAll();
 //var_dump($getNrcUser);
 
 foreach ($getNrcUser as $key => $wait) {
+    // var_dump($wait);
     # code...
-    $wait=$wait["to_id"];
-   
+    if($wait['to_id']==$userid)
+    {
+       
+       $wait=$wait["status"];
+        echo $wait;
+    }
+    
 }
-
+// if(empty($wait))
+// {
+//     // echo "/////////////////";
+// }
 
 $getPersonalInfo = $updateUserDetails->UserInfo($_SESSION['user_id']);
 // var_dump($getPersonalInfo);
@@ -164,12 +170,6 @@ if(isset($_POST['enterNRC']))
     }
 }
 
-// if(isset($_POST["cancelmodel"]))
-// {
-//     echo "LLEEE";
-//     header("Location: " . $_SERVER['PHP_SELF']);
-// }
-
 
 include_once "nav.php";
 
@@ -198,6 +198,15 @@ include_once "nav.php";
                 <div class="userprofile">
                     <img src="image/user-profile/<?php echo $userimg; ?>" alt="" class="userimg ml-3">
                 </div>
+
+                <div id="" class="checkposition d-flex align-items-center justify-content-center">
+                   
+                    <i class="fa-solid fa-check  <?php if($wait ==0 && empty($wait)){echo "d-none";} ?>" style="color: #ffffff;"></i>
+
+                    <i class="fa-solid fa-exclamation <?php if($wait ==1){echo "d-none";} ?>" style="color: #FF0000;"></i> 
+                    
+                </div>
+                
                 <div class="dropdown float-end mt-4 mr-3">
 
                     <a href="" data-bs-toggle="dropdown" aria-expanded="false"><i
@@ -205,7 +214,7 @@ include_once "nav.php";
                     <ul class="dropdown-menu">
                         <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#editprofilemodel"
                                 href="#">Edit Profile</a></li>
-                        <li><a class="dropdown-item" href="#">Another action</a></li>
+                        <li><a class="dropdown-item text-danger" href="#">Log Out</a></li>
                         <li><a class="dropdown-item" href="#">Something else here</a></li>
                     </ul>
                 </div>
@@ -229,9 +238,9 @@ include_once "nav.php";
                         data-mdb-target="#exampleModal">
                         Launch demo modal
                     </button> -->
-                    <?php if(!isset($wait)){?>
-                    <button type="button" class="btn btn-danger" id="verify" data-mdb-toggle="modal" data-mdb-target="#vmodal">Verify Your Account</button>
-                    <?php  }?>
+                    
+                    <button type="button" class="btn btn-danger <?php if(!empty($wait) || $wait != 0 || $wait !=1 ){echo 'd-none';} ?>" id="verify" data-mdb-toggle="modal" data-mdb-target="#vmodal">Verify Your Account</button>
+                    
 
                     <!-- Modal -->
                     <form action="" method="post" enctype="multipart/form-data">
@@ -282,15 +291,10 @@ include_once "nav.php";
                         </div>
                     </div>
                     </form>
-                    <?php
-                    if(isset($wait))
-                        {
-                    ?>
-                    <button class="btn btn-success" disabled id="wait">Waiting</button>
-                    <?php
-                      }
-                    ?>
-                    <button class="logout btn btn-danger ms-3">Log Out</button>
+                    
+                    <button class="btn btn-success <?php if($wait==0  ){ echo  '';}else{ echo "d-none";}  ?>" disabled id="wait">Waiting</button>
+                   
+                    <!-- <button class="logout btn btn-danger ms-3">Log Out</button> -->
                 </div>
             </div>
 
