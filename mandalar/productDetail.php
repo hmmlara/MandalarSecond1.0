@@ -4,7 +4,7 @@ include_once "./controller/postController.php";
 include_once "./controller/userController.php";
 include_once "./controller/cityController.php";
 include_once "php/available_money.php";
-$user_id=6;
+$user_id=7;
 $id=$_GET['id'];
 $post_controller=new PostController();
 $user_controller=new UserController();
@@ -615,9 +615,9 @@ $city_list=$city_controller->getCityList();
 </div>
 			<!-- model end -->
 		</main>
-
-		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+		
 		<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 		<script src="js/product-detail.js"></script>
 		<!-- <script src="js/loader.js"></script> -->
