@@ -23,28 +23,44 @@ foreach ($getAllUser as $key => $user) {
         $userbio = $user['bio'];
         $useremail = $user['email'];
         $userimg = $user['img'];
-        $userbio = $user['bio'];
-        echo $user_id;
+        // $userbio = $user['bio'];
+        // echo $user_id;
     }
 }
 $getNrcUser=$enterNrcimg->getAll();
-//var_dump($getNrcUser);
+//  var_dump($getNrcUser);
 
 foreach ($getNrcUser as $key => $wait) {
     // var_dump($wait);
     # code...
     if($wait['to_id']==$userid)
     {
-       
        $wait=$wait["status"];
-        echo $wait;
+       
+    }else{
+        $wait=2;
+       
     }
     
 }
-// if(empty($wait))
-// {
-//     // echo "/////////////////";
+
+
+
+// if($wait==0){
+//     echo "it equal to 0";
 // }
+
+// if($wait==1){
+//     echo "it equal to 1";
+// }
+
+// if(!empty($wait))
+// {
+//     $KMKL=2;
+//     echo $KMKL;
+// }
+
+
 
 $getPersonalInfo = $updateUserDetails->UserInfo($_SESSION['user_id']);
 // var_dump($getPersonalInfo);
@@ -201,9 +217,9 @@ include_once "nav.php";
 
                 <div id="" class="checkposition d-flex align-items-center justify-content-center">
                    
-                    <i class="fa-solid fa-check  <?php if($wait ==0 && empty($wait)){echo "d-none";} ?>" style="color: #ffffff;"></i>
+                    <i class="fa-solid fa-check  <?php if($wait == 0 || $wait==2){echo "d-none";} ?>" style="color: #ffffff;"></i>
 
-                    <i class="fa-solid fa-exclamation <?php if($wait ==1){echo "d-none";} ?>" style="color: #FF0000;"></i> 
+                    <i class="fa-solid fa-exclamation <?php if($wait == 1 ){echo "d-none";} ?> " style="color: #FF0000;"></i> 
                     
                 </div>
                 
@@ -239,7 +255,7 @@ include_once "nav.php";
                         Launch demo modal
                     </button> -->
                     
-                    <button type="button" class="btn btn-danger <?php if(!empty($wait) || $wait != 0 || $wait !=1 ){echo 'd-none';} ?>" id="verify" data-mdb-toggle="modal" data-mdb-target="#vmodal">Verify Your Account</button>
+                    <button type="button" class="btn btn-danger <?php if($wait!==2 || $wait == 0 ){echo 'd-none';} ?>" id="verify" data-mdb-toggle="modal" data-mdb-target="#vmodal">Verify Your Account</button>
                     
 
                     <!-- Modal -->
@@ -292,7 +308,7 @@ include_once "nav.php";
                     </div>
                     </form>
                     
-                    <button class="btn btn-success <?php if($wait==0  ){ echo  '';}else{ echo "d-none";}  ?>" disabled id="wait">Waiting</button>
+                    <button class="btn btn-success <?php if($wait==0 ){ echo  '';}else{ echo "d-none";}  ?>" disabled id="wait">Waiting</button>
                    
                     <!-- <button class="logout btn btn-danger ms-3">Log Out</button> -->
                 </div>
