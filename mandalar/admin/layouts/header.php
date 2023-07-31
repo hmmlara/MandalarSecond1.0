@@ -13,6 +13,7 @@
 	<link rel="shortcut icon" href="img/icons/icon-48x48.png" />
 
 	<link rel="canonical" href="https://demo-basic.adminkit.io/pages-profile.html" />
+	<link rel="stylesheet" href="/mandalar/mdbbootstrap/css/mdb.min.css">
 
 	<title>Profile | AdminKit Demo</title>
 
@@ -42,8 +43,8 @@
 					</li>
 
 					<li class="sidebar-item active">
-						<a class="sidebar-link" href="pages-profile.html">
-              <i class="align-middle" data-feather="user"></i> <span class="align-middle">Profile</span>
+						<a class="sidebar-link" href="nrc_checking.php">
+              <i class="align-middle" data-feather="user"></i> <span class="align-middle">Nrc Checking</span>
             </a>
 					</li>
 
