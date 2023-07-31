@@ -1,4 +1,6 @@
 <?php
+include_once __DIR__."/../vendor/db.php";
+
 class Comment
 {
     private $connection = "";

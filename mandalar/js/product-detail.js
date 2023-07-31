@@ -65,7 +65,6 @@ $(document).ready(function() {
         type: 'GET',
         data: { postId: postId, userId: userId },
         success: function(data) {
-            console.log(data);
             if (data == "not have") {
                 $("#product-favorite").removeClass("btn-secondary");
                 $("#product-favorite").addClass("btn-primary");
