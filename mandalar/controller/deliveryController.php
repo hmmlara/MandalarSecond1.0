@@ -9,6 +9,10 @@ class DeliveryController extends Delivery{
     {
         return $this->getAllDelivery();
     }
+
+    public function getDeliveryListById($deli_city){
+        return $this->takeDeliveryListById($deli_city);
+    }
     // public function getUserInfo($email)
     // {
     //     return $this->getUserId($email);

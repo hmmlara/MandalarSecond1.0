@@ -1,12 +1,12 @@
 .comment-section {
     margin-top: 20px;
-    background-color: rgb(199, 197, 195);
+    background-color: #627e8b2e;
     padding:15px ;
     border-radius: 15px;
   }
   
   .comment {
-    margin-bottom: 20px;
+    /* margin-bottom: 20px; */
   }
   
   .comment-header {
@@ -37,8 +37,8 @@
   }
   
   .comment-content {
-    margin-bottom: 10px;
-    background-color: #999;
+    /* margin-bottom: 10px; */
+    background-color: #ffffff;
     padding: 15px;
     border-radius: 15px;
   }
@@ -46,6 +46,7 @@
   .comment-actions {
     display: flex;
     gap: 8px;
+    margin-top: 10px;
     margin-bottom: 10px;
     padding-left: 15px;
 
@@ -57,7 +58,7 @@
     cursor: pointer;
     background: none;
     border: none;
-    padding: 0;
+    padding: 10px;
   }
   
   .replies {

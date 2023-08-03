@@ -78,7 +78,7 @@ setInterval(() =>{
     }
     xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhr.send("incoming_id="+incoming_id);
-}, 5000);
+}, 50);
 
 function scrollToBottom(){
     chatBox.scrollTop = chatBox.scrollHeight;

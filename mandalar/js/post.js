@@ -22,7 +22,7 @@ document.getElementById("imageUpload").addEventListener("change", function(event
             imagePreview.src = reader.result;
             imagePreview.className = "preview-image";
             
-            imagePreviewsContainer.prepand(div);
+            imagePreviewsContainer.prepend(imagePreview);
             
             // Bind the deleteImagePreview function to the click event of the image
             imagePreview.addEventListener("click", function() {
