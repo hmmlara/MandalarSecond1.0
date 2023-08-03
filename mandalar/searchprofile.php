@@ -52,9 +52,16 @@ foreach ($getAllUser as $key => $user) {
         $userimg = $user['img'];
         $userbio = $user['bio'];
         $usernrc=$user["nrc"];
-
+        // echo $usernrc;
     }
 }
+
+// if(empty($user))
+// {
+//     echo "/////";
+// }else{
+//     echo $usernrc;
+// }
 
 
 
@@ -103,7 +110,7 @@ include_once "nav.php";
                 </div>
                 <div id="" class="checkposition d-flex align-items-center justify-content-center" style="border: 3px solid white;">
                    
-                   <i class="fa-solid fa-check  <?php if(empty($usernrc)){echo "d-none";} ?>" style="color: #ffffff;"></i>
+                   <i class="fa-solid fa-check <?php if(empty($usernrc)){echo "d-none";} ?>" style="color: #ffffff;"></i>
 
                    <i class="fa-solid fa-exclamation <?php if(!empty($usernrc)){echo "d-none";} ?>" style="color: #FF0000;"></i> 
                    
