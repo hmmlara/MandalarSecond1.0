@@ -42,5 +42,8 @@ class PostController extends Post{
     public function getSellerPost($user_id){
         return $this->getSellerPostById($user_id);
     }
+    public function getPostByCity($seller_city_id,$buyer_city_id,$selectedStatus){
+        return $this->getPostByCityId($seller_city_id,$buyer_city_id,$selectedStatus);
+    }
 }
 ?>

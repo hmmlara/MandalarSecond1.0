@@ -49,22 +49,22 @@ class Delivery{
          $result=$statement->fetchAll(PDO::FETCH_ASSOC);
          return $result;
     }
-    // public function getUserId($email)
-    // {
-    //     //1.DataBase Connect
-    //     $this->connection=Database::connect();
-    //     $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    public function takeDeliveryListById($deli_city)
+    {
+        //1.DataBase Connect
+        $this->connection=Database::connect();
+        $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    //     //2.sql Statement
-    //     $sql="select user_id from users where email=:email";
-    //     $statement=$this->connection->prepare($sql);
+        //2.sql Statement
+        $sql="SELECT * FROM `delivery` WHERE city_id=:deli_city";
+        $statement=$this->connection->prepare($sql);
 
-    //     $statement->bindParam(":email",$email);
+        $statement->bindParam(":deli_city",$deli_city);
 
-    //     //3.execute
-    //     $statement->execute();
-    //     $result=$statement->fetchAll(PDO::FETCH_ASSOC);
-    //     return $result;
-    // }
+        //3.execute
+        $statement->execute();
+        $result=$statement->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
+    }
 }
 ?>
