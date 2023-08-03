@@ -161,6 +161,24 @@ class Post
         }
     }
 
+    // seller update post
+    public function newSeller($seller_info_id,$status,$post_id,){
+        $this->connection=Database::connect();
+        $this->connection->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
+
+        $sql="UPDATE post SET   seller_info_id = :seller_info_id, status=:status WHERE id=:id";
+        $statement=$this->connection->prepare($sql);
+        $statement->bindParam(":seller_info_id",$seller_info_id);
+        $statement->bindParam(":status",$status);
+        $statement->bindParam(":id",$post_id);
+        if($statement->execute()){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
     // favorite
     public function favoritePostListById($user_id)
     {
@@ -173,6 +191,48 @@ class Post
         $statement=$this->connection->prepare($sql);
 
         $statement->bindParam(":user_id",$user_id);
+
+        //3.execute
+        $statement->execute();
+        $result=$statement->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
+    }
+    public function getSellerPostById($user_id)
+    {
+        //1.DataBase Connect
+        $this->connection=Database::connect();
+        $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+        //2.sql Statement
+        $sql="SELECT * FROM `post` WHERE seller_id=:user_id and status='seller_waiting' limit 1";
+        $statement=$this->connection->prepare($sql);
+
+        $statement->bindParam(":user_id",$user_id);
+
+        //3.execute
+        $statement->execute();
+        $result=$statement->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
+    }
+    public function getPostByCityId($seller_city_id,$buyer_city_id,$selectedStatus)
+    {
+        //1.DataBase Connect
+        $this->connection=Database::connect();
+        $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+        //2.sql Statement
+        $sql="SELECT post.*,seller_city.name as seller_city,buyer_city.name as buyer_city
+        FROM `post`
+        JOIN user_info AS seller_info ON post.seller_info_id = seller_info.id
+        join city as seller_city on seller_city.id=seller_info.city_id
+        JOIN user_info AS buyer_info ON post.buyer_info_id = buyer_info.id
+        JOIN city as buyer_city on buyer_city.id=buyer_info.city_id
+        where seller_info.city_id=:seller_city_id and buyer_info.city_id=:buyer_city_id and post.status=:selectedStatus order by post.id desc";
+        $statement=$this->connection->prepare($sql);
+
+        $statement->bindParam(":seller_city_id",$seller_city_id);
+        $statement->bindParam(":buyer_city_id",$buyer_city_id);
+        $statement->bindParam(":selectedStatus",$selectedStatus);
 
         //3.execute
         $statement->execute();

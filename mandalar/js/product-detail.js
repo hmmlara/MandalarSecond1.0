@@ -134,9 +134,8 @@ $(document).ready(function() {
                             overlaySuccess.style.display = "flex"
                             setTimeout(() => {
                                 overlaySuccess.style.display = "none"
-                                window.onload();
-                            }, 3000)
-
+                            }, 1500)
+                            location.reload();
                         } else {}
                     }
                 }

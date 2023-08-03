@@ -27,12 +27,17 @@
 			</footer>
 		</div>
 	</div>
-
+	<script
+  src="https://code.jquery.com/jquery-3.7.0.min.js"
+  integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g="
+  crossorigin="anonymous"></script>
 	<script src="js/app.js"></script>
-	<script src="/mandalar/mdbbootstrap/js/mdb.min.js"></script>
-	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script src="../mdbbootstrap/js/mdb.min.js"></script>
+	
 	<script src="../js/deli_image.js"></script>
 	<script src="../js/deli_form.js"></script>
+	<script src="js/post-deli.js"></script>
+	
 
 </body>
 
