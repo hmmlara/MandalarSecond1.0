@@ -28,8 +28,22 @@ class PostController extends Post{
     }
     
 // buyer update post
-    public function updateBuyer($user_id,$buyer_info_id,$status,$post_id){
-        return $this->newBuyer($user_id,$buyer_info_id,$status,$post_id);
+    public function updateBuyer($user_id,$buyer_info_id,$status,$post_id,$buy_date){
+        return $this->newBuyer($user_id,$buyer_info_id,$status,$post_id,$buy_date);
+    }
+    public function updateSeller($seller_info_id,$status,$post_id){
+        return $this->newSeller($seller_info_id,$status,$post_id);
+    }
+    public function favorite_post_list($user_id){
+        return $this->favoritePostListById($user_id);
+    }
+    
+    // seller
+    public function getSellerPost($user_id){
+        return $this->getSellerPostById($user_id);
+    }
+    public function getPostByCity($seller_city_id,$buyer_city_id,$selectedStatus){
+        return $this->getPostByCityId($seller_city_id,$buyer_city_id,$selectedStatus);
     }
 }
 ?>

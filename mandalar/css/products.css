@@ -22,6 +22,7 @@
     object-fit: cover;
     width: 40px;
     height: 40px;
+    margin-right: 10px;
 }
 
 .product-card-by-nay {
@@ -35,4 +36,19 @@
 .product-card-by-nay:hover {
     box-shadow: 0 0 128px 0 rgba(0, 0, 0, 0.1), 0 32px 64px -48px #212529;
     transform: translateY(-10px);
+}
+
+.product-info-box {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+}
+
+.product-card-title {
+    display: flex;
+    justify-content: space-between;
+}
+
+.product-card-title h5 {
+    display: inline;
 }

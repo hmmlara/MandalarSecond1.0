@@ -84,7 +84,7 @@ if (isset($_SESSION['user_id'])) {
                                 <!-- cart box -->
                                 <div class="aa-cartbox">
                                     <div class=" d-flex justify-content-end" style="width: 230px;">
-                                        <a class="aa-cart-link heart" href="#">
+                                        <a class="aa-cart-link heart" href="favorite.php" >
                                             <i class="fa-solid fa-heart"></i>
                                         </a>
                                         

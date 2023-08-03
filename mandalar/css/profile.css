@@ -7,6 +7,18 @@
     
 }
 
+.checkposition{
+    position: absolute;
+    margin-top: 40px;
+    margin-left: 155px;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    background-color: #4e9c81;
+    z-index: 999;
+    border: 3px solid white;
+}
+
 .userimg{
     width: 200px;
     height: 200px;

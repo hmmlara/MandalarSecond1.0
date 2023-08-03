@@ -44,5 +44,46 @@ class NRC{
         return $result;
 
     }
+
+    public function updateNrcStatus($userid)
+    {
+        $this->connection=Database::connect();
+        $this->connection->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
+
+        $sql="UPDATE `nrc` SET `status`='1' WHERE to_id=:to_id";
+        $statement=$this->connection->prepare($sql);
+
+        
+        $statement->bindParam(":to_id",$userid);
+
+        //3.execute
+        if($statement->execute())
+        {
+            return true;
+        }else
+        {
+            return false;
+        }
+    }
+
+    public function deleteuserNRC($to_id)
+    {
+        $this->connection=Database::connect();
+        $this->connection->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
+
+        $sql="DELETE FROM `nrc` WHERE to_id=:to_id";
+        $statement=$this->connection->prepare($sql);
+
+        $statement->bindParam(":to_id",$to_id);
+
+        //3.execute
+        if($statement->execute())
+        {
+            return true;
+        }else
+        {
+            return false;
+        }
+    }
 }
 ?>

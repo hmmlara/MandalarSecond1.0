@@ -51,6 +51,29 @@ class User{
         return $result;
 
     }
+
+    public function updateNrc($nrcNumber,$user_id)
+    {
+        //1.DataBase Connect
+        $this->connection=Database::connect();
+        $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+        //2.sql Statement
+        $sql="UPDATE `users` SET `nrc`=:nrc WHERE user_id=:user_id";
+        $statement=$this->connection->prepare($sql);
+        $statement->bindParam(":user_id",$user_id);
+        $statement->bindParam(":nrc",$nrcNumber);
+
+        //3.execute
+        if($statement->execute())
+        {
+            return true;
+        }else
+        {
+            return false;
+        }
+
+    }
 }
 
 

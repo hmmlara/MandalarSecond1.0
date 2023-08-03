@@ -13,7 +13,7 @@
 	<link rel="shortcut icon" href="img/icons/icon-48x48.png" />
 
 	<link rel="canonical" href="https://demo-basic.adminkit.io/pages-profile.html" />
-	<link rel="stylesheet" href="/mandalar/mdbbootstrap/css/mdb.min.css">
+	<link rel="stylesheet" href="../mdbbootstrap/css/mdb.min.css">
 
 	<title>Profile | AdminKit Demo</title>
 

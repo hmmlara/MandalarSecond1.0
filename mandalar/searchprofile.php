@@ -9,17 +9,8 @@ $getalluserlist = new ProfileController();
 $getAllUser = $getalluserlist->getUserList();
 $followUser=new FollowController();
 $getAllFollow=$followUser->getAllFollow();
-//var_dump($getAllFollow);
 
-// foreach ($getAllFollow as $key => $getfollow) {
-//     # code...
-//     if($from_id==$getfollow["from_id"] && $to_id==$getfollow["to_id"])
-//     {
-//         $id=$getfollow['id'];
-//         echo $id."//////////////";
-//     }
 
-// }
 $followresult=$followUser->followingUser($from_id,$to_id);
 //var_dump($followresult);
 
@@ -60,8 +51,19 @@ foreach ($getAllUser as $key => $user) {
         $useremail = $user['email'];
         $userimg = $user['img'];
         $userbio = $user['bio'];
+        $usernrc=$user["nrc"];
+        // echo $usernrc;
     }
 }
+
+// if(empty($user))
+// {
+//     echo "/////";
+// }else{
+//     echo $usernrc;
+// }
+
+
 
 // if(isset($_POST["follow"]))
 // {
@@ -106,6 +108,13 @@ include_once "nav.php";
                 <div class="userprofile">
                     <img src="image/user-profile/<?php echo $userimg; ?>" alt="" class="userimg ml-3">
                 </div>
+                <div id="" class="checkposition d-flex align-items-center justify-content-center" style="border: 3px solid white;">
+                   
+                   <i class="fa-solid fa-check <?php if(empty($usernrc)){echo "d-none";} ?>" style="color: #ffffff;"></i>
+
+                   <i class="fa-solid fa-exclamation <?php if(!empty($usernrc)){echo "d-none";} ?>" style="color: #FF0000;"></i> 
+                   
+               </div>
                 <div class="dropdown float-end mt-4 mr-3">
 
                     <a href="" data-bs-toggle="dropdown" aria-expanded="false"><i
