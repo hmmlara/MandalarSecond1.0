@@ -114,7 +114,7 @@
     /* color: #000; */
 }
 
-.plus-signback {
+#plus-signback {
     position: absolute;
     top: 78%;
     right: 45%;
@@ -130,4 +130,34 @@
 
 .bimage-container img{
     object-fit: fill;
+}
+.money{
+    position: absolute;
+    top: 373px;
+    right: 180px;
+    width: 120px;
+    height: 20px;
+    background-color: #627E8B;
+    border-radius: 20px;
+}
+
+.money_box{
+   margin-top: 14px;
+   margin-left: 2px;
+}
+
+#show_kpay_img{
+    width: 400px;
+    height: 500px;
+}
+
+.img-box {
+    position: relative;
+}
+
+#add_Kpay {
+    position: absolute;
+    top: 65%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }

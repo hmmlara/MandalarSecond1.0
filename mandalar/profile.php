@@ -1,6 +1,5 @@
 <?php
 session_start();
-
 include_once "controller/profileController.php";
 include_once "controller/userController.php";
 include_once "controller/nrcController.php";
@@ -29,36 +28,28 @@ foreach ($getAllUser as $key => $user) {
 }
 $getNrcUser=$enterNrcimg->getAll();
 //  var_dump($getNrcUser);
-
+$wait = null; // Set a default value before the loop
 foreach ($getNrcUser as $key => $wait) {
-    // var_dump($wait);
-    # code...
-    if($wait['to_id']==$userid)
+    if($wait['to_id'] == $userid)
     {
        $wait=$wait["status"];
        
     }else{
-        $wait=2;
-       
+    $wait=2;
     }
-    
 }
+// $wait = null; // Set a default value before the loop
 
-
-
-// if($wait==0){
-//     echo "it equal to 0";
+// foreach ($getNrcUser as $key => $waitItem) {
+//     if ($waitItem['to_id'] == $userid) {
+//         $wait = $waitItem['status']; // Update the value of $wait
+//         echo $wait;
+//     }else{
+//         $wait=2;
+//     }
 // }
 
-// if($wait==1){
-//     echo "it equal to 1";
-// }
 
-// if(!empty($wait))
-// {
-//     $KMKL=2;
-//     echo $KMKL;
-// }
 
 
 
@@ -248,6 +239,51 @@ include_once "nav.php";
                 <i class="fa-brands fa-square-facebook fa-xl icon" style="color: #3b5998;"></i>
                 <i class="fa-brands fa-square-twitter fa-xl icon" style="color: #1da1f2;"></i>
                 <i class="fa-brands fa-square-google-plus fa-xl icon" style="color: #4285f4;"></i>
+                <div class="money d-flex align-items-center">
+                    <p class="money_box"><i class="fa-solid fa-circle-plus" data-mdb-toggle="modal" data-mdb-target="#money_modal"></i></p>
+                </div>
+                <!-- Modal -->
+                <div class="modal fade" id="money_modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                        <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form action="" method="post">
+                    <div class="modal-body">
+                        <p>Kpay Phone Number : 09751047472</p>
+                        <p>Kpay Name : U Kyaw Kyaw</p>
+                        <div class="form-outline mt-3">
+                            <input type="text" id="form12" class="form-control" id="your_amount" />
+                            <label class="form-label" for="form12">Enter Your Amount</label>
+                        </div>
+                        <div class="form-outline my-3">
+                            <input type="text" id="form12" class="form-control" id="your_pho"/>
+                            <label class="form-label" for="form12">Enter Your Kpay Phone Number</label>
+                        </div>
+                        <div class="form-outline ">
+                            <input type="text" id="form12" class="form-control"id="your_kpayName" />
+                            <label class="form-label" for="form12">Enter Your Kpay Name</label>
+                        </div>
+                        <label for="" class="mt-3">Enter Your </label>
+                        <div class="my-3 d-flex justify-content-center kpay_show_box ">
+                            <img src="" alt="" id="show_kpay_img" >
+                            <div class="plus">
+                                <i class="fa-solid fa-plus" id="add_Kpay"></i>
+                            </div>
+                        </div>
+                        <input type="file" name="fimg" class="d-none" id="Kpay_img" required>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-primary" id="send_kpayinfo">Send</button>
+                    </div>
+                    </div>
+                    </form>
+                    
+                </div>
+                </div>
                 <div class="allbtn d-flex">
                     <!-- Button trigger modal -->
                     <!-- <button type="button" class="btn btn-primary" data-mdb-toggle="modal"

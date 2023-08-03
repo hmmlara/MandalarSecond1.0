@@ -100,4 +100,36 @@ $(document).ready(function(){
     {
       location.reload();
     })
+
+    $("#show_kpay_img").on("click",function()
+    {
+      $("#Kpay_img").click();
+    })
+
+    $("#Kpay_img").on("change", function(event) {
+      $("#add_Kpay").addClass("d-none");
+      const selectedFile = event.target.files[0];
+      if (selectedFile) {
+          const reader = new FileReader();
+          reader.onload = function() {
+              const imageUrl = reader.result;
+              $("#show_kpay_img").attr("src", imageUrl);
+          };
+          reader.readAsDataURL(selectedFile);
+      }
+  });
+
+  $("#send_kpayinfo").on("click",function(e)
+  {
+    console.log("click");
+    cus_amount=$("#your_amount").val()
+    cus_phone_num=$("#your_pho").val()
+    cus_kpay_name=$("#your_kpayName").val()
+
+    if(cus_amount == " " || cus_phone_num==" ")
+    {
+      cus_amount.addClass("border border_danger");
+      e.preventDefault();
+    }
+  })
 })
