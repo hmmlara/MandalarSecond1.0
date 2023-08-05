@@ -1,4 +1,5 @@
 <?php
+
 include_once "controller/searchController.php";
 $searchAlluser = new SearchController();
 
@@ -13,13 +14,6 @@ if (isset($_GET['searchinput'])) {
 
 }
 
-
-// if (isset($_GET['searchinput'])) {
-
-// 	$searchinputget = $_GET['searchinput'];
-// 	echo $searchinputget;
-
-// }
  if(isset($_POST["search"]))
  {
     if(!empty($_POST["searchinput"]))

@@ -86,11 +86,11 @@ $(document).ready(function(){
     
 
     $("#NRCbtn").on("click",function(e){
-        if($("#form12").val()=="")
-        {
-          $(".red").addClass("border border-danger");
-          e.preventDefault();
-        }
+        // if($("#form12").val()=="")
+        // {
+        //   $(".red").addClass("border border-danger");
+        //   e.preventDefault();
+        // }
         $("#verify").addClass("d-none")
         $("#wait").removeClass("d-none")
        
@@ -121,15 +121,32 @@ $(document).ready(function(){
 
   $("#send_kpayinfo").on("click",function(e)
   {
-    console.log("click");
-    cus_amount=$("#your_amount").val()
-    cus_phone_num=$("#your_pho").val()
-    cus_kpay_name=$("#your_kpayName").val()
-
-    if(cus_amount == " " || cus_phone_num==" ")
-    {
-      cus_amount.addClass("border border_danger");
+   
+    if ($(".your_amount").val() === "") {
+      $(".error_amount").text("Enter Your Amount");
       e.preventDefault();
-    }
+  }else{
+    $(".error_amount").remove();
+  }
+
+  if ($(".your_pho").val() === "") {
+    $(".error_phone").text("Enter Your Kpay Phone Number");
+    e.preventDefault();
+  }else{
+    $(".error_phone").remove();
+  }
+
+  if ($(".your_kpayName").val() === "") {
+    $(".error_kpayName").text("Enter Your Kpay Name");
+    e.preventDefault();
+  }else{
+    $(".error_kpayName").remove();
+  }
+   
+   alert("Successfully Sand");
   })
+
+  // $("#money_modal").on("hidden.bs.modal", function() {
+  //   alert("Successfully Sand");
+  // });
 })

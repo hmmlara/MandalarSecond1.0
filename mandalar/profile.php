@@ -9,6 +9,8 @@ $getAllUser = $getalluserlist->getUserList();
 
 $enterNrcimg=new NrcController();
 
+
+
 $updateUserDetails = new UserController();
 if (isset($_SESSION['user_id'])) {
     $user_id = $_SESSION['user_id'];
@@ -23,6 +25,7 @@ foreach ($getAllUser as $key => $user) {
         $useremail = $user['email'];
         $userimg = $user['img'];
         // $userbio = $user['bio'];
+        $userwallet=$user["wallet"];
         // echo $user_id;
     }
 }
@@ -33,11 +36,13 @@ foreach ($getNrcUser as $key => $wait) {
     if($wait['to_id'] == $userid)
     {
        $wait=$wait["status"];
-       
+   
     }else{
     $wait=2;
     }
 }
+
+// echo $wait;
 // $wait = null; // Set a default value before the loop
 
 // foreach ($getNrcUser as $key => $waitItem) {
@@ -178,6 +183,63 @@ if(isset($_POST['enterNRC']))
 }
 
 
+//kpay
+if(isset($_POST["sand_money"]))
+{
+    $error_status=false;
+    if(isset($_POST['amount']))
+    {
+        $amount=$_POST['amount'];
+       
+    }else{
+        $error=true;
+    }
+
+    if(isset($_POST['kpay_phonenumber']))
+    {
+        $kpay_phone=$_POST['kpay_phonenumber'];
+      
+    }else{
+        $error=true;
+    }
+
+    if(isset($_POST['kpay_name']))
+    {
+        $kpay_name=$_POST['kpay_name'];
+      
+    }else{
+        $error=true;
+    }
+
+    if(isset($_FILES['kpayimg']))
+    {
+        $kpay_img = $_FILES['kpayimg']['name'];
+        // echo $kpay;
+        $filesize = $_FILES['kpayimg']['size'];
+        $allowed_files = ['jpg', 'png', 'jpeg', 'svg'];
+        $temp_path = $_FILES['kpayimg']['tmp_name'];
+    
+        $fileinfo = explode('.', $kpay_img);
+        $filetype = end($fileinfo);
+        $maxsize = 2000000000;
+        if (in_array($filetype, $allowed_files)) {
+            if ($filesize < $maxsize) {
+                move_uploaded_file($temp_path, 'image/kpay_img/' . $kpay_img);
+            } else {
+                echo "file size exceeds maximum allowed";
+            }
+        }
+    }else{
+        $error=true;
+    }
+
+
+    if($error_status==false)
+    {
+        $enterWallet=$updateUserDetails->enterKpay($userid,$amount,$kpay_name,$kpay_phone,$kpay_img);
+    }
+}
+
 include_once "nav.php";
 
 ?>
@@ -240,44 +302,52 @@ include_once "nav.php";
                 <i class="fa-brands fa-square-twitter fa-xl icon" style="color: #1da1f2;"></i>
                 <i class="fa-brands fa-square-google-plus fa-xl icon" style="color: #4285f4;"></i>
                 <div class="money d-flex align-items-center">
-                    <p class="money_box"><i class="fa-solid fa-circle-plus" data-mdb-toggle="modal" data-mdb-target="#money_modal"></i></p>
+                    <i class="fa-solid fa-circle-plus mx-2" data-mdb-toggle="modal" data-mdb-target="#money_modal"></i>
+                    <!-- <input type="text" disabled class="money_box text-white  move text-right bg-transparent" value="<?php if(isset($userwallet)){ echo $userwallet;}else{ echo 0;} ?>"> -->
+                    <p class="money_box text-white  move text-center"><?php if(isset($userwallet)){ echo $userwallet;}else{ echo 0;} ?></p>
                 </div>
                 <!-- Modal -->
-                <div class="modal fade" id="money_modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal fade" id="money_modal" tabindex="-1" data-mdb-backdrop="static" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
                         <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <form action="" method="post">
+                    <form action="" method="post" enctype="multipart/form-data">
                     <div class="modal-body">
                         <p>Kpay Phone Number : 09751047472</p>
                         <p>Kpay Name : U Kyaw Kyaw</p>
                         <div class="form-outline mt-3">
-                            <input type="text" id="form12" class="form-control" id="your_amount" />
-                            <label class="form-label" for="form12">Enter Your Amount</label>
+                            <input type="text" id="form13" class="form-control your_amount" name="amount" value="" />
+                            <label class="form-label" for="form13">Enter Your Amount</label>
                         </div>
-                        <div class="form-outline my-3">
-                            <input type="text" id="form12" class="form-control" id="your_pho"/>
-                            <label class="form-label" for="form12">Enter Your Kpay Phone Number</label>
+                        <span class="text-danger error_amount"></span>
+
+                        <div class="form-outline mt-3">
+                            <input type="text" id="form13" class="form-control your_pho"  name="kpay_phonenumber"/>
+                            <label class="form-label" for="form13">Enter Your Kpay Phone Number</label>
                         </div>
-                        <div class="form-outline ">
-                            <input type="text" id="form12" class="form-control"id="your_kpayName" />
-                            <label class="form-label" for="form12">Enter Your Kpay Name</label>
+                        <span class="text-danger error_phone"></span>
+
+                        <div class="form-outline mt-3">
+                            <input type="text" id="form13" class="form-control your_kpayName" name="kpay_name"/>
+                            <label class="form-label" for="form13">Enter Your Kpay Name</label>
                         </div>
-                        <label for="" class="mt-3">Enter Your </label>
+                        <span class="text-danger error_kpayName"></span>
+                        <br>
+                        <label for="" class="mt-3">Enter Your  </label>
                         <div class="my-3 d-flex justify-content-center kpay_show_box ">
-                            <img src="" alt="" id="show_kpay_img" >
+                            <img src="" alt="" id="show_kpay_img" required>
                             <div class="plus">
                                 <i class="fa-solid fa-plus" id="add_Kpay"></i>
                             </div>
                         </div>
-                        <input type="file" name="fimg" class="d-none" id="Kpay_img" required>
+                        <input type="file" name="kpayimg" class="d-none" id="Kpay_img" required>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Cancel</button>
-                        <button type="submit" class="btn btn-primary" id="send_kpayinfo">Send</button>
+                        <button type="submit" class="btn btn-primary" id="send_kpayinfo" name="sand_money">Send</button>
                     </div>
                     </div>
                     </form>
@@ -307,7 +377,7 @@ include_once "nav.php";
                                 </div>
                                 <div class="modal-body">
                                     <div class="form-outline red mb-4 px-4">
-                                        <input type="text" id="form12" name="nrcNumber" class="form-control" value="" />
+                                        <input type="text" id="" name="nrcNumber" class="form-control" value="" />
                                         <label class="form-label "  for="form12">Enter Your NRC Number</label>
                                     </div>
                                     <div class="row">

@@ -133,7 +133,7 @@
 }
 .money{
     position: absolute;
-    top: 373px;
+    top: 353px;
     right: 180px;
     width: 120px;
     height: 20px;
@@ -142,8 +142,8 @@
 }
 
 .money_box{
-   margin-top: 14px;
-   margin-left: 2px;
+   margin-top: 18px;
+   margin-left: -10px;
 }
 
 #show_kpay_img{
@@ -161,3 +161,7 @@
     left: 50%;
     transform: translate(-50%, -50%);
 }
+
+/* .move{
+    margin-left: 300px;
+} */

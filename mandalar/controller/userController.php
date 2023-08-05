@@ -8,6 +8,11 @@ class UserController extends User{
         return $this->UserDetail($userid,$update_fname,$update_lname,$update_bio,$filename);
     }
 
+    public function UpdateAmount($userid,$newAmount)
+    {
+        return $this->UpdateUserAmount($userid,$newAmount);
+    }
+
     public function UserInfo($user_id)
     {
         return $this->UserAllInfo($user_id);
@@ -16,6 +21,11 @@ class UserController extends User{
     public function updateUserNRC($nrcNumber,$user_id)
     {
         return $this->updateNrc($nrcNumber,$user_id);
+    }
+
+    public function enterKpay($userid,$amount,$kpay_name,$kpay_phone,$kpay_img)
+    {
+        return $this->enterWallet($userid,$amount,$kpay_name,$kpay_phone,$kpay_img);
     }
 }
 

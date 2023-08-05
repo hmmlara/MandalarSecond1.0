@@ -100,7 +100,8 @@ if (isset($_POST['register'])) {
     }
 
     if ($error_status == false) {
-        $registercontroller->registerUser($filename, $fname, $lname, $email, $password);
+        $fullname=$fname." ".$lname;
+        $registercontroller->registerUser($filename, $fname, $lname, $email, $password,$fullname);
         $user_id = $registercontroller->getUserId($email);
         $_SESSION['user_id'] = $user_id[0]['user_id'];
 

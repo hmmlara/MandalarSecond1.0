@@ -11,7 +11,8 @@ class Search{
         $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
         //2.sql Statement
-        $sql="select * from users where fname LIKE '%" . $searchValue . "%' or lname LIKE '%" . $searchValue . "%'";
+        // $searchValue = str_replace(' ', '', $searchValue);
+        $sql="select * from users where REPLACE(full_name, ' ', '') LIKE '%" . $searchValue . "%'";
         $statement = $this->connection->prepare($sql);
 
         //$statement->bindParam(":mydata",$usersearch);

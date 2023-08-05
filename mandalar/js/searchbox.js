@@ -2,7 +2,7 @@ $(document).ready(function() {
     $("#search").on("click", function(event) {
         event.preventDefault(); // Prevent default form submission
 
-        var searchValue = $("#search-box").val();
+        var searchValue = $("#search-box").val()
         console.log(searchValue);
         // Get the current URL
         var currentURL = window.location.href;
@@ -11,7 +11,10 @@ $(document).ready(function() {
         if (!currentURL.includes('search.php')) {
             // If the current location is not search.php, redirect to search.php with the search value
             window.location.href = "search.php?searchinput=" + encodeURIComponent(searchValue);
+            // searchValue = searchValue.replace(/\s/g, '')
             $.ajax({
+        // Remove spaces from the search value
+
                 type: "POST",
                 url: "search.php",
                 data: { searchinput: searchValue },
@@ -29,7 +32,10 @@ $(document).ready(function() {
         if (currentURL.includes('search.php')) {
             // If the current location is not search.php, redirect to search.php with the search value
             window.location.href = "search.php?searchinput=" + encodeURIComponent(searchValue);
+            // searchValue = searchValue.replace(/\s/g, '');
             $.ajax({
+         // Remove spaces from the search value
+
                 type: "POST",
                 url: "search.php",
                 data: { searchinput: searchValue },

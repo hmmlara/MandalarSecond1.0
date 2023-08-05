@@ -3,21 +3,22 @@ include_once __DIR__."/../vendor/db.php";
 
 class Register{
     private $connection="";
-    public function createUserAccount($image,$fname,$lname,$email,$password)
+    public function createUserAccount($filename, $fname, $lname, $email, $password,$fullname)
     {
         //1.DataBase Connect
         $this->connection=Database::connect();
         $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
         //2.sql Statement
-        $sql="INSERT INTO users(fname,lname,email,password,img) VALUES(:first_name,:last_name,:user_email,:user_password,:user_img)";
+        $sql="INSERT INTO users(fname,lname,email,password,img,full_name) VALUES(:first_name,:last_name,:user_email,:user_password,:user_img,:full_name)";
         $statement=$this->connection->prepare($sql);
 
         $statement->bindParam(":first_name",$fname);
         $statement->bindParam(":last_name",$lname);
         $statement->bindParam(":user_email",$email);
         $statement->bindParam(":user_password",$password);
-        $statement->bindParam(":user_img",$image,);
+        $statement->bindParam(":user_img",$filename);
+        $statement->bindParam(":full_name",$fullname);
 
         //3.execute
         if($statement->execute())

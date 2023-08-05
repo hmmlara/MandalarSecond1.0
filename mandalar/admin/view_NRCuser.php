@@ -52,7 +52,7 @@ foreach ($getName as $key => $Name) {
                                     <div class="front_img col-md-6">
                                         <h5 class="my-3 mx-2">Back NRC Image</h5>
                                         <!-- <label for="" class="col-md-12"></label> -->
-                                        <img src="../image/user_nrc/front_nrc/<?php echo $front_nrc ?>" alt=" "  class="px-2" width="100%">
+                                        <img src="../image/user_nrc/front_nrc/<?php echo $back_nrc ?>" alt=" "  class="px-2" width="100%">
                                     </div>
                                 </div>
                                 <h4 class="text-success mx-2 my-3" id="successtext"></h4>

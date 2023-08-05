@@ -74,6 +74,56 @@ class User{
         }
 
     }
+
+
+    public function enterWallet($userid,$amount,$kpay_name,$kpay_phone,$kpay_img)
+    {
+        //1.DataBase Connect
+        $this->connection=Database::connect();
+        $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+        //2.sql Statement
+        $sql="INSERT INTO `money_check`(`user_id`, `check_wallet`, `kpay_phone`, `kpay_name`, `kpay_img`) VALUES 
+        (:user_id,:check_wallet,:kpay_phone,:kpay_name,:kpay_img)";
+         $statement=$this->connection->prepare($sql);
+
+         $statement->bindParam(":user_id",$userid);
+         $statement->bindParam(":check_wallet",$amount);
+         $statement->bindParam(":kpay_phone",$kpay_phone);
+         $statement->bindParam(":kpay_name",$kpay_name);
+         $statement->bindParam(":kpay_img",$kpay_img);
+
+         //3.execute
+        if($statement->execute())
+        {
+            return true;
+        }else
+        {
+            return false;
+        }
+    }
+
+    public function UpdateUserAmount($userid,$newAmount)
+    {
+        //1.DataBase Connect
+        $this->connection=Database::connect();
+        $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+        //2.sql Statement
+        $sql="UPDATE `users` SET `wallet`=:wallet WHERE user_id=:user_id";
+        $statement=$this->connection->prepare($sql);
+        $statement->bindParam(":user_id",$userid);
+        $statement->bindParam(":wallet",$newAmount);
+
+        //3.execute
+        if($statement->execute())
+        {
+            return true;
+        }else
+        {
+            return false;
+        }
+    }
 }
 
 
