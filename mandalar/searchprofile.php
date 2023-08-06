@@ -142,7 +142,8 @@ include_once "nav.php";
                 <i class="fa-brands fa-square-google-plus fa-xl icon" style="color: #4285f4;"></i>
                 <form action="" method="post">
                     <div class="allbtn">
-                        <button class="messageuser btn btn-info">Message</button>
+                        <a href="chatapp/chat.php?user_id=<?php echo $to_id ?>" class="messageuser btn btn-info">Message</a>
+                        <!-- <button class="messageuser btn btn-info">Message</button> -->
                                            
                         <button class="logout btn btn-primary d-none" id="follow" name="follow">Follow</button>
                       

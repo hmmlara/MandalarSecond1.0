@@ -239,5 +239,82 @@ class Post
         $result=$statement->fetchAll(PDO::FETCH_ASSOC);
         return $result;
     }
+    public function deli_command_by_admin($stats,$check){
+        $this->connection=Database::connect();
+        $this->connection->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
+
+        $sql="UPDATE post SET status=:stats WHERE id=:check
+        ";
+        $statement=$this->connection->prepare($sql);
+        $statement->bindParam(":stats",$stats);
+        $statement->bindParam(":check",$check);
+        if($statement->execute()){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+    public function takePost(){
+        //1.DataBase Connect
+        $this->connection = Database::connect();
+        $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+        //2.sql Statement
+        $sql = 'SELECT * FROM `post` WHERE status="take_waiting" or status="go_take"';
+        $statement = $this->connection->prepare($sql);
+
+        //3.execute
+        $statement->execute();
+        $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
+    }
+    public function sendPost(){
+        //1.DataBase Connect
+        $this->connection = Database::connect();
+        $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+        //2.sql Statement
+        $sql = 'SELECT * FROM `post` WHERE status="send_waiting" or status="go_send"';
+        $statement = $this->connection->prepare($sql);
+
+        //3.execute
+        $statement->execute();
+        $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
+    }
+    public function get_deli_post_by_id($post_id){
+        //1.DataBase Connect
+        $this->connection=Database::connect();
+        $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+        //2.sql Statement
+        $sql='SELECT post.*,seller.fname as seller_fname,seller.lname as seller_lname,buyer.fname as buyer_fname,buyer.lname as buyer_lname,seller_info.address as seller_address,buyer_info.address as buyer_address,seller_city.name as seller_city,buyer_city.name as buyer_city FROM `post` join users as seller on seller.user_id=post.seller_id join users as buyer on buyer.user_id=post.buyer_id 
+        join user_info as seller_info on seller_info.id=post.seller_info_id join user_info as buyer_info on buyer_info.id=post.buyer_info_id join city as seller_city on seller_city.id=seller_info.city_id join city as buyer_city on buyer_city.id=buyer_info.city_id where post.id=:post_id';
+        $statement=$this->connection->prepare($sql);
+
+        $statement->bindParam(":post_id",$post_id);
+
+        //3.execute
+        $statement->execute();
+        $result=$statement->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
+    }
+    public function deli_status_update_by_btn($status,$post_id){
+        $this->connection=Database::connect();
+        $this->connection->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
+
+        $sql="UPDATE post SET status=:status WHERE id=:post_id
+        ";
+        $statement=$this->connection->prepare($sql);
+        $statement->bindParam(":status",$status);
+        $statement->bindParam(":post_id",$post_id);
+        if($statement->execute()){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
 }
 ?>

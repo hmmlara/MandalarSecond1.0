@@ -2,7 +2,7 @@
 include_once "../../controller/deliveryController.php";
 $deli_city=$_GET['deli_city'];
 $delivery_controller=new DeliveryController();
-$delivery_list=$delivery_controller->getDeliveryList($deli_city);
+$delivery_list=$delivery_controller->getDeliveryListById($deli_city);
 // Convert the array to JSON format
 $jsonData = json_encode($delivery_list);
 
