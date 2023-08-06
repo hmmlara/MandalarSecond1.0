@@ -12,10 +12,12 @@ class Search{
 
         //2.sql Statement
         // $searchValue = str_replace(' ', '', $searchValue);
-        $sql="select * from users where REPLACE(full_name, ' ', '') LIKE '%" . $searchValue . "%'";
+        $sql = "SELECT * FROM users WHERE REPLACE(full_name, ' ', '') LIKE :full_name";
         $statement = $this->connection->prepare($sql);
-
-        //$statement->bindParam(":mydata",$usersearch);
+        
+        $searchValueWithoutSpaces = str_replace(' ', '', $searchValue);
+        $param = '%' . $searchValueWithoutSpaces . '%';
+        $statement->bindParam(":full_name", $param);
 
         //3.execute
         $statement->execute();
