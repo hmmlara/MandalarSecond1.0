@@ -13,6 +13,12 @@ class DeliveryController extends Delivery{
     public function getDeliveryListById($deli_city){
         return $this->takeDeliveryListById($deli_city);
     }
+    public function deli_order($check,$delivery){
+        return $this->deli_order_by_admin($check,$delivery);
+    }
+    public function get_deli($deli_id){
+        return $this->get_deli_by_id($deli_id);
+    }
     // public function getUserInfo($email)
     // {
     //     return $this->getUserId($email);

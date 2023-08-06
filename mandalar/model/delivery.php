@@ -66,5 +66,41 @@ class Delivery{
         $result=$statement->fetchAll(PDO::FETCH_ASSOC);
         return $result;
     }
+    public function deli_order_by_admin($check,$delivery){
+        // 1. Database Connect
+        $this->connection = Database::connect();
+        $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+        // 2. SQL Statement
+        $sql = "INSERT INTO `wave`(`post_id`, `delivery_id`) VALUES (:check,:delivery)";
+
+        $statement = $this->connection->prepare($sql);
+        $statement->bindParam(":check", $check);
+        $statement->bindParam(":delivery", $delivery);
+
+        // 3. Execute
+        if ($statement->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    public function get_deli_by_id($deli_id)
+    {
+        //1.DataBase Connect
+        $this->connection=Database::connect();
+        $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+        //2.sql Statement
+        $sql="SELECT * FROM `delivery` WHERE id=:deli_id";
+        $statement=$this->connection->prepare($sql);
+
+        $statement->bindParam(":deli_id",$deli_id);
+
+        //3.execute
+        $statement->execute();
+        $result=$statement->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
+    }
 }
 ?>

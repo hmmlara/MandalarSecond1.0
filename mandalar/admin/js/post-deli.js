@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    var selectedStatus = $('input[name="flexRadioDefault"]:checked').val();
+    var selectedStatus = $('input[name="status"]:checked').val();
     let seller_city= $('#seller-city').val();
     let buyer_city= $('#buyer-city').val();
     $.ajax({
@@ -34,11 +34,9 @@ $(document).ready(function() {
             
         }
     })
-    $('#buyer-city, #seller-city, input[name="flexRadioDefault"]').on('change', function() {
-        console.log('change')
+    $('#buyer-city, #seller-city, input[name="status"]').on('change', function() {
         $('#post_body').empty();
-        var selectedStatus = $('input[name="flexRadioDefault"]:checked').val();
-        console.log(selectedStatus);
+        var selectedStatus = $('input[name="status"]:checked').val();
     let seller_city= $('#seller-city').val();
     let buyer_city= $('#buyer-city').val();
         $.ajax({
@@ -46,7 +44,6 @@ $(document).ready(function() {
             type: 'GET',
             data: {seller_city:seller_city,buyer_city:buyer_city,selectedStatus:selectedStatus},
             success: function(data) {
-                console.log(data);
                 for (let i = 0; i < data.length; i++) {
                     var folderPath = '../image/post_img/'+data[i]['photo_folder']+'/'; 
                     $.ajax({
@@ -77,7 +74,6 @@ $(document).ready(function() {
     });
     function updateCount() {
         const checkedCount = $('.post-check:checked').length;
-        console.log(checkedCount);
         $('#check-count').text(`${checkedCount}`);
       }
   
@@ -110,13 +106,66 @@ $(document).ready(function() {
     $('#save').on('click',function(){
         var postChecked = $("input[name='check_post[]']:checked").length > 0;
         var errorMsg = $("#post-check-error");
-
+        let post_error=false;
         if (!postChecked ) {
           errorMsg.css('display', 'block');
+          post_error = true;
         } else {
             errorMsg.css('display', 'none');
           // Perform further actions here if needed
         }
+        if(post_error==false){
+            $('#send-post').click();
+        }
+    })
+    $('#send-deli').on('click',function(e){
+        e.preventDefault();
+        let deli_error = false;
+        var deliChecked = $("input[name='delivery']:checked").length > 0;
+        if(!deliChecked){
+            $('#deli-error').css('display', 'block');
+            deli_error = true;
+        }else{
+            $('#deli-error').css('display', 'none');
+        }
+        if(deli_error==false){
+            let form = document.getElementById('deli-post-form');
+            let xhr = new XMLHttpRequest();
+            xhr.open("POST", "php/deli_post_form.php", true);
+            xhr.onload = () => {
+                if (xhr.readyState === XMLHttpRequest.DONE) {
+                    if (xhr.status === 200) {
+                        let data = xhr.response;
+                        console.log(data);
+                    }
+                }
+            };
+            let formData = new FormData(form);// Add userId to formData
+            xhr.send(formData);
+        }
+    })
+    $('#deli-city').on('change',function(){
+        let deli_city= $('#deli-city').val();
+        $.ajax({
+            url: 'php/get_deli.php',
+            type: 'GET',
+            data: { deli_city: deli_city },
+            success: function(data) {
+                $('.deli-container').empty();
+                data.forEach(deli_man => {
+                    let deli=`<div class="form-check fs-4 mt-3">
+                    <input class="form-check-input" type="radio" name="delivery" id="`+deli_man['id']+`" value="`+deli_man['id']+`">
+                    <label class="form-check-label" for="`+deli_man['id']+`" >
+                        `+deli_man['name']+`
+                    </label>
+                </div>`
+                $('.deli-container').append(deli);
+                });
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                console.error("AJAX Error:", textStatus, errorThrown);
+            }
+        });
     })
     
     

@@ -45,5 +45,26 @@ class PostController extends Post{
     public function getPostByCity($seller_city_id,$buyer_city_id,$selectedStatus){
         return $this->getPostByCityId($seller_city_id,$buyer_city_id,$selectedStatus);
     }
+
+    // deli_command
+    public function deli_command($stats,$check){
+        return $this->deli_command_by_admin($stats,$check);
+    }
+    // take post
+    public function take_post(){
+        return $this->takePost();
+    }
+    // send post
+    public function send_post(){
+        return $this->sendPost();
+    }
+    // get deli post
+    public function get_deli_post($post_id){
+        return $this->get_deli_post_by_id($post_id);
+    }
+    // updat deli status
+    public function deli_status_update($status,$post_id){
+        return $this->deli_status_update_by_btn($status,$post_id);
+    }
 }
 ?>

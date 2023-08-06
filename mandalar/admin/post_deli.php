@@ -7,7 +7,7 @@ $city_list=$city_controller->getCityList();
 ?>
             <link rel="stylesheet" href="css/post-deli.css">
 			<main class="content">
-                <form action="">
+                <form id="deli-post-form" action="#" method="POST">
                     <div class="container-fluid p-0">
 
                         <div class="mb-3">
@@ -16,13 +16,13 @@ $city_list=$city_controller->getCityList();
                                 <div class="row mt-4">
                                     <div class="col-md-3 mt-3">
                                         <div class="form-check form-check-inline fs-3">
-                                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value="waiting" checked>
+                                            <input class="form-check-input" type="radio" name="status" id="flexRadioDefault1" value="waiting" checked>
                                             <label class="form-check-label" for="flexRadioDefault1" >
                                                 Go Take
                                             </label>
                                         </div>
                                         <div class="form-check form-check-inline fs-3">
-                                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" value="take">
+                                            <input class="form-check-input" type="radio" name="status" id="flexRadioDefault2" value="take">
                                             <label class="form-check-label" for="flexRadioDefault2" >
                                                 Go Send
                                             </label>
@@ -124,9 +124,10 @@ $city_list=$city_controller->getCityList();
 
                                     </div>
                                 </div>
+                                <span class="text-danger ms-auto pe-4" id="deli-error" style="display:none;">You need to select delivery!!!</span>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                    <button type="button" class="btn btn-primary">Save changes</button>
+                                    <button type="submit" class="btn btn-primary" id="send-deli">Save changes</button>
                                 </div>
                                 </div>
                             </div>
