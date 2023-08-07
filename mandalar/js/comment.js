@@ -10,6 +10,7 @@ let PostId = postIdStoreBox.dataset.postId;
 let ParentCommentId = null;
 let Content = "";
 
+
 //Assign Content Value From Input
 commentInput.addEventListener("keyup", (e) => {
 	Content = e.target.value;
@@ -30,6 +31,7 @@ commentBtn.addEventListener("click", (e) => {
 			console.log(data);
 			Content = "";
 			commentInput.value = "";
+			ParentCommentId = 0;
 		},
 	});
 });
@@ -42,27 +44,25 @@ const loadComments = () => {
 		type: "POST",
 		data: { post_id: PostId },
 		success: function (data) {
-			console.log(data);
-            commentContainer.innerHTML = "";
-
+			let CommentList;
 			let response = JSON.parse(data);
 
 			response.forEach((element) => {
-				commentContainer.innerHTML += `
-                     <div class ="comment">
+				CommentList += `
+                     <div class ="comment' >
                                 <div class="d-flex">
-                                    <img src="image/user-profile/${element.img}" class="profile-picture-comment" alt="${element.img}" style="width: max-content" />
+                                    <img src="image/user-profile/${element.img}"  class="profile-picture-comment" alt="${element.img}" style="width: max-content" />
                                     <div>
                                         <div class="comment-content">
                                             <div class="comment-details">
                                                 <span class="comment-author">${element.name}</span>
-                                                <span class="comment-date">Posted on ${element.date}</span>
+                                                <span class="comment-date">Posted on </span>
                                             </div>
                                             ${element.content}
                                         </div>
                                         <div class="comment-actions">
                                             <button class="btn btn-link btn-sm">Like</button>
-                                            <button class="btn btn-link btn-sm">Reply</button>
+                                            <button class="btn btn-link btn-sm" onclick="assignParentId(event)" data-cm-id = ${element.id}>Reply</button>
                                             <button class="btn btn-link btn-sm see-reply" onclick="seeReplies(event)">see 2
 
                                         </div>
@@ -73,10 +73,33 @@ const loadComments = () => {
                                 </div> 
                         </div>`;
 			});
+			if (normalizeWhitespace(CommentList) !== normalizeWhitespace(commentContainer.innerHTML)) {
+				// Your logic here
+				commentContainer.innerHTML = CommentList;
+				console.log( normalizeWhitespace(CommentList))
+				console.log(normalizeWhitespace(commentContainer.innerHTML))
+				console.log("reassign")
+			  }
+		
+
 		},
 	});
 };
 
 setInterval(() => {
 	loadComments();
-}, 50000);
+}, 500);
+
+//Assign Parent Id Value
+function assignParentId(e){
+	commentInput.value = ''
+	ParentCommentId = e.target.dataset.cmId;
+	let CommentUser = e.target.parentElement.previousElementSibling.children[0].children[0].innerHTML
+	console.log(CommentUser);
+	console.log("ParentCommentId : ",ParentCommentId)
+	commentInput.value = CommentUser
+}
+
+function normalizeWhitespace(str) {
+	return str.replace(/\s+/g, ' ').trim();
+  }
