@@ -92,10 +92,10 @@ const loadComments = () => {
 	});
 };
 
-// setInterval(() => {
-// 	loadComments();
-// }, 5000);
-loadComments();
+setInterval(() => {
+	loadComments();
+}, 5000);
+// loadComments();
 
 //Assign Parent Id Value
 function assignParentId(e) {
@@ -122,13 +122,10 @@ function seeReplies(e,parent_comment_id) {
 		data:{parent_comment_id:parent_comment_id},
 		success: function(data){
 			let response = JSON.parse(data);
-			console.log(response);
 			let repliesContainer = e.target.parentElement.parentElement.parentElement.nextElementSibling
-			console.log(repliesContainer);
 			let replyComments = '';
 			response.forEach(
 				(element)=>{
-					console.log("is ok")
 					replyComments += `
 			<div class ="comment" >
 					<div class="d-flex">
