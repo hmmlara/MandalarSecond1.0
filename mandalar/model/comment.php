@@ -31,7 +31,7 @@ class Comment
 
     function loadCommentByPostId($postId)
     {
-        $sql = 'SELECT * FROM `comment` WHERE post_id = :post_id';
+        $sql = 'SELECT FORMAT(date,"MM/dd/yyyy") as date, comment.content,comment.id , CONCAT(users.fname,users.lname) As name,users.img FROM `comment` JOIN users WHERE post_id = :post_id and parent_com_id = 0 and comment.user_id = users.user_id;'  ;
         $statement = $this->connection->prepare($sql);
         $statement->bindParam(':post_id', $postId);
 
@@ -46,9 +46,9 @@ class Comment
 
     function loadCommentByParentCommentId($parentCommentId)
     {
-        $sql = 'SELECT * FROM `comment` WHERE post_id = :post_id';
+        $sql = 'SELECT FORMAT(date,"MM/dd/yyyy") as date, comment.content,comment.id , CONCAT(users.fname,users.lname) As name,users.img FROM `comment` JOIN users WHERE parent_com_id = :parent_com_id and  comment.user_id = users.user_id;';
         $statement = $this->connection->prepare($sql);
-        $statement->bindParam(':post_id', $postId);
+        $statement->bindParam(':parent_com_id', $parentCommentId);
 
         if ($statement->execute()) {
             $result = $statement->fetchAll(PDO::FETCH_ASSOC);
