@@ -3,6 +3,15 @@ session_start();
 include_once "controller/profileController.php";
 include_once "controller/userController.php";
 include_once "controller/nrcController.php";
+include_once "controller/kpayController.php";
+include_once "./controller/postController.php";
+
+
+$post_controller = new PostController();
+$post_list = $post_controller->getPostList();
+
+// var_dump($post_list);
+
 
 $getalluserlist = new ProfileController();
 $getAllUser = $getalluserlist->getUserList();
@@ -15,6 +24,11 @@ $updateUserDetails = new UserController();
 if (isset($_SESSION['user_id'])) {
     $user_id = $_SESSION['user_id'];
 }
+
+$post_controller = new PostController();
+$getuserpost = $post_controller->getUserList($user_id);
+
+
 
 foreach ($getAllUser as $key => $user) {
     if ($user['user_id'] == $_SESSION["user_id"]) {
@@ -242,6 +256,12 @@ if(isset($_POST["sand_money"]))
 
 include_once "nav.php";
 
+$getKpay_history=new kpayController();
+$getKpay=$getKpay_history->getTransfarhistory($user_id);
+
+
+
+var_dump($getKpay);
 ?>
 <link rel="stylesheet" href="mdbbootstrap/css/mdb.min.css">
 
@@ -283,7 +303,7 @@ include_once "nav.php";
                     <ul class="dropdown-menu">
                         <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#editprofilemodel"
                                 href="#">Edit Profile</a></li>
-                        <li><a class="dropdown-item text-danger" href="#">Log Out</a></li>
+                        <li><a class="dropdown-item text-danger"  href="logout.php">Log Out</a></li>
                         <li><a class="dropdown-item" href="#">Something else here</a></li>
                     </ul>
                 </div>
@@ -488,13 +508,13 @@ include_once "nav.php";
                 <div class="navbar">
                     <ul class="nav-list">
                         <li class="nav-item active" data-tab="0">
-                            Tab 1
+                            Post
                         </li>
                         <li class="nav-item" data-tab="1">
                             Tab 2
                         </li>
                         <li class="nav-item" data-tab="2">
-                            Tab 3
+                        <i class="fa-solid fa-clock-rotate-left mr-2"></i>   History
                         </li>
                         <!-- Add more navigation items as needed -->
                     </ul>
@@ -504,14 +524,105 @@ include_once "nav.php";
 
             <div class="swiper-container">
                 <div class="swiper-wrapper">
-                    <div class="swiper-slide">
-                        <div class="tab-content">Content for Tab 1</div>
+                    <div class="swiper-slide border rounded-4 shadow-4">
+                        <div class="tab-content ">
+                        <?php if(isset($post_list)){ ?>
+                        <section id="products" class="">
+
+                            <div class="row ">
+                                <?php foreach ($post_list as $post) {
+                                # code...
+                                ?>
+
+                                <a href="productDetail.php?id=<?php echo $post['id'] ?>" class="col-md-4 col-sm-6  col-lg-3 mb-4 ">
+                                    <div class="card product-card-by-nay">
+                                        <?php
+                                        $images = glob('image/post_img/' . $post['photo_folder'] . '/*.{jpg,png,gif}', GLOB_BRACE);
+                                        ?>
+                                            <img src="<?php echo $images[0] ?>" class="card-img-top product-image" alt="Product 1" />
+                                            <div class="card-body">
+                                                <div class=" product-card-title">
+                                                    <h5>
+                                                        <?php echo $post['item'] ?>
+
+                                                    </h5>
+                                                    <h5>
+                                                        900000
+                                                    </h5>
+                                                </div>
+                                                <div class="d-flex justify-content-between align-items-center">
+                                                    <div class="d-flex align-items-center">
+                                                        <img src="image/user-profile/<?php echo $post['user_img'] ?>" class="rounded-circle profile-on-card" alt="Seller 1" />
+                                                        <span class="ml-2 card-text">
+                                                    <?php echo $post['fname'] . " " . $post['lname'] ?>
+                                                </span>
+                                                    </div>
+                                                </div>
+                                                <div class=" product-info-box">
+                                                    <div>
+                                                        <i class="far fa-heart mr-2"></i>
+                                                        <span class="reaction-count">5</span>
+                                                    </div>
+                                                    <div>
+                                                        <i class="far fa-plus-square ml-3"></i>
+                                                        <span class="save-count">18</span>
+                                                    </div>
+
+                                                    <div>
+                                                        <i class="far fa-eye ml-3"></i>
+                                                        <span class="view-count">50</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                </div>
+                                </a>
+
+                                <?php } ?>
+                            </div>
+                        </section>
+                        <?php }else{ ?>
+                            <div class="d-flex align-items-center justify-content-center mt-5">
+                                <img src="../mandalar/image/some/no sell post.png" alt="">
+                            </div>
+                            
+                        <?php } ?>
+                        </div>
                     </div>
                     <div class="swiper-slide">
                         <div class="tab-content">Content for Tab 2</div>
                     </div>
-                    <div class="swiper-slide">
-                        <div class="tab-content">Content for Tab 3</div>
+                    <!-- kpay History -->
+                    <div class="swiper-slide border rounded-4 shadow-4">
+                        <div class="tab-content container">
+
+                            <div class="row">
+                                <?php if(!empty($getKpay)){  echo "isset";?>
+                                <?php foreach ($getKpay as $key => $gettransfer) { ?>
+                                   
+                                    <div class="col-md-12  d-flex align-items-center border">
+                                        <div class="col-md-1 d-flex align-items-center justify-content-center">
+                                            <i class="fa-solid fa-money-bill-transfer fa-2xl"></i>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <p>Transfer To </p>
+                                            <p><?php echo  $gettransfer["date"]; ?></p>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <h4>+<?php echo  $gettransfer["check_wallet"]; ?></h4>
+                                        </div>
+                                    </div>
+
+                               <?php } ?>
+                               <?php }else{ ?>
+                                <div class="d-flex align-items-center justify-content-center mt-5">
+                                    <img src="./image/some/no-transfer-money.png" alt="">
+                                </div>
+                            
+                               
+                               <?php } ?>
+                            </div>
+
+                        </div>
                     </div>
                     <!-- Add more swiper slides and tab content as needed -->
                 </div>

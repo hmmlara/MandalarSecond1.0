@@ -2,7 +2,8 @@
 include_once "./nav.php";
 include_once "./model/category.php";
 include_once "./controller/postController.php";
-$user_id=6;
+$user_id=27;
+echo $user_id;
 $post_controller = new PostController();
 $post_list = $post_controller->getPostList();
 // var_dump($post_list);

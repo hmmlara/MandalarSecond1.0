@@ -7,6 +7,8 @@ class SearchController extends Search{
         return $this->searchUser($searchValue);
     }
 
+    
+
 }
 
 

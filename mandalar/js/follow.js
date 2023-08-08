@@ -9,6 +9,13 @@ $(document).ready(function () {
     $("#follow").removeClass("d-none");
   }
 
+  $("#followfake").on("click",function(e){
+    e.preventDefault();
+  })
+  
+  $("#messagefake").on("click",function(e){
+    e.preventDefault();
+  })
 
   $("#follow").on("click", function (e) {
     console.log("follow");

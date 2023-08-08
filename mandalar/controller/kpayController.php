@@ -17,6 +17,11 @@ class kpayController extends Kpay
     {
         return $this->reject_money($checking_id);
     }
+
+    public function getTransfarhistory($user_id)
+    {
+        return $this->gethistory($user_id);
+    }
 }
 
 
