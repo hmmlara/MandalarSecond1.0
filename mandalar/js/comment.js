@@ -43,13 +43,15 @@ const loadComments = () => {
 		type: "POST",
 		data: { post_id: PostId },
 		success: function (data) {
-			let CommentList;
+			let CommentList = '';
 			let response = JSON.parse(data);
+			console.log(response);
 			response.forEach((element) => {
+				console.log(element);
 				CommentList += `
-                     <div class ="comment' >
+                     	<div class ="comment" >
                                 <div class="d-flex">
-                                    <img src="image/user-profile/${element.img}"  class="profile-picture-comment" alt="${element.img}" style="width: max-content" />
+                                    <img src="image/user-profile/${element.img}"  class="profile-picture-comment" alt="${element.img}" style="width: 40px;height:40px;object-fit:cover" />
                                     <div>
                                         <div class="comment-content">
                                             <div class="comment-details">
@@ -60,132 +62,18 @@ const loadComments = () => {
                                         </div>
                                         <div class="comment-actions">
                                             <button class="btn btn-link btn-sm" onclick="assignParentId(event)" data-cm-id = ${element.id}>Reply</button>
-                                            <button class="btn btn-link btn-sm see-reply" onclick="seeReplies(event)">see replies
+                                            <button class="btn btn-link btn-sm see-reply" onclick="seeReplies(event,${element.id})">see replies
 
                                         </div>
                                     </div>
                                 </div>
 
-                                <div class="replies">
+                                <div class="replies d-none">
+								</div>
+						</div>
                             `;
-				$.ajax({
-					url: "php/load_replies.php",
-					type: "POST",
-					data: { parent_comment_id: element.id },
-					success: function (data) {
-						let result = JSON.parse(data);
-						console.log(result)
-						result.forEach((element) => {
-							CommentList += `
-								 <div class ="comment' >
-											<div class="d-flex">
-												<img src="image/user-profile/${element.img}"  class="profile-picture-comment" alt="${element.img}" style="width: max-content" />
-												<div>
-													<div class="comment-content">
-														<div class="comment-details">
-															<span class="comment-author">${element.name}</span>
-															<span class="comment-date">Posted on ${element.date}</span>
-														</div>
-														${element.content}
-													</div>
-													<div class="comment-actions">
-														<button class="btn btn-link btn-sm">Like</button>
-														<button class="btn btn-link btn-sm" onclick="assignParentId(event)" data-cm-id = ${element.id}>Reply</button>
-														<button class="btn btn-link btn-sm see-reply" onclick="seeReplies(event)">see 2
+		
 			
-													</div>
-												</div>
-											</div>
-			
-											<div class="replies">
-										`;
-							$.ajax({
-								url: "php/load_replies.php",
-								type: "POST",
-								data: { parent_comment_id: element.id },
-								success: function (data) {
-									let result = JSON.parse(data);
-									result.forEach((element) => {
-										CommentList += `
-											 <div class ="comment' >
-														<div class="d-flex">
-															<img src="image/user-profile/${element.img}"  class="profile-picture-comment" alt="${element.img}" style="width: max-content" />
-															<div>
-																<div class="comment-content">
-																	<div class="comment-details">
-																		<span class="comment-author">${element.name}</span>
-																		<span class="comment-date">Posted on ${element.date}</span>
-																	</div>
-																	${element.content}
-																</div>
-																<div class="comment-actions">
-																	<button class="btn btn-link btn-sm">Like</button>
-																	<button class="btn btn-link btn-sm" onclick="assignParentId(event)" data-cm-id = ${element.id}>Reply</button>
-																	<button class="btn btn-link btn-sm see-reply" onclick="seeReplies(event)">see 2
-						
-																</div>
-															</div>
-														</div>
-						
-														<div class="replies">
-													`;
-										$.ajax({
-											url: "php/load_replies.php",
-											type: "POST",
-											data: { parent_comment_id: element.id },
-											success: function (data) {
-												let result = JSON.parse(data);
-												result.forEach((element) => {
-													CommentList += `
-														 <div class ="comment' >
-																	<div class="d-flex">
-																		<img src="image/user-profile/${element.img}"  class="profile-picture-comment" alt="${element.img}" style="width: max-content" />
-																		<div>
-																			<div class="comment-content">
-																				<div class="comment-details">
-																					<span class="comment-author">${element.name}</span>
-																					<span class="comment-date">Posted on ${element.date}</span>
-																				</div>
-																				${element.content}
-																			</div>
-																			<div class="comment-actions">
-																				<button class="btn btn-link btn-sm">Like</button>
-																				<button class="btn btn-link btn-sm" onclick="assignParentId(event)" data-cm-id = ${element.id}>Reply</button>
-																				<button class="btn btn-link btn-sm see-reply" onclick="seeReplies(event)">see 2
-									
-																			</div>
-																		</div>
-																	</div>
-									
-																	<div class="replies">
-																`;
-													$.ajax({
-														url: "php/load_replies.php",
-														type: "POST",
-														data: { parent_comment_id: element.id },
-														success: function (data) {
-															let result = JSON.parse(data);
-															
-														}
-													});
-									
-													CommentList += `    </div> 
-																</div>`;
-												});
-												
-											}
-										});
-						
-										CommentList += `    </div> 
-													</div>`;
-									});
-								},
-							});
-
-						
-						});
-						CommentList += `    </div> 
-						</div>`;
 						if (
 							normalizeWhitespace(CommentList) !==
 							normalizeWhitespace(commentContainer.innerHTML)
@@ -196,8 +84,6 @@ const loadComments = () => {
 							// console.log(normalizeWhitespace(commentContainer.innerHTML));
 							// console.log("reassign");
 						}
-					},
-				});
 
 			
 			});
@@ -206,9 +92,10 @@ const loadComments = () => {
 	});
 };
 
-setInterval(() => {
-	loadComments();
-}, 5000);
+// setInterval(() => {
+// 	loadComments();
+// }, 5000);
+loadComments();
 
 //Assign Parent Id Value
 function assignParentId(e) {
@@ -227,7 +114,49 @@ function normalizeWhitespace(str) {
 }
 
 //see Replys
-function seeReplies(e) {
+function seeReplies(e,parent_comment_id) {
     console.log()
+	$.ajax({
+		url:'php/load_replies.php',
+		type:'POST',
+		data:{parent_comment_id:parent_comment_id},
+		success: function(data){
+			let response = JSON.parse(data);
+			console.log(response);
+			let repliesContainer = e.target.parentElement.parentElement.parentElement.nextElementSibling
+			console.log(repliesContainer);
+			let replyComments = '';
+			response.forEach(
+				(element)=>{
+					console.log("is ok")
+					replyComments += `
+			<div class ="comment" >
+					<div class="d-flex">
+						<img src="image/user-profile/${element.img}"  class="profile-picture-comment" alt="${element.img}" style="width: 40px;height:40px;object-fit:cover" />
+						<div>
+							<div class="comment-content">
+								<div class="comment-details">
+									<span class="comment-author">${element.name}</span>
+									<span class="comment-date">Posted on ${element.date}</span>
+								</div>
+								${element.content}
+							</div>
+							<div class="comment-actions">
+								<button class="btn btn-link btn-sm" onclick="assignParentId(event)" data-cm-id = ${element.id}>Reply</button>
+								<button class="btn btn-link btn-sm see-reply" onclick="seeReplies(event,${element.id})">see replies
+
+							</div>
+						</div>
+					</div>
+
+					<div class="replies">
+					</div>
+			</div>
+					`
+				}
+			);
+			repliesContainer.innerHTML = replyComments;
+		}
+	})
     e.target.parentElement.parentElement.parentElement.nextElementSibling.classList.toggle('d-none')
 }
