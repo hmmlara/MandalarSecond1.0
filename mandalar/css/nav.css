@@ -39,3 +39,14 @@
 .nav-container {
     padding: 20px;
 }
+.login:hover{
+    background-color: white;
+}
+.login:hover .login-text{
+    color:#4e9c81;
+    /* color: black; */
+}
+
+/* .login-text:hover{
+    color:#4e9c81;
+} */
