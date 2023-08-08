@@ -228,7 +228,8 @@ $city_list = $city_controller->getCityList();
                     </div>
                     <div class="comment-section d-none">
                         <h3>Comments</h3>
-                        <div class="comments">
+                        <div class="comments"></div>
+                        <!-- <div class="comments">
                             <div class="comment">
                                 <div class="d-flex">
                                     <img src="image/profiles/Profile.png" class="profile-picture-comment" alt="User 1" style="width: max-content" />
@@ -367,7 +368,7 @@ $city_list = $city_controller->getCityList();
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                         <div class="comment-form">
                             <div class="form-group">
                                 <label for="comment-input">Add a comment</label>
