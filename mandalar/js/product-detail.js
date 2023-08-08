@@ -212,8 +212,3 @@ $(document).ready(function() {
 
 });
 
-//see Replys
-function seeReplies(e) {
-    console.log()
-    e.target.parentElement.parentElement.parentElement.nextElementSibling.classList.toggle('d-none')
-}
