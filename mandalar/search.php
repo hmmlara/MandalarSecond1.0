@@ -12,11 +12,7 @@ if (isset($_GET['searchinput'])) {
 	// echo $searchinput;
 	$searchUsers = $searchAlluser->searchAllUser($searchinput);
 	$post_list=$post_controller->searchPosts($searchinput);
-	// foreach ($post_list as $post) {
-	// 	var_dump($post) ;
-	// }
-
-	// var_dump($post_list);
+	
 
 }
 

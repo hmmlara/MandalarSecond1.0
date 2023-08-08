@@ -1,15 +1,20 @@
 <?php
+
 include_once "./nav.php";
 include_once "./model/category.php";
 include_once "./controller/postController.php";
-$user_id=27;
-echo $user_id;
+
+
 $post_controller = new PostController();
 $post_list = $post_controller->getPostList();
 // var_dump($post_list);
 
 
 $categorys = $category_model->getCategory();
+if (isset($_SESSION['user_id'])) {
+    $user_id = $_SESSION['user_id'];
+    echo $user_id;
+}
 
 ?>
     <style>
@@ -265,10 +270,11 @@ $categorys = $category_model->getCategory();
             </div>
         </section>
         <!-- Post -->
+        <?php if(isset($_SESSION['user_id'])){ ?>
         <button type="button" class="btn btn-primary " id="PostBtn" data-mdb-toggle="modal" data-mdb-target="#exampleModal">
         +
-    </button>
-
+        </button>
+        <?php } ?>
         <!-- Modal -->
         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">

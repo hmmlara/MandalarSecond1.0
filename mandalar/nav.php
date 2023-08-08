@@ -1,5 +1,5 @@
 <?php 
-//session_start();
+session_start();
 include_once "controller/profileController.php";
 include_once "controller/userController.php";
 
@@ -11,6 +11,7 @@ $getAllUser = $getalluserlist->getUserList();
 $updateUserDetails = new UserController();
 if (isset($_SESSION['user_id'])) {
     $user_id = $_SESSION['user_id'];
+    
 }
 ?>
 <!DOCTYPE html>
