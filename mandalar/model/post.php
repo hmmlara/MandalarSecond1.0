@@ -346,7 +346,7 @@ class Post
         // $sql = "SELECT * FROM `post` WHERE description name like ";
         // $statement = $this->connection->prepare($sql);
 
-        $sql = "SELECT * FROM post WHERE REPLACE(description, ' ', '') LIKE :description";
+        $sql = "SELECT  post.*,users.full_name,users.img from post join users on post.seller_id=users.user_id  WHERE REPLACE(description, ' ', '') LIKE :description";
         $statement = $this->connection->prepare($sql);
         
         $searchInputWithoutSpaces = str_replace(' ', '', $searchinput);

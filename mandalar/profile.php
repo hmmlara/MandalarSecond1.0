@@ -1,5 +1,7 @@
 <?php
-session_start();
+include_once "nav.php";
+
+// session_start();
 include_once "controller/profileController.php";
 include_once "controller/userController.php";
 include_once "controller/nrcController.php";
@@ -23,6 +25,8 @@ $enterNrcimg=new NrcController();
 $updateUserDetails = new UserController();
 if (isset($_SESSION['user_id'])) {
     $user_id = $_SESSION['user_id'];
+}else{
+    header("Location:Home.php");
 }
 
 $post_controller = new PostController();
@@ -254,14 +258,13 @@ if(isset($_POST["sand_money"]))
     }
 }
 
-include_once "nav.php";
 
 $getKpay_history=new kpayController();
 $getKpay=$getKpay_history->getTransfarhistory($user_id);
 
 
 
-var_dump($getKpay);
+// var_dump($getKpay);
 ?>
 <link rel="stylesheet" href="mdbbootstrap/css/mdb.min.css">
 
@@ -547,7 +550,7 @@ var_dump($getKpay);
 
                                                     </h5>
                                                     <h5>
-                                                        900000
+                                                        <?php echo $post["price"] ?>
                                                     </h5>
                                                 </div>
                                                 <div class="d-flex justify-content-between align-items-center">
@@ -596,22 +599,85 @@ var_dump($getKpay);
                         <div class="tab-content container">
 
                             <div class="row">
-                                <?php if(!empty($getKpay)){  echo "isset";?>
-                                <?php foreach ($getKpay as $key => $gettransfer) { ?>
-                                   
+                                <?php if(!empty($getKpay)){  ?>
+                                <!-- today -->
+                                <h4>Today</h4>
+                                <?php foreach ($getKpay as $key => $gettransfer) { 
+                                    $transferDate = strtotime($gettransfer["date"]); // Convert date to timestamp
+                                    $currentDate = strtotime(date("Y-m-d")); // Get current date timestamp
+                                
+                                    // Extract first 5 digits from timestamps
+                                    $transferDateDigits = substr($transferDate, 0, 5);
+                                    $currentDateDigits = substr($currentDate, 0, 5);
+                                
+                                    // Compare date digits
+                                    if ($transferDateDigits === $currentDateDigits) {
+                                        $dateText = "Today";
+                                    } elseif ($transferDate === strtotime("-1 day", $currentDate)) {
+                                        $dateText = "Yesterday";
+                                    } else {
+                                        $dateText = date("d", $transferDate); // Get day of the month (2-digit)
+                                    }
+                                
+                                 ?>
+                                 
+                                 <?php if($dateText=="Today"){ ?>
+                                 
+                                    <!-- <i class="fa-solid fa-money-bill-transfer" style="color: #3b71ca;"></i> -->
                                     <div class="col-md-12  d-flex align-items-center border">
                                         <div class="col-md-1 d-flex align-items-center justify-content-center">
-                                            <i class="fa-solid fa-money-bill-transfer fa-2xl"></i>
+                                            <i class="fa-solid fa-money-bill-transfer fa-2xl" style="color: #3b71ca;"></i>
                                         </div>
                                         <div class="col-md-6">
                                             <p>Transfer To </p>
+                                            <p><?php echo $dateText; ?></p>
                                             <p><?php echo  $gettransfer["date"]; ?></p>
                                         </div>
                                         <div class="col-md-4">
                                             <h4>+<?php echo  $gettransfer["check_wallet"]; ?></h4>
                                         </div>
                                     </div>
-
+                                <?php } ?>
+                               <?php } ?>
+                               <!-- nottoday -->
+                               
+                               <h4>Not today</h4>
+                                <?php foreach ($getKpay as $key => $gettransfer) { 
+                                    $transferDate = strtotime($gettransfer["date"]); // Convert date to timestamp
+                                    $currentDate = strtotime(date("Y-m-d")); // Get current date timestamp
+                                
+                                    // Extract first 5 digits from timestamps
+                                    $transferDateDigits = substr($transferDate, 0, 5);
+                                    $currentDateDigits = substr($currentDate, 0, 5);
+                                
+                                    // Compare date digits
+                                    if ($transferDateDigits === $currentDateDigits) {
+                                        $dateText = "Today";
+                                    } elseif ($transferDate === strtotime("-1 day", $currentDate)) {
+                                        $dateText = "Yesterday";
+                                    } else {
+                                        $dateText = date("d", $transferDate); // Get day of the month (2-digit)
+                                    }
+                                
+                                 ?>
+                                 
+                                 <?php if($dateText!=="Today"){ ?>
+                                 
+                                    <!-- <i class="fa-solid fa-money-bill-transfer" style="color: #3b71ca;"></i> -->
+                                    <div class="col-md-12  d-flex align-items-center border">
+                                        <div class="col-md-1 d-flex align-items-center justify-content-center">
+                                            <i class="fa-solid fa-money-bill-transfer fa-2xl" style="color: #3b71ca;"></i>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <p>Transfer To </p>
+                                            <p><?php echo $dateText; ?></p>
+                                            <p><?php echo  $gettransfer["date"]; ?></p>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <h4>+<?php echo  $gettransfer["check_wallet"]; ?></h4>
+                                        </div>
+                                    </div>
+                                <?php } ?>
                                <?php } ?>
                                <?php }else{ ?>
                                 <div class="d-flex align-items-center justify-content-center mt-5">

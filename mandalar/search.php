@@ -25,7 +25,128 @@ if (isset($_GET['searchinput'])) {
     
  }
 ?>
-
+<style>
+        /* Custom select box style for MDB */
+        
+        .custom-select {
+            display: block;
+            width: 100%;
+            height: 38px;
+            padding: 0.375rem 0.75rem;
+            font-size: 1rem;
+            line-height: 1.5;
+            color: #495057;
+            background-color: #fff;
+            background-clip: padding-box;
+            border: 1px solid #ced4da;
+            border-radius: 0.25rem;
+            transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+        }
+        .profile-on-card {
+			object-fit: cover;
+			width: 40px;
+			height: 40px;
+			margin-right: 10px;
+		}
+        .custom-select:focus {
+            border-color: #80bdff;
+            outline: 0;
+            box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+        }
+        /* Style the arrow icon */
+        
+        .custom-select::after {
+            content: '\f107';
+            /* Font Awesome caret-down icon */
+            font-family: 'Font Awesome 5 Free';
+            font-weight: 900;
+            position: absolute;
+            top: 50%;
+            right: 10px;
+            transform: translateY(-50%);
+            pointer-events: none;
+        }
+        /* Optional: Style the dropdown options */
+        
+        .custom-select option {
+            padding: 10px;
+            background-color: #fff;
+            color: #495057;
+        }
+        /* Custom style for image selector */
+        
+        .image-selector {
+            display: inline-block;
+        }
+        
+        .image-selector .form-control {
+            display: none;
+        }
+        
+        .image-selector label {
+            /* display: block; */
+            margin-top: 8px;
+            width: 100px;
+            height: 100px;
+            background-color: #f0f0f0;
+            border: 2px dashed #ccc;
+            border-radius: 8px;
+            text-align: center;
+            line-height: 100px;
+            font-size: 24px;
+            color: #666;
+            cursor: pointer;
+            transition: border-color 0.2s;
+        }
+        
+        .image-selector img {
+            max-width: 100%;
+            max-height: 100%;
+            border-radius: 8px;
+            margin-top: 10px;
+        }
+        
+        .image-selector label:hover {
+            border-color: #333;
+        }
+        
+        .image-selector label.plus-sign::before {
+            content: '+';
+        }
+        /* Show the selected image preview */
+        
+        .image-selector .form-control:focus+img {
+            display: block;
+        }
+        
+        .preview-image {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            margin-right: 8px;
+            margin-top: 8px;
+            border-radius: 8px;
+        }
+        
+        .image-previews img {
+            /* display: flex; */
+            vertical-align: top;
+        }
+        
+        #PostBtn {
+            position: fixed;
+            right: 40px;
+            bottom: 40px;
+            padding: 30px;
+            font-size: 20px;
+            border-radius: 20px;
+        }
+        
+        a {
+            color: initial !important;
+            
+        }
+    </style>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -47,6 +168,7 @@ if (isset($_GET['searchinput'])) {
 		href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css" />
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/css/mdb.min.css" />
 	<link rel="stylesheet" href="css/nav.css" />
+	<!-- <link rel="stylesheet" href="css/profile.css"> -->
 	<link rel="stylesheet" href="css/style2.css" />
 	<link rel="stylesheet" href="css/search.css" />
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
@@ -199,18 +321,18 @@ if (isset($_GET['searchinput'])) {
 
                                                     </h5>
                                                     <h5>
-                                                        900000
+													<?php echo $post['price'] ?>
                                                     </h5>
                                                 </div>
                                                 <div class="d-flex justify-content-between align-items-center">
                                                     <div class="d-flex align-items-center">
-                                                        <img src="image/user-profile/<?php echo $post['user_img'] ?>" class="rounded-circle profile-on-card" alt="Seller 1" />
+                                                        <img src="image/user-profile/<?php echo $post['img'] ?>" class="rounded-circle profile-on-card" alt="Seller 1" />
                                                         <span class="ml-2 card-text">
-                                                    <?php echo $post['fname'] . " " . $post['lname'] ?>
+                                                    <?php echo $post['full_name']; ?>
                                                 </span>
                                                     </div>
                                                 </div>
-                                                <div class=" product-info-box">
+                                                <div class="d-flex product-info-box">
                                                     <div>
                                                         <i class="far fa-heart mr-2"></i>
                                                         <span class="reaction-count">5</span>

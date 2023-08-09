@@ -1,14 +1,24 @@
 <?php
-session_start();
+include_once "nav.php";
+// session_start();
 include_once "controller/profileController.php";
 include_once "controller/followController.php";
 include_once "controller/kpayController.php";
-include_once "./controller/postController.php";
+include_once "controller/postController.php";
+$getalluserlist = new ProfileController();
+$followUser=new FollowController();
+$post_controller = new PostController();
+$getKpay_history=new kpayController();
+
+
 
 if(isset($_SESSION['user_id']))
 {
+    $to_id=$_GET['id'];
+    // echo $to_id;
+
     $from_id=$_SESSION['user_id'];
-    
+    // echo $from_id;
     $followresult=$followUser->followingUser($from_id,$to_id);
 
     if($followresult[0]['follow_exists']=="1")
@@ -26,15 +36,11 @@ if(isset($_SESSION['user_id']))
     }
 
 
-}else{
-    $fake_id=99;
 }
-$to_id=$_GET['id'];
-$getalluserlist = new ProfileController();
+
 $getAllUser = $getalluserlist->getUserList();
-$followUser=new FollowController();
+
 $getAllFollow=$followUser->getAllFollow();
-$post_controller = new PostController();
 
 
 
@@ -88,8 +94,6 @@ foreach ($getAllUser as $key => $user) {
 // }
 
 
-include_once "nav.php";
-$getKpay_history=new kpayController();
 $getKpay=$getKpay_history->getTransfarhistory($userid);
 $getuserpost = $post_controller->getUserList($userid);
 //  var_dump($getuserpost);
@@ -97,93 +101,7 @@ $getuserpost = $post_controller->getUserList($userid);
 // var_dump($getKpay);
 ?>
     <style>
-        /* Custom select box style for MDB */
         
-        .custom-select {
-            display: block;
-            width: 100%;
-            height: 38px;
-            padding: 0.375rem 0.75rem;
-            font-size: 1rem;
-            line-height: 1.5;
-            color: #495057;
-            background-color: #fff;
-            background-clip: padding-box;
-            border: 1px solid #ced4da;
-            border-radius: 0.25rem;
-            transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-        }
-        
-        .custom-select:focus {
-            border-color: #80bdff;
-            outline: 0;
-            box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
-        }
-        /* Style the arrow icon */
-        
-        .custom-select::after {
-            content: '\f107';
-            /* Font Awesome caret-down icon */
-            font-family: 'Font Awesome 5 Free';
-            font-weight: 900;
-            position: absolute;
-            top: 50%;
-            right: 10px;
-            transform: translateY(-50%);
-            pointer-events: none;
-        }
-        /* Optional: Style the dropdown options */
-        
-        .custom-select option {
-            padding: 10px;
-            background-color: #fff;
-            color: #495057;
-        }
-        /* Custom style for image selector */
-        
-        .image-selector {
-            display: inline-block;
-        }
-        
-        .image-selector .form-control {
-            display: none;
-        }
-        
-        .image-selector label {
-            /* display: block; */
-            margin-top: 8px;
-            width: 100px;
-            height: 100px;
-            background-color: #f0f0f0;
-            border: 2px dashed #ccc;
-            border-radius: 8px;
-            text-align: center;
-            line-height: 100px;
-            font-size: 24px;
-            color: #666;
-            cursor: pointer;
-            transition: border-color 0.2s;
-        }
-        
-        .image-selector img {
-            max-width: 100%;
-            max-height: 100%;
-            border-radius: 8px;
-            margin-top: 10px;
-        }
-        
-        .image-selector label:hover {
-            border-color: #333;
-        }
-        
-        .image-selector label.plus-sign::before {
-            content: '+';
-        }
-        /* Show the selected image preview */
-        
-        .image-selector .form-control:focus+img {
-            display: block;
-        }
         
         .preview-image {
             width: 100px;
@@ -281,7 +199,7 @@ $getuserpost = $post_controller->getUserList($userid);
                 <i class="fa-brands fa-square-google-plus fa-xl icon" style="color: #4285f4;"></i>
                 <form action="" method="post">
                     <div class="allbtn">
-                        <?php if(isset($from_id)) {?>
+                        <?php if(isset($_SESSION['user_id'])) {?>
                             <a href="chatapp/chat.php?user_id=<?php echo $to_id ?>" class="messageuser btn btn-info">Message</a>
                             <!-- <button class="messageuser btn btn-info">Message</button> -->
                                            
@@ -321,7 +239,7 @@ $getuserpost = $post_controller->getUserList($userid);
                                     </div>
                                     <!-- <div class="modal-body">Sign up to follow friends</div> -->
                                     <div class="modal-footer d-flex align-items-center justify-content-center">
-                                        <a  href="register.php" class="btn btn-secondary" data-mdb-dismiss="modal">Register</a>
+                                        <a  href="register.php" class="btn btn-secondary">Register</a>
                                         <a href="login.php" class="btn btn-primary">Login</a>
                                         <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
                                     </div>

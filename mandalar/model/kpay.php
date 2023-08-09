@@ -65,7 +65,7 @@ class Kpay{
         $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
         $sql="SELECT * FROM money_check
-        WHERE user_id = :user_id AND status = 1;";
+        WHERE user_id = :user_id AND status = 1 ORDER BY date DESC;";
         $statement=$this->connection->prepare($sql);
 
         $statement->bindParam(":user_id",$user_id);

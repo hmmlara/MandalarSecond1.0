@@ -7,7 +7,12 @@
 	background-color: transparent;
 	box-shadow: none;
 }
-
+.profile-on-card {
+    object-fit: cover;
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+}
 .nav-list {
 	display: flex;
 	justify-content: center;
