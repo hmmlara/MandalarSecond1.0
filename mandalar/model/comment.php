@@ -60,7 +60,7 @@ class Comment
     }
 
     function deleteCommentById($id){
-        $sql = 'delete * FROM comment where id = :id';
+        $sql = 'delete FROM comment where id = :id';
         $statement = $this->connection->prepare($sql);
         $statement->bindParam(':id', $id);
 

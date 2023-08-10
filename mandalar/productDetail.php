@@ -60,7 +60,7 @@ $city_list = $city_controller->getCityList();
 							<div class="modal-body">...</div>
 							<div class="modal-footer">
 							  <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Close</button>
-							  <button type="button" class="btn btn-primary">Save changes</button>
+							  <button type="button" onclick="asseptDelete()" class="btn btn-primary">Save changes</button>
 							</div>
 						  </div>
 						</div>

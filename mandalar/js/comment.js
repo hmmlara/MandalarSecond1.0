@@ -31,20 +31,21 @@ commentBtn.addEventListener("click", (e) => {
 			Content = "";
 			commentInput.value = "";
 			ParentCommentId = 0;
+			loadComments()
 		},
 	});
 });
 
 let commentContainer = document.querySelector(".comments");
 
-const loadComments = () => {
+function loadComments  () {
 	$.ajax({
 		url: "php/load_comment.php",
 		type: "POST",
 		data: { post_id: PostId },
 		success: function (data) {
 			let CommentList = "";
-			console.log(data)
+			console.log(data);
 			let response = JSON.parse(data);
 			console.log(response);
 			response.forEach((element) => {
@@ -63,7 +64,7 @@ const loadComments = () => {
                                         </div>
                                         <div class="comment-actions">
                                             <button class="btn btn-link btn-sm" onclick="assignParentId(event)" data-cm-id = ${element.id}>Reply</button>
-                                            <button class="btn btn-link btn-sm see-reply" onclick="seeReplies(event,${element.id})">see replies
+                                            <button class="btn btn-link btn-sm see-reply" onclick="seeReplies(event,${element.id})">see replies</button>
 
                             
                             `;
@@ -80,10 +81,9 @@ const loadComments = () => {
 					<ul class="dropdown-menu">
 					  <li><a class="dropdown-item" href="#">Edit</a></li>
 					  <!-- Button trigger modal -->
-					  <button type="button" class="dropdown-item" data-mdb-toggle="modal" data-mdb-whatever="@getbootstrap" data-mdb-target="#xampleModal">
-						Launch demo modal
-					  </button>
-					  
+				
+					  <li><a class="dropdown-item" onclick = "deleteComment(${element.id})" href="#">Delete</a></li>
+
 					  
 					
 					</ul>
@@ -184,13 +184,39 @@ function seeReplies(e, parent_comment_id) {
 	);
 }
 
-function deleteComment($id){
-$.ajax({
-	url:'php/deleteComment.php',
-	type:'POST',
-	data:{id:$id},
-	success:function(data){
-		console.log(data);
+// let isDelete = false;
+// let isModalOpen = false;
+function deleteComment($id) {
+	let isItSure = confirm("are you sure To delete");
+	if(isItSure){
+		$.ajax({
+			url: "php/deleteComment.php",
+			type: "POST",
+			data: { id: $id },
+			success: function (data) {
+				console.log("delete Success");
+				loadComments();
+
+			},
+		});
 	}
+
+}
+
+// function asseptDelete() {
+// 	isDelete = true;
+// 	setTimeout(() => {
+// 		isModalOpen = false;
+// 	}, 1000);
+// }
+
+const seeRepliesBtns = document.getElementsByClassName('see-reply');
+console.log(seeRepliesBtns);
+seeRepliesBtns.forEach((btn)=>{
+
 })
-} 
+seeRepliesBtns.forEach(element => {
+	console.log("clicked success",btn)
+
+	btn.click();
+});
