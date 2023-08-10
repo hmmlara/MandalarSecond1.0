@@ -43,7 +43,8 @@ const loadComments = () => {
 		type: "POST",
 		data: { post_id: PostId },
 		success: function (data) {
-			let CommentList = '';
+			let CommentList = "";
+			console.log(data)
 			let response = JSON.parse(data);
 			console.log(response);
 			response.forEach((element) => {
@@ -64,38 +65,62 @@ const loadComments = () => {
                                             <button class="btn btn-link btn-sm" onclick="assignParentId(event)" data-cm-id = ${element.id}>Reply</button>
                                             <button class="btn btn-link btn-sm see-reply" onclick="seeReplies(event,${element.id})">see replies
 
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="replies d-none">
-								</div>
-						</div>
+                            
                             `;
-		
-			
-						if (
-							normalizeWhitespace(CommentList) !==
-							normalizeWhitespace(commentContainer.innerHTML)
-						) {
-							// Your logic here
-							commentContainer.innerHTML = CommentList;
-							// console.log(normalizeWhitespace(CommentList));
-							// console.log(normalizeWhitespace(commentContainer.innerHTML));
-							// console.log("reassign");
-						}
+				if (CommenterId == element.user_id) {
+					CommentList += `<div class="btn-group shadow-0 mb-2 dropend">
+					<button
+					  type="button"
+					  class="btn btn-secondary dropdown-toggle"
+					  data-mdb-toggle="dropdown"
+					  aria-expanded="false"
+					>
+					  Dropend
+					</button>
+					<ul class="dropdown-menu">
+					  <li><a class="dropdown-item" href="#">Edit</a></li>
+					  <!-- Button trigger modal -->
+					  <button type="button" class="dropdown-item" data-mdb-toggle="modal" data-mdb-whatever="@getbootstrap" data-mdb-target="#xampleModal">
+						Launch demo modal
+					  </button>
+					  
+					  
+					
+					</ul>
+				  </div>
+								`;
+				}
 
-			
+				CommentList += `
+							</div>
+								
+							</div>
+						</div>
+
+						<div class="replies d-none">
+						</div>
+				</div>
+							`;
+
+				if (
+					normalizeWhitespace(CommentList) !==
+					normalizeWhitespace(commentContainer.innerHTML)
+				) {
+					// Your logic here
+					commentContainer.innerHTML = CommentList;
+					// console.log(normalizeWhitespace(CommentList));
+					// console.log(normalizeWhitespace(commentContainer.innerHTML));
+					// console.log("reassign");
+				}
 			});
-	
 		},
 	});
 };
 
-setInterval(() => {
-	loadComments();
-}, 5000);
-// loadComments();
+// setInterval(() => {
+// 	loadComments();
+// }, 500);
+loadComments();
 
 //Assign Parent Id Value
 function assignParentId(e) {
@@ -114,19 +139,19 @@ function normalizeWhitespace(str) {
 }
 
 //see Replys
-function seeReplies(e,parent_comment_id) {
-    console.log()
+function seeReplies(e, parent_comment_id) {
+	console.log();
 	$.ajax({
-		url:'php/load_replies.php',
-		type:'POST',
-		data:{parent_comment_id:parent_comment_id},
-		success: function(data){
+		url: "php/load_replies.php",
+		type: "POST",
+		data: { parent_comment_id: parent_comment_id },
+		success: function (data) {
 			let response = JSON.parse(data);
-			let repliesContainer = e.target.parentElement.parentElement.parentElement.nextElementSibling
-			let replyComments = '';
-			response.forEach(
-				(element)=>{
-					replyComments += `
+			let repliesContainer =
+				e.target.parentElement.parentElement.parentElement.nextElementSibling;
+			let replyComments = "";
+			response.forEach((element) => {
+				replyComments += `
 			<div class ="comment" >
 					<div class="d-flex">
 						<img src="image/user-profile/${element.img}"  class="profile-picture-comment" alt="${element.img}" style="width: 40px;height:40px;object-fit:cover" />
@@ -149,11 +174,23 @@ function seeReplies(e,parent_comment_id) {
 					<div class="replies">
 					</div>
 			</div>
-					`
-				}
-			);
+					`;
+			});
 			repliesContainer.innerHTML = replyComments;
-		}
-	})
-    e.target.parentElement.parentElement.parentElement.nextElementSibling.classList.toggle('d-none')
+		},
+	});
+	e.target.parentElement.parentElement.parentElement.nextElementSibling.classList.toggle(
+		"d-none"
+	);
 }
+
+function deleteComment($id){
+$.ajax({
+	url:'php/deleteComment.php',
+	type:'POST',
+	data:{id:$id},
+	success:function(data){
+		console.log(data);
+	}
+})
+} 
