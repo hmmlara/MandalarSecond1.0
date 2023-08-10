@@ -31,14 +31,14 @@ commentBtn.addEventListener("click", (e) => {
 			Content = "";
 			commentInput.value = "";
 			ParentCommentId = 0;
-			loadComments()
+			loadComments();
 		},
 	});
 });
 
 let commentContainer = document.querySelector(".comments");
 
-function loadComments  () {
+function loadComments() {
 	$.ajax({
 		url: "php/load_comment.php",
 		type: "POST",
@@ -101,21 +101,25 @@ function loadComments  () {
 						</div>
 				</div>
 							`;
-
-				if (
-					normalizeWhitespace(CommentList) !==
-					normalizeWhitespace(commentContainer.innerHTML)
-				) {
-					// Your logic here
-					commentContainer.innerHTML = CommentList;
-					// console.log(normalizeWhitespace(CommentList));
-					// console.log(normalizeWhitespace(commentContainer.innerHTML));
-					// console.log("reassign");
-				}
 			});
+			if (
+				normalizeWhitespace(CommentList) !==
+				normalizeWhitespace(commentContainer.innerHTML)
+			) {
+				// Your logic here
+				commentContainer.innerHTML = CommentList;
+				// console.log(normalizeWhitespace(CommentList));
+				// console.log(normalizeWhitespace(commentContainer.innerHTML));
+				// console.log("reassign");
+				const seeRepliesBtns = document.querySelectorAll(".see-reply");
+				console.log(seeRepliesBtns);
+				seeRepliesBtns.forEach((btn) => {
+					btn.click();
+				});
+			}
 		},
 	});
-};
+}
 
 // setInterval(() => {
 // 	loadComments();
@@ -167,14 +171,38 @@ function seeReplies(e, parent_comment_id) {
 								<button class="btn btn-link btn-sm" onclick="assignParentId(event)" data-cm-id = ${element.id}>Reply</button>
 								<button class="btn btn-link btn-sm see-reply" onclick="seeReplies(event,${element.id})">see replies
 
-							</div>
-						</div>
-					</div>
-
-					<div class="replies">
-					</div>
-			</div>
+			
 					`;
+					if (CommenterId == element.user_id) {
+						replyComments += `<div class="btn-group shadow-0 mb-2 dropend">
+						<button
+						  type="button"
+						  class="btn btn-secondary dropdown-toggle"
+						  data-mdb-toggle="dropdown"
+						  aria-expanded="false"
+						>
+						  Dropend
+						</button>
+						<ul class="dropdown-menu">
+						  <li><a class="dropdown-item" href="#">Edit</a></li>
+						  <!-- Button trigger modal -->
+					
+						  <li><a class="dropdown-item" onclick = "deleteComment(${element.id})" href="#">Delete</a></li>
+	
+						  
+						
+						</ul>
+					  </div>
+									`;
+					}
+	
+				replyComments += `				</div>
+					</div>
+				</div>
+
+				<div class="replies">
+				</div>
+		</div>`;
 			});
 			repliesContainer.innerHTML = replyComments;
 		},
@@ -188,7 +216,7 @@ function seeReplies(e, parent_comment_id) {
 // let isModalOpen = false;
 function deleteComment($id) {
 	let isItSure = confirm("are you sure To delete");
-	if(isItSure){
+	if (isItSure) {
 		$.ajax({
 			url: "php/deleteComment.php",
 			type: "POST",
@@ -196,11 +224,9 @@ function deleteComment($id) {
 			success: function (data) {
 				console.log("delete Success");
 				loadComments();
-
 			},
 		});
 	}
-
 }
 
 // function asseptDelete() {
@@ -209,14 +235,3 @@ function deleteComment($id) {
 // 		isModalOpen = false;
 // 	}, 1000);
 // }
-
-const seeRepliesBtns = document.getElementsByClassName('see-reply');
-console.log(seeRepliesBtns);
-seeRepliesBtns.forEach((btn)=>{
-
-})
-seeRepliesBtns.forEach(element => {
-	console.log("clicked success",btn)
-
-	btn.click();
-});
