@@ -9,6 +9,8 @@ let CommenterId = commenterStoreBox.dataset.userId;
 let PostId = postIdStoreBox.dataset.postId;
 let ParentCommentId = null;
 let Content = "";
+let isEdit = false;
+let com_id = null;
 
 //Assign Content Value From Input
 commentInput.addEventListener("keyup", (e) => {
@@ -25,12 +27,16 @@ commentBtn.addEventListener("click", (e) => {
 			user_id: CommenterId,
 			content: Content,
 			parent_comment_id: ParentCommentId,
+			isEdit: isEdit,
+			com_id:com_id
 		},
 		success: function (data) {
 			console.log(data);
 			Content = "";
 			commentInput.value = "";
 			ParentCommentId = 0;
+			isEdit = false;
+			com_id = null;
 			loadComments();
 		},
 	});
@@ -76,13 +82,13 @@ function loadComments() {
 					  data-mdb-toggle="dropdown"
 					  aria-expanded="false"
 					>
-					  Dropend
+					  Action
 					</button>
 					<ul class="dropdown-menu">
-					  <li><a class="dropdown-item" href="#">Edit</a></li>
+					  <li><a class="dropdown-item" onclick = "edit('${element.content}',${element.id})" >Edit</a></li>
 					  <!-- Button trigger modal -->
 				
-					  <li><a class="dropdown-item" onclick = "deleteComment(${element.id})" href="#">Delete</a></li>
+					  <li><a class="dropdown-item" onclick = "deleteComment(${element.id})" >Delete</a></li>
 
 					  
 					
@@ -181,13 +187,13 @@ function seeReplies(e, parent_comment_id) {
 						  data-mdb-toggle="dropdown"
 						  aria-expanded="false"
 						>
-						  Dropend
+						  Action
 						</button>
 						<ul class="dropdown-menu">
-						  <li><a class="dropdown-item" href="#">Edit</a></li>
+						  <li><a class="dropdown-item" onclick = "edit('${element.content}',${element.id})" >Edit</a></li>
 						  <!-- Button trigger modal -->
 					
-						  <li><a class="dropdown-item" onclick = "deleteComment(${element.id})" href="#">Delete</a></li>
+						  <li><a class="dropdown-item" onclick = "deleteComment(${element.id})" >Delete</a></li>
 	
 						  
 						
@@ -229,6 +235,13 @@ function deleteComment($id) {
 	}
 }
 
+function edit(value,id){
+	isEdit = true;
+	commentInput.value = value;
+
+	com_id = id;
+	console.log(com_id);
+}
 // function asseptDelete() {
 // 	isDelete = true;
 // 	setTimeout(() => {
