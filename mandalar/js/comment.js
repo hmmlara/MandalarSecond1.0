@@ -43,7 +43,7 @@ commentBtn.addEventListener("click", (e) => {
 });
 
 let commentContainer = document.querySelector(".comments");
-
+let previousResponse = "";
 function loadComments() {
 	$.ajax({
 		url: "php/load_comment.php",
@@ -53,65 +53,63 @@ function loadComments() {
 			let CommentList = "";
 			console.log(data);
 			let response = JSON.parse(data);
-			console.log(response);
-			response.forEach((element) => {
-				console.log(element);
-				CommentList += `
-                     	<div class ="comment" >
-                                <div class="d-flex">
-                                    <img src="image/user-profile/${element.img}"  class="profile-picture-comment" alt="${element.img}" style="width: 40px;height:40px;object-fit:cover" />
-                                    <div>
-                                        <div class="comment-content">
-                                            <div class="comment-details">
-                                                <span class="comment-author">${element.name}</span>
-                                                <span class="comment-date">Posted on ${element.date}</span>
-                                            </div>
-                                            ${element.content}
-                                        </div>
-                                        <div class="comment-actions">
-                                            <button class="btn btn-link btn-sm" onclick="assignParentId(event)" data-cm-id = ${element.id}>Reply</button>
-                                            <button class="btn btn-link btn-sm see-reply" onclick="seeReplies(event,${element.id})">see replies</button>
-
-                            
-                            `;
-				if (CommenterId == element.user_id) {
-					CommentList += `<div class="btn-group shadow-0 mb-2 dropend">
-					<button
-					  type="button"
-					  class="btn btn-secondary dropdown-toggle"
-					  data-mdb-toggle="dropdown"
-					  aria-expanded="false"
-					>
-					  Action
-					</button>
-					<ul class="dropdown-menu">
-					  <li><a class="dropdown-item" onclick = "edit('${element.content}',${element.id})" >Edit</a></li>
-					  <!-- Button trigger modal -->
-				
-					  <li><a class="dropdown-item" onclick = "deleteComment(${element.id})" >Delete</a></li>
-
-					  
-					
-					</ul>
-				  </div>
-								`;
-				}
-
-				CommentList += `
-							</div>
+			console.log(response.length);
+			console.log(previousResponse.length);
+			if (response.length !== previousResponse.length) {
+				response.forEach((element) => {
+					console.log(element);
+					CommentList += `
+							 <div class ="comment" >
+									<div class="d-flex">
+										<img src="image/user-profile/${element.img}"  class="profile-picture-comment" alt="${element.img}" style="width: 40px;height:40px;object-fit:cover" />
+										<div>
+											<div class="comment-content">
+												<div class="comment-details">
+													<span class="comment-author">${element.name}</span>
+													<span class="comment-date">Posted on ${element.date}</span>
+												</div>
+												${element.content}
+											</div>
+											<div class="comment-actions">
+												<button class="btn btn-link btn-sm" onclick="assignParentId(event)" data-cm-id = ${element.id}>Reply</button>
+												<button class="btn btn-link btn-sm see-reply" onclick="seeReplies(event,${element.id})">see replies</button>
+	
 								
-							</div>
-						</div>
+								`;
+					if (CommenterId == element.user_id) {
+						CommentList += `<div class="btn-group shadow-0 mb-2 dropend">
+						<button
+						  type="button"
+						  class="btn btn-secondary dropdown-toggle"
+						  data-mdb-toggle="dropdown"
+						  aria-expanded="false"
+						>
+						  Action
+						</button>
+						<ul class="dropdown-menu">
+						  <li><a class="dropdown-item" onclick = "edit('${element.content}',${element.id})" >Edit</a></li>
+						  <!-- Button trigger modal -->
+					
+						  <li><a class="dropdown-item" onclick = "deleteComment(${element.id})" >Delete</a></li>
+	
+						  
+						
+						</ul>
+					  </div>
+									`;
+					}
 
-						<div class="replies d-none">
-						</div>
-				</div>
-							`;
-			});
-			if (
-				normalizeWhitespace(CommentList) !==
-				normalizeWhitespace(commentContainer.innerHTML)
-			) {
+					CommentList += `
+								</div>
+									
+								</div>
+							</div>
+	
+							<div class="replies d-none">
+							</div>
+					</div>
+								`;
+				});
 				// Your logic here
 				commentContainer.innerHTML = CommentList;
 				// console.log(normalizeWhitespace(CommentList));
@@ -123,14 +121,15 @@ function loadComments() {
 					btn.click();
 				});
 			}
+			previousResponse = response;
 		},
 	});
 }
 
-// setInterval(() => {
-// 	loadComments();
-// }, 500);
-loadComments();
+setInterval(() => {
+	loadComments();
+}, 2000);
+// loadComments();
 
 //Assign Parent Id Value
 function assignParentId(e) {
@@ -142,7 +141,7 @@ function assignParentId(e) {
 	console.log(CommentUser);
 	console.log("ParentCommentId : ", ParentCommentId);
 	commentInput.value = CommentUser;
-	appendAlert('Repling to '+CommentUser,'light');
+	appendAlert("Repling to " + CommentUser, "light");
 }
 
 function normalizeWhitespace(str) {
@@ -249,21 +248,21 @@ function edit(value, id) {
 // 		isModalOpen = false;
 // 	}, 1000);
 // }
-const alertPlaceholder = document.getElementById('liveAlertPlaceholder')
-function appendAlert(message, type){
-	alertPlaceholder.innerHTML = '';
-	const wrapper = document.createElement('div')
+const alertPlaceholder = document.getElementById("liveAlertPlaceholder");
+function appendAlert(message, type) {
+	alertPlaceholder.innerHTML = "";
+	const wrapper = document.createElement("div");
 	wrapper.innerHTML = [
 		`<div class="alert light alert-${type} alert-dismissible" role="alert">`,
 		`   <div>${message}</div>`,
 		'   <button type="button" onclick = "reassignReplyId()" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
-		'</div>'
-	].join('')
+		"</div>",
+	].join("");
 
-	alertPlaceholder.append(wrapper)
+	alertPlaceholder.append(wrapper);
 }
 
-function reassignReplyId(){
+function reassignReplyId() {
 	ParentCommentId = 0;
-	commentInput.value = ''
+	commentInput.value = "";
 }
