@@ -28,7 +28,7 @@ commentBtn.addEventListener("click", (e) => {
 			content: Content,
 			parent_comment_id: ParentCommentId,
 			isEdit: isEdit,
-			com_id:com_id
+			com_id: com_id,
 		},
 		success: function (data) {
 			console.log(data);
@@ -69,7 +69,7 @@ function loadComments() {
                                             ${element.content}
                                         </div>
                                         <div class="comment-actions">
-                                            <button class="btn btn-link btn-sm" onclick="assignParentId(event)"  id="liveAlertBtn" data-cm-id = ${element.id}>Reply</button>
+                                            <button class="btn btn-link btn-sm" onclick="assignParentId(event)" data-cm-id = ${element.id}>Reply</button>
                                             <button class="btn btn-link btn-sm see-reply" onclick="seeReplies(event,${element.id})">see replies</button>
 
                             
@@ -142,6 +142,7 @@ function assignParentId(e) {
 	console.log(CommentUser);
 	console.log("ParentCommentId : ", ParentCommentId);
 	commentInput.value = CommentUser;
+	appendAlert('Repling to '+CommentUser,'light');
 }
 
 function normalizeWhitespace(str) {
@@ -174,13 +175,13 @@ function seeReplies(e, parent_comment_id) {
 								${element.content}
 							</div>
 							<div class="comment-actions">
-								<button class="btn btn-link btn-sm"  id="liveAlertBtn" onclick="assignParentId(event)" data-cm-id = ${element.id}>Reply</button>
+								<button class="btn btn-link btn-sm"  onclick="assignParentId(event)" data-cm-id = ${element.id}>Reply</button>
 								<button class="btn btn-link btn-sm see-reply"  onclick="seeReplies(event,${element.id})">see replies
 
 			
 					`;
-					if (CommenterId == element.user_id) {
-						replyComments += `<div class="btn-group shadow-0 mb-2 dropend">
+				if (CommenterId == element.user_id) {
+					replyComments += `<div class="btn-group shadow-0 mb-2 dropend">
 						<button
 						  type="button"
 						  class="btn btn-secondary dropdown-toggle"
@@ -200,8 +201,8 @@ function seeReplies(e, parent_comment_id) {
 						</ul>
 					  </div>
 									`;
-					}
-	
+				}
+
 				replyComments += `				</div>
 					</div>
 				</div>
@@ -235,7 +236,7 @@ function deleteComment($id) {
 	}
 }
 
-function edit(value,id){
+function edit(value, id) {
 	isEdit = true;
 	commentInput.value = value;
 
@@ -248,3 +249,21 @@ function edit(value,id){
 // 		isModalOpen = false;
 // 	}, 1000);
 // }
+const alertPlaceholder = document.getElementById('liveAlertPlaceholder')
+function appendAlert(message, type){
+	alertPlaceholder.innerHTML = '';
+	const wrapper = document.createElement('div')
+	wrapper.innerHTML = [
+		`<div class="alert light alert-${type} alert-dismissible" role="alert">`,
+		`   <div>${message}</div>`,
+		'   <button type="button" onclick = "reassignReplyId()" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
+		'</div>'
+	].join('')
+
+	alertPlaceholder.append(wrapper)
+}
+
+function reassignReplyId(){
+	ParentCommentId = 0;
+	commentInput.value = ''
+}
