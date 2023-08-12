@@ -3,6 +3,7 @@ const commenterStoreBox = document.querySelector("#commenter_id");
 const postIdStoreBox = document.querySelector("#post_id");
 const commentInput = document.querySelector("#comment-input");
 const commentBtn = document.querySelector("#comment-btn");
+const alertPlaceholder = document.getElementById("liveAlertPlaceholder");
 
 //Assign Value
 let CommenterId = commenterStoreBox.dataset.userId;
@@ -11,6 +12,7 @@ let ParentCommentId = null;
 let Content = "";
 let isEdit = false;
 let com_id = null;
+let previousResponse = "";
 
 //Assign Content Value From Input
 commentInput.addEventListener("keyup", (e) => {
@@ -37,13 +39,14 @@ commentBtn.addEventListener("click", (e) => {
 			ParentCommentId = 0;
 			isEdit = false;
 			com_id = null;
-			loadComments();
+	
+			previousResponse = '';
+			alertPlaceholder.innerHTML = '';
 		},
 	});
 });
 
 let commentContainer = document.querySelector(".comments");
-let previousResponse = "";
 function loadComments() {
 	$.ajax({
 		url: "php/load_comment.php",
@@ -51,10 +54,7 @@ function loadComments() {
 		data: { post_id: PostId },
 		success: function (data) {
 			let CommentList = "";
-			console.log(data);
 			let response = JSON.parse(data);
-			console.log(response.length);
-			console.log(previousResponse.length);
 			if (response.length !== previousResponse.length) {
 				response.forEach((element) => {
 					console.log(element);
@@ -110,11 +110,8 @@ function loadComments() {
 					</div>
 								`;
 				});
-				// Your logic here
 				commentContainer.innerHTML = CommentList;
-				// console.log(normalizeWhitespace(CommentList));
-				// console.log(normalizeWhitespace(commentContainer.innerHTML));
-				// console.log("reassign");
+			
 				const seeRepliesBtns = document.querySelectorAll(".see-reply");
 				console.log(seeRepliesBtns);
 				seeRepliesBtns.forEach((btn) => {
@@ -128,7 +125,7 @@ function loadComments() {
 
 setInterval(() => {
 	loadComments();
-}, 2000);
+}, 500);
 // loadComments();
 
 //Assign Parent Id Value
@@ -157,8 +154,7 @@ function seeReplies(e, parent_comment_id) {
 		data: { parent_comment_id: parent_comment_id },
 		success: function (data) {
 			let response = JSON.parse(data);
-			let repliesContainer =
-				e.target.parentElement.parentElement.parentElement.nextElementSibling;
+			let repliesContainer =e.target.parentElement.parentElement.parentElement.nextElementSibling;
 			let replyComments = "";
 			response.forEach((element) => {
 				replyComments += `
@@ -202,7 +198,7 @@ function seeReplies(e, parent_comment_id) {
 									`;
 				}
 
-				replyComments += `				</div>
+				replyComments += `
 					</div>
 				</div>
 
@@ -248,7 +244,6 @@ function edit(value, id) {
 // 		isModalOpen = false;
 // 	}, 1000);
 // }
-const alertPlaceholder = document.getElementById("liveAlertPlaceholder");
 function appendAlert(message, type) {
 	alertPlaceholder.innerHTML = "";
 	const wrapper = document.createElement("div");
