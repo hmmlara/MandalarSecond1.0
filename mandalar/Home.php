@@ -226,7 +226,7 @@ if (isset($_SESSION['user_id'])) {
                 <a href="productDetail.php?id=<?php echo $post['id'] ?>" class="col-md-4 col-sm-6  col-lg-3 mb-4 ">
                     <div class="card product-card-by-nay">
                         <?php
-                        $images = glob('image/post_img/' . $post['photo_folder'] . '/*.{jpg,png,gif}', GLOB_BRACE);
+                        $images = glob('image/post_img/' . $post['photo_folder'] . '/*.{jpg,png,gif,jpeg,jiff}', GLOB_BRACE);
                         ?>
                             <img src="<?php echo $images[0] ?>" class="card-img-top product-image" alt="Product 1" />
                             <div class="card-body">

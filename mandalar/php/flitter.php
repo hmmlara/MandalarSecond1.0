@@ -9,10 +9,14 @@ if(isset($_POST['flitteringData'])){
 
     foreach ($FliteringResult as $key => $value) {
         // var_dump($value['photo_folder']);
-        $images = glob('../image/post_img/' . $value['photo_folder'] . '/*.{jpg,png,gif,jfifx  }', GLOB_BRACE);
+        $images = glob('../image/post_img/' . $value['photo_folder'] . '/*.{jpg,jpeg,png,gif,jfif}', GLOB_BRACE);
         // var_dump($images);
-        $value += array('product_image'=>$images[0]);
+        if(isset($images[0])){
+            $value += array('product_image'=>$images[0]);
+
+        }
         $FliteringResultWithImage[] = $value;
+
     }
  
     echo json_encode($FliteringResultWithImage);
