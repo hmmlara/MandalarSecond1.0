@@ -69,7 +69,7 @@ function loadComments() {
                                             ${element.content}
                                         </div>
                                         <div class="comment-actions">
-                                            <button class="btn btn-link btn-sm" onclick="assignParentId(event)" data-cm-id = ${element.id}>Reply</button>
+                                            <button class="btn btn-link btn-sm" onclick="assignParentId(event)"  id="liveAlertBtn" data-cm-id = ${element.id}>Reply</button>
                                             <button class="btn btn-link btn-sm see-reply" onclick="seeReplies(event,${element.id})">see replies</button>
 
                             
@@ -174,8 +174,8 @@ function seeReplies(e, parent_comment_id) {
 								${element.content}
 							</div>
 							<div class="comment-actions">
-								<button class="btn btn-link btn-sm" onclick="assignParentId(event)" data-cm-id = ${element.id}>Reply</button>
-								<button class="btn btn-link btn-sm see-reply" onclick="seeReplies(event,${element.id})">see replies
+								<button class="btn btn-link btn-sm"  id="liveAlertBtn" onclick="assignParentId(event)" data-cm-id = ${element.id}>Reply</button>
+								<button class="btn btn-link btn-sm see-reply"  onclick="seeReplies(event,${element.id})">see replies
 
 			
 					`;
@@ -190,7 +190,7 @@ function seeReplies(e, parent_comment_id) {
 						  Action
 						</button>
 						<ul class="dropdown-menu">
-						  <li><a class="dropdown-item" onclick = "edit('${element.content}',${element.id})" >Edit</a></li>
+						  <li><a class="dropdown-item"  onclick = "edit('${element.content}',${element.id})" >Edit</a></li>
 						  <!-- Button trigger modal -->
 					
 						  <li><a class="dropdown-item" onclick = "deleteComment(${element.id})" >Delete</a></li>
