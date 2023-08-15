@@ -48,6 +48,7 @@ class User{
         $statement->execute();
         $result = $statement->fetchAll(PDO::FETCH_ASSOC);
         
+        
         return $result;
 
     }
@@ -126,5 +127,8 @@ class User{
     }
 }
 
+$userModal = new User();
+// $userInfo = $userModal->UserAllInfo(27);
 
+// echo $userInfo[0]["full_name"];
 ?>
