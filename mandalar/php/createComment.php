@@ -6,7 +6,8 @@ if (isset($_POST['post_id']) && isset($_POST['user_id']) && isset($_POST['conten
     $usetId = $_POST['user_id'];
     $content = $_POST['content'];
     $parentCommentId = $_POST['parent_comment_id'];
-    if ($_POST['isEdit']) {
+    if ($_POST['isEdit'] == 'true') {
+        echo "is Edit: ",$_POST['isEdit'];
         if(isset($_POST['com_id'])){
             $comId = $_POST['com_id'];
             echo $commentModal->EditCommentById($comId,$content);

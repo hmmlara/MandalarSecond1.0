@@ -50,7 +50,7 @@ function PostFliteringData(obj) {
                             <div class="product-info-box">
                                 <div>
                                     <i class="far fa-heart mr-2"></i>
-                                    <span class="reaction-count">5</span>
+                                    <span class="reaction-count">${val.Post_Reaction}</span>
                                 </div>
                                 <div>
                                     <i class="far fa-plus-square ml-3"></i>

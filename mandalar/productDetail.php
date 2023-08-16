@@ -24,10 +24,10 @@ $city_list = $city_controller->getCityList();
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- <link
-            rel="stylesheet"
-            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
-        /> -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css
+" />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js
+"></script>
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
     <link rel="stylesheet" href="css/product-detail.css" />
@@ -50,7 +50,7 @@ $city_list = $city_controller->getCityList();
 
 <body>
     <div id="loader"></div>
-    
+
     <div id="page">
         <header id="aa-header">
             <!-- start header top  -->
@@ -159,7 +159,7 @@ $city_list = $city_controller->getCityList();
             <div class="container my-5">
                 <div class="row">
                     <?php foreach ($posts as $post) {
-                        $images = glob('image/post_img/' . $post['photo_folder'] . '/*.{jpg,png,gif}', GLOB_BRACE);
+                        $images = glob('image/post_img/' . $post['photo_folder'] . '/*.{jpg,png,gif,jpeg,jiff}', GLOB_BRACE);
                         ?>
                         <div class="col-md-6">
                             <div class="swiper-container">
@@ -221,7 +221,8 @@ $city_list = $city_controller->getCityList();
                                         else {
                                             echo 'block';
                                         }
-                                        ?>" class="btn btn-primary" data-mdb-toggle="modal" data-mdb-target="#exampleModal"> Buy</button>
+                                        ?>" class="btn btn-primary" data-mdb-toggle="modal"
+                                            data-mdb-target="#exampleModal"> Buy</button>
                                     <?php } else if ($post['status'] != 'none' && $post['status'] != 'sold_out') { ?>
                                             <span>Waiting.........</span>
                                     <?php } else if ($post['status'] == 'sold_out') { ?>
@@ -378,7 +379,10 @@ $city_list = $city_controller->getCityList();
                         </div> -->
                     <div class="comment-form">
                         <div class="form-group">
+                            <!-- <button type="button" class="btn btn-primary" id="liveAlertBtn">Show live alert</button> -->
                             <label for="comment-input">Add a comment</label>
+                            <div id="liveAlertPlaceholder"></div>
+
                             <textarea class="form-control" id="comment-input" rows="2"></textarea>
                         </div>
                         <button type="submit" id="comment-btn" class="btn btn-primary">
@@ -553,7 +557,9 @@ $city_list = $city_controller->getCityList();
             </div>
             <!-- model end -->
         </main>
-
+        <script>
+         
+        </script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
