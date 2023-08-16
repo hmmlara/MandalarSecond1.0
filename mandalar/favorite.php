@@ -16,6 +16,7 @@ if (isset($_SESSION['user_id'])) {
     $user_id = $_SESSION['user_id'];
     echo $user_id;
 }
+$user_id=6;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -165,7 +166,7 @@ if (isset($_SESSION['user_id'])) {
 </button>
 
 <!-- Modal -->
-<div class="modal fade" id="seller_info" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="seller_info" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-mdb-backdrop='static'>
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">

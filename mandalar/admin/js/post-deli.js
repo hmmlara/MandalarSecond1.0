@@ -23,7 +23,7 @@ $(document).ready(function() {
                         <td>`+data[i]['price']+`</td>
                         <td>`+data[i]['seller_city']+`</td>
                         <td>`+data[i]['buyer_city']+`</td>
-                        <td><a href="view_post.php?id=`+data[i]['id']+`" class="btn btn-warning">view</a></td>
+                        <td><a href="post_detail.php?id=`+data[i]['id']+`" class="btn btn-warning">view</a></td>
                         </tr>`
                         $('#post_body').append(tr);
                     }

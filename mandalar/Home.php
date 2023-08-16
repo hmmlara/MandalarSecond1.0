@@ -236,7 +236,7 @@ if (isset($_SESSION['user_id'])) {
 
                                     </h5>
                                     <h5>
-                                        900000
+                                    <?php echo $post['price'] ?>
                                     </h5>
                                 </div>
                                 <div class="d-flex justify-content-between align-items-center">
