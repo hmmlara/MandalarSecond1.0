@@ -161,6 +161,28 @@ class Post
         }
     }
 
+    public function getPostReaction($PostId){
+        $this->connection=Database::connect();
+        $this->connection->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
+
+        $sql = "SELECT COUNT(*) as count_react FROM `post_react` WHERE post_id = :post_id";
+        $statement=$this->connection->prepare($sql);
+        $statement->bindParam(":post_id",$PostId);
+        $statement->execute();
+        $result=$statement->fetch(PDO::FETCH_ASSOC);
+        return $result;
+    }
+    public function getPostFavorite($PostId){
+        $this->connection=Database::connect();
+        $this->connection->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
+
+        $sql = "SELECT COUNT(*) as count_favorite FROM `favorite` WHERE post_id = :post_id";
+        $statement=$this->connection->prepare($sql);
+        $statement->bindParam(":post_id",$PostId);
+        $statement->execute();
+        $result=$statement->fetch(PDO::FETCH_ASSOC);
+        return $result;
+    }
     // seller update post
     public function newSeller($seller_info_id,$status,$post_id,){
         $this->connection=Database::connect();
@@ -358,5 +380,27 @@ class Post
         $result = $statement->fetchAll(PDO::FETCH_ASSOC);
         return $result;
     }
+    public function create_view_count($post_id,$user_id){
+        // 1. Database Connect
+        $this->connection = Database::connect();
+        $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+        // 2. SQL Statement
+        $sql = "INSERT INTO `view_count`(`user_id`, `post_id`) VALUES (:user_id,:post_id)";
+
+        $statement = $this->connection->prepare($sql);
+        $statement->bindParam(":user_id", $user_id);
+        $statement->bindParam(":post_id", $post_id);
+
+        // 3. Execute
+        if ($statement->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 }
+
+// $post_modal=new Post();
 ?>

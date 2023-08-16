@@ -76,5 +76,9 @@ class PostController extends Post{
     {
         return $this->searchPostList($searchinput);
     }
+
+    public function add_view_count($post_id,$user_id){
+        return $this->create_view_count($post_id,$user_id);
+    }
 }
 ?>

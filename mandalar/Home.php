@@ -3,10 +3,13 @@
 include_once "./nav.php";
 include_once "./model/category.php";
 include_once "./controller/postController.php";
+include_once "./model/post.php";
 
 
 $post_controller = new PostController();
 $post_list = $post_controller->getPostList();
+$post_model=new Post();
+
 // var_dump($post_list);
 
 
@@ -15,6 +18,7 @@ if (isset($_SESSION['user_id'])) {
     $user_id = $_SESSION['user_id'];
     echo $user_id;
 }
+$user_id=6;
 
 ?>
     <style>
@@ -223,7 +227,7 @@ if (isset($_SESSION['user_id'])) {
                 # code...
                 ?>
 
-                <a href="productDetail.php?id=<?php echo $post['id'] ?>" class="col-md-4 col-sm-6  col-lg-3 mb-4 ">
+                <a href="" data-user-id="<?php echo $user_id ?>" data-post-id="<?php echo $post['id'] ?>" class="view_btn col-md-4 col-sm-6  col-lg-3 mb-4 ">
                     <div class="card product-card-by-nay">
                         <?php
                         $images = glob('image/post_img/' . $post['photo_folder'] . '/*.{jpg,png,gif,jpeg,jiff}', GLOB_BRACE);
@@ -236,7 +240,7 @@ if (isset($_SESSION['user_id'])) {
 
                                     </h5>
                                     <h5>
-                                        900000
+                                        <?php echo $post['price']  ?>
                                     </h5>
                                 </div>
                                 <div class="d-flex justify-content-between align-items-center">
@@ -247,14 +251,18 @@ if (isset($_SESSION['user_id'])) {
                                 </span>
                                     </div>
                                 </div>
+                                <?php 
+                                $count_react=$post_model->getPostReaction($post['id']);
+                                $count_favorite=$post_model->getPostFavorite($post['id']);
+                                 ?>
                                 <div class=" product-info-box">
                                     <div>
                                         <i class="far fa-heart mr-2"></i>
-                                        <span class="reaction-count">5</span>
+                                        <span class="reaction-count"><?php echo $count_react['count_react'] ?></span>
                                     </div>
                                     <div>
                                         <i class="far fa-plus-square ml-3"></i>
-                                        <span class="save-count">18</span>
+                                        <span class="save-count"><?php echo $count_favorite['count_favorite'] ?></span>
                                     </div>
 
                                     <div>
@@ -371,7 +379,8 @@ if (isset($_SESSION['user_id'])) {
         </div>
         <div id="output"></div>
         <!-- model end -->
-        <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script src="js/post.js"></script>
         <script src="js/flitter.js"></script>
+        <script src="js/home.js"></script>
         <?php include_once "./footer.php"; ?>
