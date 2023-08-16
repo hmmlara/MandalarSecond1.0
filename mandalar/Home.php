@@ -230,7 +230,7 @@ $categorys = $category_model->getCategory();
 
                                     </h5>
                                     <h5>
-                                        900000
+                                    <?php echo $post['price'] ?>
                                     </h5>
                                 </div>
                                 <div class="d-flex justify-content-between align-items-center">
