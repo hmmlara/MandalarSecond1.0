@@ -316,5 +316,47 @@ class Post
             return false;
         }
     }
+
+    public function getList($user_id)
+    {
+        //1.DataBase Connect
+        $this->connection=Database::connect();
+        $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+        //2.sql Statement
+        $sql='SELECT post.*, users.full_name,users.img
+        FROM post 
+        JOIN users  ON post.seller_id = users.user_id where seller_id=:seller_id;';
+        $statement=$this->connection->prepare($sql);
+
+        $statement->bindParam(":seller_id",$user_id);
+
+        //3.execute
+        $statement->execute();
+        $result=$statement->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
+    }
+
+    public function searchPostList($searchinput)
+    {
+        //1.DataBase Connect
+        $this->connection=Database::connect();
+        $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+        // $sql = "SELECT * FROM `post` WHERE description name like ";
+        // $statement = $this->connection->prepare($sql);
+
+        $sql = "SELECT * FROM post WHERE REPLACE(description, ' ', '') LIKE :description";
+        $statement = $this->connection->prepare($sql);
+        
+        $searchInputWithoutSpaces = str_replace(' ', '', $searchinput);
+        $params = '%' . $searchInputWithoutSpaces . '%';
+        $statement->bindParam(":description", $params);
+
+        //3.execute
+        $statement->execute();
+        $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
+    }
 }
 ?>

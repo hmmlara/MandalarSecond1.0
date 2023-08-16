@@ -1,16 +1,18 @@
 <?php
 
 include_once "controller/searchController.php";
-$searchAlluser = new SearchController();
+include_once "controller/postController.php";
 
+$searchAlluser = new SearchController();
+$post_controller = new PostController();
 
 if (isset($_GET['searchinput'])) {
 
 	$searchinput = $_GET['searchinput'];
 	// echo $searchinput;
 	$searchUsers = $searchAlluser->searchAllUser($searchinput);
-
-	// var_dump($searchUsers);
+	$post_list=$post_controller->searchPosts($searchinput);
+	
 
 }
 
@@ -130,10 +132,12 @@ if (isset($_GET['searchinput'])) {
 				<div class="navbar">
 					<ul class="nav-list">
 						<li class="nav-item active" data-tab="0">
-							Tab 1
+						<i class="fa-solid fa-user-plus"></i>
+							User
 						</li>
 						<li class="nav-item" data-tab="1">
-							Tab 2
+						<i class="fa-solid fa-clipboard"></i>
+							Post
 						</li>
 						<li class="nav-item" data-tab="2">
 							Tab 3
@@ -174,11 +178,66 @@ if (isset($_GET['searchinput'])) {
 					</div>
 					<div class="swiper-slide">
 						<div class="tab-content">
-							<div class="row">
-								<div class="col-md-12 bg-success">
-									Hello
-								</div>
-							</div>
+						<?php if(isset($post_list)){ ?>
+                        <section id="products" class="">
+
+                            <div class="row ">
+                                <?php foreach ($post_list as $post) {
+                                # code...
+                                ?>
+
+                                <a href="productDetail.php?id=<?php echo $post['id'] ?>" class="col-md-4 col-sm-6  col-lg-3 mb-4 ">
+                                    <div class="card product-card-by-nay">
+                                        <?php
+                                        $images = glob('image/post_img/' . $post['photo_folder'] . '/*.{jpg,png,gif}', GLOB_BRACE);
+                                        ?>
+                                            <img src="<?php echo $images[0] ?>" class="card-img-top product-image" alt="Product 1" />
+                                            <div class="card-body">
+                                                <div class=" product-card-title">
+                                                    <h5>
+                                                        <?php echo $post['item'] ?>
+
+                                                    </h5>
+                                                    <h5>
+                                                        900000
+                                                    </h5>
+                                                </div>
+                                                <div class="d-flex justify-content-between align-items-center">
+                                                    <div class="d-flex align-items-center">
+                                                        <img src="image/user-profile/<?php echo $post['user_img'] ?>" class="rounded-circle profile-on-card" alt="Seller 1" />
+                                                        <span class="ml-2 card-text">
+                                                    <?php echo $post['fname'] . " " . $post['lname'] ?>
+                                                </span>
+                                                    </div>
+                                                </div>
+                                                <div class=" product-info-box">
+                                                    <div>
+                                                        <i class="far fa-heart mr-2"></i>
+                                                        <span class="reaction-count">5</span>
+                                                    </div>
+                                                    <div>
+                                                        <i class="far fa-plus-square ml-3"></i>
+                                                        <span class="save-count">18</span>
+                                                    </div>
+
+                                                    <div>
+                                                        <i class="far fa-eye ml-3"></i>
+                                                        <span class="view-count">50</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                </div>
+                                </a>
+
+                                <?php } ?>
+                            </div>
+                        </section>
+                        <?php }else{ ?>
+                            <div class="d-flex align-items-center justify-content-center mt-5">
+                                <img src="../mandalar/image/some/no sell post.png" alt="">
+                            </div>
+                            
+                        <?php } ?>
 						</div>
 					</div>
 					<div class="swiper-slide">

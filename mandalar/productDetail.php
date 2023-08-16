@@ -5,7 +5,7 @@ include_once "./controller/userController.php";
 include_once "./controller/cityController.php";
 include_once "php/available_money.php";
 if (isset($_SESSION['user_id'])) {
-	$user_id = $_SESSION['user_id'];
+    $user_id = $_SESSION['user_id'];
 }
 $id = $_GET['id'];
 $post_controller = new PostController();
@@ -17,155 +17,159 @@ $city_list = $city_controller->getCityList();
 ?>
 
 
-    <!DOCTYPE html>
-    <html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <!-- <link
-			rel="stylesheet"
-			href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
-		/> -->
-        <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
-        <link rel="stylesheet" href="css/product-detail.css" />
-        <link rel="stylesheet" href="css/products.css" />
-        <link rel="stylesheet" href="css/comment.css" />
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+        /> -->
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <link rel="stylesheet" href="css/product-detail.css" />
+    <link rel="stylesheet" href="css/products.css" />
+    <link rel="stylesheet" href="css/comment.css" />
 
-        <!-- <script src="js/modernizr-2.6.2.min.js"></script> -->
-        <!-- <link rel="stylesheet" href="../mandalar/fontawesome-free-6.4.0-web/css/all.min.css" /> -->
-        <link rel="stylesheet" href="mdbbootstrap/css/mdb.min.css">
+    <!-- <script src="js/modernizr-2.6.2.min.js"></script> -->
+    <!-- <link rel="stylesheet" href="../mandalar/fontawesome-free-6.4.0-web/css/all.min.css" /> -->
+    <link rel="stylesheet" href="mdbbootstrap/css/mdb.min.css">
 
-        <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mdbootstrap/css/bootstrap.min.css" /> -->
-        <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mdbootstrap/css/mdb.min.css" /> -->
-        <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mdbootstrap/css/mdb.min.css" />  -->
-        <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css" /> -->
-        <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/css/mdb.min.css" />  -->
-        <link rel="stylesheet" href="css/nav.css">
-        <link rel="stylesheet" href="css/style2.css">
-        <title>Product Detail Page</title>
-    </head>
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mdbootstrap/css/bootstrap.min.css" /> -->
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mdbootstrap/css/mdb.min.css" /> -->
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mdbootstrap/css/mdb.min.css" />  -->
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css" /> -->
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/css/mdb.min.css" />  -->
+    <link rel="stylesheet" href="css/nav.css">
+    <link rel="stylesheet" href="css/style2.css">
+    <title>Product Detail Page</title>
+</head>
 
-    <body>
-        <div id="loader"></div>
+<body>
+    <div id="loader"></div>
+    
+    <div id="page">
+        <header id="aa-header">
+            <!-- start header top  -->
 
-        <div id="page">
-            <header id="aa-header">
-                <!-- start header top  -->
+            <!-- / header top  -->
+            <div id="commenter_id" data-user-id="<?php echo $user_id ?>">
 
-                <!-- / header top  -->
-                <div id="commenter_id" data-user-id="<?php echo $user_id ?>">
+            </div>
+            <div id="post_id" data-post-id='<?php echo $id ?>'>
 
-                </div>
-                <div id="post_id" data-post-id='<?php echo $id ?>'>
-
-                </div>
-                <!-- start header bottom  -->
-                <div class="aa-header-bottom mb-4" style="background-color: #627E8B; ">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="aa-header-bottom-area">
-                                    <!-- logo  -->
-                                    <div class="aa-logo">
-                                        <!-- Text based logo -->
-                                        <img src="image/logoimg/logo-no-background.png" class="logo" width="200px" height="auto" alt="as">
-                                        <!-- <a href="index.html">
-					  <span class="fa fa-shopping-cart"></span>
-					  <p>daily<strong>Shop</strong> <span>Your Shopping Partner</span></p>
-					</a> -->
-                                        <!-- img based logo -->
-                                        <!-- <a href="index.html"><img src="img/logo.jpg" alt="logo img"></a> -->
-                                    </div>
-                                    <!-- / logo  -->
-                                    <!-- cart box -->
-                                    <div class="aa-cartbox">
-                                        <div class=" d-flex justify-content-end" style="width: 230px;">
-                                            <a class="aa-cart-link heart" href="#">
-                                                <i class="fa-solid fa-heart"></i>
-                                            </a>
-                                            <a class="aa-cart-link bell" href="#">
-                                                <i class="fa-regular fa-bell "></i>
-                                                <span class="aa-cart-notify" style="color: #4e9c81;">10</span>
-                                            </a>
-                                            <a class="aa-cart-link message" href="#">
-                                                <i class="fa-regular fa-message "></i>
-                                            </a>
-
-                                            <a class="aa-cart-link user" href="#">
-                                                <i class="fa-regular fa-user"></i>
-                                            </a>
-                                        </div>
-
-                                        <div class="aa-cartbox-summary">
-                                            <ul>
-                                                <li>
-                                                    <a class="aa-cartbox-img" href="#"><img src="img/woman-small-2.jpg" alt="img"></a>
-                                                    <div class="aa-cartbox-info">
-                                                        <h4><a href="#">Product Name</a></h4>
-                                                        <p>1 x $250</p>
-                                                    </div>
-                                                    <a class="aa-remove-product" href="#"><span
-														class="fa fa-times"></span></a>
-                                                </li>
-                                                <li>
-                                                    <a class="aa-cartbox-img" href="#"><img src="img/woman-small-1.jpg" alt="img"></a>
-                                                    <div class="aa-cartbox-info">
-                                                        <h4><a href="#">Product Name</a></h4>
-                                                        <p>1 x $250</p>
-                                                    </div>
-                                                    <a class="aa-remove-product" href="#"><span
-														class="fa fa-times"></span></a>
-                                                </li>
-                                                <li>
-                                                    <span class="aa-cartbox-total-title">
-													Total
-												</span>
-                                                    <span class="aa-cartbox-total-price">
-													$500
-												</span>
-                                                </li>
-                                            </ul>
-                                            <a class="aa-cartbox-checkout aa-primary-btn" href="checkout.html">Checkout</a>
-                                        </div>
-                                    </div>
-                                    <!-- / cart box -->
-                                    <!-- search box -->
-                                    <div class="aa-search-box">
-                                        <form action="">
-                                            <input type="text" name="" id="search-box" placeholder="Search">
-                                            <button type="submit" style="border-radius: 30px; background-color: #4e9c81;"><span
-												class="fa fa-search"></span></button>
-                                        </form>
-                                    </div>
-                                    <!-- / search box -->
+            </div>
+            <!-- start header bottom  -->
+            <div class="aa-header-bottom mb-4" style="background-color: #627E8B; ">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="aa-header-bottom-area">
+                                <!-- logo  -->
+                                <div class="aa-logo">
+                                    <!-- Text based logo -->
+                                    <img src="image/logoimg/logo-no-background.png" class="logo" width="200px"
+                                        height="auto" alt="as">
+                                    <!-- <a href="index.html">
+                      <span class="fa fa-shopping-cart"></span>
+                      <p>daily<strong>Shop</strong> <span>Your Shopping Partner</span></p>
+                    </a> -->
+                                    <!-- img based logo -->
+                                    <!-- <a href="index.html"><img src="img/logo.jpg" alt="logo img"></a> -->
                                 </div>
+                                <!-- / logo  -->
+                                <!-- cart box -->
+                                <div class="aa-cartbox">
+                                    <div class=" d-flex justify-content-end" style="width: 230px;">
+                                        <a class="aa-cart-link heart" href="#">
+                                            <i class="fa-solid fa-heart"></i>
+                                        </a>
+                                        <a class="aa-cart-link bell" href="#">
+                                            <i class="fa-regular fa-bell "></i>
+                                            <span class="aa-cart-notify" style="color: #4e9c81;">10</span>
+                                        </a>
+                                        <a class="aa-cart-link message" href="#">
+                                            <i class="fa-regular fa-message "></i>
+                                        </a>
+
+                                        <a class="aa-cart-link user" href="#">
+                                            <i class="fa-regular fa-user"></i>
+                                        </a>
+                                    </div>
+
+                                    <div class="aa-cartbox-summary">
+                                        <ul>
+                                            <li>
+                                                <a class="aa-cartbox-img" href="#"><img src="img/woman-small-2.jpg"
+                                                        alt="img"></a>
+                                                <div class="aa-cartbox-info">
+                                                    <h4><a href="#">Product Name</a></h4>
+                                                    <p>1 x $250</p>
+                                                </div>
+                                                <a class="aa-remove-product" href="#"><span
+                                                        class="fa fa-times"></span></a>
+                                            </li>
+                                            <li>
+                                                <a class="aa-cartbox-img" href="#"><img src="img/woman-small-1.jpg"
+                                                        alt="img"></a>
+                                                <div class="aa-cartbox-info">
+                                                    <h4><a href="#">Product Name</a></h4>
+                                                    <p>1 x $250</p>
+                                                </div>
+                                                <a class="aa-remove-product" href="#"><span
+                                                        class="fa fa-times"></span></a>
+                                            </li>
+                                            <li>
+                                                <span class="aa-cartbox-total-title">
+                                                    Total
+                                                </span>
+                                                <span class="aa-cartbox-total-price">
+                                                    $500
+                                                </span>
+                                            </li>
+                                        </ul>
+                                        <a class="aa-cartbox-checkout aa-primary-btn" href="checkout.html">Checkout</a>
+                                    </div>
+                                </div>
+                                <!-- / cart box -->
+                                <!-- search box -->
+                                <div class="aa-search-box">
+                                    <form action="">
+                                        <input type="text" name="" id="search-box" placeholder="Search">
+                                        <button type="submit"
+                                            style="border-radius: 30px; background-color: #4e9c81;"><span
+                                                class="fa fa-search"></span></button>
+                                    </form>
+                                </div>
+                                <!-- / search box -->
                             </div>
                         </div>
                     </div>
                 </div>
-                <!-- / header bottom  -->
-            </header>
-            <div class="success-overlay">
-                <span>Successfully</span>
             </div>
-            <main>
-                <div class="container my-5">
-                    <div class="row">
-                        <?php foreach ($posts as $post) {
-						$images = glob('image/post_img/' . $post['photo_folder'] . '/*.{jpg,png,gif}', GLOB_BRACE);
-						?>
+            <!-- / header bottom  -->
+        </header>
+        <div class="success-overlay">
+            <span>Successfully</span>
+        </div>
+        <main>
+            <div class="container my-5">
+                <div class="row">
+                    <?php foreach ($posts as $post) {
+                        $images = glob('image/post_img/' . $post['photo_folder'] . '/*.{jpg,png,gif}', GLOB_BRACE);
+                        ?>
                         <div class="col-md-6">
                             <div class="swiper-container">
                                 <div class="swiper-wrapper">
                                     <?php
-									foreach ($images as $image) {
-										?>
+                                    foreach ($images as $image) {
+                                        ?>
                                         <div class="swiper-slide card shadow">
                                             <img src="<?php echo $image; ?>" alt="Product Image 1" />
                                         </div>
-                                        <?php } ?>
+                                    <?php } ?>
 
                                 </div>
                                 <div class="swiper-pagination"></div>
@@ -197,39 +201,41 @@ $city_list = $city_controller->getCityList();
                                     <?php echo $post['description']; ?>
                                 </p>
                                 <div class="product-buttons">
-                                    <button class="btn " id="product-like" data-post-id="<?php echo $id; ?>" data-user-id="<?php echo $user_id; ?>">
-										<i class="fas fa-thumbs-up"></i> <span id="post-like-count"></span>
-									</button>
+                                    <button class="btn " id="product-like" data-post-id="<?php echo $id; ?>"
+                                        data-user-id="<?php echo $user_id; ?>">
+                                        <i class="fas fa-thumbs-up"></i> <span id="post-like-count"></span>
+                                    </button>
                                     <button class="btn btn-secondary comment-btn">
-										<i class="fas fa-comment"></i> Comment
-									</button>
-                                    <button class="btn btn-secondary" id="product-favorite" data-post-id="<?php echo $id; ?>" data-user-id="<?php echo $user_id; ?>">
-										<i class="fas fa-heart"></i> <span id="post-favorite-count"></span>
-									</button>
+                                        <i class="fas fa-comment"></i> Comment
+                                    </button>
+                                    <button class="btn btn-secondary" id="product-favorite"
+                                        data-post-id="<?php echo $id; ?>" data-user-id="<?php echo $user_id; ?>">
+                                        <i class="fas fa-heart"></i> <span id="post-favorite-count"></span>
+                                    </button>
                                     <?php if ($post['status'] == "none") {
-										?>
-                                    <button type="button" style="display:<?php
-										if ($user_id == $post['seller_id'])
-											echo 'none';
-										else {
-											echo 'block';
-										}
-										?>" class="btn btn-primary" data-mdb-toggle="modal" data-mdb-target="#exampleModal"> Buy</button>
+                                        ?>
+                                        <button type="button" style="display:<?php
+                                        if ($user_id == $post['seller_id'])
+                                            echo 'none';
+                                        else {
+                                            echo 'block';
+                                        }
+                                        ?>" class="btn btn-primary" data-mdb-toggle="modal" data-mdb-target="#exampleModal"> Buy</button>
                                     <?php } else if ($post['status'] != 'none' && $post['status'] != 'sold_out') { ?>
-                                    <span>Waiting.........</span>
+                                            <span>Waiting.........</span>
                                     <?php } else if ($post['status'] == 'sold_out') { ?>
-                                    <span>Sold Out</span>
+                                                <span>Sold Out</span>
                                     <?php } ?>
 
                                 </div>
                             </div>
                         </div>
-                        <?php } ?>
-                    </div>
-                    <div class="comment-section d-none">
-                        <h3>Comments</h3>
-                        <div class="comments"></div>
-                        <!-- <div class="comments">
+                    <?php } ?>
+                </div>
+                <div class="comment-section ">
+                    <h3>Comments</h3>
+                    <div class="comments"></div>
+                    <!-- <div class="comments">
                             <div class="comment">
                                 <div class="d-flex">
                                     <img src="image/profiles/Profile.png" class="profile-picture-comment" alt="User 1" style="width: max-content" />
@@ -282,7 +288,7 @@ $city_list = $city_controller->getCityList();
                                             <button class="btn btn-link btn-sm">Like</button>
                                             <button class="btn btn-link btn-sm">Reply</button>
                                             <button class="btn btn-link btn-sm see-reply" onclick="seeReplies(event)">see 2
-											reply</button>
+                                            reply</button>
                                         </div>
                                     </div>
                                 </div>
@@ -369,119 +375,127 @@ $city_list = $city_controller->getCityList();
                                 </div>
                             </div>
                         </div> -->
-                        <div class="comment-form">
-                            <div class="form-group">
-                                <label for="comment-input">Add a comment</label>
-                                <textarea class="form-control" id="comment-input" rows="2"></textarea>
-                            </div>
-                            <button type="submit" id="comment-btn" class="btn btn-primary">
-							Submit
-						</button>
+                    <div class="comment-form">
+                        <div class="form-group">
+                            <label for="comment-input">Add a comment</label>
+                            <textarea class="form-control" id="comment-input" rows="2"></textarea>
                         </div>
+                        <button type="submit" id="comment-btn" class="btn btn-primary">
+                            Submit
+                        </button>
                     </div>
                 </div>
+            </div>
 
-                <div class="related-products my-5">
-                    <div class="container">
-                        <h3 class="mb-4">Related Products</h3>
-                        <div class="position-relative related-products-slider overflow-hidden">
-                            <div class="swiper-wrapper">
-                                <div class="swiper-slide">
-                                    <div class="card shadow">
-                                        <img src="image/products/product-image2.jfif" class="card-img-top product-image" alt="Product 2" />
-                                        <div class="card-body">
-                                            <h5 class="card-title">Product 2</h5>
-                                            <div class="d-flex justify-content-between align-items-center">
-                                                <div class="d-flex align-items-center">
-                                                    <img src="image/profiles/seller1.jpg" class="rounded-circle profile-on-card" alt="Seller 1" />
-                                                    <span class="ml-2 card-text">Seller 1</span>
-                                                </div>
-                                                <div>
-                                                    <p class="card-text view-details-btn">300000mmk</p>
-                                                </div>
+            <div class="related-products my-5">
+                <div class="container">
+                    <h3 class="mb-4">Related Products</h3>
+                    <div class="position-relative related-products-slider overflow-hidden">
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide">
+                                <div class="card shadow">
+                                    <img src="image/products/product-image2.jfif" class="card-img-top product-image"
+                                        alt="Product 2" />
+                                    <div class="card-body">
+                                        <h5 class="card-title">Product 2</h5>
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <div class="d-flex align-items-center">
+                                                <img src="image/profiles/seller1.jpg"
+                                                    class="rounded-circle profile-on-card" alt="Seller 1" />
+                                                <span class="ml-2 card-text">Seller 1</span>
                                             </div>
-                                            <div class="mt-3">
-                                                <i class="far fa-heart mr-2"></i>
-                                                <span class="reaction-count">5</span>
-                                                <i class="far fa-plus-square ml-3"></i>
-                                                <span class="save-count">8</span>
-                                                <i class="far fa-eye ml-3"></i>
-                                                <span class="view-count">30</span>
+                                            <div>
+                                                <p class="card-text view-details-btn">300000mmk</p>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="swiper-slide">
-                                    <div class="card shadow">
-                                        <img src="image/products/product-image2.jfif" class="card-img-top product-image" alt="Product 2" />
-                                        <div class="card-body">
-                                            <h5 class="card-title">Product 2</h5>
-                                            <div class="d-flex justify-content-between align-items-center">
-                                                <div class="d-flex align-items-center">
-                                                    <img src="image/profiles/seller2.jpg" class="rounded-circle profile-on-card" alt="Seller 2" />
-                                                    <span class="ml-2 card-text">Seller 2</span>
-                                                </div>
-                                                <div>
-                                                    <p class="card-text view-details-btn">300000mmk</p>
-                                                </div>
-                                            </div>
-                                            <div class="mt-3">
-                                                <i class="far fa-heart mr-2"></i>
-                                                <span class="reaction-count">5</span>
-                                                <i class="far fa-plus-square ml-3"></i>
-                                                <span class="save-count">8</span>
-                                                <i class="far fa-eye ml-3"></i>
-                                                <span class="view-count">30</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="swiper-slide">
-                                    <div class="card shadow">
-                                        <img src="image/products/product-image2.jfif" class="card-img-top product-image" alt="Product 2" />
-                                        <div class="card-body">
-                                            <h5 class="card-title">Product 2</h5>
-                                            <div class="d-flex justify-content-between align-items-center">
-                                                <div class="d-flex align-items-center">
-                                                    <img src="image/profiles/seller3.jpg" class="rounded-circle profile-on-card" alt="Seller 3" />
-                                                    <span class="ml-2 card-text">Seller 3</span>
-                                                </div>
-                                                <div>
-                                                    <p class="card-text view-details-btn">300000mmk</p>
-                                                </div>
-                                            </div>
-                                            <div class="mt-3">
-                                                <i class="far fa-heart mr-2"></i>
-                                                <span class="reaction-count">5</span>
-                                                <i class="far fa-plus-square ml-3"></i>
-                                                <span class="save-count">8</span>
-                                                <i class="far fa-eye ml-3"></i>
-                                                <span class="view-count">30</span>
-                                            </div>
+                                        <div class="mt-3">
+                                            <i class="far fa-heart mr-2"></i>
+                                            <span class="reaction-count">5</span>
+                                            <i class="far fa-plus-square ml-3"></i>
+                                            <span class="save-count">8</span>
+                                            <i class="far fa-eye ml-3"></i>
+                                            <span class="view-count">30</span>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="swiper-pagination"></div>
-                            <div class="swiper-button-next"></div>
-                            <div class="swiper-button-prev"></div>
+                            <div class="swiper-slide">
+                                <div class="card shadow">
+                                    <img src="image/products/product-image2.jfif" class="card-img-top product-image"
+                                        alt="Product 2" />
+                                    <div class="card-body">
+                                        <h5 class="card-title">Product 2</h5>
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <div class="d-flex align-items-center">
+                                                <img src="image/profiles/seller2.jpg"
+                                                    class="rounded-circle profile-on-card" alt="Seller 2" />
+                                                <span class="ml-2 card-text">Seller 2</span>
+                                            </div>
+                                            <div>
+                                                <p class="card-text view-details-btn">300000mmk</p>
+                                            </div>
+                                        </div>
+                                        <div class="mt-3">
+                                            <i class="far fa-heart mr-2"></i>
+                                            <span class="reaction-count">5</span>
+                                            <i class="far fa-plus-square ml-3"></i>
+                                            <span class="save-count">8</span>
+                                            <i class="far fa-eye ml-3"></i>
+                                            <span class="view-count">30</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="swiper-slide">
+                                <div class="card shadow">
+                                    <img src="image/products/product-image2.jfif" class="card-img-top product-image"
+                                        alt="Product 2" />
+                                    <div class="card-body">
+                                        <h5 class="card-title">Product 2</h5>
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <div class="d-flex align-items-center">
+                                                <img src="image/profiles/seller3.jpg"
+                                                    class="rounded-circle profile-on-card" alt="Seller 3" />
+                                                <span class="ml-2 card-text">Seller 3</span>
+                                            </div>
+                                            <div>
+                                                <p class="card-text view-details-btn">300000mmk</p>
+                                            </div>
+                                        </div>
+                                        <div class="mt-3">
+                                            <i class="far fa-heart mr-2"></i>
+                                            <span class="reaction-count">5</span>
+                                            <i class="far fa-plus-square ml-3"></i>
+                                            <span class="save-count">8</span>
+                                            <i class="far fa-eye ml-3"></i>
+                                            <span class="view-count">30</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
+                        <div class="swiper-pagination"></div>
+                        <div class="swiper-button-next"></div>
+                        <div class="swiper-button-prev"></div>
                     </div>
                 </div>
-                <!-- model start -->
-                <!-- Button trigger modal -->
+            </div>
+            <!-- model start -->
+            <!-- Button trigger modal -->
 
 
-                <!-- Modal -->
-                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                                <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                <?php if ($available_money >= $posts[0]['price']) { ?>
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                            <button type="button" class="btn-close" data-mdb-dismiss="modal"
+                                aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <?php if ($available_money >= $posts[0]['price']) { ?>
                                 <form id="buy-form" action="#" method="POST">
 
                                     <div class="row">
@@ -490,7 +504,7 @@ $city_list = $city_controller->getCityList();
                                             <label for="" class="form-label">Phone No</label>
                                             <input id="buyer-phone" name="buyer_phone" type="number" class="form-control">
                                             <span class="text-danger" id="phone-error" style="display:none;">Need to fill
-												your phone no.!!!</span>
+                                                your phone no.!!!</span>
                                         </div>
                                         <div class="col-1"></div>
                                     </div>
@@ -499,11 +513,11 @@ $city_list = $city_controller->getCityList();
                                         <div class="col-10">
                                             <label for="" class="form-label">City</label>
                                             <select name="city" id="" class="form-select">
-												<?php foreach ($city_list as $city) { ?>
-													<option value="<?php echo $city['id'] ?>"><?php echo $city['name'] ?>
-													</option>
-												<?php } ?>
-											</select>
+                                                <?php foreach ($city_list as $city) { ?>
+                                                    <option value="<?php echo $city['id'] ?>"><?php echo $city['name'] ?>
+                                                    </option>
+                                                <?php } ?>
+                                            </select>
                                         </div>
                                         <div class="col-1"></div>
                                     </div>
@@ -511,39 +525,42 @@ $city_list = $city_controller->getCityList();
                                         <div class="col-1"></div>
                                         <div class="col-10">
                                             <label for="" class="form-label">Address</label>
-                                            <textarea id="buyer-address" name="buyer_address" id="" cols="50" rows="5" class="form-control"></textarea>
+                                            <textarea id="buyer-address" name="buyer_address" id="" cols="50" rows="5"
+                                                class="form-control"></textarea>
                                             <span class="text-danger" id="address-error" style="display:none;">Need to fill
-												your adress!!!</span>
+                                                your adress!!!</span>
                                         </div>
                                         <div class="col-1"></div>
                                     </div>
                                 </form>
-                                <?php } else { ?>
+                            <?php } else { ?>
                                 <p>not enough balance</p>
-                                <?php } ?>
-                            </div>
-                            <div class="modal-footer">
-                                <?php if ($available_money >= $posts[0]['price']) { ?>
-                                <button type="button" class="btn btn-secondary" id="buy-info-close" data-mdb-dismiss="modal">Close</button>
+                            <?php } ?>
+                        </div>
+                        <div class="modal-footer">
+                            <?php if ($available_money >= $posts[0]['price']) { ?>
+                                <button type="button" class="btn btn-secondary" id="buy-info-close"
+                                    data-mdb-dismiss="modal">Close</button>
                                 <button type="button" class="btn btn-primary" id="buy-btn">Save changes</button>
-                                <?php } else { ?>
-                                <button type="button" class="btn btn-secondary" id="buy-info-close" data-mdb-dismiss="modal">Close</button>
-                                <?php } ?>
-                            </div>
+                            <?php } else { ?>
+                                <button type="button" class="btn btn-secondary" id="buy-info-close"
+                                    data-mdb-dismiss="modal">Close</button>
+                            <?php } ?>
                         </div>
                     </div>
                 </div>
-                <!-- model end -->
-            </main>
+            </div>
+            <!-- model end -->
+        </main>
 
-            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-            <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
-            <script src="js/product-detail.js"></script>
-            <script src="js/comment.js"></script>
-            <!-- <script src="js/loader.js"></script> -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+        <script src="js/product-detail.js"></script>
+        <script src="js/comment.js"></script>
+        <!-- <script src="js/loader.js"></script> -->
 
-            <script>
+        <script>
                 // var swiper = new Swiper(".swiper-container", {
                 // 	pagination: {
                 // 		el: ".swiper-pagination",
@@ -604,6 +621,6 @@ $city_list = $city_controller->getCityList();
                 // 	// 	// Perform reply action
                 // 	// });
                 // });
-            </script>
+        </script>
 
-            <?php include_once "./footer.php"; ?>
+        <?php include_once "./footer.php"; ?>

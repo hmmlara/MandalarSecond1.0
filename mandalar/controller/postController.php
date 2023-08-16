@@ -66,5 +66,15 @@ class PostController extends Post{
     public function deli_status_update($status,$post_id){
         return $this->deli_status_update_by_btn($status,$post_id);
     }
+
+    public function getUserList($user_id)
+    {
+        return $this->getList($user_id);
+    }
+
+    public function searchPosts($searchinput)
+    {
+        return $this->searchPostList($searchinput);
+    }
 }
 ?>

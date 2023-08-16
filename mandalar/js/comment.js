@@ -9,6 +9,8 @@ let CommenterId = commenterStoreBox.dataset.userId;
 let PostId = postIdStoreBox.dataset.postId;
 let ParentCommentId = null;
 let Content = "";
+let isEdit = false;
+let com_id = null;
 
 //Assign Content Value From Input
 commentInput.addEventListener("keyup", (e) => {
@@ -25,25 +27,31 @@ commentBtn.addEventListener("click", (e) => {
 			user_id: CommenterId,
 			content: Content,
 			parent_comment_id: ParentCommentId,
+			isEdit: isEdit,
+			com_id:com_id
 		},
 		success: function (data) {
 			console.log(data);
 			Content = "";
 			commentInput.value = "";
 			ParentCommentId = 0;
+			isEdit = false;
+			com_id = null;
+			loadComments();
 		},
 	});
 });
 
 let commentContainer = document.querySelector(".comments");
 
-const loadComments = () => {
+function loadComments() {
 	$.ajax({
 		url: "php/load_comment.php",
 		type: "POST",
 		data: { post_id: PostId },
 		success: function (data) {
-			let CommentList = '';
+			let CommentList = "";
+			console.log(data);
 			let response = JSON.parse(data);
 			console.log(response);
 			response.forEach((element) => {
@@ -62,39 +70,66 @@ const loadComments = () => {
                                         </div>
                                         <div class="comment-actions">
                                             <button class="btn btn-link btn-sm" onclick="assignParentId(event)" data-cm-id = ${element.id}>Reply</button>
-                                            <button class="btn btn-link btn-sm see-reply" onclick="seeReplies(event,${element.id})">see replies
+                                            <button class="btn btn-link btn-sm see-reply" onclick="seeReplies(event,${element.id})">see replies</button>
 
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="replies d-none">
-								</div>
-						</div>
+                            
                             `;
-		
-			
-						if (
-							normalizeWhitespace(CommentList) !==
-							normalizeWhitespace(commentContainer.innerHTML)
-						) {
-							// Your logic here
-							commentContainer.innerHTML = CommentList;
-							// console.log(normalizeWhitespace(CommentList));
-							// console.log(normalizeWhitespace(commentContainer.innerHTML));
-							// console.log("reassign");
-						}
+				if (CommenterId == element.user_id) {
+					CommentList += `<div class="btn-group shadow-0 mb-2 dropend">
+					<button
+					  type="button"
+					  class="btn btn-secondary dropdown-toggle"
+					  data-mdb-toggle="dropdown"
+					  aria-expanded="false"
+					>
+					  Action
+					</button>
+					<ul class="dropdown-menu">
+					  <li><a class="dropdown-item" onclick = "edit('${element.content}',${element.id})" >Edit</a></li>
+					  <!-- Button trigger modal -->
+				
+					  <li><a class="dropdown-item" onclick = "deleteComment(${element.id})" >Delete</a></li>
 
-			
+					  
+					
+					</ul>
+				  </div>
+								`;
+				}
+
+				CommentList += `
+							</div>
+								
+							</div>
+						</div>
+
+						<div class="replies d-none">
+						</div>
+				</div>
+							`;
 			});
-	
+			if (
+				normalizeWhitespace(CommentList) !==
+				normalizeWhitespace(commentContainer.innerHTML)
+			) {
+				// Your logic here
+				commentContainer.innerHTML = CommentList;
+				// console.log(normalizeWhitespace(CommentList));
+				// console.log(normalizeWhitespace(commentContainer.innerHTML));
+				// console.log("reassign");
+				const seeRepliesBtns = document.querySelectorAll(".see-reply");
+				console.log(seeRepliesBtns);
+				seeRepliesBtns.forEach((btn) => {
+					btn.click();
+				});
+			}
 		},
 	});
-};
+}
 
 // setInterval(() => {
 // 	loadComments();
-// }, 5000);
+// }, 500);
 loadComments();
 
 //Assign Parent Id Value
@@ -114,22 +149,19 @@ function normalizeWhitespace(str) {
 }
 
 //see Replys
-function seeReplies(e,parent_comment_id) {
-    console.log()
+function seeReplies(e, parent_comment_id) {
+	console.log();
 	$.ajax({
-		url:'php/load_replies.php',
-		type:'POST',
-		data:{parent_comment_id:parent_comment_id},
-		success: function(data){
+		url: "php/load_replies.php",
+		type: "POST",
+		data: { parent_comment_id: parent_comment_id },
+		success: function (data) {
 			let response = JSON.parse(data);
-			console.log(response);
-			let repliesContainer = e.target.parentElement.parentElement.parentElement.nextElementSibling
-			console.log(repliesContainer);
-			let replyComments = '';
-			response.forEach(
-				(element)=>{
-					console.log("is ok")
-					replyComments += `
+			let repliesContainer =
+				e.target.parentElement.parentElement.parentElement.nextElementSibling;
+			let replyComments = "";
+			response.forEach((element) => {
+				replyComments += `
 			<div class ="comment" >
 					<div class="d-flex">
 						<img src="image/user-profile/${element.img}"  class="profile-picture-comment" alt="${element.img}" style="width: 40px;height:40px;object-fit:cover" />
@@ -145,18 +177,74 @@ function seeReplies(e,parent_comment_id) {
 								<button class="btn btn-link btn-sm" onclick="assignParentId(event)" data-cm-id = ${element.id}>Reply</button>
 								<button class="btn btn-link btn-sm see-reply" onclick="seeReplies(event,${element.id})">see replies
 
-							</div>
-						</div>
+			
+					`;
+					if (CommenterId == element.user_id) {
+						replyComments += `<div class="btn-group shadow-0 mb-2 dropend">
+						<button
+						  type="button"
+						  class="btn btn-secondary dropdown-toggle"
+						  data-mdb-toggle="dropdown"
+						  aria-expanded="false"
+						>
+						  Action
+						</button>
+						<ul class="dropdown-menu">
+						  <li><a class="dropdown-item" onclick = "edit('${element.content}',${element.id})" >Edit</a></li>
+						  <!-- Button trigger modal -->
+					
+						  <li><a class="dropdown-item" onclick = "deleteComment(${element.id})" >Delete</a></li>
+	
+						  
+						
+						</ul>
+					  </div>
+									`;
+					}
+	
+				replyComments += `				</div>
 					</div>
+				</div>
 
-					<div class="replies">
-					</div>
-			</div>
-					`
-				}
-			);
+				<div class="replies">
+				</div>
+		</div>`;
+			});
 			repliesContainer.innerHTML = replyComments;
-		}
-	})
-    e.target.parentElement.parentElement.parentElement.nextElementSibling.classList.toggle('d-none')
+		},
+	});
+	e.target.parentElement.parentElement.parentElement.nextElementSibling.classList.toggle(
+		"d-none"
+	);
 }
+
+// let isDelete = false;
+// let isModalOpen = false;
+function deleteComment($id) {
+	let isItSure = confirm("are you sure To delete");
+	if (isItSure) {
+		$.ajax({
+			url: "php/deleteComment.php",
+			type: "POST",
+			data: { id: $id },
+			success: function (data) {
+				console.log("delete Success");
+				loadComments();
+			},
+		});
+	}
+}
+
+function edit(value,id){
+	isEdit = true;
+	commentInput.value = value;
+
+	com_id = id;
+	console.log(com_id);
+}
+// function asseptDelete() {
+// 	isDelete = true;
+// 	setTimeout(() => {
+// 		isModalOpen = false;
+// 	}, 1000);
+// }

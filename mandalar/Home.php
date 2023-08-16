@@ -1,14 +1,20 @@
 <?php
+
 include_once "./nav.php";
 include_once "./model/category.php";
 include_once "./controller/postController.php";
-$user_id=6;
+
+
 $post_controller = new PostController();
 $post_list = $post_controller->getPostList();
 // var_dump($post_list);
 
 
 $categorys = $category_model->getCategory();
+if (isset($_SESSION['user_id'])) {
+    $user_id = $_SESSION['user_id'];
+    echo $user_id;
+}
 
 ?>
     <style>
@@ -220,7 +226,7 @@ $categorys = $category_model->getCategory();
                 <a href="productDetail.php?id=<?php echo $post['id'] ?>" class="col-md-4 col-sm-6  col-lg-3 mb-4 ">
                     <div class="card product-card-by-nay">
                         <?php
-                        $images = glob('image/post_img/' . $post['photo_folder'] . '/*.{jpg,png,gif}', GLOB_BRACE);
+                        $images = glob('image/post_img/' . $post['photo_folder'] . '/*.{jpg,png,gif,jpeg,jiff}', GLOB_BRACE);
                         ?>
                             <img src="<?php echo $images[0] ?>" class="card-img-top product-image" alt="Product 1" />
                             <div class="card-body">
@@ -264,10 +270,11 @@ $categorys = $category_model->getCategory();
             </div>
         </section>
         <!-- Post -->
+        <?php if(isset($_SESSION['user_id'])){ ?>
         <button type="button" class="btn btn-primary " id="PostBtn" data-mdb-toggle="modal" data-mdb-target="#exampleModal">
         +
-    </button>
-
+        </button>
+        <?php } ?>
         <!-- Modal -->
         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">

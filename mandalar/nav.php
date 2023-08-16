@@ -1,5 +1,5 @@
 <?php 
-//session_start();
+session_start();
 include_once "controller/profileController.php";
 include_once "controller/userController.php";
 
@@ -72,6 +72,7 @@ if (isset($_SESSION['user_id'])) {
                 <div class="container">
                     <div class="row">
                         <div class="col-md-12">
+                           
                             <div class="aa-header-bottom-area">
                                 <!-- logo  -->
                                 <div class="aa-logo">
@@ -82,6 +83,7 @@ if (isset($_SESSION['user_id'])) {
                                 </div>
                                 <!-- / logo  -->
                                 <!-- cart box -->
+                                <?php if(isset($_SESSION['user_id'])){ ?>
                                 <div class="aa-cartbox">
                                     <div class=" d-flex justify-content-end" style="width: 230px;">
                                         <a class="aa-cart-link heart" href="favorite.php" >
@@ -109,6 +111,41 @@ if (isset($_SESSION['user_id'])) {
                                         </a>
                                     </div>
                                 </div>
+                                <?php }else{ ?>
+                                    <div class="aa-cartbox">
+                                    <div class=" d-flex justify-content-end " style="width: 230px;">
+                                        <a class="aa-cart-link btn btn-outline-light btn-rounded text-white d-flex login" href="login.php" style="height:45px" >
+                                            <i class="fa-solid fa-arrow-right-to-bracket fs-4 login-text"></i><span class="m-1 login-text" style=" font-size:13px">Login</span>
+                                        </a>
+                                        
+                                        <!-- <div class="dropdown" >
+                                            <a class="aa-cart-link bell" style="display:inline-block;width:120px"  role="button"  id="dropdownMenuButton"
+                                                data-mdb-toggle="dropdown" >
+                                                
+                                                <i class="fa-regular fa-bell"></i>
+                                                <span class="aa-cart-notify" style="color: #4e9c81;">0</span>
+                                                <ul class="dropdown-menu"  aria-labelledby="dropdownMenuButton">
+                                                    
+                                                </ul>
+                                            </a>
+                                        </div> -->
+                                        <a class="aa-cart-link btn btn-outline-light btn-rounded text-white d-flex login  ms-2" href="register.php" style="height:45px; width:150px;" >
+                                            <i class="fa-solid fa-user fs-4 login-text"></i><span class="m-1 login-text" style=" font-size:13px">Register</span>
+                                        </a>
+
+                                        <!-- <a class="aa-cart-link btn btn-light register" href="#">
+                                        <i class="fa-solid fa-arrow-right-to-bracket fa-xl" style="color: #ffffff;"></i>
+                                        <span class="" style="color: #4e9c81;">register</span>
+                                        <i class="fa-solid fa-user"></i>
+                                        </a> -->
+
+                                        <!-- <a class="aa-cart-link user" href="profile.php">
+                                            <i class="fa-regular fa-user"></i>
+                                        </a> -->
+                                    </div>
+                                </div>
+                                    
+                                <?php } ?>
                                 <!-- / cart box -->
                                 <!-- search box -->
                                 <div class="aa-search-box">
@@ -120,8 +157,10 @@ if (isset($_SESSION['user_id'])) {
                                                 class="fa fa-search"></span></button>
                                     </form>
                                 </div>
+                                
                                 <!-- / search box -->
                             </div>
+                           
                         </div>
                     </div>
                 </div>
