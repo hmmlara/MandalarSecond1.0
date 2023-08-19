@@ -52,19 +52,22 @@ class Notification
         $sql = "SELECT COUNT(*) as notiCount FROM noti_pivi JOIN noti WHERE noti_pivi.id = noti.id and noti.is_read = 0 and user_id = :userId;";
         $statement = $this->connection->prepare($sql);
 
-        $statement->execute();
         $statement->bindParam(':userId',$user_id);
+        $statement->execute();
+
         $result = $statement->fetchAll(PDO::FETCH_ASSOC);
         return $result;
     }
 
-    public function LoadNoti()
+    public function LoadNoti($user_id)
     {
 
-        $sql = "Select * From money_check";
+        $sql = "SELECT * FROM `noti_pivi` JOIN noti on noti_id = noti.id and user_id = :userId";
         $statement = $this->connection->prepare($sql);
 
+        $statement->bindParam(':userId',$user_id);
         $statement->execute();
+
         $result = $statement->fetchAll(PDO::FETCH_ASSOC);
         return $result;
     }
@@ -72,3 +75,7 @@ class Notification
 }
 
 $NOtiModal = new Notification();
+echo "<pre>";
+var_dump($NOtiModal->LoadNoTiCount(27));
+var_dump($NOtiModal->LoadNoti(27));
+echo "</pre>";
