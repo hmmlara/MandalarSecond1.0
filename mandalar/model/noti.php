@@ -46,13 +46,14 @@ class Notification
 
     }
 
-    public function LoadNoTiCount()
+    public function LoadNoTiCount($user_id)
     {
 
-        $sql = "Select * From money_check";
+        $sql = "SELECT COUNT(*) as notiCount FROM noti_pivi JOIN noti WHERE noti_pivi.id = noti.id and noti.is_read = 0 and user_id = :userId;";
         $statement = $this->connection->prepare($sql);
 
         $statement->execute();
+        $statement->bindParam(':userId',$user_id);
         $result = $statement->fetchAll(PDO::FETCH_ASSOC);
         return $result;
     }

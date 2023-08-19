@@ -379,7 +379,7 @@ $user_id=6;
         </div>
         <div id="output"></div>
         <!-- model end -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> -->
         <script src="js/post.js"></script>
         <script src="js/flitter.js"></script>
         <script src="js/home.js"></script>

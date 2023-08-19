@@ -181,4 +181,5 @@ if (isset($_SESSION['user_id'])) {
 <!-- <script src="bootstrap/js/bootstrap.bundle.min.js"></script> -->
 <script src="js/searchbox.js"></script>
 <script src="js/noti.js"></script>
+<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
 </html>
