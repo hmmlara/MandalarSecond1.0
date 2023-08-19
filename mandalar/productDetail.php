@@ -8,7 +8,6 @@ if (isset($_SESSION['user_id'])) {
     $user_id = $_SESSION['user_id'];
     
 }
-$user_id=7;
 $id = $_GET['id'];
 $post_controller = new PostController();
 $user_controller = new UserController();
