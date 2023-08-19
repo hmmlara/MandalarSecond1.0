@@ -199,7 +199,7 @@ document.addEventListener("DOMContentLoaded", function() {
         fliteringData["min-price"] = min;
         fliteringData["max-price"] = max;
         loadCount+=1;
-        console.clear()
+        // console.clear()
         console.log(loadCount)
         if (loadCount > 6) {
             PostFliteringData(fliteringData);
