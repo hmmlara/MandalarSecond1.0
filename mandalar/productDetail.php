@@ -1,11 +1,12 @@
 <?php
-
+session_start();
 include_once "./controller/postController.php";
 include_once "./controller/userController.php";
 include_once "./controller/cityController.php";
 include_once "php/available_money.php";
 if (isset($_SESSION['user_id'])) {
     $user_id = $_SESSION['user_id'];
+    
 }
 $user_id=7;
 $id = $_GET['id'];
@@ -24,10 +25,10 @@ $city_list = $city_controller->getCityList();
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css
-" />
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js
-"></script>
+    <!-- <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+        /> -->
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
     <link rel="stylesheet" href="css/product-detail.css" />
@@ -202,33 +203,63 @@ $city_list = $city_controller->getCityList();
                                     <?php echo $post['description']; ?>
                                 </p>
                                 <div class="product-buttons">
-                                    <button class="btn " id="product-like" data-post-id="<?php echo $id; ?>"
-                                        data-user-id="<?php echo $user_id; ?>">
-                                        <i class="fas fa-thumbs-up"></i> <span id="post-like-count"></span>
-                                    </button>
-                                    <button class="btn btn-secondary comment-btn">
-                                        <i class="fas fa-comment"></i> Comment
-                                    </button>
-                                    <button class="btn btn-secondary" id="product-favorite"
-                                        data-post-id="<?php echo $id; ?>" data-user-id="<?php echo $user_id; ?>">
-                                        <i class="fas fa-heart"></i> <span id="post-favorite-count"></span>
-                                    </button>
-                                    <?php if ($post['status'] == "none") {
-                                        ?>
-                                        <button type="button" style="display:<?php
-                                        if ($user_id == $post['seller_id'])
-                                            echo 'none';
-                                        else {
-                                            echo 'block';
-                                        }
-                                        ?>" class="btn btn-primary" data-mdb-toggle="modal"
-                                            data-mdb-target="#exampleModal"> Buy</button>
-                                    <?php } else if ($post['status'] != 'none' && $post['status'] != 'sold_out') { ?>
-                                            <span>Waiting.........</span>
-                                    <?php } else if ($post['status'] == 'sold_out') { ?>
-                                                <span>Sold Out</span>
-                                    <?php } ?>
+                                    <?php if (isset($_SESSION["user_id"])){  ?>
+                                        <button class="btn " id="product-like" data-post-id="<?php echo $id; ?>"
+                                            data-user-id="<?php echo $user_id; ?>">
+                                            <i class="fas fa-thumbs-up"></i> <span id="post-like-count"></span>
+                                        </button>
+                                        <button class="btn btn-secondary comment-btn">
+                                            <i class="fas fa-comment"></i> Comment
+                                        </button>
+                                        <button class="btn btn-secondary" id="product-favorite"
+                                            data-post-id="<?php echo $id; ?>" data-user-id="<?php echo $user_id; ?>">
+                                            <i class="fas fa-heart"></i> <span id="post-favorite-count"></span>
+                                        </button>
+                                        <?php if ($post['status'] == "none") {
+                                            ?>
+                                            <button type="button" style="display:<?php
+                                            if ($user_id == $post['seller_id'])
+                                                echo 'none';
+                                            else {
+                                                echo 'block';
+                                            }
+                                            ?>" class="btn btn-primary" data-mdb-toggle="modal" data-mdb-target="#exampleModal"> Buy</button>
+                                        <?php } else if ($post['status'] != 'none' && $post['status'] != 'sold_out') { ?>
+                                                <span>Waiting.........</span>
+                                        <?php } else if ($post['status'] == 'sold_out') { ?>
+                                                    <span>Sold Out</span>
+                                        <?php } ?>
+                                    <?php } else { ?>
+                                        <button class="btn btn-secondary" id="product-like" data-mdb-toggle="modal" data-mdb-target="#productDetailModal">
+                                            <i class="fas fa-thumbs-up"></i><span></span>
+                                        </button>
+                                        <button class="btn btn-secondary " data-mdb-toggle="modal" data-mdb-target="#productDetailModal">
+                                            <i class="fas fa-comment"></i> Comment
+                                        </button>
+                                        <button class="btn btn-secondary" id="product-favorite" data-mdb-toggle="modal" data-mdb-target="#productDetailModal">
+                                            <i class="fas fa-heart"></i> <span ></span>
+                                        </button>
+                                        <button type="button" class="btn btn-primary" data-mdb-toggle="modal"
+                                            data-mdb-target="#productDetailModal"> Buy</button>
 
+                                        <div class="modal fade" id="productDetailModal" tabindex="-1"
+                                            aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-centered">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLabel">Please Sign Up and Register</h5>
+                                                        <button type="button" class="btn-close" data-mdb-dismiss="modal"
+                                                            aria-label="Close"></button>
+                                                    </div>
+                                                    <!-- <div class="modal-body">...</div> -->
+                                                    <div class="modal-footer d-flex align-items-center justify-content-center">
+                                                        <a  href="register.php" class="btn btn-secondary" >Register</a>
+                                                        <a href="login.php" class="btn btn-primary">Login</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    <?php } ?>
                                 </div>
                             </div>
                         </div>
@@ -240,14 +271,16 @@ $city_list = $city_controller->getCityList();
                     <!-- <div class="comments">
                             <div class="comment">
                                 <div class="d-flex">
-                                    <img src="image/profiles/Profile.png" class="profile-picture-comment" alt="User 1" style="width: max-content" />
+                                    <img src="image/profiles/Profile.png" class="profile-picture-comment" alt="User 1"
+                                        style="width: max-content" />
                                     <div>
                                         <div class="comment-content">
                                             <div class="comment-details">
                                                 <span class="comment-author">User 1</span>
                                                 <span class="comment-date">Posted on July 12, 2023</span>
                                             </div>
-                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut nec semper mauris, at convallis est.
+                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut nec semper
+                                            mauris, at convallis est.
                                         </div>
                                         <div class="comment-actions">
                                             <button class="btn btn-link btn-sm">Like</button>
@@ -255,17 +288,42 @@ $city_list = $city_controller->getCityList();
                                         </div>
                                     </div>
                                 </div>
-
-                                <div class="replies">
+                            </div>
+                        </div>
+                        <div class="comment">
+                            <div class="d-flex">
+                                <img src="image/profiles/Profile.png" class="profile-picture-comment" alt="User 1"
+                                    style="width: max-content" />
+                                <div>
+                                    <div class="comment-content">
+                                        <div class="comment-details">
+                                            <span class="comment-author">User 1</span>
+                                            <span class="comment-date">Posted on July 12, 2023</span>
+                                        </div>
+                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut nec semper mauris,
+                                        at convallis est.
+                                    </div>
+                                    <div class="comment-actions">
+                                        <button class="btn btn-link btn-sm">Like</button>
+                                        <button class="btn btn-link btn-sm">Reply</button>
+                                        <button class="btn btn-link btn-sm see-reply" onclick="seeReplies(event)">see 2
+                                            reply</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="replies">
+                                <div class="comment">
                                     <div class="d-flex">
-                                        <img src="image/profiles/Profile.png" class="profile-picture-comment" alt="User 1" style="width: max-content" />
+                                        <img src="image/profiles/Profile.png" class="profile-picture-comment"
+                                            alt="User 1" style="width: max-content" />
                                         <div>
                                             <div class="comment-content">
                                                 <div class="comment-details">
                                                     <span class="comment-author">User 1</span>
                                                     <span class="comment-date">Posted on July 12, 2023</span>
                                                 </div>
-                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut nec semper mauris, at convallis est.
+                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut nec semper
+                                                mauris, at convallis est.
                                             </div>
                                             <div class="comment-actions">
                                                 <button class="btn btn-link btn-sm">Like</button>
@@ -273,18 +331,29 @@ $city_list = $city_controller->getCityList();
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="comment">
-                                <div class="d-flex">
-                                    <img src="image/profiles/Profile.png" class="profile-picture-comment" alt="User 1" style="width: max-content" />
-                                    <div>
-                                        <div class="comment-content">
-                                            <div class="comment-details">
-                                                <span class="comment-author">User 1</span>
-                                                <span class="comment-date">Posted on July 12, 2023</span>
+                                    <div class="replies">
+                                        <div class="comment">
+                                            <div class="d-flex">
+                                                <img src="image/profiles/Profile.png" class="profile-picture-comment"
+                                                    alt="User 1" style="width: max-content" />
+                                                <div>
+                                                    <div class="comment-content">
+                                                        <div class="comment-details">
+                                                            <span class="comment-author">User 1</span>
+                                                            <span class="comment-date">Posted on July 12, 2023</span>
+                                                        </div>
+                                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut nec
+                                                        semper mauris, at convallis est.
+                                                    </div>
+                                                    <div class="comment-actions">
+                                                        <button class="btn btn-link btn-sm">Like</button>
+                                                        <button class="btn btn-link btn-sm">Reply</button>
+                                                        <button class="btn btn-link btn-sm">see 2 reply</button>
+
+                                                    </div>
+                                                </div>
+                                                <div class="replies"></div>
                                             </div>
-                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut nec semper mauris, at convallis est.
                                         </div>
                                         <div class="comment-actions">
                                             <button class="btn btn-link btn-sm">Like</button>
@@ -294,84 +363,103 @@ $city_list = $city_controller->getCityList();
                                         </div>
                                     </div>
                                 </div>
-                                <div class="replies">
-                                    <div class="comment">
-                                        <div class="d-flex">
-                                            <img src="image/profiles/Profile.png" class="profile-picture-comment" alt="User 1" style="width: max-content" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="comment-form">
+                        <div class="form-group">
+                            <label for="comment-input">Add a comment</label>
+                            <textarea class="form-control" id="comment-input" rows="2"></textarea>
+                        </div>
+                        <button type="submit" id="comment-btn" class="btn btn-primary">
+                            Submit
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="related-products my-5">
+                <div class="container">
+                    <h3 class="mb-4">Related Products</h3>
+                    <div class="position-relative related-products-slider overflow-hidden">
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide">
+                                <div class="card shadow">
+                                    <img src="image/products/product-image2.jfif" class="card-img-top product-image"
+                                        alt="Product 2" />
+                                    <div class="card-body">
+                                        <h5 class="card-title">Product 2</h5>
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <div class="d-flex align-items-center">
+                                                <img src="image/profiles/seller1.jpg"
+                                                    class="rounded-circle profile-on-card" alt="Seller 1" />
+                                                <span class="ml-2 card-text">Seller 1</span>
+                                            </div>
                                             <div>
-                                                <div class="comment-content">
-                                                    <div class="comment-details">
-                                                        <span class="comment-author">User 1</span>
-                                                        <span class="comment-date">Posted on July 12, 2023</span>
-                                                    </div>
-                                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut nec semper mauris, at convallis est.
-                                                </div>
-                                                <div class="comment-actions">
-                                                    <button class="btn btn-link btn-sm">Like</button>
-                                                    <button class="btn btn-link btn-sm">Reply</button>
-                                                </div>
+                                                <p class="card-text view-details-btn">300000mmk</p>
                                             </div>
                                         </div>
-                                        <div class="replies">
-                                            <div class="comment">
-                                                <div class="d-flex">
-                                                    <img src="image/profiles/Profile.png" class="profile-picture-comment" alt="User 1" style="width: max-content" />
-                                                    <div>
-                                                        <div class="comment-content">
-                                                            <div class="comment-details">
-                                                                <span class="comment-author">User 1</span>
-                                                                <span class="comment-date">Posted on July 12, 2023</span>
-                                                            </div>
-                                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut nec semper mauris, at convallis est.
-                                                        </div>
-                                                        <div class="comment-actions">
-                                                            <button class="btn btn-link btn-sm">Like</button>
-                                                            <button class="btn btn-link btn-sm">Reply</button>
-                                                            <button class="btn btn-link btn-sm">see 2 reply</button>
-
-                                                        </div>
-                                                    </div>
-                                                    <div class="replies"></div>
-                                                </div>
+                                        <div class="mt-3">
+                                            <i class="far fa-heart mr-2"></i>
+                                            <span class="reaction-count">5</span>
+                                            <i class="far fa-plus-square ml-3"></i>
+                                            <span class="save-count">8</span>
+                                            <i class="far fa-eye ml-3"></i>
+                                            <span class="view-count">30</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="swiper-slide">
+                                <div class="card shadow">
+                                    <img src="image/products/product-image2.jfif" class="card-img-top product-image"
+                                        alt="Product 2" />
+                                    <div class="card-body">
+                                        <h5 class="card-title">Product 2</h5>
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <div class="d-flex align-items-center">
+                                                <img src="image/profiles/seller2.jpg"
+                                                    class="rounded-circle profile-on-card" alt="Seller 2" />
+                                                <span class="ml-2 card-text">Seller 2</span>
                                             </div>
-                                            <div class="comment">
-                                                <div class="d-flex">
-                                                    <img src="image/profiles/Profile.png" class="profile-picture-comment" alt="User 1" style="width: max-content" />
-                                                    <div>
-                                                        <div class="comment-content">
-                                                            <div class="comment-details">
-                                                                <span class="comment-author">User 1</span>
-                                                                <span class="comment-date">Posted on July 12, 2023</span>
-                                                            </div>
-                                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut nec semper mauris, at convallis est.
-                                                        </div>
-                                                        <div class="comment-actions">
-                                                            <button class="btn btn-link btn-sm">Like</button>
-                                                            <button class="btn btn-link btn-sm">Reply</button>
-                                                        </div>
-                                                    </div>
-                                                    <div class="replies"></div>
-                                                </div>
+                                            <div>
+                                                <p class="card-text view-details-btn">300000mmk</p>
                                             </div>
-                                            <div class="comment">
-                                                <div class="d-flex">
-                                                    <img src="image/profiles/Profile.png" class="profile-picture-comment" alt="User 1" style="width: max-content" />
-                                                    <div>
-                                                        <div class="comment-content">
-                                                            <div class="comment-details">
-                                                                <span class="comment-author">User 1</span>
-                                                                <span class="comment-date">Posted on July 12, 2023</span>
-                                                            </div>
-                                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut nec semper mauris, at convallis est.
-                                                        </div>
-                                                        <div class="comment-actions">
-                                                            <button class="btn btn-link btn-sm">Like</button>
-                                                            <button class="btn btn-link btn-sm">Reply</button>
-                                                        </div>
-                                                    </div>
-                                                    <div class="replies"></div>
-                                                </div>
+                                        </div>
+                                        <div class="mt-3">
+                                            <i class="far fa-heart mr-2"></i>
+                                            <span class="reaction-count">5</span>
+                                            <i class="far fa-plus-square ml-3"></i>
+                                            <span class="save-count">8</span>
+                                            <i class="far fa-eye ml-3"></i>
+                                            <span class="view-count">30</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="swiper-slide">
+                                <div class="card shadow">
+                                    <img src="image/products/product-image2.jfif" class="card-img-top product-image"
+                                        alt="Product 2" />
+                                    <div class="card-body">
+                                        <h5 class="card-title">Product 2</h5>
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <div class="d-flex align-items-center">
+                                                <img src="image/profiles/seller3.jpg"
+                                                    class="rounded-circle profile-on-card" alt="Seller 3" />
+                                                <span class="ml-2 card-text">Seller 3</span>
                                             </div>
+                                            <div>
+                                                <p class="card-text view-details-btn">300000mmk</p>
+                                            </div>
+                                        </div>
+                                        <div class="mt-3">
+                                            <i class="far fa-heart mr-2"></i>
+                                            <span class="reaction-count">5</span>
+                                            <i class="far fa-plus-square ml-3"></i>
+                                            <span class="save-count">8</span>
+                                            <i class="far fa-eye ml-3"></i>
+                                            <span class="view-count">30</span>
                                         </div>
                                     </div>
                                 </div>
@@ -557,9 +645,7 @@ $city_list = $city_controller->getCityList();
             </div>
             <!-- model end -->
         </main>
-        <script>
-         
-        </script>
+
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>

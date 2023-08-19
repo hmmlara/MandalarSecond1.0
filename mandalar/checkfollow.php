@@ -2,10 +2,14 @@
 session_start();
 include_once "controller/profileController.php";
 include_once "controller/followController.php";
-
+include_once "controller/userController.php";
+include_once "model/noti.php";
+include_once "model/user.php";
+$getUserName=new UserController();
 $getalluserlist = new ProfileController();
 $getAllUser = $getalluserlist->getUserList();
 $followUser=new FollowController();
+
 
 
 if(isset($_POST["state"]))
@@ -29,7 +33,17 @@ if(isset($_POST["id"]))
 }
 if($state==1)
 {
-    $follow=$followUser->following($from_id,$to_id);
+    // $follow=$followUser->following($from_id,$to_id);
+    // $getNames=$getUserName->UserInfo($from_id);
+    // foreach ($getNames as $key => $getName) {
+    //     $name=$getName["full_name"];
+    //     # code...
+    // }
+    $userinfo = $userModal->UserAllInfo($from_id);
+    $name = $userinfo[0]["full_name"];
+    var_dump($name);
+    $NOtiModal->SentNoti($name." is folling You",$to_id);
+
 
 }
 // $followresult=$followUser->followingUser($from_id,$to_id);

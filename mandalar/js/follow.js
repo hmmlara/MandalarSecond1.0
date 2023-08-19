@@ -30,47 +30,47 @@ $(document).ready(function () {
       },
     });
 
-    function fetchNotifications(to_id) {
-      // Make an AJAX request to fetch new notifications
+  //   function fetchNotifications(to_id) {
+  //     // Make an AJAX request to fetch new notifications
 
-      $.ajax({
-          url: 'get_notifications.php', // Replace with the URL of your PHP script that fetches notifications
-          type: 'POST',
-          data:{to_id:to_id},
-          success: function (response) {
-            let textuser=JSON.parse(response);
-            console.log(textuser)
-            $.ajax({
-              url:"getAllUser.php",
-              type:"POST",
-              data:{from_id:from_id},
+  //     $.ajax({
+  //         url: 'get_notifications.php', // Replace with the URL of your PHP script that fetches notifications
+  //         type: 'POST',
+  //         data:{to_id:to_id},
+  //         success: function (response) {
+  //           let textuser=JSON.parse(response);
+  //           console.log(textuser)
+  //           $.ajax({
+  //             url:"getAllUser.php",
+  //             type:"POST",
+  //             data:{from_id:from_id},
 
-              success:function(response)
-              {
-                username=JSON.parse(response)
-                //console.log(username.fname)
-                for (let index = 0; index < username.length; index++) {
-                  const element = username[index];
+  //             success:function(response)
+  //             {
+  //               username=JSON.parse(response)
+  //               //console.log(username.fname)
+  //               for (let index = 0; index < username.length; index++) {
+  //                 const element = username[index];
                   
-                    $('.dropdown-menu').append('<li class="dropdown-item">' + element.fname+" "+element.lname +"is Following You"+ '</li>');
+  //                   $('.dropdown-menu').append('<li class="dropdown-item">' + element.fname+" "+element.lname +"is Following You"+ '</li>');
                   
-                }
+  //               }
                 
-              }
-            })
-          },
-          error: function (error) {
-              console.error('Error fetching notifications:', error);
-          }
-      });
-  }
+  //             }
+  //           })
+  //         },
+  //         error: function (error) {
+  //             console.error('Error fetching notifications:', error);
+  //         }
+  //     });
+  // }
   
-  fetchNotifications(to_id);
+  // fetchNotifications(to_id);
 
     // Use setInterval correctly by passing the to_id value to the fetchNotifications function
-    setInterval(function () {
-      fetchNotifications(to_id);
-    }, 500000); // 5 seconds interval (adjust as needed)
+    // setInterval(function () {
+    //   fetchNotifications(to_id);
+    // }, 500000); // 5 seconds interval (adjust as needed)
   
     $("#unfollow").removeClass("d-none");
     e.preventDefault();
