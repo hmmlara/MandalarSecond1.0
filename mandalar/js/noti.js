@@ -4,7 +4,6 @@ const NOti_container = document.querySelector("#notiContainer");
 const user_id = notiContainer.dataset.userId;
 
 let previousNotiCount = 0;
-console.log("lee")
 function loadNotiCount(){
     $.ajax({
         url: "php/loadnoticount.php",
@@ -19,7 +18,7 @@ function loadNotiCount(){
             previousNotiCount = data;
             console.log("is reach")
             console.log(data)
-            notiContainer.innerHTML = data
+            notiContainer.innerHTML = data;
         }
     })
 }
@@ -35,7 +34,8 @@ function loadNoti(){
             console.log(noti)
             NOti_container.innerHTML = ""
             noti.forEach(element => {
-                NOti_container.innerHTML += `<li>${element.content}</li>`
+                console.log(element)
+                NOti_container.innerHTML += `<li> <a href = "${element.link}" >${element.content}</a></li>`
             });
             console.log(NOti_container.innerHTML);
 
