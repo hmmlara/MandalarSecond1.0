@@ -55,7 +55,7 @@ class Notification
         $statement->bindParam(':userId',$user_id);
         $statement->execute();
 
-        $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+        $result = $statement->fetch(PDO::FETCH_ASSOC);
         return $result;
     }
 
@@ -75,7 +75,7 @@ class Notification
 }
 
 $NOtiModal = new Notification();
-echo "<pre>";
-var_dump($NOtiModal->LoadNoTiCount(27));
-var_dump($NOtiModal->LoadNoti(27));
-echo "</pre>";
+// echo "<pre>";
+// var_dump($NOtiModal->LoadNoTiCount(27));
+// var_dump($NOtiModal->LoadNoti(27));
+// echo "</pre>";
