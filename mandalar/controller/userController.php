@@ -27,6 +27,10 @@ class UserController extends User{
     {
         return $this->enterWallet($userid,$amount,$kpay_name,$kpay_phone,$kpay_img);
     }
+
+    public function getAllUser(){
+        return $this->takeAllUser();
+    }
 }
 
 ?>
