@@ -60,6 +60,7 @@ if (isset($_SESSION['user_id'])) {
 <body class="">
     <!-- Navigation -->
 
+
     <div id="page">
         <header id="aa-header">
             <!-- start header top  -->
@@ -94,7 +95,7 @@ if (isset($_SESSION['user_id'])) {
                                                 data-mdb-toggle="dropdown" >
                                                 
                                                 <i class="fa-regular fa-bell"></i>
-                                                <span class="aa-cart-notify" data-user-id="<?php echo $user_id?>" style="color: #4e9c81;">0</span>
+                                                <span class="aa-cart-notify" style="color: #4e9c81;">0</span>
                                                 <ul class="dropdown-menu"  aria-labelledby="dropdownMenuButton">
                                                     
                                                 </ul>
@@ -180,5 +181,4 @@ if (isset($_SESSION['user_id'])) {
 <script src="js/jquery-3.7.0.min.js"></script>
 <!-- <script src="bootstrap/js/bootstrap.bundle.min.js"></script> -->
 <script src="js/searchbox.js"></script>
-<script src="js/noti.js"></script>
 </html>

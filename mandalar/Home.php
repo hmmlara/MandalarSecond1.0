@@ -133,7 +133,7 @@ $user_id=6;
             border-radius: 20px;
         }
         
-        a {
+        #products a {
             color: initial !important;
             font-size: initial !important;
         }

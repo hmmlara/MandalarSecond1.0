@@ -33,7 +33,7 @@ if(isset($_POST["id"]))
 }
 if($state==1)
 {
-    // $follow=$followUser->following($from_id,$to_id);
+     $follow=$followUser->following($from_id,$to_id);
     // $getNames=$getUserName->UserInfo($from_id);
     // foreach ($getNames as $key => $getName) {
     //     $name=$getName["full_name"];
