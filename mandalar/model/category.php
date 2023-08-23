@@ -22,6 +22,18 @@ class Category
         }
         return $result;
     }
+    function getPrice($category_id){
+        $sql = "SELECT * FROM `category`";
+        $statement = $this->connection->prepare($sql);
+        $result = "";
+        if (
+            $statement->execute()
+        ) {
+            $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+        }
+        return $result;
+    }
 }
 
 $category_model = new Category();

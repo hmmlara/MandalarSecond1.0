@@ -31,6 +31,10 @@ if(isset($_POST["id"]))
 {
     $id=$_POST["id"];
 }
+
+if(isset($_POST['link'])){
+    $link = $_POST['link'];
+}
 if($state==1)
 {
      $follow=$followUser->following($from_id,$to_id);
@@ -41,8 +45,9 @@ if($state==1)
     // }
     $userinfo = $userModal->UserAllInfo($from_id);
     $name = $userinfo[0]["full_name"];
+    
     var_dump($name);
-    $NOtiModal->SentNoti($name." is folling You",$to_id);
+    $NOtiModal->SentNoti($name." is folling You",$to_id,$link);
 
 
 }
