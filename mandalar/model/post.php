@@ -400,6 +400,18 @@ class Post
         }
     }
 
+    public function load_min_max_price($id){
+        $this->connection = Database::connect();
+        $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $sql = "SELECT MIN(post.price) as minPrice,MAX(post.price) as maxPrice FROM `post` WHERE sub_category_id = :id
+        ";
+        $statement = $this->connection->prepare($sql);
+        $statement->bindParam(":id",$id);
+        $statement->execute();
+        $result = $statement->fetch(PDO::FETCH_ASSOC);
+        return $result;
+    }
+
 }
 
 // $post_modal=new Post();

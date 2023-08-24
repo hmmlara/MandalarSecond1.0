@@ -18,14 +18,15 @@ $post_list = $post_controller->getPostList();
 $getalluserlist = new ProfileController();
 $getAllUser = $getalluserlist->getUserList();
 
-$enterNrcimg=new NrcController();
+$enterNrcimg = new NrcController();
 
 
 
 $updateUserDetails = new UserController();
 if (isset($_SESSION['user_id'])) {
     $user_id = $_SESSION['user_id'];
-}else{
+    echo $user_id;
+} else {
     header("Location:Home.php");
 }
 
@@ -43,20 +44,18 @@ foreach ($getAllUser as $key => $user) {
         $useremail = $user['email'];
         $userimg = $user['img'];
         // $userbio = $user['bio'];
-        $userwallet=$user["wallet"];
+        $userwallet = $user["wallet"];
         // echo $user_id;
     }
 }
-$getNrcUser=$enterNrcimg->getAll();
+$getNrcUser = $enterNrcimg->getAll();
 //  var_dump($getNrcUser);
 $wait = null; // Set a default value before the loop
 foreach ($getNrcUser as $key => $wait) {
-    if($wait['to_id'] == $userid)
-    {
-       $wait=$wait["status"];
-   
-    }else{
-    $wait=2;
+    if ($wait['to_id'] == $userid) {
+        $wait = $wait["status"];
+    } else {
+        $wait = 2;
     }
 }
 
@@ -86,14 +85,12 @@ if (isset($_POST["save"])) {
     $error_status = false;
     if (!empty($_POST["update_fname"])) {
         $update_fname = $_POST["update_fname"];
-
     } else {
         $error_status = true;
     }
 
     if (!empty($_POST["update_lname"])) {
         $update_lname = $_POST["update_lname"];
-
     } else {
         $error_status = true;
     }
@@ -103,7 +100,6 @@ if (isset($_POST["save"])) {
         $update_bio = $getPersonalInfo[0]['bio'];
     } else {
         $update_bio = $_POST['update_bio'];
-
     }
 
 
@@ -131,30 +127,25 @@ if (isset($_POST["save"])) {
     if ($error_status == false) {
         $updateUser = $updateUserDetails->UpdateUser($userid, $update_fname, $update_lname, $update_bio, $filename);
         header("Location: " . $_SERVER['PHP_SELF']);
-      
-
     }
 }
 
 //update NRCNumber
-if(isset($_POST['enterNRC']))
-{
-    $error=false;
-    if(isset($_POST['nrcNumber']))
-    {
-        $nrcNumber=$_POST['nrcNumber'];
+if (isset($_POST['enterNRC'])) {
+    $error = false;
+    if (isset($_POST['nrcNumber'])) {
+        $nrcNumber = $_POST['nrcNumber'];
         //echo $nrcNumber;
-    }else{
-        $error=true;
+    } else {
+        $error = true;
     }
 
-    if(isset($_FILES['fimg']))
-    {
+    if (isset($_FILES['fimg'])) {
         $frontfilename = $_FILES['fimg']['name'];
         $filesize = $_FILES['fimg']['size'];
         $allowed_files = ['jpg', 'png', 'jpeg', 'svg'];
         $temp_path = $_FILES['fimg']['tmp_name'];
-    
+
         $fileinfo = explode('.', $frontfilename);
         $filetype = end($fileinfo);
         $maxsize = 2000000000;
@@ -165,13 +156,12 @@ if(isset($_POST['enterNRC']))
                 echo "file size exceeds maximum allowed";
             }
         }
-    }else{
-        $error=true;
+    } else {
+        $error = true;
     }
-    
 
-    if(isset($_FILES['bimg']))
-    {
+
+    if (isset($_FILES['bimg'])) {
         $backfilename = $_FILES['bimg']['name'];
         // echo $filename;
         $filesize = $_FILES['bimg']['size'];
@@ -187,56 +177,46 @@ if(isset($_POST['enterNRC']))
                 echo "file size exceeds maximum allowed";
             }
         }
-    }else{
-        $error=true;
+    } else {
+        $error = true;
     }
 
-    if($error==false)
-    {
-         $Nrc=$enterNrcimg->enterNrc($userid,$nrcNumber,$frontfilename,$backfilename);
-         echo $nrcNumber;
-         header("Location: " . $_SERVER['PHP_SELF']);
-
+    if ($error == false) {
+        $Nrc = $enterNrcimg->enterNrc($userid, $nrcNumber, $frontfilename, $backfilename);
+        echo $nrcNumber;
+        header("Location: " . $_SERVER['PHP_SELF']);
     }
 }
 
 
 //kpay
-if(isset($_POST["sand_money"]))
-{
-    $error_status=false;
-    if(isset($_POST['amount']))
-    {
-        $amount=$_POST['amount'];
-       
-    }else{
-        $error=true;
+if (isset($_POST["sand_money"])) {
+    $error_status = false;
+    if (isset($_POST['amount'])) {
+        $amount = $_POST['amount'];
+    } else {
+        $error = true;
     }
 
-    if(isset($_POST['kpay_phonenumber']))
-    {
-        $kpay_phone=$_POST['kpay_phonenumber'];
-      
-    }else{
-        $error=true;
+    if (isset($_POST['kpay_phonenumber'])) {
+        $kpay_phone = $_POST['kpay_phonenumber'];
+    } else {
+        $error = true;
     }
 
-    if(isset($_POST['kpay_name']))
-    {
-        $kpay_name=$_POST['kpay_name'];
-      
-    }else{
-        $error=true;
+    if (isset($_POST['kpay_name'])) {
+        $kpay_name = $_POST['kpay_name'];
+    } else {
+        $error = true;
     }
 
-    if(isset($_FILES['kpayimg']))
-    {
+    if (isset($_FILES['kpayimg'])) {
         $kpay_img = $_FILES['kpayimg']['name'];
         // echo $kpay;
         $filesize = $_FILES['kpayimg']['size'];
         $allowed_files = ['jpg', 'png', 'jpeg', 'svg'];
         $temp_path = $_FILES['kpayimg']['tmp_name'];
-    
+
         $fileinfo = explode('.', $kpay_img);
         $filetype = end($fileinfo);
         $maxsize = 2000000000;
@@ -247,20 +227,19 @@ if(isset($_POST["sand_money"]))
                 echo "file size exceeds maximum allowed";
             }
         }
-    }else{
-        $error=true;
+    } else {
+        $error = true;
     }
 
 
-    if($error_status==false)
-    {
-        $enterWallet=$updateUserDetails->enterKpay($userid,$amount,$kpay_name,$kpay_phone,$kpay_img);
+    if ($error_status == false) {
+        $enterWallet = $updateUserDetails->enterKpay($userid, $amount, $kpay_name, $kpay_phone, $kpay_img);
     }
 }
 
 
-$getKpay_history=new kpayController();
-$getKpay=$getKpay_history->getTransfarhistory($user_id);
+$getKpay_history = new kpayController();
+$getKpay = $getKpay_history->getTransfarhistory($user_id);
 
 
 
@@ -278,13 +257,11 @@ $getKpay=$getKpay_history->getTransfarhistory($user_id);
 <body>
     <div class="container">
         <div class="row ">
-            <div class="col-md-12 "
-                style="height: 200px; border-top-left-radius:1em; border-top-right-radius:1em; background-color:#627E8B">
+            <div class="col-md-12 " style="height: 200px; border-top-left-radius:1em; border-top-right-radius:1em; background-color:#627E8B">
 
             </div>
         </div>
-        <div class="row bg-white shadow"
-            style="height:340px; border-bottom-left-radius:1em; border-bottom-right-radius:1em">
+        <div class="row bg-white shadow" style="height:340px; border-bottom-left-radius:1em; border-bottom-right-radius:1em">
             <!-- profile -->
             <div class="col-md-12" style="">
                 <div class="userprofile">
@@ -292,21 +269,23 @@ $getKpay=$getKpay_history->getTransfarhistory($user_id);
                 </div>
 
                 <div id="" class="checkposition d-flex align-items-center justify-content-center">
-                   
-                    <i class="fa-solid fa-check  <?php if($wait == 0 || $wait==2){echo "d-none";} ?>" style="color: #ffffff;"></i>
 
-                    <i class="fa-solid fa-exclamation <?php if($wait == 1 ){echo "d-none";} ?> " style="color: #FF0000;"></i> 
-                    
+                    <i class="fa-solid fa-check  <?php if ($wait == 0 || $wait == 2) {
+                                                        echo "d-none";
+                                                    } ?>" style="color: #ffffff;"></i>
+
+                    <i class="fa-solid fa-exclamation <?php if ($wait == 1) {
+                                                            echo "d-none";
+                                                        } ?> " style="color: #FF0000;"></i>
+
                 </div>
-                
+
                 <div class="dropdown float-end mt-4 mr-3">
 
-                    <a href="" data-bs-toggle="dropdown" aria-expanded="false"><i
-                            class="fa-solid fa-ellipsis-vertical fa-xl  text-muted"></i></a>
+                    <a href="" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa-solid fa-ellipsis-vertical fa-xl  text-muted"></i></a>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#editprofilemodel"
-                                href="#">Edit Profile</a></li>
-                        <li><a class="dropdown-item text-danger"  href="logout.php">Log Out</a></li>
+                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#editprofilemodel" href="#">Edit Profile</a></li>
+                        <li><a class="dropdown-item text-danger" href="logout.php">Log Out</a></li>
                         <li><a class="dropdown-item" href="#">Something else here</a></li>
                     </ul>
                 </div>
@@ -326,56 +305,64 @@ $getKpay=$getKpay_history->getTransfarhistory($user_id);
                 <i class="fa-brands fa-square-google-plus fa-xl icon" style="color: #4285f4;"></i>
                 <div class="money d-flex align-items-center">
                     <i class="fa-solid fa-circle-plus mx-2" data-mdb-toggle="modal" data-mdb-target="#money_modal"></i>
-                    <!-- <input type="text" disabled class="money_box text-white  move text-right bg-transparent" value="<?php if(isset($userwallet)){ echo $userwallet;}else{ echo 0;} ?>"> -->
-                    <p class="money_box text-white  move text-center"><?php if(isset($userwallet)){ echo $userwallet;}else{ echo 0;} ?></p>
+                    <!-- <input type="text" disabled class="money_box text-white  move text-right bg-transparent" value="<?php if (isset($userwallet)) {
+                                                                                                                                echo $userwallet;
+                                                                                                                            } else {
+                                                                                                                                echo 0;
+                                                                                                                            } ?>"> -->
+                    <p class="money_box text-white  move text-center"><?php if (isset($userwallet)) {
+                                                                            echo $userwallet;
+                                                                        } else {
+                                                                            echo 0;
+                                                                        } ?></p>
                 </div>
                 <!-- Modal -->
                 <div class="modal fade" id="money_modal" tabindex="-1" data-mdb-backdrop="static" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                        <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <form action="" method="post" enctype="multipart/form-data">
-                    <div class="modal-body">
-                        <p>Kpay Phone Number : 09751047472</p>
-                        <p>Kpay Name : U Kyaw Kyaw</p>
-                        <div class="form-outline mt-3">
-                            <input type="text" id="form13" class="form-control your_amount" name="amount" value="" />
-                            <label class="form-label" for="form13">Enter Your Amount</label>
-                        </div>
-                        <span class="text-danger error_amount"></span>
-
-                        <div class="form-outline mt-3">
-                            <input type="text" id="form13" class="form-control your_pho"  name="kpay_phonenumber"/>
-                            <label class="form-label" for="form13">Enter Your Kpay Phone Number</label>
-                        </div>
-                        <span class="text-danger error_phone"></span>
-
-                        <div class="form-outline mt-3">
-                            <input type="text" id="form13" class="form-control your_kpayName" name="kpay_name"/>
-                            <label class="form-label" for="form13">Enter Your Kpay Name</label>
-                        </div>
-                        <span class="text-danger error_kpayName"></span>
-                        <br>
-                        <label for="" class="mt-3">Enter Your  </label>
-                        <div class="my-3 d-flex justify-content-center kpay_show_box ">
-                            <img src="" alt="" id="show_kpay_img" required>
-                            <div class="plus">
-                                <i class="fa-solid fa-plus" id="add_Kpay"></i>
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
                             </div>
+                            <form action="" method="post" enctype="multipart/form-data">
+                                <div class="modal-body">
+                                    <p>Kpay Phone Number : 09751047472</p>
+                                    <p>Kpay Name : U Kyaw Kyaw</p>
+                                    <div class="form-outline mt-3">
+                                        <input type="text" id="form13" class="form-control your_amount" name="amount" value="" />
+                                        <label class="form-label" for="form13">Enter Your Amount</label>
+                                    </div>
+                                    <span class="text-danger error_amount"></span>
+
+                                    <div class="form-outline mt-3">
+                                        <input type="text" id="form13" class="form-control your_pho" name="kpay_phonenumber" />
+                                        <label class="form-label" for="form13">Enter Your Kpay Phone Number</label>
+                                    </div>
+                                    <span class="text-danger error_phone"></span>
+
+                                    <div class="form-outline mt-3">
+                                        <input type="text" id="form13" class="form-control your_kpayName" name="kpay_name" />
+                                        <label class="form-label" for="form13">Enter Your Kpay Name</label>
+                                    </div>
+                                    <span class="text-danger error_kpayName"></span>
+                                    <br>
+                                    <label for="" class="mt-3">Enter Your </label>
+                                    <div class="my-3 d-flex justify-content-center kpay_show_box ">
+                                        <img src="" alt="" id="show_kpay_img" required>
+                                        <div class="plus">
+                                            <i class="fa-solid fa-plus" id="add_Kpay"></i>
+                                        </div>
+                                    </div>
+                                    <input type="file" name="kpayimg" class="d-none" id="Kpay_img" required>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Cancel</button>
+                                    <button type="submit" class="btn btn-primary" id="send_kpayinfo" name="sand_money">Send</button>
+                                </div>
                         </div>
-                        <input type="file" name="kpayimg" class="d-none" id="Kpay_img" required>
+                        </form>
+
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Cancel</button>
-                        <button type="submit" class="btn btn-primary" id="send_kpayinfo" name="sand_money">Send</button>
-                    </div>
-                    </div>
-                    </form>
-                    
-                </div>
                 </div>
                 <div class="allbtn d-flex">
                     <!-- Button trigger modal -->
@@ -383,62 +370,67 @@ $getKpay=$getKpay_history->getTransfarhistory($user_id);
                         data-mdb-target="#exampleModal">
                         Launch demo modal
                     </button> -->
-                    
-                    <button type="button" class="btn btn-danger <?php if($wait!==2 || $wait == 0 ){echo 'd-none';} ?>" id="verify" data-mdb-toggle="modal" data-mdb-target="#vmodal">Verify Your Account</button>
-                    
+
+                    <button type="button" class="btn btn-danger <?php if ($wait !== 2 || $wait == 0) {
+                                                                    echo 'd-none';
+                                                                } ?>" id="verify" data-mdb-toggle="modal" data-mdb-target="#vmodal">Verify Your Account</button>
+
 
                     <!-- Modal -->
                     <form action="" method="post" enctype="multipart/form-data">
-                    <div class="modal fade" id="vmodal" tabindex="-1" data-mdb-backdrop="static" aria-labelledby="exampleModalLabel"
-                        aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">Verify Your Account</h5>
-                                    <button type="button" class="btn-close" data-mdb-dismiss="modal"
-                                        aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    <div class="form-outline red mb-4 px-4">
-                                        <input type="text" id="" name="nrcNumber" class="form-control" value="" />
-                                        <label class="form-label "  for="form12">Enter Your NRC Number</label>
+                        <div class="modal fade" id="vmodal" tabindex="-1" data-mdb-backdrop="static" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Verify Your Account</h5>
+                                        <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
                                     </div>
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                        <label for="" class="mb-2 px-5">Enter Your</label>
-                                            <div class="fimage-container  px-4">
-                                                
-                                                <img src=""  class="border border-1 rounded-3" width="100%" height="200px" >
-                                            </div>
-                                            <input type="file" name="fimg" class="d-none" id="selfrontimg" required>
-                                            <i class="fa-solid fa-plus plus-signfront" id="fplus"></i>
-                                            
+                                    <div class="modal-body">
+                                        <div class="form-outline red mb-4 px-4">
+                                            <input type="text" id="" name="nrcNumber" class="form-control" value="" />
+                                            <label class="form-label " for="form12">Enter Your NRC Number</label>
                                         </div>
-                                        <div class="col-md-12 mt-3">
-                                        <label for="" class="mb-2 px-5">Enter Your</label>
-                                            <div class="bimage-container px-4">
-                                                <img src=""  class="border border-1 rounded-3"  width="100%" height="200px">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <label for="" class="mb-2 px-5">Enter Your</label>
+                                                <div class="fimage-container  px-4">
+
+                                                    <img src="" class="border border-1 rounded-3" width="100%" height="200px">
+                                                </div>
+                                                <input type="file" name="fimg" class="d-none" id="selfrontimg" required>
+                                                <i class="fa-solid fa-plus plus-signfront" id="fplus"></i>
+
                                             </div>
-                                            <input type="file" class="d-none" name="bimg" id="selbackimg" required>
-                                            <i class="fa-solid fa-plus plus-signback" id="bplus"></i>
+                                            <div class="col-md-12 mt-3">
+                                                <label for="" class="mb-2 px-5">Enter Your</label>
+                                                <div class="bimage-container px-4">
+                                                    <img src="" class="border border-1 rounded-3" width="100%" height="200px">
+                                                </div>
+                                                <input type="file" class="d-none" name="bimg" id="selbackimg" required>
+                                                <i class="fa-solid fa-plus plus-signback" id="bplus"></i>
+                                            </div>
+                                            <p class="text-danger"><?php if (!empty($error)) {
+                                                                        echo "Plz Fill Correctly";
+                                                                    } ?></p>
                                         </div>
-                                        <p class="text-danger"><?php if(!empty($error)){echo "Plz Fill Correctly";} ?></p>
+
+
                                     </div>
-                                    
-                                   
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="submit" class="btn btn-secondary" name="cancelmodel"
-                                        data-mdb-dismiss="modal" id="canceljs">Cancle</button>
-                                    <button type="submit" class="btn btn-primary" name="enterNRC" id="NRCbtn">Save changes</button>
+                                    <div class="modal-footer">
+                                        <button type="submit" class="btn btn-secondary" name="cancelmodel" data-mdb-dismiss="modal" id="canceljs">Cancle</button>
+                                        <button type="submit" class="btn btn-primary" name="enterNRC" id="NRCbtn">Save changes</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
                     </form>
-                    
-                    <button class="btn btn-success <?php if($wait==0 ){ echo  '';}else{ echo "d-none";}  ?>" disabled id="wait">Waiting</button>
-                   
+
+                    <button class="btn btn-success <?php if ($wait == 0) {
+                                                        echo  '';
+                                                    } else {
+                                                        echo "d-none";
+                                                    }  ?>" disabled id="wait">Waiting</button>
+
                     <!-- <button class="logout btn btn-danger ms-3">Log Out</button> -->
                 </div>
             </div>
@@ -447,8 +439,7 @@ $getKpay=$getKpay_history->getTransfarhistory($user_id);
     </div>
     <!-- Modal -->
     <form action="" method="post" enctype="multipart/form-data">
-        <div class="modal fade" id="editprofilemodel" tabindex="-1" data-bs-backdrop="static"
-            aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade" id="editprofilemodel" tabindex="-1" data-bs-backdrop="static" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -461,8 +452,7 @@ $getKpay=$getKpay_history->getTransfarhistory($user_id);
                             <i class="fa-solid fa-xmark fa-xl cancel-icon  "></i>
                         </div>
                         <div class=" d-flex justify-content-center">
-                            <img src="image/user-profile/<?php echo $userimg; ?>" alt="" name=""
-                                class="edituserimg ml-3 ">
+                            <img src="image/user-profile/<?php echo $userimg; ?>" alt="" name="" class="edituserimg ml-3 ">
                         </div>
                         <!-- hidden file -->
                         <div class="hideinputfile">
@@ -470,30 +460,25 @@ $getKpay=$getKpay_history->getTransfarhistory($user_id);
                         </div>
                         <div class="col-md-12 mt-5 d-flex">
                             <div class="col-md-6 ">
-                                <input type="text" class="text-center border-bottom hideborder" name="update_fname"
-                                    placeholder="Enter First Name" id="updateuser_fname"
-                                    value="<?php echo $userfname ?>">
+                                <input type="text" class="text-center border-bottom hideborder" name="update_fname" placeholder="Enter First Name" id="updateuser_fname" value="<?php echo $userfname ?>">
                             </div>
                             <div class="col-md-6">
-                                <input type="text" class="text-center border-bottom hideborder" name="update_lname"
-                                    placeholder="Enter Last Name" id="updateuse_lrname"
-                                    value="<?php echo $userlname ?>">
+                                <input type="text" class="text-center border-bottom hideborder" name="update_lname" placeholder="Enter Last Name" id="updateuse_lrname" value="<?php echo $userlname ?>">
                             </div>
                         </div>
                         <!-- <div class="col-md-12 mt-3">
                     <input type="text" class="text-center border-bottom hideborder" name="" id="" value="" placeholder="<?php if (!empty($userbio)) {
-                        echo $userbio;
-                    } else {
-                        echo "Describe yourself...";
-                    } ?>">
+                                                                                                                            echo $userbio;
+                                                                                                                        } else {
+                                                                                                                            echo "Describe yourself...";
+                                                                                                                        } ?>">
                 </div> -->
                         <div class="col-md-12 mt-3">
-                            <input type="text" class="text-center border-bottom hideborder" name="update_bio" id=""
-                                value="" placeholder="<?php if (!empty($userbio)) {
-                                    echo $userbio;
-                                } else {
-                                    echo "Describe yourself...";
-                                } ?>">
+                            <input type="text" class="text-center border-bottom hideborder" name="update_bio" id="" value="" placeholder="<?php if (!empty($userbio)) {
+                                                                                                                                                echo $userbio;
+                                                                                                                                            } else {
+                                                                                                                                                echo "Describe yourself...";
+                                                                                                                                            } ?>">
                         </div>
                     </div>
                     <div class="modal-footer d-flex justify-content-center">
@@ -517,7 +502,7 @@ $getKpay=$getKpay_history->getTransfarhistory($user_id);
                             Tab 2
                         </li>
                         <li class="nav-item" data-tab="2">
-                        <i class="fa-solid fa-clock-rotate-left mr-2"></i>   History
+                            <i class="fa-solid fa-clock-rotate-left mr-2"></i> History
                         </li>
                         <!-- Add more navigation items as needed -->
                     </ul>
@@ -529,66 +514,69 @@ $getKpay=$getKpay_history->getTransfarhistory($user_id);
                 <div class="swiper-wrapper">
                     <div class="swiper-slide border rounded-4 shadow-4">
                         <div class="tab-content ">
-                        <?php if(isset($post_list)){ ?>
-                        <section id="products" class="">
+                            <?php if (isset($post_list)) { ?>
+                                <section id="products" class="">
 
-                            <div class="row ">
-                                <?php foreach ($post_list as $post) {
-                                # code...
-                                ?>
-
-                                <a href="productDetail.php?id=<?php echo $post['id'] ?>" class="col-md-4 col-sm-6  col-lg-3 mb-4 ">
-                                    <div class="card product-card-by-nay">
-                                        <?php
-                                        $images = glob('image/post_img/' . $post['photo_folder'] . '/*.{jpg,png,gif}', GLOB_BRACE);
+                                    <div class="row ">
+                                        <?php foreach ($post_list as $post) {
+                                            // echo $post['seller_id'];
+                                            if ($user_id == $post['seller_id']) {
+                                                # code...
                                         ?>
-                                            <img src="<?php echo $images[0] ?>" class="card-img-top product-image" alt="Product 1" />
-                                            <div class="card-body">
-                                                <div class=" product-card-title">
-                                                    <h5>
-                                                        <?php echo $post['item'] ?>
 
-                                                    </h5>
-                                                    <h5>
-                                                        <?php echo $post["price"] ?>
-                                                    </h5>
-                                                </div>
-                                                <div class="d-flex justify-content-between align-items-center">
-                                                    <div class="d-flex align-items-center">
-                                                        <img src="image/user-profile/<?php echo $post['user_img'] ?>" class="rounded-circle profile-on-card" alt="Seller 1" />
-                                                        <span class="ml-2 card-text">
-                                                    <?php echo $post['fname'] . " " . $post['lname'] ?>
-                                                </span>
-                                                    </div>
-                                                </div>
-                                                <div class=" product-info-box">
-                                                    <div>
-                                                        <i class="far fa-heart mr-2"></i>
-                                                        <span class="reaction-count">5</span>
-                                                    </div>
-                                                    <div>
-                                                        <i class="far fa-plus-square ml-3"></i>
-                                                        <span class="save-count">18</span>
-                                                    </div>
+                                                <a href="productDetail.php?id=<?php echo $post['id'] ?>" class="col-md-4 col-sm-6  col-lg-3 mb-4 ">
+                                                    <div class="card product-card-by-nay">
+                                                        <?php
+                                                        $images = glob('image/post_img/' . $post['photo_folder'] . '/*.{jpg,png,gif}', GLOB_BRACE);
+                                                        ?>
+                                                        <img src="<?php echo $images[0] ?>" class="card-img-top product-image" alt="Product 1" />
+                                                        <div class="card-body">
+                                                            <div class=" product-card-title">
+                                                                <h5>
+                                                                    <?php echo $post['item'] ?>
 
-                                                    <div>
-                                                        <i class="far fa-eye ml-3"></i>
-                                                        <span class="view-count">50</span>
+                                                                </h5>
+                                                                <h5>
+                                                                    <?php echo $post["price"] ?>
+                                                                </h5>
+                                                            </div>
+                                                            <div class="d-flex justify-content-between align-items-center">
+                                                                <div class="d-flex align-items-center">
+                                                                    <img src="image/user-profile/<?php echo $post['user_img'] ?>" class="rounded-circle profile-on-card" alt="Seller 1" />
+                                                                    <span class="ml-2 card-text">
+                                                                        <?php echo $post['fname'] . " " . $post['lname'] ?>
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                            <div class=" product-info-box">
+                                                                <div>
+                                                                    <i class="far fa-heart mr-2"></i>
+                                                                    <span class="reaction-count">5</span>
+                                                                </div>
+                                                                <div>
+                                                                    <i class="far fa-plus-square ml-3"></i>
+                                                                    <span class="save-count">18</span>
+                                                                </div>
+
+                                                                <div>
+                                                                    <i class="far fa-eye ml-3"></i>
+                                                                    <span class="view-count">50</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            </div>
+                                                </a>
+
+                                        <?php }
+                                        } ?>
+                                    </div>
+                                </section>
+                            <?php } else { ?>
+                                <div class="d-flex align-items-center justify-content-center mt-5">
+                                    <img src="../mandalar/image/some/no sell post.png" alt="">
                                 </div>
-                                </a>
 
-                                <?php } ?>
-                            </div>
-                        </section>
-                        <?php }else{ ?>
-                            <div class="d-flex align-items-center justify-content-center mt-5">
-                                <img src="../mandalar/image/some/no sell post.png" alt="">
-                            </div>
-                            
-                        <?php } ?>
+                            <?php } ?>
                         </div>
                     </div>
                     <div class="swiper-slide">
@@ -599,93 +587,90 @@ $getKpay=$getKpay_history->getTransfarhistory($user_id);
                         <div class="tab-content container">
 
                             <div class="row">
-                                <?php if(!empty($getKpay)){  ?>
-                                <!-- today -->
-                                <h4>Today</h4>
-                                <?php foreach ($getKpay as $key => $gettransfer) { 
-                                    $transferDate = strtotime($gettransfer["date"]); // Convert date to timestamp
-                                    $currentDate = strtotime(date("Y-m-d")); // Get current date timestamp
-                                
-                                    // Extract first 5 digits from timestamps
-                                    $transferDateDigits = substr($transferDate, 0, 5);
-                                    $currentDateDigits = substr($currentDate, 0, 5);
-                                
-                                    // Compare date digits
-                                    if ($transferDateDigits === $currentDateDigits) {
-                                        $dateText = "Today";
-                                    } elseif ($transferDate === strtotime("-1 day", $currentDate)) {
-                                        $dateText = "Yesterday";
-                                    } else {
-                                        $dateText = date("d", $transferDate); // Get day of the month (2-digit)
-                                    }
-                                
-                                 ?>
-                                 
-                                 <?php if($dateText=="Today"){ ?>
-                                 
-                                    <!-- <i class="fa-solid fa-money-bill-transfer" style="color: #3b71ca;"></i> -->
-                                    <div class="col-md-12  d-flex align-items-center border">
-                                        <div class="col-md-1 d-flex align-items-center justify-content-center">
-                                            <i class="fa-solid fa-money-bill-transfer fa-2xl" style="color: #3b71ca;"></i>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <p>Transfer To </p>
-                                            <p><?php echo $dateText; ?></p>
-                                            <p><?php echo  $gettransfer["date"]; ?></p>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <h4>+<?php echo  $gettransfer["check_wallet"]; ?></h4>
-                                        </div>
+                                <?php if (!empty($getKpay)) {  ?>
+                                    <!-- today -->
+                                    <h4>Today</h4>
+                                    <?php $previousMonth=null; ?>
+                                    <?php foreach ($getKpay as $key => $gettransfer) {
+                                        $transferDate = strtotime($gettransfer["date"]); // Convert date to timestamp
+
+                                        // Get the month name
+                                        $monthName = date("F", $transferDate);
+
+                                        // Display the month heading when it's a new month
+                                        if ($monthName !== $previousMonth) {
+                                            echo '<h4>' . $monthName . '</h4>';
+                                            $previousMonth = $monthName;
+                                        }
+
+                                    ?>
+
+                                        <?php if ($monthName == "Today") { ?>
+
+                                            <!-- <i class="fa-solid fa-money-bill-transfer" style="color: #3b71ca;"></i> -->
+                                            <div class="col-md-12  d-flex align-items-center border">
+                                                <div class="col-md-1 d-flex align-items-center justify-content-center">
+                                                    <i class="fa-solid fa-money-bill-transfer fa-2xl" style="color: #3b71ca;"></i>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <p>Transfer To </p>
+                                                    <p><?php echo $dateText; ?></p>
+                                                    <p><?php echo  $gettransfer["date"]; ?></p>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <h4>+<?php echo  $gettransfer["check_wallet"]; ?></h4>
+                                                </div>
+                                            </div>
+                                        <?php } ?>
+                                    <?php } ?>
+                                    <!-- nottoday -->
+
+                                    <h4>Not today</h4>
+                                    <?php foreach ($getKpay as $key => $gettransfer) {
+                                        $transferDate = strtotime($gettransfer["date"]); // Convert date to timestamp
+                                        $currentDate = strtotime(date("Y-m-d")); // Get current date timestamp
+
+                                        // Extract first 5 digits from timestamps
+                                        $transferDateDigits = substr($transferDate, 0, 5);
+                                        $currentDateDigits = substr($currentDate, 0, 5);
+
+                                        // Compare date digits
+                                        if ($transferDateDigits === $currentDateDigits) {
+                                            $dateText = "Today";
+                                        } elseif ($transferDate === strtotime("-1 day", $currentDate)) {
+                                            $dateText = "Yesterday";
+                                        } else {
+                                            $dateText = date("F", $transferDate); // Get full month name
+                                            echo $dateText;
+                                        }
+
+                                    ?>
+
+                                        <?php if ($dateText !== "Today") { ?>
+
+                                            <!-- <i class="fa-solid fa-money-bill-transfer" style="color: #3b71ca;"></i> -->
+                                            <div class="col-md-12  d-flex align-items-center border">
+                                                <div class="col-md-1 d-flex align-items-center justify-content-center">
+                                                    <i class="fa-solid fa-money-bill-transfer fa-2xl" style="color: #3b71ca;"></i>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <p>Transfer To </p>
+                                                    <p><?php echo $dateText; ?></p>
+                                                    <p><?php echo  $gettransfer["date"]; ?></p>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <h4>+<?php echo  $gettransfer["check_wallet"]; ?></h4>
+                                                </div>
+                                            </div>
+                                        <?php } ?>
+                                    <?php } ?>
+                                <?php } else { ?>
+                                    <div class="d-flex align-items-center justify-content-center mt-5">
+                                        <img src="./image/some/no-transfer-money.png" alt="">
                                     </div>
+
+
                                 <?php } ?>
-                               <?php } ?>
-                               <!-- nottoday -->
-                               
-                               <h4>Not today</h4>
-                                <?php foreach ($getKpay as $key => $gettransfer) { 
-                                    $transferDate = strtotime($gettransfer["date"]); // Convert date to timestamp
-                                    $currentDate = strtotime(date("Y-m-d")); // Get current date timestamp
-                                
-                                    // Extract first 5 digits from timestamps
-                                    $transferDateDigits = substr($transferDate, 0, 5);
-                                    $currentDateDigits = substr($currentDate, 0, 5);
-                                
-                                    // Compare date digits
-                                    if ($transferDateDigits === $currentDateDigits) {
-                                        $dateText = "Today";
-                                    } elseif ($transferDate === strtotime("-1 day", $currentDate)) {
-                                        $dateText = "Yesterday";
-                                    } else {
-                                        $dateText = date("d", $transferDate); // Get day of the month (2-digit)
-                                    }
-                                
-                                 ?>
-                                 
-                                 <?php if($dateText!=="Today"){ ?>
-                                 
-                                    <!-- <i class="fa-solid fa-money-bill-transfer" style="color: #3b71ca;"></i> -->
-                                    <div class="col-md-12  d-flex align-items-center border">
-                                        <div class="col-md-1 d-flex align-items-center justify-content-center">
-                                            <i class="fa-solid fa-money-bill-transfer fa-2xl" style="color: #3b71ca;"></i>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <p>Transfer To </p>
-                                            <p><?php echo $dateText; ?></p>
-                                            <p><?php echo  $gettransfer["date"]; ?></p>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <h4>+<?php echo  $gettransfer["check_wallet"]; ?></h4>
-                                        </div>
-                                    </div>
-                                <?php } ?>
-                               <?php } ?>
-                               <?php }else{ ?>
-                                <div class="d-flex align-items-center justify-content-center mt-5">
-                                    <img src="./image/some/no-transfer-money.png" alt="">
-                                </div>
-                            
-                               
-                               <?php } ?>
                             </div>
 
                         </div>

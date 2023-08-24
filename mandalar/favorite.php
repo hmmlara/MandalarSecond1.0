@@ -1,9 +1,9 @@
 <?php 
-//session_start();
+session_start();
 include_once "controller/profileController.php";
 include_once "controller/userController.php";
 include_once "./controller/cityController.php";
-$user_id=6;
+$user_id=$_SESSION['user_id'];
 $city_controller=new CityController();
 $getalluserlist = new ProfileController();
 $city_list=$city_controller->getCityList();
@@ -16,7 +16,7 @@ if (isset($_SESSION['user_id'])) {
     $user_id = $_SESSION['user_id'];
     echo $user_id;
 }
-$user_id=6;
+// $user_id=6;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -246,7 +246,7 @@ $user_id=6;
 
 <?php
 
-$user_id=6;
+
 include_once "controller/postController.php";
 $post_controller=new PostController();
 $post_list=$post_controller->favorite_post_list($user_id);

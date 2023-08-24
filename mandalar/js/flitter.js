@@ -117,12 +117,15 @@ radioButtons.forEach(function(radio) {
                     console.log(data1[0]['id']);
                     loadCount = 10
                     PostFliteringData(fliteringData);
-
+                        let sub_category_id = data1[0]['id'];
+                        console.log("sub Id",sub_category_id)
+                        loadPrice(sub_category_id)
                     data1.forEach((cate) => {
                         subCategoryOption.innerHTML += `
                       <option value= ${cate["id"]}>${cate["name"]}</option>
                       `;
-
+                    
+               
                         // option.value = cate.id;
                         // option.textContent = cate.name;
                         // postsubcategory.appendChild(option);
@@ -147,8 +150,10 @@ function postSubCategoryValue() {
     const selectElement = document.querySelector("#sub-catgory-fliter");
     const selectedValue = selectElement.value;
     fliteringData.subCategory = selectedValue;
+    loadPrice(selectedValue)
     loadCount += 10;
     PostFliteringData(fliteringData);
+
 }
 
 document
@@ -156,19 +161,23 @@ document
     .addEventListener("change", postSubCategoryValue);
 
 //Price range flitter
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded",()=>{
+    registerSlide(0,400000)
+} );
+
+function registerSlide(minPrice,maxPrice) {
     var priceSlider = document.getElementById("priceSlider");
     var priceValue = document.getElementById("priceValue");
-
-    noUiSlider.create(priceSlider, {
+    
+    slider = noUiSlider.create(priceSlider, {
         start: [0, 50000000],
         connect: true,
         range: {
-            min: 0,
-            max: 50000000,
+            min: minPrice,
+            max: maxPrice,
         },
     });
-    priceSlider.noUiSlider.on("update", function(values, handle) {
+   slider2 =   priceSlider.noUiSlider.on("update", function(values, handle) {
         var min = values[0];
         var max = values[1];
         priceValue.innerHTML = min + " - " + max;
@@ -188,8 +197,8 @@ document.addEventListener("DOMContentLoaded", function() {
         start: [0, 50000000],
         connect: true,
         range: {
-            min: 0,
-            max: 50000000,
+            min: minPrice,
+            max: maxPrice,
         },
     });
     priceSlider2.noUiSlider.on("update", function(values, handle) {
@@ -206,7 +215,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
         }
     });
-});
+}
 
 const NewUserradioButtons = document.querySelectorAll(".status-radio");
 NewUserradioButtons.forEach(function(radio) {
@@ -217,3 +226,30 @@ NewUserradioButtons.forEach(function(radio) {
         PostFliteringData(fliteringData);
     });
 });
+
+function loadPrice($id){
+    $.ajax({
+        url: 'php/loadPrice.php',
+        type:'POST',
+        data:{id: $id},
+        success: function (data){
+            slider.destroy();
+            slider.destroy();
+
+            let result = JSON.parse(data)
+
+            let maxPrice = 10000
+            let minPrice = 0
+            console.log(result['maxPrice'])
+            if( result['maxPrice']!== null){
+                maxPrice = parseInt(result['maxPrice']) ;
+                console.log("max",maxPrice)
+
+            }
+        
+            
+            console.log(minPrice)
+            registerSlide(minPrice,maxPrice)
+        }
+      })
+}

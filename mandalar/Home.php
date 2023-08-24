@@ -8,6 +8,7 @@ include_once "./model/post.php";
 
 $post_controller = new PostController();
 $post_list = $post_controller->getPostList();
+// var_dump($post_list);
 $post_model=new Post();
 
 // var_dump($post_list);
@@ -18,7 +19,7 @@ if (isset($_SESSION['user_id'])) {
     $user_id = $_SESSION['user_id'];
     echo $user_id;
 }
-$user_id=6;
+// $user_id=6;
 
 ?>
     <style>
