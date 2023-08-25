@@ -125,6 +125,20 @@ class User{
             return false;
         }
     }
+    public function takeAllUser(){
+        //1.DataBase Connect
+        $this->connection=Database::connect();
+        $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+        //2.sql Statement
+        $sql="select * from users";
+        $statement=$this->connection->prepare($sql);
+
+        $statement->execute();
+        $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+        
+        return $result;
+    }
 }
 
 $userModal = new User();

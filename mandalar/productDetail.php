@@ -3,11 +3,15 @@ session_start();
 include_once "./controller/postController.php";
 include_once "./controller/userController.php";
 include_once "./controller/cityController.php";
-include_once "php/available_money.php";
+
 if (isset($_SESSION['user_id'])) {
     $user_id = $_SESSION['user_id'];
     
 }
+<<<<<<< HEAD
+=======
+include_once "php/available_money.php";
+>>>>>>> ThwinHtooNaung
 $id = $_GET['id'];
 $post_controller = new PostController();
 $user_controller = new UserController();

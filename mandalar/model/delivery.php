@@ -92,7 +92,7 @@ class Delivery{
         $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
         //2.sql Statement
-        $sql="SELECT * FROM `delivery` WHERE id=:deli_id";
+        $sql="SELECT delivery.* , city.name as city_name FROM `delivery` join city on city.id=delivery.city_id WHERE delivery.id=:deli_id";
         $statement=$this->connection->prepare($sql);
 
         $statement->bindParam(":deli_id",$deli_id);
