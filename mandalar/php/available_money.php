@@ -2,6 +2,7 @@
 $post_controller=new PostController();
 $user_controller=new UserController();
 $post_list=$post_controller->getFreezeMoney($user_id);
+
 $freeze_money=0;
 foreach ($post_list as $post) {
    $freeze_money+=$post['price'];

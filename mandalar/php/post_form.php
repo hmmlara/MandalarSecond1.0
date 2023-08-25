@@ -2,7 +2,7 @@
 session_start();
 include_once "../controller/postController.php";
 $post_controller=new postController();
-$id=6;
+$id=$_SESSION['user_id'];
 $item_name=$_POST['item_name'];
 $brand=$_POST['brand'];
 $options=$_POST['options'];
