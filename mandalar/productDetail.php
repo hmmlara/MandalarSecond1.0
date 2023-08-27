@@ -5,7 +5,6 @@ include_once "./controller/userController.php";
 include_once "./controller/cityController.php";
 if (isset($_SESSION['user_id'])) {
     $user_id = $_SESSION['user_id'];
-    
 }
 include_once "php/available_money.php";
 
@@ -16,6 +15,7 @@ $city_controller = new CityController();
 $posts = $post_controller->getPost($id);
 $user_list = $user_controller->UserInfo($user_id);
 $city_list = $city_controller->getCityList();
+echo 'sub_id'.$posts[0]['sub_category_id'];
 ?>
 
 
@@ -28,12 +28,12 @@ $city_list = $city_controller->getCityList();
     <!-- <link
             rel="stylesheet"
             href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
-        /> -->
+    /> -->
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
     <link rel="stylesheet" href="css/product-detail.css" />
-    <link rel="stylesheet" href="css/products.css" />
-    <link rel="stylesheet" href="css/comment.css" />
+    <link rel="stylesheet" href="css/products.css"/>
+    <link rel="stylesheet" href="css/comment.css"/>
 
     <!-- <script src="js/modernizr-2.6.2.min.js"></script> -->
     <!-- <link rel="stylesheet" href="../mandalar/fontawesome-free-6.4.0-web/css/all.min.css" /> -->
@@ -54,11 +54,8 @@ $city_list = $city_controller->getCityList();
 
     <div id="page">
         <header id="aa-header">
-            <!-- start header top  -->
-
             <!-- / header top  -->
             <div id="commenter_id" data-user-id="<?php echo $user_id ?>">
-
             </div>
             <div id="post_id" data-post-id='<?php echo $id ?>'>
 
@@ -72,8 +69,7 @@ $city_list = $city_controller->getCityList();
                                 <!-- logo  -->
                                 <div class="aa-logo">
                                     <!-- Text based logo -->
-                                    <img src="image/logoimg/logo-no-background.png" class="logo" width="200px"
-                                        height="auto" alt="as">
+                                    <img src="image/logoimg/logo-no-background.png" class="logo" width="200px" height="auto" alt="as">
                                     <!-- <a href="index.html">
                       <span class="fa fa-shopping-cart"></span>
                       <p>daily<strong>Shop</strong> <span>Your Shopping Partner</span></p>
@@ -104,24 +100,20 @@ $city_list = $city_controller->getCityList();
                                     <div class="aa-cartbox-summary">
                                         <ul>
                                             <li>
-                                                <a class="aa-cartbox-img" href="#"><img src="img/woman-small-2.jpg"
-                                                        alt="img"></a>
+                                                <a class="aa-cartbox-img" href="#"><img src="img/woman-small-2.jpg" alt="img"></a>
                                                 <div class="aa-cartbox-info">
                                                     <h4><a href="#">Product Name</a></h4>
                                                     <p>1 x $250</p>
                                                 </div>
-                                                <a class="aa-remove-product" href="#"><span
-                                                        class="fa fa-times"></span></a>
+                                                <a class="aa-remove-product" href="#"><span class="fa fa-times"></span></a>
                                             </li>
                                             <li>
-                                                <a class="aa-cartbox-img" href="#"><img src="img/woman-small-1.jpg"
-                                                        alt="img"></a>
+                                                <a class="aa-cartbox-img" href="#"><img src="img/woman-small-1.jpg" alt="img"></a>
                                                 <div class="aa-cartbox-info">
                                                     <h4><a href="#">Product Name</a></h4>
                                                     <p>1 x $250</p>
                                                 </div>
-                                                <a class="aa-remove-product" href="#"><span
-                                                        class="fa fa-times"></span></a>
+                                                <a class="aa-remove-product" href="#"><span class="fa fa-times"></span></a>
                                             </li>
                                             <li>
                                                 <span class="aa-cartbox-total-title">
@@ -140,9 +132,7 @@ $city_list = $city_controller->getCityList();
                                 <div class="aa-search-box">
                                     <form action="">
                                         <input type="text" name="" id="search-box" placeholder="Search">
-                                        <button type="submit"
-                                            style="border-radius: 30px; background-color: #4e9c81;"><span
-                                                class="fa fa-search"></span></button>
+                                        <button type="submit" style="border-radius: 30px; background-color: #4e9c81;"><span class="fa fa-search"></span></button>
                                     </form>
                                 </div>
                                 <!-- / search box -->
@@ -161,13 +151,13 @@ $city_list = $city_controller->getCityList();
                 <div class="row">
                     <?php foreach ($posts as $post) {
                         $images = glob('image/post_img/' . $post['photo_folder'] . '/*.{jpg,png,gif,jpeg,jiff}', GLOB_BRACE);
-                        ?>
+                    ?>
                         <div class="col-md-6">
                             <div class="swiper-container">
                                 <div class="swiper-wrapper">
                                     <?php
                                     foreach ($images as $image) {
-                                        ?>
+                                    ?>
                                         <div class="swiper-slide card shadow">
                                             <img src="<?php echo $image; ?>" alt="Product Image 1" />
                                         </div>
@@ -184,50 +174,48 @@ $city_list = $city_controller->getCityList();
                                 <h1>
                                     <?php echo $post['item']; ?>
                                 </h1>
-                                <p class="text-muted">Category:
+                                <p class="category text-muted">Category:
                                     <?php echo $post['cate_name']; ?>
                                 </p>
-                                <p class="text-muted">Sub Category:
+                                <p class="text-muted" id="subCategory" data-category = "<?php echo $post['sub_category_id']?>">Sub Category:
                                     <?php echo $post['sub_name']; ?>
                                 </p>
                                 <p class="brand">Brand:
                                     <?php echo $post['brand']; ?>
                                 </p>
-                                <p class="product-status">Status:
+                                <p class="product-status" data-status=<?php echo $post['new_used'] ?>>Status:
                                     <?php echo $post['new_used']; ?>
                                 </p>
-                                <h2>mmk
+                                <h2 id = "price" data-price=<?php echo $post['price'] ?>>mmk
                                     <?php echo $post['price']; ?>
                                 </h2>
                                 <p>
                                     <?php echo $post['description']; ?>
                                 </p>
                                 <div class="product-buttons">
-                                    <?php if (isset($_SESSION["user_id"])){  ?>
-                                        <button class="btn " id="product-like" data-post-id="<?php echo $id; ?>"
-                                            data-user-id="<?php echo $user_id; ?>">
+                                    <?php if (isset($_SESSION["user_id"])) {  ?>
+                                        <button class="btn " id="product-like" data-post-id="<?php echo $id; ?>" data-user-id="<?php echo $user_id; ?>">
                                             <i class="fas fa-thumbs-up"></i> <span id="post-like-count"></span>
                                         </button>
                                         <button class="btn btn-secondary comment-btn">
                                             <i class="fas fa-comment"></i> Comment
                                         </button>
-                                        <button class="btn btn-secondary" id="product-favorite"
-                                            data-post-id="<?php echo $id; ?>" data-user-id="<?php echo $user_id; ?>">
+                                        <button class="btn btn-secondary" id="product-favorite" data-post-id="<?php echo $id;?>" data-user-id="<?php echo $user_id; ?>">
                                             <i class="fas fa-heart"></i> <span id="post-favorite-count"></span>
                                         </button>
                                         <?php if ($post['status'] == "none") {
-                                            ?>
+                                        ?>
                                             <button type="button" style="display:<?php
-                                            if ($user_id == $post['seller_id'])
-                                                echo 'none';
-                                            else {
-                                                echo 'block';
-                                            }
-                                            ?>" class="btn btn-primary" data-mdb-toggle="modal" data-mdb-target="#exampleModal"> Buy</button>
+                                                                                    if ($user_id == $post['seller_id'])
+                                                                                        echo 'none';
+                                                                                    else {
+                                                                                        echo 'block';
+                                                                                    }
+                                                                                    ?>" class="btn btn-primary" data-mdb-toggle="modal" data-mdb-target="#exampleModal"> Buy</button>
                                         <?php } else if ($post['status'] != 'none' && $post['status'] != 'sold_out') { ?>
-                                                <span>Waiting.........</span>
+                                            <span>Waiting.........</span>
                                         <?php } else if ($post['status'] == 'sold_out') { ?>
-                                                    <span>Sold Out</span>
+                                            <span>Sold Out</span>
                                         <?php } ?>
                                     <?php } else { ?>
                                         <button class="btn btn-secondary" id="product-like" data-mdb-toggle="modal" data-mdb-target="#productDetailModal">
@@ -237,23 +225,20 @@ $city_list = $city_controller->getCityList();
                                             <i class="fas fa-comment"></i> Comment
                                         </button>
                                         <button class="btn btn-secondary" id="product-favorite" data-mdb-toggle="modal" data-mdb-target="#productDetailModal">
-                                            <i class="fas fa-heart"></i> <span ></span>
+                                            <i class="fas fa-heart"></i> <span></span>
                                         </button>
-                                        <button type="button" class="btn btn-primary" data-mdb-toggle="modal"
-                                            data-mdb-target="#productDetailModal"> Buy</button>
+                                        <button type="button" class="btn btn-primary" data-mdb-toggle="modal" data-mdb-target="#productDetailModal"> Buy</button>
 
-                                        <div class="modal fade" id="productDetailModal" tabindex="-1"
-                                            aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal fade" id="productDetailModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                             <div class="modal-dialog modal-dialog-centered">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
                                                         <h5 class="modal-title" id="exampleModalLabel">Please Sign Up and Register</h5>
-                                                        <button type="button" class="btn-close" data-mdb-dismiss="modal"
-                                                            aria-label="Close"></button>
+                                                        <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
                                                     </div>
                                                     <!-- <div class="modal-body">...</div> -->
                                                     <div class="modal-footer d-flex align-items-center justify-content-center">
-                                                        <a  href="register.php" class="btn btn-secondary" >Register</a>
+                                                        <a href="register.php" class="btn btn-secondary">Register</a>
                                                         <a href="login.php" class="btn btn-primary">Login</a>
                                                     </div>
                                                 </div>
@@ -484,17 +469,15 @@ $city_list = $city_controller->getCityList();
                 <div class="container">
                     <h3 class="mb-4">Related Products</h3>
                     <div class="position-relative related-products-slider overflow-hidden">
-                        <div class="swiper-wrapper">
+                        <div class="swiper-wrapper" id="Related-Wrapper">
                             <div class="swiper-slide">
                                 <div class="card shadow">
-                                    <img src="image/products/product-image2.jfif" class="card-img-top product-image"
-                                        alt="Product 2" />
+                                    <img src="image/products/product-image2.jfif" class="card-img-top product-image" alt="Product 2" />
                                     <div class="card-body">
                                         <h5 class="card-title">Product 2</h5>
                                         <div class="d-flex justify-content-between align-items-center">
                                             <div class="d-flex align-items-center">
-                                                <img src="image/profiles/seller1.jpg"
-                                                    class="rounded-circle profile-on-card" alt="Seller 1" />
+                                                <img src="image/profiles/seller1.jpg" class="rounded-circle profile-on-card" alt="Seller 1" />
                                                 <span class="ml-2 card-text">Seller 1</span>
                                             </div>
                                             <div>
@@ -514,14 +497,12 @@ $city_list = $city_controller->getCityList();
                             </div>
                             <div class="swiper-slide">
                                 <div class="card shadow">
-                                    <img src="image/products/product-image2.jfif" class="card-img-top product-image"
-                                        alt="Product 2" />
+                                    <img src="image/products/product-image2.jfif" class="card-img-top product-image" alt="Product 2" />
                                     <div class="card-body">
                                         <h5 class="card-title">Product 2</h5>
                                         <div class="d-flex justify-content-between align-items-center">
                                             <div class="d-flex align-items-center">
-                                                <img src="image/profiles/seller2.jpg"
-                                                    class="rounded-circle profile-on-card" alt="Seller 2" />
+                                                <img src="image/profiles/seller2.jpg" class="rounded-circle profile-on-card" alt="Seller 2" />
                                                 <span class="ml-2 card-text">Seller 2</span>
                                             </div>
                                             <div>
@@ -541,14 +522,12 @@ $city_list = $city_controller->getCityList();
                             </div>
                             <div class="swiper-slide">
                                 <div class="card shadow">
-                                    <img src="image/products/product-image2.jfif" class="card-img-top product-image"
-                                        alt="Product 2" />
+                                    <img src="image/products/product-image2.jfif" class="card-img-top product-image" alt="Product 2" />
                                     <div class="card-body">
                                         <h5 class="card-title">Product 2</h5>
                                         <div class="d-flex justify-content-between align-items-center">
                                             <div class="d-flex align-items-center">
-                                                <img src="image/profiles/seller3.jpg"
-                                                    class="rounded-circle profile-on-card" alt="Seller 3" />
+                                                <img src="image/profiles/seller3.jpg" class="rounded-circle profile-on-card" alt="Seller 3" />
                                                 <span class="ml-2 card-text">Seller 3</span>
                                             </div>
                                             <div>
@@ -578,14 +557,12 @@ $city_list = $city_controller->getCityList();
 
 
             <!-- Modal -->
-            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                aria-hidden="true">
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                            <button type="button" class="btn-close" data-mdb-dismiss="modal"
-                                aria-label="Close"></button>
+                            <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
                             <?php if ($available_money >= $posts[0]['price']) { ?>
@@ -618,8 +595,7 @@ $city_list = $city_controller->getCityList();
                                         <div class="col-1"></div>
                                         <div class="col-10">
                                             <label for="" class="form-label">Address</label>
-                                            <textarea id="buyer-address" name="buyer_address" id="" cols="50" rows="5"
-                                                class="form-control"></textarea>
+                                            <textarea id="buyer-address" name="buyer_address" id="" cols="50" rows="5" class="form-control"></textarea>
                                             <span class="text-danger" id="address-error" style="display:none;">Need to fill
                                                 your adress!!!</span>
                                         </div>
@@ -632,12 +608,10 @@ $city_list = $city_controller->getCityList();
                         </div>
                         <div class="modal-footer">
                             <?php if ($available_money >= $posts[0]['price']) { ?>
-                                <button type="button" class="btn btn-secondary" id="buy-info-close"
-                                    data-mdb-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-secondary" id="buy-info-close" data-mdb-dismiss="modal">Close</button>
                                 <button type="button" class="btn btn-primary" id="buy-btn">Save changes</button>
                             <?php } else { ?>
-                                <button type="button" class="btn btn-secondary" id="buy-info-close"
-                                    data-mdb-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-secondary" id="buy-info-close" data-mdb-dismiss="modal">Close</button>
                             <?php } ?>
                         </div>
                     </div>
@@ -650,70 +624,71 @@ $city_list = $city_controller->getCityList();
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
         <script src="js/product-detail.js"></script>
+        <script src="js/related.js"></script>
         <script src="js/comment.js"></script>
         <!-- <script src="js/loader.js"></script> -->
 
         <script>
-                // var swiper = new Swiper(".swiper-container", {
-                // 	pagination: {
-                // 		el: ".swiper-pagination",
-                // 	},
-                // 	effect: "cards",
-                // 	cardsEffect: {
-                // 		// ...
-                // 	},
-                // 	loop: true,
-                // 	navigation: {
-                // 		nextEl: ".swiper-button-next",
-                // 		prevEl: ".swiper-button-prev",
-                // 	},
-                // });
+            // var swiper = new Swiper(".swiper-container", {
+            // 	pagination: {
+            // 		el: ".swiper-pagination",
+            // 	},
+            // 	effect: "cards",
+            // 	cardsEffect: {
+            // 		// ...
+            // 	},
+            // 	loop: true,
+            // 	navigation: {
+            // 		nextEl: ".swiper-button-next",
+            // 		prevEl: ".swiper-button-prev",
+            // 	},
+            // });
 
-                // var relatedProductsSwiper = new Swiper(".related-products-slider", {
-                // 	slidesPerView: 3,
-                // 	spaceBetween: 20,
-                // 	navigation: {
-                // 		nextEl: ".swiper-button-next",
-                // 		prevEl: ".swiper-button-prev",
-                // 	},
-                // 	breakpoints: {
-                // 		375: {
-                // 			slidesPerView: 1,
-                // 		},
-                // 		768: {
-                // 			slidesPerView: 2,
-                // 		},
-                // 		992: {
-                // 			slidesPerView: 3,
-                // 		},
-                // 	},
-                // 	effect: "coverflow",
-                // 	coverflowEffect: {
-                // 		rotate: 10,
-                // 		slideShadows: false,
-                // 	},
-                // });
+            // var relatedProductsSwiper = new Swiper(".related-products-slider", {
+            // 	slidesPerView: 3,
+            // 	spaceBetween: 20,
+            // 	navigation: {
+            // 		nextEl: ".swiper-button-next",
+            // 		prevEl: ".swiper-button-prev",
+            // 	},
+            // 	breakpoints: {
+            // 		375: {
+            // 			slidesPerView: 1,
+            // 		},
+            // 		768: {
+            // 			slidesPerView: 2,
+            // 		},
+            // 		992: {
+            // 			slidesPerView: 3,
+            // 		},
+            // 	},
+            // 	effect: "coverflow",
+            // 	coverflowEffect: {
+            // 		rotate: 10,
+            // 		slideShadows: false,
+            // 	},
+            // });
 
-                // const commentBtn = document.querySelector(".comment-btn");
-                // const commentSection = document.querySelector(".comment-section");
+            // const commentBtn = document.querySelector(".comment-btn");
+            // const commentSection = document.querySelector(".comment-section");
 
-                // commentBtn.addEventListener("click", function () {
-                // 	commentSection.classList.toggle("d-none");
-                // });
+            // commentBtn.addEventListener("click", function () {
+            // 	commentSection.classList.toggle("d-none");
+            // });
 
-                // const comments = document.querySelectorAll(".comment");
-                // comments.forEach(function (comment) {
-                // 	const likeBtn = comment.querySelector(".comment-like");
-                // 	const replyBtn = comment.querySelector(".comment-reply");
+            // const comments = document.querySelectorAll(".comment");
+            // comments.forEach(function (comment) {
+            // 	const likeBtn = comment.querySelector(".comment-like");
+            // 	const replyBtn = comment.querySelector(".comment-reply");
 
-                // 	// likeBtn.addEventListener("click", function () {
-                // 	// 	// Perform like action
-                // 	// });
+            // 	// likeBtn.addEventListener("click", function () {
+            // 	// 	// Perform like action
+            // 	// });
 
-                // 	// replyBtn.addEventListener("click", function () {
-                // 	// 	// Perform reply action
-                // 	// });
-                // });
+            // 	// replyBtn.addEventListener("click", function () {
+            // 	// 	// Perform reply action
+            // 	// });
+            // });
         </script>
 
         <?php include_once "./footer.php"; ?>

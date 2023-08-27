@@ -35,7 +35,15 @@ function loadNoti(){
             NOti_container.innerHTML = ""
             noti.forEach(element => {
                 console.log(element)
-                NOti_container.innerHTML += `<li> <a href = "${element.link}" >${element.content}</a></li>`
+                if(element.is_read==0){
+                    NOti_container.innerHTML += `<li><a onclick="linkto('${element.link}')" id=${element.id} class="dropdown-item noti_id " style="background-color:#b6c6cd" href="${element.link}">${element.content}</a></li>`;
+
+                }else{
+                    NOti_container.innerHTML += `<li><a onclick="linkto('${element.link}')" id=${element.id} class="dropdown-item noti_id " href="${element.link}">${element.content}</a></li>`;
+
+                }
+                // NOti_container.innerHTML += `<li> <a onclick="linkto(${element.link})" class="dropdown-item" href = "${element.link}" >${element.content}</a></li>`
+
             });
             console.log(NOti_container.innerHTML);
 
@@ -44,5 +52,23 @@ function loadNoti(){
     })
 }
 
-
+$(document).on('click', '.noti_id', function(event) {
+    console.log(event.target.id);
+    let id=event.target.id;
+    $.ajax({
+        url: "php/read_noti.php",
+        type: "GET",
+        data:{id: id},
+        success:function(response)
+        {
+            console.log(response)
+        }
+    })
+});
 loadNotiCount()
+
+
+// function linkto() {
+//     // console.log($this.id)
+//     // window.location.href = link;
+// }

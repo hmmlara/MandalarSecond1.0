@@ -74,6 +74,8 @@ class Notification
         return $result;
     }
 
+   
+
 }
 
 $NOtiModal = new Notification();

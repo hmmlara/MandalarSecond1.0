@@ -263,7 +263,7 @@ $getKpay = $getKpay_history->getTransfarhistory($user_id);
         </div>
         <div class="row bg-white shadow" style="height:340px; border-bottom-left-radius:1em; border-bottom-right-radius:1em">
             <!-- profile -->
-            <div class="col-md-12" style="">
+            <div class="col-md-12" >
                 <div class="userprofile">
                     <img src="image/user-profile/<?php echo $userimg; ?>" alt="" class="userimg ml-3">
                 </div>
@@ -591,21 +591,26 @@ $getKpay = $getKpay_history->getTransfarhistory($user_id);
                                     <!-- today -->
                                     <h4>Today</h4>
                                     <?php $previousMonth=null; ?>
-                                    <?php foreach ($getKpay as $key => $gettransfer) {
-                                        $transferDate = strtotime($gettransfer["date"]); // Convert date to timestamp
+                                    <?php foreach ($getKpay as $key => $gettransfer) { 
+                                    $transferDate = strtotime($gettransfer["date"]); // Convert date to timestamp
+                                    $currentDate = strtotime(date("Y-m-d")); // Get current date timestamp
+                                
+                                    // Extract first 5 digits from timestamps
+                                    $transferDateDigits = substr($transferDate, 0, 5);
+                                    $currentDateDigits = substr($currentDate, 0, 5);
+                                
+                                    // Compare date digits
+                                    if ($transferDateDigits === $currentDateDigits) {
+                                        $dateText = "Today";
+                                    } elseif ($transferDate === strtotime("-1 day", $currentDate)) {
+                                        $dateText = "Yesterday";
+                                    } else {
+                                        $dateText = date("d", $transferDate); // Get day of the month (2-digit)
+                                    }
+                                
+                                 ?>
 
-                                        // Get the month name
-                                        $monthName = date("F", $transferDate);
-
-                                        // Display the month heading when it's a new month
-                                        if ($monthName !== $previousMonth) {
-                                            echo '<h4>' . $monthName . '</h4>';
-                                            $previousMonth = $monthName;
-                                        }
-
-                                    ?>
-
-                                        <?php if ($monthName == "Today") { ?>
+                                        <?php if ($dateText == "Today") { ?>
 
                                             <!-- <i class="fa-solid fa-money-bill-transfer" style="color: #3b71ca;"></i> -->
                                             <div class="col-md-12  d-flex align-items-center border">
@@ -640,8 +645,7 @@ $getKpay = $getKpay_history->getTransfarhistory($user_id);
                                         } elseif ($transferDate === strtotime("-1 day", $currentDate)) {
                                             $dateText = "Yesterday";
                                         } else {
-                                            $dateText = date("F", $transferDate); // Get full month name
-                                            echo $dateText;
+                                            $dateText = date("d", $transferDate); // Get day of the month (2-digit)
                                         }
 
                                     ?>

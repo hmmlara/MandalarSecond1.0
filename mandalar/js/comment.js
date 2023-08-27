@@ -19,6 +19,8 @@ commentInput.addEventListener("keyup", (e) => {
 	Content = e.target.value;
 });
 
+let link = window.location.href
+console.log(link);
 //Tranfer to Comment Controller Php When Comment Btn Click;
 commentBtn.addEventListener("click", (e) => {
 	$.ajax({
@@ -31,6 +33,7 @@ commentBtn.addEventListener("click", (e) => {
 			parent_comment_id: ParentCommentId,
 			isEdit: isEdit,
 			com_id: com_id,
+			link: link
 		},
 		success: function (data) {
 			console.log(data);

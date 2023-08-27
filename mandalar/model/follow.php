@@ -100,5 +100,22 @@ public function noti($to_id)
     $result=$statement->fetchAll(PDO::FETCH_ASSOC);
     return $result;
 }
+
+public function Up_read($id)
+{
+    //1.DataBase Connect
+    $this->connection=Database::connect();
+    $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    
+    $sql="UPDATE `noti` SET `is_read`=1 where id=:id";
+    $statement = $this->connection->prepare($sql);
+
+    $statement->bindParam(':id',$id);
+    $statement->execute();
+
+    if($statement->execute()){
+        echo("Success");
+    }
+}
 }
 ?>

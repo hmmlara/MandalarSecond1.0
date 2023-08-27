@@ -1,4 +1,4 @@
-<?php 
+<?php
 session_start();
 include_once "controller/profileController.php";
 include_once "controller/userController.php";
@@ -12,7 +12,7 @@ $updateUserDetails = new UserController();
 if (isset($_SESSION['user_id'])) {
     $user_id = $_SESSION['user_id'];
     // echo $user_id;
-    
+
 }
 ?>
 <!DOCTYPE html>
@@ -24,7 +24,7 @@ if (isset($_SESSION['user_id'])) {
     <title>Buy and Sell Website</title>
 
 
-    
+
     <!-- <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css"> -->
     <link rel="stylesheet" href="mdbbootstrap/css/mdb.min.css">
 
@@ -55,9 +55,23 @@ if (isset($_SESSION['user_id'])) {
     <link rel="stylesheet" href="css/loader.css">
     <link rel="stylesheet" href="css/flitter.css" />
 
-    
-</head>
 
+</head>
+<style>
+.force-scroll {
+
+overflow-y: scroll;
+
+max-height: 300px;
+min-height: 200px;
+
+}
+
+/* .noti_id{
+    background-color: #627E8B;
+} */
+
+</style>
 <body class="">
     <!-- Navigation -->
 
@@ -73,53 +87,51 @@ if (isset($_SESSION['user_id'])) {
                 <div class="container">
                     <div class="row">
                         <div class="col-md-12">
-                           
+
                             <div class="aa-header-bottom-area">
                                 <!-- logo  -->
                                 <div class="aa-logo">
                                     <!-- Text based logo -->
-                                    <img src="image/logoimg/logo-no-background.png" class="logo" width="200px"
-                                        height="auto" alt="as">
-                                    
+                                    <img src="image/logoimg/logo-no-background.png" class="logo" width="200px" height="auto" alt="as">
+
                                 </div>
                                 <!-- / logo  -->
                                 <!-- cart box -->
-                                <?php if(isset($_SESSION['user_id'])){ ?>
-                                <div class="aa-cartbox">
-                                    <div class=" d-flex justify-content-end" style="width: 230px;">
-                                        <a class="aa-cart-link heart" href="favorite.php" >
-                                            <i class="fa-solid fa-heart"></i>
-                                        </a>
-                                        
-                                        <div class="dropdown" >
-                                            <a class="aa-cart-link bell" style="display:inline-block;width:120px"  role="button"  id="dropdownMenuButton"
-                                                data-mdb-toggle="dropdown" >
-                                                
-                                                <i class="fa-regular fa-bell"></i>
-                                                <span class="aa-cart-notify" data-user-id="<?php echo $user_id?>" style="color: #4e9c81;">0</span>
-                                                <ul class="dropdown-menu" id="notiContainer"  aria-labelledby="dropdownMenuButton">
-                                                    
-                                                </ul>
+                                <?php if (isset($_SESSION['user_id'])) { ?>
+                                    <div class="aa-cartbox">
+                                        <div class=" d-flex justify-content-end" style="width: 230px;">
+                                            <a class="aa-cart-link heart" href="favorite.php">
+                                                <i class="fa-solid fa-heart"></i>
+                                            </a>
+
+                                            <div class="dropdown">
+                                                <a class="aa-cart-link bell" style="display:inline-block;width:70px" class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-mdb-toggle="dropdown" aria-expanded="false" role="button" id="dropdownMenuButton" data-mdb-toggle="dropdown" aria-expanded="false">
+
+                                                    <i class="fa-regular fa-bell"></i>
+                                                    <span class="aa-cart-notify" data-user-id="<?php echo $user_id ?>" style="color: #4e9c81;">0</span>
+                                                    <ul class="dropdown-menu force-scroll" id="notiContainer" aria-labelledby="dropdownMenuButton ">
+
+                                                    </ul>
+                                                </a>
+                                            </div>
+
+                                            <a class="aa-cart-link message" href="#">
+                                                <i class="fa-regular fa-message "></i>
+                                            </a>
+
+                                            <a class="aa-cart-link user" href="profile.php">
+                                                <i class="fa-regular fa-user"></i>
                                             </a>
                                         </div>
-
-                                        <a class="aa-cart-link message" href="#">
-                                            <i class="fa-regular fa-message "></i>
-                                        </a>
-
-                                        <a class="aa-cart-link user" href="profile.php">
-                                            <i class="fa-regular fa-user"></i>
-                                        </a>
                                     </div>
-                                </div>
-                                <?php }else{ ?>
+                                <?php } else { ?>
                                     <div class="aa-cartbox">
-                                    <div class=" d-flex justify-content-end " style="width: 230px;">
-                                        <a class="aa-cart-link btn btn-outline-light btn-rounded text-white d-flex login" href="login.php" style="height:45px" >
-                                            <i class="fa-solid fa-arrow-right-to-bracket fs-4 login-text"></i><span class="m-1 login-text" style=" font-size:13px">Login</span>
-                                        </a>
-                                        
-                                        <!-- <div class="dropdown" >
+                                        <div class=" d-flex justify-content-end " style="width: 230px;">
+                                            <a class="aa-cart-link btn btn-outline-light btn-rounded text-white d-flex login" href="login.php" style="height:45px">
+                                                <i class="fa-solid fa-arrow-right-to-bracket fs-4 login-text"></i><span class="m-1 login-text" style=" font-size:13px">Login</span>
+                                            </a>
+
+                                            <!-- <div class="dropdown" >
                                             <a class="aa-cart-link bell" style="display:inline-block;width:120px"  role="button"  id="dropdownMenuButton"
                                                 data-mdb-toggle="dropdown" >
                                                 
@@ -130,44 +142,42 @@ if (isset($_SESSION['user_id'])) {
                                                 </ul>
                                             </a>
                                         </div> -->
-                                        <a class="aa-cart-link btn btn-outline-light btn-rounded text-white d-flex login  ms-2" href="register.php" style="height:45px; width:150px;" >
-                                            <i class="fa-solid fa-user fs-4 login-text"></i><span class="m-1 login-text" style=" font-size:13px">Register</span>
-                                        </a>
+                                            <a class="aa-cart-link btn btn-outline-light btn-rounded text-white d-flex login  ms-2" href="register.php" style="height:45px; width:150px;">
+                                                <i class="fa-solid fa-user fs-4 login-text"></i><span class="m-1 login-text" style=" font-size:13px">Register</span>
+                                            </a>
 
-                                        <!-- <a class="aa-cart-link btn btn-light register" href="#">
+                                            <!-- <a class="aa-cart-link btn btn-light register" href="#">
                                         <i class="fa-solid fa-arrow-right-to-bracket fa-xl" style="color: #ffffff;"></i>
                                         <span class="" style="color: #4e9c81;">register</span>
                                         <i class="fa-solid fa-user"></i>
                                         </a> -->
 
-                                        <!-- <a class="aa-cart-link user" href="profile.php">
+                                            <!-- <a class="aa-cart-link user" href="profile.php">
                                             <i class="fa-regular fa-user"></i>
                                         </a> -->
+                                        </div>
                                     </div>
-                                </div>
-                                    
+
                                 <?php } ?>
                                 <!-- / cart box -->
                                 <!-- search box -->
                                 <div class="aa-search-box">
-                                    <form action="" method="post" >
-                                     
-                                        <input type="text" name="searchinput" id="search-box" placeholder="Search" value="<?php if(isset($searchinputget)) echo $searchinputget; ?>">
-                                        <button type="submit" name="search" id="search"
-                                            style="border-radius: 30px; background-color: #4e9c81;"><span
-                                                class="fa fa-search"></span></button>
+                                    <form action="" method="post">
+
+                                        <input type="text" name="searchinput" id="search-box" placeholder="Search" value="<?php if (isset($searchinputget)) echo $searchinputget; ?>">
+                                        <button type="submit" name="search" id="search" style="border-radius: 30px; background-color: #4e9c81;"><span class="fa fa-search"></span></button>
                                     </form>
                                 </div>
-                                
+
                                 <!-- / search box -->
                             </div>
-                           
+
                         </div>
                     </div>
                 </div>
             </div>
 
-           
+
         </header>
 
         <div class="loader-wrapper">
@@ -184,4 +194,5 @@ if (isset($_SESSION['user_id'])) {
 <script src="js/searchbox.js"></script>
 <script src="js/noti.js"></script>
 <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+
 </html>
