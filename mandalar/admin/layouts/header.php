@@ -33,11 +33,11 @@
 
 				<ul class="sidebar-nav">
 					<li class="sidebar-header">
-						Pages
+						<!-- Pages -->
 					</li>
 
 					<li class="sidebar-item">
-						<a class="sidebar-link" href="index.html">
+						<a class="sidebar-link" href="index.php">
               <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Dashboard</span>
             </a>
 					</li>
@@ -51,6 +51,8 @@
 					<li class="sidebar-item">
 						<a class="sidebar-link" href="users.php">
               <i class="align-middle" data-feather="log-in"></i> <span class="align-middle">User</span>
+						<a class="sidebar-link" href="kpay_checking.php">
+              <i class="align-middle" data-feather="log-in"></i> <span class="align-middle">KPAY Checking</span>
             </a>
 					</li>
 
@@ -62,7 +64,7 @@
 
 					<li class="sidebar-item">
 						<a class="sidebar-link" href="pages-blank.html">
-              <i class="align-middle" data-feather="book"></i> <span class="align-middle">Blank</span>
+              <i class="align-middle" data-feather="book"></i> <span class="align-middle">Hello</span>
             </a>
 					</li>
 

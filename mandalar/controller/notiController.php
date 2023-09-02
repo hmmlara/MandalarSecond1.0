@@ -8,5 +8,10 @@ class NotiController extends follow
         return $this->noti($to_id);
 
     }
+
+    public function update_read($id)
+    {
+        return $this->Up_read($id);
+    }
 }
 ?>

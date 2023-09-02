@@ -100,5 +100,38 @@ public function noti($to_id)
     $result=$statement->fetchAll(PDO::FETCH_ASSOC);
     return $result;
 }
+
+public function Up_read($id)
+{
+    //1.DataBase Connect
+    $this->connection=Database::connect();
+    $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    
+    $sql="UPDATE `noti` SET `is_read`=1 where id=:id";
+    $statement = $this->connection->prepare($sql);
+
+    $statement->bindParam(':id',$id);
+    $statement->execute();
+
+    if($statement->execute()){
+        echo("Success");
+    }
+}
+public function take_followers($user_id){
+    $this->connection=Database::connect();
+    $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+    $sql="SELECT * FROM `follow` WHERE to_id=:userId";
+    $statement=$this->connection->prepare($sql);
+
+    // $statement->bindParam(":from_id",$from_id);
+    $statement->bindParam(":userId",$user_id);
+    // $statement->bindParam(":follow",1);
+
+    //3.execute
+    $statement->execute();
+    $result=$statement->fetchAll(PDO::FETCH_ASSOC);
+    return $result;
+}
 }
 ?>

@@ -1,7 +1,15 @@
 <?php
 session_start();
 include_once "../controller/postController.php";
+include_once "../controller/followController.php";
+include_once "../model/noti.php";
+include_once "../model/user.php";
+
 $post_controller=new postController();
+$noti_model = new Notification();
+$follow_controller=new FollowController();
+$user_model = new User();
+
 $id=$_SESSION['user_id'];
 $item_name=$_POST['item_name'];
 $brand=$_POST['brand'];
@@ -59,7 +67,19 @@ for ($i = 0; $i < $uploadedFiles; $i++) {
 
 
 $post_controller->add_post($id,$item_name,$brand,$options,$post_subcategory,$price,$text_area,$imageFolder,$status);
+$post_id=$post_controller->get_post_id($id,$item_name,$brand,$options,$post_subcategory,$price,$text_area,$imageFolder,$status);
+$link = "http://localhost/MandalarSecond1.0/mandalar/productDetail.php?id=".$post_id[0]['id'];
 
+echo $link;
+$followers=$follow_controller->get_followers($id);
+$Poster_name = $user_model->UserAllInfo($id);
+
+var_dump($Poster_name);
+foreach ($followers as $key => $follower) {
+  # code...
+  echo $follower['from_id'];
+  $noti_model->SentNoti($Poster_name[0]['full_name']." add new Post",$follower['from_id'],$link);
+}
 echo "success";
 
 ?>

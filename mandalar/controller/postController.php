@@ -80,5 +80,12 @@ class PostController extends Post{
     public function add_view_count($post_id,$user_id){
         return $this->create_view_count($post_id,$user_id);
     }
+
+
+    // noti
+
+    public function get_post_id($id,$name,$brand,$options,$post_subcategory,$price,$text_area,$imageFolder,$status){
+        return $this->take_post_id($id,$name,$brand,$options,$post_subcategory,$price,$text_area,$imageFolder,$status);
+    }
 }
 ?>

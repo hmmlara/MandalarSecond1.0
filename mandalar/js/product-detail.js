@@ -18,11 +18,12 @@ $(document).ready(function() {
             }
         },
     });
+    let Link = window.location.href
     $("#product-like").on("click", function() {
         $.ajax({
             url: 'php/product_like.php',
             type: 'GET',
-            data: { postId: postId, userId: userId },
+            data: { postId: postId, userId: userId,link : Link },
             success: function(data) {
                 console.log(data);
                 if (data == "have") {

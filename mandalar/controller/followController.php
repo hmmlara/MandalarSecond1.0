@@ -21,6 +21,9 @@ class FollowController extends Follow
     {
         return $this->deletefollowing($id);
     }
+    public function get_followers($user_id){
+        return $this->take_followers($user_id);
+    }
 }
 
 

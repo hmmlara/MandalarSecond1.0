@@ -1,3 +1,5 @@
+let Link = window.location.href;
+console.log(Link);
 $(document).ready(function () {
   from_id = $("#from_id").val();
   to_id = $("#to_id").val();
@@ -24,7 +26,7 @@ $(document).ready(function () {
     $.ajax({
       type: "POST",
       url: "checkfollow.php",
-      data: { from_id: from_id, to_id: to_id, state: state },
+      data: { from_id: from_id, to_id: to_id, state: state,link:Link },
       success: function (response) {
         console.log(response);
       },
@@ -96,7 +98,7 @@ $(document).ready(function () {
           $.ajax({
             type: "POST",
             url: "checkfollow.php",
-            data: { id: id, state: state },
+            data: { id: id, state: state ,link: Link },
             success: function (response) {
               console.log(response)
             },

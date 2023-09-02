@@ -3,6 +3,7 @@ include_once __DIR__."/../model/post.php";
 if(isset($_POST['flitteringData'])){
     $Post_Modal = new Post();
     $flitteringData = json_decode($_POST['flitteringData']) ;
+
     $FliteringResult = $Post_Modal->getPostByFlitter($flitteringData);
     $FliteringResultWithImage = [];
 
@@ -25,3 +26,4 @@ if(isset($_POST['flitteringData'])){
  
     echo json_encode($FliteringResultWithImage);
 }
+
