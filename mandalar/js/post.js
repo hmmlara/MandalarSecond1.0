@@ -197,6 +197,7 @@ document.getElementById('post_save').addEventListener('click', function() {
 
   if (error == false) {
     // Get the form element by ID
+    
     let form = document.getElementById('form');
     let xhr = new XMLHttpRequest();
     xhr.open("POST", "php/post_form.php", true);
@@ -204,6 +205,7 @@ document.getElementById('post_save').addEventListener('click', function() {
       if (xhr.readyState === XMLHttpRequest.DONE) {
         if (xhr.status === 200) {
           let data = xhr.response;
+          console.log(data)
           if(data === "success"){
             alert("Posted Successfully");
             location.reload();

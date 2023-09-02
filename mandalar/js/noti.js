@@ -54,6 +54,7 @@ function loadNoti(){
 
 $(document).on('click', '.noti_id', function(event) {
     console.log(event.target.id);
+    loadNoti();
     let id=event.target.id;
     $.ajax({
         url: "php/read_noti.php",
@@ -64,11 +65,13 @@ $(document).on('click', '.noti_id', function(event) {
             console.log(response)
         }
     })
+   
 });
 loadNotiCount()
 
 
-// function linkto() {
-//     // console.log($this.id)
-//     // window.location.href = link;
-// }
+function linkto(link) {
+    // $(this).removeClass('')
+    
+    window.location.href = link;
+}

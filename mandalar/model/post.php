@@ -417,6 +417,30 @@ class Post
         $result = $statement->fetch(PDO::FETCH_ASSOC);
         return $result;
     }
+
+    public function take_post_id($id, $name, $brand, $options, $post_subcategory, $price, $text_area, $imageFolder, $status){
+        //1.DataBase Connect
+        $this->connection = Database::connect();
+        $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+        //2.sql Statement
+        $sql = "SELECT * from post where seller_id=:seller_id and sub_category_id=:sub_category_id and item=:item and brand=:brand
+        and photo_folder=:photo_folder and price=:price and description=:description and new_used=:new_used and status=:status";
+        $statement = $this->connection->prepare($sql);
+        $statement->bindParam(":seller_id", $id);
+        $statement->bindParam(":sub_category_id", $post_subcategory);
+        $statement->bindParam(":item", $name);
+        $statement->bindParam(":brand", $brand);
+        $statement->bindParam(":photo_folder", $imageFolder);
+        $statement->bindParam(":price", $price);
+        $statement->bindParam(":description", $text_area);
+        $statement->bindParam(":new_used", $options);
+        $statement->bindParam(":status", $status);
+        //3.execute
+        $statement->execute();
+        $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
+    }
 }
 
 // $post_modal=new Post();

@@ -691,4 +691,6 @@ echo 'sub_id'.$posts[0]['sub_category_id'];
             // });
         </script>
 
-        <?php include_once "./footer.php"; ?>
+        <?php include_once "./footer.php";
+       
+        ?>

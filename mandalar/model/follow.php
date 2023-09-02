@@ -117,5 +117,21 @@ public function Up_read($id)
         echo("Success");
     }
 }
+public function take_followers($user_id){
+    $this->connection=Database::connect();
+    $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+    $sql="SELECT * FROM `follow` WHERE to_id=:userId";
+    $statement=$this->connection->prepare($sql);
+
+    // $statement->bindParam(":from_id",$from_id);
+    $statement->bindParam(":userId",$user_id);
+    // $statement->bindParam(":follow",1);
+
+    //3.execute
+    $statement->execute();
+    $result=$statement->fetchAll(PDO::FETCH_ASSOC);
+    return $result;
+}
 }
 ?>
