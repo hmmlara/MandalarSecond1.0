@@ -55,6 +55,7 @@ function loadNoti(){
 $(document).on('click', '.noti_id', function(event) {
     console.log(event.target.id);
     loadNoti();
+    loadNoti();
     let id=event.target.id;
     $.ajax({
         url: "php/read_noti.php",
