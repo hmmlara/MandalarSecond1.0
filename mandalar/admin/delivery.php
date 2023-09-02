@@ -12,6 +12,9 @@ $delivery_list=$delivery_controller->getDeliveryList();
 
                         <div class="mb-3">
                             <h1 class="h3 d-inline align-middle">User</h1>
+                            <div>
+                                <a href="create_delivery.php" class="btn btn-info">Create Delivery</a>
+                            </div>
                             <div class="container">
                                 <table class="table table-striped">
                                     <thead>
