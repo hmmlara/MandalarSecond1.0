@@ -12,7 +12,8 @@ $delivery=$delivery_controller->get_deli($deli_id);
                     <div class="container-fluid p-0">
 
                         <div class="mb-3">
-                            <h1 class="h3 d-inline align-middle">Delivery</h1>
+                            <h1 class="h3 d-inline align-middle">User</h1>
+                            
                             <div class="container">
                             <div class="card" style="width: 18rem;">
                                 <img src="../image/deli_profile/<?php echo $delivery[0]['photo'] ?>" class="card-img-top" alt="...">
