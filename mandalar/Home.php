@@ -380,6 +380,10 @@ if (isset($_SESSION['user_id'])) {
         </div>
         <div id="output"></div>
         <!-- model end -->
+        <!-- seller info model -->
+        <!-- Button trigger modal -->
+<?php include_once 'seller_info.php' ?>
+        <!-- end -->
         <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> -->
         <script src="js/post.js"></script>
         <script src="js/flitter.js"></script>

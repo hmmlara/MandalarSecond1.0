@@ -684,6 +684,14 @@ $getKpay = $getKpay_history->getTransfarhistory($user_id);
             </div>
         </div>
     </section>
+
+    <?php include_once 'seller_info.php' ?>
+
+
+
+
+
+    
     <script src="mdbbootstrap/js/mdb.min.js"></script>
 
     <script src="js/jquery-3.7.0.min.js"></script>
