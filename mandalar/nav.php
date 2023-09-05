@@ -92,7 +92,10 @@ min-height: 200px;
                                 <!-- logo  -->
                                 <div class="aa-logo">
                                     <!-- Text based logo -->
+                                    <a href="home.php">
                                     <img src="image/logoimg/logo-no-background.png" class="logo" width="200px" height="auto" alt="as">
+
+                                    </a>
 
                                 </div>
                                 <!-- / logo  -->

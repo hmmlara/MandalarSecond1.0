@@ -253,6 +253,46 @@ $getKpay = $getKpay_history->getTransfarhistory($user_id);
 <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+<style>
+    a {
+        color: #ffffff;
+        
+    }
+
+    .card-body{
+        color:black
+    }
+
+
+
+
+
+    /* Hide the scrollbar in webkit-based browsers */
+    ::-webkit-scrollbar {
+        width: 0.1em;
+        /* Width of the scrollbar */
+    }
+
+    ::-webkit-scrollbar-track {
+        background: transparent;
+        /* Track background color */
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: transparent;
+        /* Scrollbar thumb color */
+    }
+
+    * {
+        height: auto;
+    }
+
+    .swiper-slide {
+        height: calc(100%-200px);
+        min-height: 0px;
+        overflow-y: scroll;
+    }
+</style>
 
 <body>
     <div class="container">
@@ -263,7 +303,7 @@ $getKpay = $getKpay_history->getTransfarhistory($user_id);
         </div>
         <div class="row bg-white shadow" style="height:340px; border-bottom-left-radius:1em; border-bottom-right-radius:1em">
             <!-- profile -->
-            <div class="col-md-12" >
+            <div class="col-md-12">
                 <div class="userprofile">
                     <img src="image/user-profile/<?php echo $userimg; ?>" alt="" class="userimg ml-3">
                 </div>
@@ -590,25 +630,25 @@ $getKpay = $getKpay_history->getTransfarhistory($user_id);
                                 <?php if (!empty($getKpay)) {  ?>
                                     <!-- today -->
                                     <h4>Today</h4>
-                                    <?php $previousMonth=null; ?>
-                                    <?php foreach ($getKpay as $key => $gettransfer) { 
-                                    $transferDate = strtotime($gettransfer["date"]); // Convert date to timestamp
-                                    $currentDate = strtotime(date("Y-m-d")); // Get current date timestamp
-                                
-                                    // Extract first 5 digits from timestamps
-                                    $transferDateDigits = substr($transferDate, 0, 5);
-                                    $currentDateDigits = substr($currentDate, 0, 5);
-                                
-                                    // Compare date digits
-                                    if ($transferDateDigits === $currentDateDigits) {
-                                        $dateText = "Today";
-                                    } elseif ($transferDate === strtotime("-1 day", $currentDate)) {
-                                        $dateText = "Yesterday";
-                                    } else {
-                                        $dateText = date("d", $transferDate); // Get day of the month (2-digit)
-                                    }
-                                
-                                 ?>
+                                    <?php $previousMonth = null; ?>
+                                    <?php foreach ($getKpay as $key => $gettransfer) {
+                                        $transferDate = strtotime($gettransfer["date"]); // Convert date to timestamp
+                                        $currentDate = strtotime(date("Y-m-d")); // Get current date timestamp
+
+                                        // Extract first 5 digits from timestamps
+                                        $transferDateDigits = substr($transferDate, 0, 5);
+                                        $currentDateDigits = substr($currentDate, 0, 5);
+
+                                        // Compare date digits
+                                        if ($transferDateDigits === $currentDateDigits) {
+                                            $dateText = "Today";
+                                        } elseif ($transferDate === strtotime("-1 day", $currentDate)) {
+                                            $dateText = "Yesterday";
+                                        } else {
+                                            $dateText = date("d", $transferDate); // Get day of the month (2-digit)
+                                        }
+
+                                    ?>
 
                                         <?php if ($dateText == "Today") { ?>
 
@@ -691,7 +731,7 @@ $getKpay = $getKpay_history->getTransfarhistory($user_id);
 
 
 
-    
+
     <script src="mdbbootstrap/js/mdb.min.js"></script>
 
     <script src="js/jquery-3.7.0.min.js"></script>
