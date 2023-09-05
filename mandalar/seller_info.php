@@ -72,7 +72,7 @@ $city_list=$city_controller->getCityList();
 	  
       </div>
       <div class="modal-footer">
-      <button type="button" class="btn btn-secondary"  id="sell-info-close" data-mdb-dismiss="modal" style="display:none">Close</button>
+      <button type="button" class="btn btn-secondary"  id="sell-info-close" data-mdb-dismiss="modal" style="">Close</button>
         <button type="button" class="btn btn-primary" id="sell-btn">Save changes</button>
       </div>
     </div>
