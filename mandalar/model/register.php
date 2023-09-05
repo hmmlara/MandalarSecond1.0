@@ -16,7 +16,7 @@ class Register{
         $statement->bindParam(":first_name",$fname);
         $statement->bindParam(":last_name",$lname);
         $statement->bindParam(":user_email",$email);
-        $statement->bindParam(":user_password",$password);
+        $statement->bindParam(":user_password",md5($password));
         $statement->bindParam(":user_img",$filename);
         $statement->bindParam(":full_name",$fullname);
 

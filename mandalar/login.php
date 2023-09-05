@@ -35,7 +35,8 @@ if(isset($_POST["signin"]))
         foreach ($getuserlist as $key => $users) {
             if($users["email"]==$email )
             {
-                if( $users["password"]==$password)
+                // echo md5($users["password"]);
+                if( $users["password"]==md5($password))
                 {
                     $user_id=$registercontroller->getUserId($email);
                     $_SESSION['user_id']=$user_id[0]['user_id'];

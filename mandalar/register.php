@@ -28,7 +28,7 @@ if (isset($_POST['register'])) {
 
     if (!empty($_POST['pass'])) {
         $password = $_POST['pass'];
-
+        // $password=md5($eny_pass);
         // Check password length
         if (strlen($password) < 6) {
             $error_status = true; // Set error status to true
@@ -104,7 +104,7 @@ if (isset($_POST['register'])) {
         $registercontroller->registerUser($filename, $fname, $lname, $email, $password,$fullname);
         $user_id = $registercontroller->getUserId($email);
         $_SESSION['user_id'] = $user_id[0]['user_id'];
-
+        
         if (isset($_SESSION["user_id"])) {
             header("location:home.php");
         }
