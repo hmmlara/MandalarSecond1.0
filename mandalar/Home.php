@@ -228,7 +228,7 @@ if (isset($_SESSION['user_id'])) {
                 # code...
                 ?>
 
-                <a href="" data-user-id="<?php echo $user_id ?>" data-post-id="<?php echo $post['id'] ?>" class="view_btn col-md-4 col-sm-6  col-lg-3 mb-4 ">
+                <a href="#" data-user-id="<?php echo $user_id ?>"  data-post-id="<?php echo $post['id'] ?>" class="view_btn col-md-4 col-sm-6  col-lg-3 mb-4 " onclick="AddCount(event)">
                     <div class="card product-card-by-nay">
                         <?php
                         $images = glob('image/post_img/' . $post['photo_folder'] . '/*.{jpg,png,gif,jpeg,jiff}', GLOB_BRACE);
@@ -265,10 +265,10 @@ if (isset($_SESSION['user_id'])) {
                                         <i class="far fa-plus-square ml-3"></i>
                                         <span class="save-count"><?php echo $count_favorite['count_favorite'] ?></span>
                                     </div>
-
+                                    <?php $viewCount =  $post_model->selectViewCount($post['id']) ?>
                                     <div>
                                         <i class="far fa-eye ml-3"></i>
-                                        <span class="view-count">50</span>
+                                        <span class="view-count"><?php echo $viewCount['view_count'] ?></span>
                                     </div>
                                 </div>
                             </div>

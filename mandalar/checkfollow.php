@@ -44,10 +44,10 @@ if($state==1)
     $userinfo = $userModal->UserAllInfo($from_id);
     $name = $userinfo[0]["full_name"];
     
-    var_dump($_POST);
+    // var_dump($_POST);
     $link = $_POST['link'];
 
-    $NOtiModal->SentNoti($name." is folling You",$to_id,$link);
+   echo $NOtiModal->SentNoti($name." is folling You",$to_id,$link);
 
 
 }

@@ -87,5 +87,16 @@ class PostController extends Post{
     public function get_post_id($id,$name,$brand,$options,$post_subcategory,$price,$text_area,$imageFolder,$status){
         return $this->take_post_id($id,$name,$brand,$options,$post_subcategory,$price,$text_area,$imageFolder,$status);
     }
+
+
+    //get sold out post
+    public function get_sold_out_post($id){
+        return $this->sold_out_post($id);
+    }
+
+    public function postStatus($searchinput)
+    {
+        return $this->postDec($searchinput);
+    }
 }
 ?>

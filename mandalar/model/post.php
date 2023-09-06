@@ -372,12 +372,23 @@ class Post
         // $sql = "SELECT * FROM `post` WHERE description name like ";
         // $statement = $this->connection->prepare($sql);
 
-        $sql = "SELECT  post.*,users.full_name,users.img from post join users on post.seller_id=users.user_id  WHERE REPLACE(description, ' ', '') LIKE :description";
-        $statement = $this->connection->prepare($sql);
+        // $sql = "SELECT  post.*,users.full_name,users.img from post join users on post.seller_id=users.user_id  WHERE REPLACE(description, ' ', '') LIKE :description";
+        // $statement = $this->connection->prepare($sql);
 
-        $searchInputWithoutSpaces = str_replace(' ', '', $searchinput);
-        $params = '%' . $searchInputWithoutSpaces . '%';
-        $statement->bindParam(":description", $params);
+        // $searchInputWithoutSpaces = str_replace(' ', '', $searchinput);
+        // $params = '%' . $searchInputWithoutSpaces . '%';
+        // $statement->bindParam(":description", $params);
+
+        // //3.execute
+        // $statement->execute();
+        // $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+        // return $result;
+        $sql = "SELECT post.*,users.full_name,users.img as user_img FROM post join users WHERE post.status!='sold_out' and REPLACE(post.description, ' ', '') LIKE :description";
+        $statement = $this->connection->prepare($sql);
+        
+        $searchValueWithoutSpaces = str_replace(' ', '', $searchinput);
+        $param = '%' . $searchValueWithoutSpaces . '%';
+        $statement->bindParam(":description", $param);
 
         //3.execute
         $statement->execute();
@@ -441,6 +452,55 @@ class Post
         $result = $statement->fetchAll(PDO::FETCH_ASSOC);
         return $result;
     }
-}
+    
+    public function selectViewCount($postId){
+        $this->connection = Database::connect();
+        $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-// $post_modal=new Post();
+        $sql = "SELECT COUNT(*) as view_count FROM `view_count` WHERE post_id = :id";
+        $statement = $this->connection->prepare($sql);
+        $statement->bindParam(":id", $postId);
+      
+        //3.execute
+        $statement->execute();
+        $result = $statement->fetch(PDO::FETCH_ASSOC);
+
+        return $result;
+    }
+
+
+    public function sold_out_post($id){
+        $this->connection = Database::connect();
+        $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+// SELECT post.*,users.fname,users.lname,users.img as user_img FROM `post` join users on post.seller_id=users.user_id ORDER BY post.post_date DESC
+        // $sql = "SELECT * FROM `post` WHERE post.status='sold_out' AND seller_id=:seller_id";
+        $sql="SELECT post.*,users.fname,users.lname,users.img as user_img FROM `post` JOIN users WHERE post.status='sold_out' AND post.seller_id =:seller_id   ORDER BY post.post_date DESC";
+        $statement = $this->connection->prepare($sql);
+        $statement->bindParam(":seller_id", $id);
+        // 3. Execute
+        $statement->execute();
+        $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
+    }
+
+    public function postDec($searchinput)
+    {
+        //1.DataBase Connect
+        $this->connection=Database::connect();
+        $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+        //2.sql Statement
+        // $searchValue = str_replace(' ', '', $searchValue);
+        $sql = "SELECT * FROM post WHERE status!='sold_out' and REPLACE(description, ' ', '') LIKE :description";
+        $statement = $this->connection->prepare($sql);
+        
+        $searchValueWithoutSpaces = str_replace(' ', '', $searchinput);
+        $param = '%' . $searchValueWithoutSpaces . '%';
+        $statement->bindParam(":description", $param);
+
+        //3.execute
+        $statement->execute();
+        $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
+    }
+}

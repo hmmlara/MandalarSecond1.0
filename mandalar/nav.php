@@ -67,6 +67,7 @@ min-height: 200px;
 
 }
 
+
 /* .noti_id{
     background-color: #627E8B;
 } */
@@ -108,9 +109,9 @@ min-height: 200px;
                                             </a>
 
                                             <div class="dropdown">
-                                                <a class="aa-cart-link bell" style="display:inline-block;width:70px" class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-mdb-toggle="dropdown" aria-expanded="false" role="button" id="dropdownMenuButton" data-mdb-toggle="dropdown" aria-expanded="false">
+                                                <a class="aa-cart-link bell" style="display:inline-block;width:70px;" class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-mdb-toggle="dropdown" aria-expanded="false" role="button" id="dropdownMenuButton" data-mdb-toggle="dropdown" aria-expanded="false">
 
-                                                    <i class="fa-regular fa-bell"></i>
+                                                    <i class="fa-regular fa-bell "></i>
                                                     <span class="aa-cart-notify" data-user-id="<?php echo $user_id ?>" style="color: #4e9c81;">0</span>
                                                     <ul class="dropdown-menu force-scroll" id="notiContainer" aria-labelledby="dropdownMenuButton ">
 
@@ -167,7 +168,7 @@ min-height: 200px;
                                 <div class="aa-search-box">
                                     <form action="" method="post">
 
-                                        <input type="text" name="searchinput" id="search-box" placeholder="Search" value="<?php if (isset($searchinputget)) echo $searchinputget; ?>">
+                                        <input type="text" name="searchinput" id="search-box" placeholder="Search" value="<?php if (isset($searchinput)) echo $searchinput; ?>">
                                         <button type="submit" name="search" id="search" style="border-radius: 30px; background-color: #4e9c81;"><span class="fa fa-search"></span></button>
                                     </form>
                                 </div>

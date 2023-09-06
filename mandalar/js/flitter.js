@@ -26,9 +26,9 @@ function PostFliteringData(obj) {
                 console.log(dataList);
                 productContainer.innerHTML = "";
                 dataList.forEach((val, index) => {
-                    
+                    console.log(val);
                     productContainer.innerHTML += `
-                    <a href="productDetail.php?id=${val.id}" class="col-md-4 col-sm-6  col-lg-3 mb-4 "> 
+                    <a href="productDetail.php?id=${val.id}" onclick="addViewCount(${val.buyer_id},${val.id})" class="view_btn col-md-4 col-sm-6  col-lg-3 mb-4 "> 
                     <div >
                     <div class="card product-card-by-nay">
                         <img src="image/${val.product_image}" class="card-img-top product-image" alt="${val.product_image}" />
@@ -54,12 +54,12 @@ function PostFliteringData(obj) {
                                 </div>
                                 <div>
                                     <i class="far fa-plus-square ml-3"></i>
-                                    <span class="save-count">18</span>
+                                    <span class="save-count">${val.product_fav}</span>
                                 </div>
     
                                 <div>
                                     <i class="far fa-eye ml-3"></i>
-                                    <span class="view-count">50</span>
+                                    <span class="view-count">${val.view_count}</span>
                                 </div>
                         </div>
                         </div>
@@ -162,7 +162,7 @@ document
 
 //Price range flitter
 document.addEventListener("DOMContentLoaded",()=>{
-    registerSlide(0,400000)
+    registerSlide(0,10000)
 } );
 
 function registerSlide(minPrice,maxPrice) {
@@ -170,7 +170,7 @@ function registerSlide(minPrice,maxPrice) {
     var priceValue = document.getElementById("priceValue");
     
     slider = noUiSlider.create(priceSlider, {
-        start: [0, 50000000],
+        start: [0, 100000],
         connect: true,
         range: {
             min: minPrice,
@@ -194,7 +194,7 @@ function registerSlide(minPrice,maxPrice) {
     var priceValue2 = document.getElementById("priceValue2");
 
     noUiSlider.create(priceSlider2, {
-        start: [0, 50000000],
+        start: [0, 100000],
         connect: true,
         range: {
             min: minPrice,
