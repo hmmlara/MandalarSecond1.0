@@ -263,7 +263,6 @@ include_once "nav.php";
                     <div class="swiper-slide">
                         <div class="tab-content">
                             <section id="products" class="">
-
                                 <div class="row ">
                                     <?php foreach ($post_list as $post) {
                                         // var_dump($post);
