@@ -1,5 +1,4 @@
 <?php
-include_once "nav.php";
 include_once "controller/searchController.php";
 include_once "controller/postController.php";
 include_once "model/post.php";
@@ -15,8 +14,7 @@ if (isset($_GET['searchinput'])) {
     $post_list = $post_controller->searchPosts($searchinput);
     $search_brands = $post_controller->searchBrand($searchinput);
 
-    var_dump($search_brands);
-
+    // var_dump($search_brands);
 }
 
 if (isset($_POST["search"])) {
@@ -25,6 +23,7 @@ if (isset($_POST["search"])) {
     }
 }
 
+include_once "nav.php";
 
 ?>
 <style>
@@ -124,7 +123,7 @@ if (isset($_POST["search"])) {
     /* Show the selected image preview */
 
     .image-selector .form-control:focus+img {
-        display: block;
+        display: block ;
     }
 
     .preview-image {
@@ -180,6 +179,11 @@ if (isset($_POST["search"])) {
         min-height: 0px;
         overflow-y: scroll;
     }
+
+    #myElement {
+            visibility:visible;
+            opacity: 1 !important;
+        }
 </style>
 
 <!DOCTYPE html>
@@ -201,7 +205,7 @@ if (isset($_POST["search"])) {
     <!-- <link rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/css/mdb.min.css" /> -->
-    <link rel="stylesheet" href="css/nav.css" />
+    <!-- <link rel="stylesheet" href="css/nav.css" /> -->
     <!-- <link rel="stylesheet" href="css/profile.css"> -->
     <!-- <link rel="stylesheet" href="css/style2.css" /> -->
     <link rel="stylesheet" href="css/search.css" />
@@ -242,12 +246,11 @@ if (isset($_POST["search"])) {
                             <div class="row">
                                 <?php
                                 foreach ($searchUsers as $key => $user) {
-                                    ?>
+                                ?>
                                     <a href="searchprofile.php?id=<?php echo $user['user_id'] ?>">
                                         <div class="col-md-12 rounded d-flex p-2 border pointer text-dark">
                                             <div class="col-md-1">
-                                                <img src="../mandalar/image/user-profile/<?php echo $user["img"] ?>"
-                                                    class="usersearchimg" alt="">
+                                                <img src="../mandalar/image/user-profile/<?php echo $user["img"] ?>" class="usersearchimg" alt="">
                                             </div>
                                             <div class="col-md-8">
                                                 <h5>
@@ -259,7 +262,7 @@ if (isset($_POST["search"])) {
                                             </div>
                                         </div>
                                     </a>
-                                    <?php
+                                <?php
                                 }
                                 ?>
 
@@ -273,18 +276,15 @@ if (isset($_POST["search"])) {
                                     <?php foreach ($post_list as $post) {
                                         // var_dump($post);
                                         # code...
-                                        ?>
+                                    ?>
 
-                                        <a href="#" data-user-id="<?php echo $user_id ?>"
-                                            data-post-id="<?php echo $post['id'] ?>"
-                                            class="view_btn col-md-4 col-sm-6  col-lg-3 mb-4 " onclick="AddCount(event)">
-                                            <div class="card product-card-by-nay">
+                                        <a href="#" data-user-id="<?php echo $user_id ?>" data-post-id="<?php echo $post['id'] ?>" class="view_btn col-md-4 col-sm-6  col-lg-3 mb-4 " onclick="AddCount(event)">
+                                            <div class="card product-card-by-nay" id="myElement">
                                                 <?php
                                                 $images = glob('image/post_img/' . $post['photo_folder'] . '/*.{jpg,png,gif,jpeg,jiff}', GLOB_BRACE);
                                                 // var_dump($images[0]);
                                                 ?>
-                                                <img src="<?php echo $images[0] ?>" class="card-img-top product-image"
-                                                    alt="Product 1" />
+                                                <img src="<?php echo $images[0] ?>" class="card-img-top product-image" alt="Product 1" />
                                                 <div class="card-body">
                                                     <div class=" product-card-title">
                                                         <h5>
@@ -297,8 +297,7 @@ if (isset($_POST["search"])) {
                                                     </div>
                                                     <div class="d-flex justify-content-between align-items-center">
                                                         <div class="d-flex align-items-center">
-                                                            <img src="image/user-profile/<?php echo $post['user_img'] ?>"
-                                                                class="rounded-circle profile-on-card" alt="Seller 1" />
+                                                            <img src="image/user-profile/<?php echo $post['user_img'] ?>" class="rounded-circle profile-on-card" alt="Seller 1" />
                                                             <span class="ml-2 card-text">
                                                                 <?php echo $post['full_name'] ?>
                                                             </span>
@@ -341,75 +340,69 @@ if (isset($_POST["search"])) {
                     <!-- brand -->
                     <div class="swiper-slide">
                         <div class="tab-content">
-                        <section id="products" class="">
+                            <section id="products" class="">
 
-<div class="row ">
-    <?php foreach ($post_list as $post) {
-        // var_dump($post);
-        # code...
-        ?>
+                                <div class="row ">
+                                    <?php foreach ($search_brands as $post) {
+                                    ?>
 
-        <a href="#" data-user-id="<?php echo $user_id ?>"
-            data-post-id="<?php echo $post['id'] ?>"
-            class="view_btn col-md-4 col-sm-6  col-lg-3 mb-4 " onclick="AddCount(event)">
-            <div class="card product-card-by-nay">
-                <?php
-                $images = glob('image/post_img/' . $post['photo_folder'] . '/*.{jpg,png,gif,jpeg,jiff}', GLOB_BRACE);
-                // var_dump($images[0]);
-                ?>
-                <img src="<?php echo $images[0] ?>" class="card-img-top product-image"
-                    alt="Product 1" />
-                <div class="card-body">
-                    <div class=" product-card-title">
-                        <h5>
-                            <?php echo $post['item'] ?>
+                                        <a href="#" data-user-id="<?php echo $user_id ?>" data-post-id="<?php echo $post['id'] ?>" class="view_btn col-md-4 col-sm-6  col-lg-3 mb-4 " onclick="AddCount(event)">
+                                            <div style="visibility:visible;opacity:1 !important ;" class="card product-card-by-nay"  id="myElement" >
+                                                <?php
+                                                $images = glob('image/post_img/' . $post['photo_folder'] . '/*.{jpg,png,gif,jpeg,jiff}', GLOB_BRACE);
+                                                // var_dump($images[0]);
+                                                ?>
+                                                <img src="<?php echo $images[0] ?>" class="card-img-top product-image" alt="Product 1" />
+                                                <div class="card-body">
+                                                    <div class=" product-card-title">
+                                                        <h5>
+                                                            <?php echo $post['item'] ?>
 
-                        </h5>
-                        <h5>
-                            <?php echo $post['price'] ?>
-                        </h5>
-                    </div>
-                    <div class="d-flex justify-content-between align-items-center">
-                        <div class="d-flex align-items-center">
-                            <img src="image/user-profile/<?php echo $post['user_img'] ?>"
-                                class="rounded-circle profile-on-card" alt="Seller 1" />
-                            <span class="ml-2 card-text">
-                                <?php echo $post['full_name'] ?>
-                            </span>
-                        </div>
-                    </div>
-                    <?php
-                    $count_react = $post_model->getPostReaction($post['id']);
-                    $count_favorite = $post_model->getPostFavorite($post['id']);
-                    ?>
-                    <div class=" product-info-box">
-                        <div>
-                            <i class="far fa-heart mr-2"></i>
-                            <span class="reaction-count">
-                                <?php echo $count_react['count_react'] ?>
-                            </span>
-                        </div>
-                        <div>
-                            <i class="far fa-plus-square ml-3"></i>
-                            <span class="save-count">
-                                <?php echo $count_favorite['count_favorite'] ?>
-                            </span>
-                        </div>
-                        <?php $viewCount = $post_model->selectViewCount($post['id']) ?>
-                        <div>
-                            <i class="far fa-eye ml-3"></i>
-                            <span class="view-count">
-                                <?php echo $viewCount['view_count'] ?>
-                            </span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </a>
+                                                        </h5>
+                                                        <h5>
+                                                            <?php echo $post['price'] ?>
+                                                        </h5>
+                                                    </div>
+                                                    <div class="d-flex justify-content-between align-items-center">
+                                                        <div class="d-flex align-items-center">
+                                                            <img src="image/user-profile/<?php echo $post['user_img'] ?>" class="rounded-circle profile-on-card" alt="Seller 1" />
+                                                            <span class="ml-2 card-text">
+                                                                <?php echo $post['full_name'] ?>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <?php
+                                                    $count_react = $post_model->getPostReaction($post['id']);
+                                                    $count_favorite = $post_model->getPostFavorite($post['id']);
+                                                    ?>
+                                                    <div class=" product-info-box">
+                                                        <div>
+                                                            <i class="far fa-heart mr-2"></i>
+                                                            <span class="reaction-count">
+                                                                <?php echo $count_react['count_react'] ?>
+                                                            </span>
+                                                        </div>
+                                                        <div>
+                                                            <i class="far fa-plus-square ml-3"></i>
+                                                            <span class="save-count">
+                                                                <?php echo $count_favorite['count_favorite'] ?>
+                                                            </span>
+                                                        </div>
+                                                        <?php $viewCount = $post_model->selectViewCount($post['id']) ?>
+                                                        <div>
+                                                            <i class="far fa-eye ml-3"></i>
+                                                            <span class="view-count">
+                                                                <?php echo $viewCount['view_count'] ?>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </a>
 
-    <?php } ?>
-</div>
-</section>
+                                    <?php } ?>
+                                </div>
+                            </section>
                         </div>
                     </div>
                     <!-- Add more swiper slides and tab content as needed -->
@@ -417,8 +410,16 @@ if (isset($_POST["search"])) {
             </div>
         </div>
     </section>
-    <!-- <script src="js/jquery-3.7.0.min.js"></script> -->
-    <script src="js/loader.js"></script>
+    <script src="js/jquery-3.7.0.min.js"></script>
+    <!-- <script>
+        // Get a reference to the element
+        var element = document.getElementById("myElement");
+
+        // Remove the inline styles
+        element.style.visibility = "";
+        element.style.opacity = "";
+    </script> -->
+    <!-- <script src="js/loader.js"></script> -->
     <script src="js/searchbox.js"></script>
     <script src="js/home.js"></script>
     <script src="js/noti.js"></script>

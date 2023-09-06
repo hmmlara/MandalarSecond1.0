@@ -94,10 +94,10 @@ class PostController extends Post{
         return $this->sold_out_post($id);
     }
 
-    public function postStatus($searchinput)
-    {
-        return $this->postDec($searchinput);
-    }
+    // public function postStatus($searchinput)
+    // {
+    //     return $this->postDec($searchinput);
+    // }
 
     public function searchBrand($searchinput)
     {

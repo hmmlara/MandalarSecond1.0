@@ -350,25 +350,7 @@ class Post
         }
     }
 
-    public function getList($user_id)
-    {
-        //1.DataBase Connect
-        $this->connection = Database::connect();
-        $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-        //2.sql Statement
-        $sql = 'SELECT post.*, users.full_name,users.img
-        FROM post 
-        JOIN users  ON post.seller_id = users.user_id where seller_id=:seller_id;';
-        $statement = $this->connection->prepare($sql);
-
-        $statement->bindParam(":seller_id", $user_id);
-
-        //3.execute
-        $statement->execute();
-        $result = $statement->fetchAll(PDO::FETCH_ASSOC);
-        return $result;
-    }
+    
 
     public function searchPostList($searchinput)
     {
@@ -525,6 +507,24 @@ class Post
         $searchValueWithoutSpaces = str_replace(' ', '', $searchinput);
         $param = '%' . $searchValueWithoutSpaces . '%';
         $statement->bindParam(":brand", $param);
+
+        //3.execute
+        $statement->execute();
+        $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
+    }
+
+    public function getList($user_id)
+    {
+        //1.DataBase Connect
+        $this->connection = Database::connect();
+        $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+        //2.sql Statement
+        $sql = 'SELECT post.*,users.full_name,users.img as user_img FROM post join users  ON post.seller_id = users.user_id where seller_id=:seller_id;';
+        $statement = $this->connection->prepare($sql);
+
+        $statement->bindParam(":seller_id", $user_id);
 
         //3.execute
         $statement->execute();

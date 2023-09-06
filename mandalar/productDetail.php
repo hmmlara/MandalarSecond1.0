@@ -1,5 +1,6 @@
 <?php
-session_start();
+// session_start();
+include_once "nav.php";
 include_once "./controller/postController.php";
 include_once "./controller/userController.php";
 include_once "./controller/cityController.php";
@@ -9,8 +10,7 @@ if (isset($_SESSION['user_id'])) {
     include_once "php/available_money.php";
     $user_controller = new UserController();
     $user_list = $user_controller->UserInfo($user_id);
-}
-else{
+} else {
     $user_id = "nan";
 }
 
@@ -21,7 +21,7 @@ $city_controller = new CityController();
 $posts = $post_controller->getPost($id);
 
 $city_list = $city_controller->getCityList();
-echo 'sub_id'.$posts[0]['sub_category_id'];
+// echo 'sub_id'.$posts[0]['sub_category_id'];
 ?>
 
 
@@ -38,8 +38,8 @@ echo 'sub_id'.$posts[0]['sub_category_id'];
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
     <link rel="stylesheet" href="css/product-detail.css" />
-    <link rel="stylesheet" href="css/products.css"/>
-    <link rel="stylesheet" href="css/comment.css"/>
+    <link rel="stylesheet" href="css/products.css" />
+    <link rel="stylesheet" href="css/comment.css" />
 
     <!-- <script src="js/modernizr-2.6.2.min.js"></script> -->
     <!-- <link rel="stylesheet" href="../mandalar/fontawesome-free-6.4.0-web/css/all.min.css" /> -->
@@ -54,101 +54,18 @@ echo 'sub_id'.$posts[0]['sub_category_id'];
     <link rel="stylesheet" href="css/style2.css">
     <title>Product Detail Page</title>
 </head>
+<style>
+    #myElement {
+        visibility: visible;
+        opacity: 1 !important;
+    }
+</style>
 
 <body>
-    <div id="loader"></div>
+    <div id="commenter_id" data-user-id="<?php echo $user_id ?>"></div>
+    <div id="post_id" data-post-id='<?php echo $id ?>'>
 
-    <div id="page">
-        <header id="aa-header">
-            <!-- / header top  -->
-            <div id="commenter_id" data-user-id="<?php echo $user_id ?>">
-            </div>
-            <div id="post_id" data-post-id='<?php echo $id ?>'>
 
-            </div>
-            <!-- start header bottom  -->
-            <div class="aa-header-bottom mb-4" style="background-color: #627E8B; ">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="aa-header-bottom-area">
-                                <!-- logo  -->
-                                <div class="aa-logo">
-                                    <!-- Text based logo -->
-                                    <img src="image/logoimg/logo-no-background.png" class="logo" width="200px" height="auto" alt="as">
-                                    <!-- <a href="index.html">
-                      <span class="fa fa-shopping-cart"></span>
-                      <p>daily<strong>Shop</strong> <span>Your Shopping Partner</span></p>
-                    </a> -->
-                                    <!-- img based logo -->
-                                    <!-- <a href="index.html"><img src="img/logo.jpg" alt="logo img"></a> -->
-                                </div>
-                                <!-- / logo  -->
-                                <!-- cart box -->
-                                <div class="aa-cartbox">
-                                    <div class=" d-flex justify-content-end" style="width: 230px;">
-                                        <a class="aa-cart-link heart" href="#">
-                                            <i class="fa-solid fa-heart"></i>
-                                        </a>
-                                        <a class="aa-cart-link bell" href="#">
-                                            <i class="fa-regular fa-bell "></i>
-                                            <span class="aa-cart-notify" style="color: #4e9c81;">10</span>
-                                        </a>
-                                        <a class="aa-cart-link message" href="#">
-                                            <i class="fa-regular fa-message "></i>
-                                        </a>
-
-                                        <a class="aa-cart-link user" href="#">
-                                            <i class="fa-regular fa-user"></i>
-                                        </a>
-                                    </div>
-
-                                    <div class="aa-cartbox-summary">
-                                        <ul>
-                                            <li>
-                                                <a class="aa-cartbox-img" href="#"><img src="img/woman-small-2.jpg" alt="img"></a>
-                                                <div class="aa-cartbox-info">
-                                                    <h4><a href="#">Product Name</a></h4>
-                                                    <p>1 x $250</p>
-                                                </div>
-                                                <a class="aa-remove-product" href="#"><span class="fa fa-times"></span></a>
-                                            </li>
-                                            <li>
-                                                <a class="aa-cartbox-img" href="#"><img src="img/woman-small-1.jpg" alt="img"></a>
-                                                <div class="aa-cartbox-info">
-                                                    <h4><a href="#">Product Name</a></h4>
-                                                    <p>1 x $250</p>
-                                                </div>
-                                                <a class="aa-remove-product" href="#"><span class="fa fa-times"></span></a>
-                                            </li>
-                                            <li>
-                                                <span class="aa-cartbox-total-title">
-                                                    Total
-                                                </span>
-                                                <span class="aa-cartbox-total-price">
-                                                    $500
-                                                </span>
-                                            </li>
-                                        </ul>
-                                        <a class="aa-cartbox-checkout aa-primary-btn" href="checkout.html">Checkout</a>
-                                    </div>
-                                </div>
-                                <!-- / cart box -->
-                                <!-- search box -->
-                                <div class="aa-search-box">
-                                    <form action="">
-                                        <input type="text" name="" id="search-box" placeholder="Search">
-                                        <button type="submit" style="border-radius: 30px; background-color: #4e9c81;"><span class="fa fa-search"></span></button>
-                                    </form>
-                                </div>
-                                <!-- / search box -->
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- / header bottom  -->
-        </header>
         <div class="success-overlay">
             <span>Successfully</span>
         </div>
@@ -183,7 +100,7 @@ echo 'sub_id'.$posts[0]['sub_category_id'];
                                 <p class="category text-muted">Category:
                                     <?php echo $post['cate_name']; ?>
                                 </p>
-                                <p class="text-muted" id="subCategory" data-category = "<?php echo $post['sub_category_id']?>">Sub Category:
+                                <p class="text-muted" id="subCategory" data-category="<?php echo $post['sub_category_id'] ?>">Sub Category:
                                     <?php echo $post['sub_name']; ?>
                                 </p>
                                 <p class="brand">Brand:
@@ -192,7 +109,7 @@ echo 'sub_id'.$posts[0]['sub_category_id'];
                                 <p class="product-status" data-status=<?php echo $post['new_used'] ?>>Status:
                                     <?php echo $post['new_used']; ?>
                                 </p>
-                                <h2 id = "price" data-price=<?php echo $post['price'] ?>>mmk
+                                <h2 id="price" data-price=<?php echo $post['price'] ?>>mmk
                                     <?php echo $post['price']; ?>
                                 </h2>
                                 <p>
@@ -200,13 +117,13 @@ echo 'sub_id'.$posts[0]['sub_category_id'];
                                 </p>
                                 <div class="product-buttons">
                                     <?php if (isset($_SESSION["user_id"])) {  ?>
-                                        <button class="btn " id="product-like" data-post-id="<?php echo $id; ?>" data-user-id="<?php echo $user_id; ?>">
+                                        <button class="btn btn-secondary bg-primary text-white" id="product-like" data-post-id="<?php echo $id; ?>" data-user-id="<?php echo $user_id; ?>">
                                             <i class="fas fa-thumbs-up"></i> <span id="post-like-count"></span>
                                         </button>
-                                        <button class="btn btn-secondary comment-btn">
+                                        <button class="btn btn-secondary bg-info  text-white comment-btn">
                                             <i class="fas fa-comment"></i> Comment
                                         </button>
-                                        <button class="btn btn-secondary" id="product-favorite" data-post-id="<?php echo $id;?>" data-user-id="<?php echo $user_id; ?>">
+                                        <button class="btn btn-secondary bg-danger text-white" id="product-favorite" data-post-id="<?php echo $id; ?>" data-user-id="<?php echo $user_id; ?>">
                                             <i class="fas fa-heart"></i> <span id="post-favorite-count"></span>
                                         </button>
                                         <?php if ($post['status'] == "none") {
@@ -217,23 +134,24 @@ echo 'sub_id'.$posts[0]['sub_category_id'];
                                                                                     else {
                                                                                         echo 'block';
                                                                                     }
-                                                                                    ?>" class="btn btn-primary" data-mdb-toggle="modal" data-mdb-target="#exampleModal"> Buy</button>
+                                                                                    ?>;  background-color: #4e9c81;" class="btn text-white" data-mdb-toggle="modal" data-mdb-target="#exampleModal"> Buy</button>
                                         <?php } else if ($post['status'] != 'none' && $post['status'] != 'sold_out') { ?>
-                                            <span>Waiting.........</span>
+                                            <button class="btn btn-warning">Waiting!</button>
+                                            <!-- <span class="bg-warning" style="border-radius: 10px;">Waiting!</span> -->
                                         <?php } else if ($post['status'] == 'sold_out') { ?>
                                             <span>Sold Out</span>
                                         <?php } ?>
                                     <?php } else { ?>
-                                        <button class="btn btn-secondary" id="product-like" data-mdb-toggle="modal" data-mdb-target="#productDetailModal">
+                                        <button class="btn btn-secondary bg-primary text-white" id="product-like" data-mdb-toggle="modal" data-mdb-target="#productDetailModal">
                                             <i class="fas fa-thumbs-up"></i><span></span>
                                         </button>
-                                        <button class="btn btn-secondary " data-mdb-toggle="modal" data-mdb-target="#productDetailModal">
+                                        <button class="btn btn-secondary  bg-info  text-white" data-mdb-toggle="modal" data-mdb-target="#productDetailModal">
                                             <i class="fas fa-comment"></i> Comment
                                         </button>
-                                        <button class="btn btn-secondary" id="product-favorite" data-mdb-toggle="modal" data-mdb-target="#productDetailModal">
+                                        <button class="btn btn-secondary bg-danger text-white" id="product-favorite" data-mdb-toggle="modal" data-mdb-target="#productDetailModal">
                                             <i class="fas fa-heart"></i> <span></span>
                                         </button>
-                                        <button type="button" class="btn btn-primary" data-mdb-toggle="modal" data-mdb-target="#productDetailModal"> Buy</button>
+                                        <button type="button" class="btn btn-primary" style="background-color: #4e9c81;" data-mdb-toggle="modal" data-mdb-target="#productDetailModal"> Buy</button>
 
                                         <div class="modal fade" id="productDetailModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                             <div class="modal-dialog modal-dialog-centered">
@@ -244,7 +162,7 @@ echo 'sub_id'.$posts[0]['sub_category_id'];
                                                     </div>
                                                     <!-- <div class="modal-body">...</div> -->
                                                     <div class="modal-footer d-flex align-items-center justify-content-center">
-                                                        <a href="register.php" class="btn btn-secondary">Register</a>
+                                                        <a href="register.php" class="btn btn-info">Register</a>
                                                         <a href="login.php" class="btn btn-primary">Login</a>
                                                     </div>
                                                 </div>
@@ -464,9 +382,30 @@ echo 'sub_id'.$posts[0]['sub_category_id'];
 
                             <textarea class="form-control" id="comment-input" rows="2"></textarea>
                         </div>
-                        <button type="submit" id="comment-btn" class="btn btn-primary">
-                            Submit
-                        </button>
+                        <?php if (isset($_SESSION["user_id"])) { ?>
+                            <button type="submit" id="comment-btn" class="btn btn-primary">
+                                Submit
+                            </button>
+                        <?php } else { ?>
+                            <button type="submit" data-mdb-toggle="modal" data-mdb-target="#productCommentModal" class="btn btn-primary">
+                                Submit
+                            </button>
+                            <div class="modal fade" id="productCommentModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-centered">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLabel">Please Sign Up and Register</h5>
+                                                        <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <!-- <div class="modal-body">...</div> -->
+                                                    <div class="modal-footer d-flex align-items-center justify-content-center">
+                                                        <a href="register.php" class="btn btn-secondary">Register</a>
+                                                        <a href="login.php" class="btn btn-primary">Login</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                        <?php } ?>
                     </div>
                 </div>
             </div>
@@ -477,7 +416,7 @@ echo 'sub_id'.$posts[0]['sub_category_id'];
                     <div class="position-relative related-products-slider overflow-hidden">
                         <div class="swiper-wrapper" id="Related-Wrapper">
                             <div class="swiper-slide">
-                                
+
                             </div>
                             <div class="swiper-slide">
                                 <div class="card shadow">
@@ -677,5 +616,5 @@ echo 'sub_id'.$posts[0]['sub_category_id'];
         </script>
 
         <?php include_once "./footer.php";
-       
+
         ?>

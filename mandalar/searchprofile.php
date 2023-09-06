@@ -1,6 +1,6 @@
 <?php
 include_once "nav.php";
-// session_start();
+//  session_start();
 include_once "controller/profileController.php";
 include_once "controller/followController.php";
 include_once "controller/kpayController.php";
@@ -9,6 +9,7 @@ $getalluserlist = new ProfileController();
 $followUser=new FollowController();
 $post_controller = new PostController();
 $getKpay_history=new kpayController();
+$post_model = new Post();
 
 
 
@@ -130,6 +131,10 @@ $getuserpost = $post_controller->getUserList($userid);
             color: initial !important;
             
         } */
+        #products a {
+            color: initial !important;
+            font-size: initial !important;
+        }
     </style>
 
 <!DOCTYPE html>
@@ -277,59 +282,69 @@ $getuserpost = $post_controller->getUserList($userid);
                     <div class="swiper-slide border rounded-4 shadow-4">
                         <div class="tab-content ">
                         <?php if(isset($getuserpost)){ ?>
-                        <section id="products" class="">
+                            <section id="products" class="">
 
-                            <div class="row text-dark">
-                                <?php foreach ($getuserpost as $post) {
-                                # code...
-                                ?>
+<div class="row ">
+    <?php foreach ($getuserpost as $post) {
+    ?>
 
-                                <a href="productDetail.php?id=<?php echo $post['id'] ?>" class="col-md-4 col-sm-6  col-lg-3 mb-4" style="color:i" >
-                                    <div class="card product-card-by-nay">
-                                        <?php
-                                        $images = glob('image/post_img/' . $post['photo_folder'] . '/*.{jpg,png,gif}', GLOB_BRACE);
-                                        ?>
-                                            <img src="<?php echo $images[0] ?>" class="card-img-top product-image" alt="Product 1" />
-                                            <div class="card-body">
-                                                <div class=" product-card-title">
-                                                    <h5>
-                                                        <?php echo $post['item'] ?>
+        <a href="#" data-user-id="<?php echo $user_id ?>" data-post-id="<?php echo $post['id'] ?>" class="view_btn col-md-4 col-sm-6  col-lg-3 mb-4 " onclick="AddCount(event)">
+            <div style="visibility:visible;opacity:1 !important ;" class="card product-card-by-nay"  id="myElement" >
+                <?php
+                $images = glob('image/post_img/' . $post['photo_folder'] . '/*.{jpg,png,gif,jpeg,jiff}', GLOB_BRACE);
+                // var_dump($images[0]);
+                ?>
+                <img src="<?php echo $images[0] ?>" class="card-img-top product-image" alt="Product 1" />
+                <div class="card-body">
+                    <div class=" product-card-title">
+                        <h5>
+                            <?php echo $post['item'] ?>
 
-                                                    </h5>
-                                                    <h5>
-                                                       <?php echo $post['price'] ?>
-                                                    </h5>
-                                                </div>
-                                                <div class="d-flex justify-content-between align-items-center">
-                                                    <div class="d-flex align-items-center">
-                                                        <img src="image/user-profile/<?php echo $post['img'] ?>" class="rounded-circle profile-on-card" alt="Seller 1" />
-                                                        <span class="ml-2 card-text">
-                                                    <?php echo $post['full_name']; ?>
-                                                </span>
-                                                    </div>
-                                                </div>
-                                                <div class=" product-info-box">
-                                                    <div>
-                                                        <i class="far fa-heart mr-2"></i>
-                                                        <span class="reaction-count">5</span>
-                                                    </div>
-                                                    <div>
-                                                        <i class="far fa-plus-square ml-3"></i>
-                                                        <span class="save-count">18</span>
-                                                    </div>
+                        </h5>
+                        <h5>
+                            <?php echo $post['price'] ?>
+                        </h5>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="d-flex align-items-center">
+                            <img src="image/user-profile/<?php echo $post['user_img'] ?>" class="rounded-circle profile-on-card" alt="Seller 1" />
+                            <span class="ml-2 card-text">
+                                <?php echo $post['full_name'] ?>
+                            </span>
+                        </div>
+                    </div>
+                    <?php
+                    $count_react = $post_model->getPostReaction($post['id']);
+                    $count_favorite = $post_model->getPostFavorite($post['id']);
+                    ?>
+                    <div class=" product-info-box">
+                        <div>
+                            <i class="far fa-heart mr-2"></i>
+                            <span class="reaction-count">
+                                <?php echo $count_react['count_react'] ?>
+                            </span>
+                        </div>
+                        <div>
+                            <i class="far fa-plus-square ml-3"></i>
+                            <span class="save-count">
+                                <?php echo $count_favorite['count_favorite'] ?>
+                            </span>
+                        </div>
+                        <?php $viewCount = $post_model->selectViewCount($post['id']) ?>
+                        <div>
+                            <i class="far fa-eye ml-3"></i>
+                            <span class="view-count">
+                                <?php echo $viewCount['view_count'] ?>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </a>
 
-                                                    <div>
-                                                        <i class="far fa-eye ml-3"></i>
-                                                        <span class="view-count">50</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                </div>
-                                </a>
-
-                                <?php } ?>
-                            </div>
-                        </section>
+    <?php } ?>
+</div>
+</section>
                         <?php }else{ ?>
                             <div class="d-flex align-items-center justify-content-center mt-5">
                                 <img src="../mandalar/image/some/no sell post.png" alt="">
@@ -390,3 +405,60 @@ $getuserpost = $post_controller->getUserList($userid);
     <script src=""></script>
 </body>
 </html>
+
+
+<!-- 
+    <section id="products" class="">
+
+                            <div class="row text-dark">
+                            <?php foreach ($getuserpost as $post) {
+                                # code...
+                                ?>
+
+                                <a href="productDetail.php?id=<?php echo $post['id'] ?>" class="col-md-4 col-sm-6  col-lg-3 mb-4" style="color:i" >
+                                    <div class="card product-card-by-nay">
+                                        <?php
+                                        $images = glob('image/post_img/' . $post['photo_folder'] . '/*.{jpg,png,gif}', GLOB_BRACE);
+                                        ?>
+                                            <img src="<?php echo $images[0] ?>" class="card-img-top product-image" alt="Product 1" />
+                                            <div class="card-body">
+                                                <div class=" product-card-title">
+                                                    <h5>
+                                                        <?php echo $post['item'] ?>
+
+                                                    </h5>
+                                                    <h5>
+                                                       <?php echo $post['price'] ?>
+                                                    </h5>
+                                                </div>
+                                                <div class="d-flex justify-content-between align-items-center">
+                                                    <div class="d-flex align-items-center">
+                                                        <img src="image/user-profile/<?php echo $post['img'] ?>" class="rounded-circle profile-on-card" alt="Seller 1" />
+                                                        <span class="ml-2 card-text">
+                                                    <?php echo $post['full_name']; ?>
+                                                </span>
+                                                    </div>
+                                                </div>
+                                                <div class=" product-info-box">
+                                                    <div>
+                                                        <i class="far fa-heart mr-2"></i>
+                                                        <span class="reaction-count">5</span>
+                                                    </div>
+                                                    <div>
+                                                        <i class="far fa-plus-square ml-3"></i>
+                                                        <span class="save-count">18</span>
+                                                    </div>
+
+                                                    <div>
+                                                        <i class="far fa-eye ml-3"></i>
+                                                        <span class="view-count">50</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                </div>
+                                </a>
+
+                                <?php } ?>
+                            </div>
+                        </section>
+ -->

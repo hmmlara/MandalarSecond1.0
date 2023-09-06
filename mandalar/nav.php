@@ -6,7 +6,13 @@ include_once "controller/userController.php";
 $getalluserlist = new ProfileController();
 $getAllUser = $getalluserlist->getUserList();
 
-
+$current_page = basename($_SERVER['PHP_SELF']);
+// if ($current_page == "favorite.php") {
+//     echo "///////////";
+// } else {
+//     echo $current_page;
+//     echo "fdsad";
+// }
 
 $updateUserDetails = new UserController();
 if (isset($_SESSION['user_id'])) {
@@ -52,27 +58,27 @@ if (isset($_SESSION['user_id'])) {
 
     <!-- Theme style  -->
     <link rel="stylesheet" href="css/style2.css">
-    <link rel="stylesheet" href="css/loader.css">
+    <!-- <link rel="stylesheet" href="css/loader.css"> -->
     <link rel="stylesheet" href="css/flitter.css" />
 
 
 </head>
 <style>
-.force-scroll {
+    .force-scroll {
 
-overflow-y: scroll;
+        overflow-y: scroll;
 
-max-height: 300px;
-min-height: 200px;
+        max-height: 300px;
+        min-height: 200px;
 
-}
+    }
 
 
-/* .noti_id{
+    /* .noti_id{
     background-color: #627E8B;
 } */
-
 </style>
+
 <body class="">
     <!-- Navigation -->
 
@@ -94,7 +100,7 @@ min-height: 200px;
                                 <div class="aa-logo">
                                     <!-- Text based logo -->
                                     <a href="home.php">
-                                    <img src="image/logoimg/logo-no-background.png" class="logo" width="200px" height="auto" alt="as">
+                                        <img src="image/logoimg/logo-no-background.png" class="logo" width="200px" height="auto" alt="as">
 
                                     </a>
 
@@ -104,9 +110,16 @@ min-height: 200px;
                                 <?php if (isset($_SESSION['user_id'])) { ?>
                                     <div class="aa-cartbox">
                                         <div class=" d-flex justify-content-end" style="width: 230px;">
-                                            <a class="aa-cart-link heart" href="favorite.php">
-                                                <i class="fa-solid fa-heart"></i>
-                                            </a>
+                                            <?php if ($current_page == "favorite.php") { ?>
+                                                <a class="aa-cart-link home" href="home.php">
+                                                    <i class="fa-solid fa-house"></i>
+                                                </a>
+                                            <?php } else { ?>
+                                                <a class="aa-cart-link heart" href="favorite.php">
+                                                    <i class="fa-solid fa-heart"></i>
+                                                </a>
+                                            <?php  } ?>
+
 
                                             <div class="dropdown">
                                                 <a class="aa-cart-link bell" style="display:inline-block;width:70px;" class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-mdb-toggle="dropdown" aria-expanded="false" role="button" id="dropdownMenuButton" data-mdb-toggle="dropdown" aria-expanded="false">
