@@ -164,7 +164,7 @@ $(document).ready(function() {
 
     var relatedProductsSwiper = new Swiper(".related-products-slider", {
         slidesPerView: 3,
-        spaceBetween: 5,
+        spaceBetween: 30,
         navigation: {
             nextEl: ".swiper-button-next",
             prevEl: ".swiper-button-prev",
@@ -172,7 +172,7 @@ $(document).ready(function() {
 
         effect: "coverflow",
         coverflowEffect: {
-            rotate: 10,
+            rotate: 0,
             slideShadows: false,
         },
     });

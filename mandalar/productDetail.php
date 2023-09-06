@@ -6,14 +6,20 @@ include_once "./controller/cityController.php";
 
 if (isset($_SESSION['user_id'])) {
     $user_id = $_SESSION['user_id'];
+    include_once "php/available_money.php";
+    $user_controller = new UserController();
+    $user_list = $user_controller->UserInfo($user_id);
 }
-include_once "php/available_money.php";
+else{
+    $user_id = "nan";
+}
+
 $id = $_GET['id'];
 $post_controller = new PostController();
-$user_controller = new UserController();
+
 $city_controller = new CityController();
 $posts = $post_controller->getPost($id);
-$user_list = $user_controller->UserInfo($user_id);
+
 $city_list = $city_controller->getCityList();
 echo 'sub_id'.$posts[0]['sub_category_id'];
 ?>
@@ -154,7 +160,7 @@ echo 'sub_id'.$posts[0]['sub_category_id'];
                     ?>
                         <div class="col-md-6">
                             <div class="swiper-container">
-                                <div class="swiper-wrapper">
+                                <div class="swiper-wrapper main-product-img-container">
                                     <?php
                                     foreach ($images as $image) {
                                     ?>
@@ -471,29 +477,7 @@ echo 'sub_id'.$posts[0]['sub_category_id'];
                     <div class="position-relative related-products-slider overflow-hidden">
                         <div class="swiper-wrapper" id="Related-Wrapper">
                             <div class="swiper-slide">
-                                <div class="card shadow">
-                                    <img src="image/products/product-image2.jfif" class="card-img-top product-image" alt="Product 2" />
-                                    <div class="card-body">
-                                        <h5 class="card-title">Product 2</h5>
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <div class="d-flex align-items-center">
-                                                <img src="image/profiles/seller1.jpg" class="rounded-circle profile-on-card" alt="Seller 1" />
-                                                <span class="ml-2 card-text">Seller 1</span>
-                                            </div>
-                                            <div>
-                                                <p class="card-text view-details-btn">300000mmk</p>
-                                            </div>
-                                        </div>
-                                        <div class="mt-3">
-                                            <i class="far fa-heart mr-2"></i>
-                                            <span class="reaction-count">5</span>
-                                            <i class="far fa-plus-square ml-3"></i>
-                                            <span class="save-count">8</span>
-                                            <i class="far fa-eye ml-3"></i>
-                                            <span class="view-count">30</span>
-                                        </div>
-                                    </div>
-                                </div>
+                                
                             </div>
                             <div class="swiper-slide">
                                 <div class="card shadow">

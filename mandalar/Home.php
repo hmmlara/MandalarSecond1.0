@@ -21,13 +21,14 @@ $categorys = $category_model->getCategory();
 if (isset($_SESSION['user_id'])) {
     $user_id = $_SESSION['user_id'];
     echo $user_id;
-}
-// $user_id=6;
 $user= $user_controller->UserInfo($user_id);
 $user_nrc=true;
 if ($user[0]['nrc']==null){
     $user_nrc=false;
 }
+}
+// $user_id=6;
+
 ?>
     <style>
         /* Custom select box style for MDB */
