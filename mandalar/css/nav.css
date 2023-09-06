@@ -1,50 +1,67 @@
+/* Hide the scrollbar in webkit-based browsers */
+::-webkit-scrollbar {
+  width: 0.1em; /* Width of the scrollbar */
+}
+
+::-webkit-scrollbar-track {
+  background: transparent; /* Track background color */
+}
+
+::-webkit-scrollbar-thumb {
+  background: transparent; /* Scrollbar thumb color */
+}
+
 .navbar {
-    height: 60px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+a{
+    
 }
 
 .navbar-brand,
 .nav-link {
-    color: #fff;
-    font-weight: bold;
-    font-size: 18px;
+  color: #fff;
+  font-weight: bold;
+  font-size: 18px;
 }
 
 .navbar-brand:hover,
 .nav-link:hover {
-    color: #fff;
+  color: #fff;
 }
 
 .navbar-logo {
-    font-size: 24px;
-    font-weight: bold;
-    letter-spacing: 2px;
+  font-size: 24px;
+  font-weight: bold;
+  letter-spacing: 2px;
 }
 
 .navbar-logo span:first-child {
-    font-size: 36px;
-    font-weight: 900;
+  font-size: 36px;
+  font-weight: 900;
 }
 
 .navbar-logo span:not(:first-child) {
-    font-weight: 700;
+  font-weight: 700;
 }
 
 .profile-avatar {
-    width: 50px;
+  width: 50px;
 }
 
 .nav-container {
-    padding: 20px;
+  padding: 20px;
 }
-.login:hover{
-    background-color: white;
+.login:hover {
+  background-color: white;
 }
-.login:hover .login-text{
-    color:#4e9c81;
-    /* color: black; */
+.login:hover .login-text {
+  color: #4e9c81;
+  /* color: black; */
 }
 
 /* .login-text:hover{

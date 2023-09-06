@@ -20,7 +20,18 @@ if(isset($_POST['flitteringData'])){
             $value += array('product_image'=>$images[0]);
 
         }
+        $count_favorite = $Post_Modal->getPostFavorite($value['id']);
+        if(isset($count_favorite)){
+            $value += array("product_fav" => $count_favorite['count_favorite']);
+        };
+
+        $viewCount = $Post_Modal->selectViewCount($value['id']);
+        if(isset($viewCount)){
+            $value += array("view_count" => $viewCount["view_count"]);
+        };
+
         $FliteringResultWithImage[] = $value;
+
 
     }
  

@@ -39,7 +39,7 @@ class Notification
                 $statement->bindParam(":userId",$user);
                 $statement->bindParam(":notiId",$notiInt );
                 if($statement->execute()){
-                    echo("Success");
+                    echo("Noti  ");
                 }
 
             }

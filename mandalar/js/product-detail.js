@@ -164,22 +164,12 @@ $(document).ready(function() {
 
     var relatedProductsSwiper = new Swiper(".related-products-slider", {
         slidesPerView: 3,
-        spaceBetween: 20,
+        spaceBetween: 5,
         navigation: {
             nextEl: ".swiper-button-next",
             prevEl: ".swiper-button-prev",
         },
-        breakpoints: {
-            375: {
-                slidesPerView: 1,
-            },
-            768: {
-                slidesPerView: 2,
-            },
-            992: {
-                slidesPerView: 3,
-            },
-        },
+
         effect: "coverflow",
         coverflowEffect: {
             rotate: 10,

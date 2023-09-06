@@ -14,7 +14,7 @@ $getAllUser = $getalluserlist->getUserList();
 $updateUserDetails = new UserController();
 if (isset($_SESSION['user_id'])) {
     $user_id = $_SESSION['user_id'];
-    echo $user_id;
+    // echo $user_id;
 }
 // $user_id=6;
 ?>

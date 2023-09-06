@@ -1,4 +1,14 @@
 $(document).ready(function(){
+  // console.log("lee")
+  // $(".money").on("click",function(){
+  //   console.log("Click click")
+  //   confirm("IT")
+  // })
+  
+  // $("#hello").on("click",function(){
+  //   console.log("Click click sdsd")
+  //   confirm("ITsds")
+  // })
   if($(".edituserimg").attr("src")!=="image/user-profile/mylove.jpg")
     {
       
@@ -11,7 +21,6 @@ $(document).ready(function(){
     })
    
     
-
     $("input[name='image']").change(function () {
         var file = this.files[0];
         var reader = new FileReader();
