@@ -29,9 +29,7 @@ class Notification
             $notiId = $statement->fetch(PDO::FETCH_ASSOC);
 
             if (isset($notiId)) {
-                var_dump($notiId);
                 $notiInt = intval($notiId['id']);
-                var_dump($notiInt);
 
                 $sql = "INSERT INTO `noti_pivi`(`user_id`, `noti_id`) VALUES (:userId,:notiId)";
 
@@ -39,7 +37,6 @@ class Notification
                 $statement->bindParam(":userId",$user);
                 $statement->bindParam(":notiId",$notiInt );
                 if($statement->execute()){
-                    echo("Noti  ");
                 }
 
             }

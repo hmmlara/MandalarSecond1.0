@@ -1,13 +1,37 @@
-const RelatedProductContainer = document.querySelector("#Related-Wrapper");
 
+
+const RelatedProductContainer = document.querySelector("#Related-Wrapper");
 const subCategoryDiv = document.querySelector("#subCategory");
 const productStatusDiv = document.querySelector(".product-status");
 const priceDiv = document.querySelector("#price");
+const userIdDiv = document.querySelector("#commenter_id");
 
 let subCategory = subCategoryDiv.dataset.category;
 let productStatus = productStatusDiv.dataset.status;
+let UserId = userIdDiv.dataset.userId;
+console.log("user_id ",UserId)
 let maxPrice = parseInt(priceDiv.dataset.price);
 console.log("sub-category : ", maxPrice);
+
+function addViewCount(PostId){
+  let post_id= PostId;
+  let user_id;
+  if(UserId == "nan"){
+     user_id= 0;
+
+  }else{
+    user_id = UserId;
+  }
+  $.ajax({
+      url: 'php/view_count.php',
+      type: 'GET',
+      data: { post_id: post_id, user_id: user_id },
+      success: function(data) {
+          window.location.href = 'productDetail.php?id=' + post_id;
+      },
+  });
+
+}
 
 const fliteringData = {
   category: null,
@@ -38,13 +62,53 @@ function getRelatedProduct(obj) {
         dataList.forEach((val, index) => {
           RelatedProductContainer.innerHTML += `
           <div class="swiper-slide">
-          <div class="card" style="width: 18rem;">
-          <img src="image/${val.product_image}" style="height:300px;object-fit:cover" class="card-img-top" alt="Sunset Over the Sea"/>
+          <a href="productDetail.php?id=${val.id}" onclick = "addViewCount(${val.id})" >
+          <div class="card shadow">
+          <img src="image/${val.product_image}"  class="card-img-top product-image" alt="${val.product_image}" />
           <div class="card-body">
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+              <div class=" product-card-title">
+                <h5>
+                ${val.item}             
+                </h5>
+                <h5>
+                ${val.price}
+
+                </h5>
+              </div>
+              <div class="d-flex justify-content-between align-items-center">
+                  <div class="d-flex align-items-center">
+                      <img src="image/user-profile/${val.img}" class="rounded-circle profile-on-card" alt="${val.fname + val.lname}" />
+                      <span class="ml-2 card-text">${val.fname + val.lname}</span>
+                  </div>
+                 
+              </div>
+              <div class="mt-3">
+              <div class=" product-info-box">
+              <div>
+                  <i class="far fa-heart mr-2"></i>
+                  <span class="reaction-count">${val.Post_Reaction}</span>
+              </div>
+              <div>
+                  <i class="far fa-plus-square ml-3">
+                  </i>
+                  <span class="save-count">
+                  ${val.product_fav}
+                  </span>
+              </div>
+            
+              <div>
+                  <i class="far fa-eye ml-3"></i>
+                  <span class="view-count">
+                    ${val.view_count}
+                  </span>
+              </div>
           </div>
-        </div>
+              </div>
           </div>
+      </div>
+          </a>
+          
+      </div>
            
                         `;
         });

@@ -14,7 +14,7 @@ $(document).ready(function(){
     })
 })
 
-function addViewCount(userId,PostId){
+ function addViewCount(userId,PostId){
     let post_id= PostId
     let user_id= userId
     $.ajax({
@@ -27,3 +27,5 @@ function addViewCount(userId,PostId){
     });
 
 }
+
+
