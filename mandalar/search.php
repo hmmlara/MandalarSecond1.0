@@ -1,19 +1,22 @@
 <?php
-
+include_once "nav.php";
 include_once "controller/searchController.php";
 include_once "controller/postController.php";
+include_once "model/post.php";
 
 $searchAlluser = new SearchController();
 $post_controller = new PostController();
-
+$post_model = new Post();
 if (isset($_GET['searchinput'])) {
 
     $searchinput = $_GET['searchinput'];
     // echo $searchinput;
     $searchUsers = $searchAlluser->searchAllUser($searchinput);
     $post_list = $post_controller->searchPosts($searchinput);
-    // var_dump($post_list);
-    $post_model = new Post();
+    $search_brands = $post_controller->searchBrand($searchinput);
+
+    var_dump($search_brands);
+
 }
 
 if (isset($_POST["search"])) {
@@ -22,7 +25,7 @@ if (isset($_POST["search"])) {
     }
 }
 
-include_once "nav.php";
+
 ?>
 <style>
     /* Custom select box style for MDB */
@@ -196,8 +199,8 @@ include_once "nav.php";
     <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mdbootstrap/css/mdb.min.css" /> -->
     <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mdbootstrap/css/mdb.min.css" /> -->
     <!-- <link rel="stylesheet"
-		href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css" />
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/css/mdb.min.css" /> -->
+        href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/css/mdb.min.css" /> -->
     <link rel="stylesheet" href="css/nav.css" />
     <!-- <link rel="stylesheet" href="css/profile.css"> -->
     <!-- <link rel="stylesheet" href="css/style2.css" /> -->
@@ -239,21 +242,24 @@ include_once "nav.php";
                             <div class="row">
                                 <?php
                                 foreach ($searchUsers as $key => $user) {
-                                ?>
+                                    ?>
                                     <a href="searchprofile.php?id=<?php echo $user['user_id'] ?>">
                                         <div class="col-md-12 rounded d-flex p-2 border pointer text-dark">
                                             <div class="col-md-1">
-                                                <img src="../mandalar/image/user-profile/<?php echo $user["img"] ?>" class="usersearchimg" alt="">
+                                                <img src="../mandalar/image/user-profile/<?php echo $user["img"] ?>"
+                                                    class="usersearchimg" alt="">
                                             </div>
                                             <div class="col-md-8">
-                                                <h5><?php echo $user["fname"] . " " . $user['lname']  ?></h5>
+                                                <h5>
+                                                    <?php echo $user["fname"] . " " . $user['lname'] ?>
+                                                </h5>
                                             </div>
                                             <div class="col-md-3 d-flex align-items-center justify-content-end">
                                                 <i class="fa-solid fa-arrow-right fa-2xl"></i>
                                             </div>
                                         </div>
                                     </a>
-                                <?php
+                                    <?php
                                 }
                                 ?>
 
@@ -267,15 +273,18 @@ include_once "nav.php";
                                     <?php foreach ($post_list as $post) {
                                         // var_dump($post);
                                         # code...
-                                    ?>
+                                        ?>
 
-                                        <a href="#" data-user-id="<?php echo $user_id ?>" data-post-id="<?php echo $post['id'] ?>" class="view_btn col-md-4 col-sm-6  col-lg-3 mb-4 " onclick="AddCount(event)">
+                                        <a href="#" data-user-id="<?php echo $user_id ?>"
+                                            data-post-id="<?php echo $post['id'] ?>"
+                                            class="view_btn col-md-4 col-sm-6  col-lg-3 mb-4 " onclick="AddCount(event)">
                                             <div class="card product-card-by-nay">
                                                 <?php
                                                 $images = glob('image/post_img/' . $post['photo_folder'] . '/*.{jpg,png,gif,jpeg,jiff}', GLOB_BRACE);
                                                 // var_dump($images[0]);
                                                 ?>
-                                                <img src="<?php echo $images[0] ?>" class="card-img-top product-image" alt="Product 1" />
+                                                <img src="<?php echo $images[0] ?>" class="card-img-top product-image"
+                                                    alt="Product 1" />
                                                 <div class="card-body">
                                                     <div class=" product-card-title">
                                                         <h5>
@@ -283,12 +292,13 @@ include_once "nav.php";
 
                                                         </h5>
                                                         <h5>
-                                                            <?php echo $post['price']  ?>
+                                                            <?php echo $post['price'] ?>
                                                         </h5>
                                                     </div>
                                                     <div class="d-flex justify-content-between align-items-center">
                                                         <div class="d-flex align-items-center">
-                                                            <img src="image/user-profile/<?php echo $post['user_img'] ?>" class="rounded-circle profile-on-card" alt="Seller 1" />
+                                                            <img src="image/user-profile/<?php echo $post['user_img'] ?>"
+                                                                class="rounded-circle profile-on-card" alt="Seller 1" />
                                                             <span class="ml-2 card-text">
                                                                 <?php echo $post['full_name'] ?>
                                                             </span>
@@ -301,16 +311,22 @@ include_once "nav.php";
                                                     <div class=" product-info-box">
                                                         <div>
                                                             <i class="far fa-heart mr-2"></i>
-                                                            <span class="reaction-count"><?php echo $count_react['count_react'] ?></span>
+                                                            <span class="reaction-count">
+                                                                <?php echo $count_react['count_react'] ?>
+                                                            </span>
                                                         </div>
                                                         <div>
                                                             <i class="far fa-plus-square ml-3"></i>
-                                                            <span class="save-count"><?php echo $count_favorite['count_favorite'] ?></span>
+                                                            <span class="save-count">
+                                                                <?php echo $count_favorite['count_favorite'] ?>
+                                                            </span>
                                                         </div>
-                                                        <?php $viewCount =  $post_model->selectViewCount($post['id']) ?>
+                                                        <?php $viewCount = $post_model->selectViewCount($post['id']) ?>
                                                         <div>
                                                             <i class="far fa-eye ml-3"></i>
-                                                            <span class="view-count"><?php echo $viewCount['view_count'] ?></span>
+                                                            <span class="view-count">
+                                                                <?php echo $viewCount['view_count'] ?>
+                                                            </span>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -322,8 +338,79 @@ include_once "nav.php";
                             </section>
                         </div>
                     </div>
+                    <!-- brand -->
                     <div class="swiper-slide">
-                        <div class="tab-content">Content for Tab 3</div>
+                        <div class="tab-content">
+                        <section id="products" class="">
+
+<div class="row ">
+    <?php foreach ($post_list as $post) {
+        // var_dump($post);
+        # code...
+        ?>
+
+        <a href="#" data-user-id="<?php echo $user_id ?>"
+            data-post-id="<?php echo $post['id'] ?>"
+            class="view_btn col-md-4 col-sm-6  col-lg-3 mb-4 " onclick="AddCount(event)">
+            <div class="card product-card-by-nay">
+                <?php
+                $images = glob('image/post_img/' . $post['photo_folder'] . '/*.{jpg,png,gif,jpeg,jiff}', GLOB_BRACE);
+                // var_dump($images[0]);
+                ?>
+                <img src="<?php echo $images[0] ?>" class="card-img-top product-image"
+                    alt="Product 1" />
+                <div class="card-body">
+                    <div class=" product-card-title">
+                        <h5>
+                            <?php echo $post['item'] ?>
+
+                        </h5>
+                        <h5>
+                            <?php echo $post['price'] ?>
+                        </h5>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="d-flex align-items-center">
+                            <img src="image/user-profile/<?php echo $post['user_img'] ?>"
+                                class="rounded-circle profile-on-card" alt="Seller 1" />
+                            <span class="ml-2 card-text">
+                                <?php echo $post['full_name'] ?>
+                            </span>
+                        </div>
+                    </div>
+                    <?php
+                    $count_react = $post_model->getPostReaction($post['id']);
+                    $count_favorite = $post_model->getPostFavorite($post['id']);
+                    ?>
+                    <div class=" product-info-box">
+                        <div>
+                            <i class="far fa-heart mr-2"></i>
+                            <span class="reaction-count">
+                                <?php echo $count_react['count_react'] ?>
+                            </span>
+                        </div>
+                        <div>
+                            <i class="far fa-plus-square ml-3"></i>
+                            <span class="save-count">
+                                <?php echo $count_favorite['count_favorite'] ?>
+                            </span>
+                        </div>
+                        <?php $viewCount = $post_model->selectViewCount($post['id']) ?>
+                        <div>
+                            <i class="far fa-eye ml-3"></i>
+                            <span class="view-count">
+                                <?php echo $viewCount['view_count'] ?>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </a>
+
+    <?php } ?>
+</div>
+</section>
+                        </div>
                     </div>
                     <!-- Add more swiper slides and tab content as needed -->
                 </div>

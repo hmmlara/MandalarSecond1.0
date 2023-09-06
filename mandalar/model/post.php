@@ -490,7 +490,28 @@ class Post
         return $result;
     }
 
-    public function postDec($searchinput)
+    // public function postDec($searchinput)
+    // {
+    //     //1.DataBase Connect
+    //     $this->connection=Database::connect();
+    //     $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+    //     //2.sql Statement
+    //     // $searchValue = str_replace(' ', '', $searchValue);
+    //     $sql = "SELECT * FROM post WHERE status!='sold_out' and REPLACE(description, ' ', '') LIKE :description";
+    //     $statement = $this->connection->prepare($sql);
+        
+    //     $searchValueWithoutSpaces = str_replace(' ', '', $searchinput);
+    //     $param = '%' . $searchValueWithoutSpaces . '%';
+    //     $statement->bindParam(":description", $param);
+
+    //     //3.execute
+    //     $statement->execute();
+    //     $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+    //     return $result;
+    // }
+
+    public function search_Brand_Post($searchinput)
     {
         //1.DataBase Connect
         $this->connection=Database::connect();
@@ -498,12 +519,12 @@ class Post
 
         //2.sql Statement
         // $searchValue = str_replace(' ', '', $searchValue);
-        $sql = "SELECT * FROM post WHERE status!='sold_out' and REPLACE(description, ' ', '') LIKE :description";
+        $sql = "SELECT post.*,users.full_name,users.img as user_img FROM post join users WHERE REPLACE(post.brand, ' ', '') LIKE :brand";
         $statement = $this->connection->prepare($sql);
         
         $searchValueWithoutSpaces = str_replace(' ', '', $searchinput);
         $param = '%' . $searchValueWithoutSpaces . '%';
-        $statement->bindParam(":description", $param);
+        $statement->bindParam(":brand", $param);
 
         //3.execute
         $statement->execute();

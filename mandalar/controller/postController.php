@@ -98,5 +98,10 @@ class PostController extends Post{
     {
         return $this->postDec($searchinput);
     }
+
+    public function searchBrand($searchinput)
+    {
+        return $this->search_Brand_Post($searchinput);
+    }
 }
 ?>
