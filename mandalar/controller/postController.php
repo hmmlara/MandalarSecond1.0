@@ -51,12 +51,12 @@ class PostController extends Post{
         return $this->deli_command_by_admin($stats,$check);
     }
     // take post
-    public function take_post(){
-        return $this->takePost();
+    public function take_post($deli_id){
+        return $this->takePost($deli_id);
     }
     // send post
-    public function send_post(){
-        return $this->sendPost();
+    public function send_post($deli_id){
+        return $this->sendPost($deli_id);
     }
     // get deli post
     public function get_deli_post($post_id){

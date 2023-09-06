@@ -19,6 +19,9 @@ class DeliveryController extends Delivery{
     public function get_deli($deli_id){
         return $this->get_deli_by_id($deli_id);
     }
+    public function getDeliveryId($phone){
+        return $this->takeDeliveryId($phone);
+    }
     // public function getUserInfo($email)
     // {
     //     return $this->getUserId($email);

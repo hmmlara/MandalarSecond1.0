@@ -1,8 +1,10 @@
 <?php 
+session_start();
 include_once "header.php"; 
 include_once "../controller/deliveryController.php";
 $deli_controller=new DeliveryController();
-$deli_id=1;
+$deli_id=$_SESSION['deli_id'];
+echo $deli_id;
 $deli=$deli_controller->get_deli($deli_id);
 ?>
 

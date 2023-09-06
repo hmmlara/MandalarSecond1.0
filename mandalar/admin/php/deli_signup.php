@@ -32,7 +32,7 @@ $acc_exits = false;
         // check exit or not
         foreach ($delivery_list as $key => $delivery) {
             # code...
-            if ($nrc == $delivery["nrc"]) {
+            if ($nrc == $delivery["nrc"] || $phone == $delivery['phone']) {
                 $acc_exits = true;
                 $error_status = true;
                 break;
