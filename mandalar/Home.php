@@ -4,6 +4,9 @@ include_once "./nav.php";
 include_once "./model/category.php";
 include_once "./controller/postController.php";
 include_once "./model/post.php";
+include_once "./controller/userController.php";
+$user_controller = new UserController();
+
 
 
 $post_controller = new PostController();
@@ -20,7 +23,11 @@ if (isset($_SESSION['user_id'])) {
     echo $user_id;
 }
 // $user_id=6;
-
+$user= $user_controller->UserInfo($user_id);
+$user_nrc=true;
+if ($user[0]['nrc']==null){
+    $user_nrc=false;
+}
 ?>
     <style>
         /* Custom select box style for MDB */
@@ -287,6 +294,7 @@ if (isset($_SESSION['user_id'])) {
         <!-- Modal -->
         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
+                <?php if($user_nrc==true) {?>
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
@@ -376,6 +384,22 @@ if (isset($_SESSION['user_id'])) {
                         <button type="button" class="btn btn-primary" name="submit" id="post_save">Save changes</button>
                     </div>
                 </div>
+                <?php } ?>
+                <?php if($user_nrc==false) { ?>
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Verfied your account!!!</h5>
+                            <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal_body">
+                            <h3>You need to verified your account!!!</h3>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Ok</button>
+                        </div>
+                    </div>
+                    
+                <?php } ?>
             </div>
         </div>
         <div id="output"></div>

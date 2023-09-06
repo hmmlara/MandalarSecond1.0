@@ -1,7 +1,9 @@
 <?php
+session_start();
 include_once "../../controller/postController.php";
 $post_controller=new PostController();
-$post_list=$post_controller->send_post();
+$deli_id=$_SESSION['deli_id'];
+$post_list=$post_controller->send_post($deli_id);
 // Convert the array to JSON format
 $jsonData = json_encode($post_list);
 

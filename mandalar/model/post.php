@@ -278,30 +278,37 @@ class Post
             return false;
         }
     }
-    public function takePost()
+    public function takePost($deli_id)
     {
         //1.DataBase Connect
         $this->connection = Database::connect();
         $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
         //2.sql Statement
-        $sql = 'SELECT * FROM `post` WHERE status="take_waiting" or status="go_take"';
+        $sql = 'SELECT post.*
+        FROM wave
+        LEFT JOIN post ON wave.post_id = post.id
+        WHERE wave.delivery_id = :deli_id AND (post.status = "take_waiting" OR post.status = "go_take")';
         $statement = $this->connection->prepare($sql);
-
+        $statement->bindParam(":deli_id", $deli_id);
         //3.execute
         $statement->execute();
         $result = $statement->fetchAll(PDO::FETCH_ASSOC);
         return $result;
     }
-    public function sendPost()
+    public function sendPost($deli_id)
     {
         //1.DataBase Connect
         $this->connection = Database::connect();
         $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
         //2.sql Statement
-        $sql = 'SELECT * FROM `post` WHERE status="send_waiting" or status="go_send"';
+        $sql='SELECT post.*
+        FROM wave
+        LEFT JOIN post ON wave.post_id = post.id
+        WHERE wave.delivery_id = :deli_id AND (post.status="send_waiting" or post.status="go_send")';
         $statement = $this->connection->prepare($sql);
+        $statement->bindParam(":deli_id", $deli_id);
 
         //3.execute
         $statement->execute();

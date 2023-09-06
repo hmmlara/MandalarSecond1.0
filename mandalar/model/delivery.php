@@ -12,16 +12,15 @@ class Delivery{
         //2.sql Statement
         $sql="INSERT INTO `delivery`( `name`, `nrc`, `phone`, `password`, `city_id`, `photo`, `nrc_front`, `nrc_back`) VALUES(:name, :nrc, :phone, :password, :city_id, :photo, :nrc_front, :nrc_back)";
         $statement=$this->connection->prepare($sql);
-
+        $passwordHash = md5($password);
+        $statement->bindParam(":password", $passwordHash);
         $statement->bindParam(":name",$name);
         $statement->bindParam(":nrc",$nrc);
         $statement->bindParam(":phone",$phone);
-        $statement->bindParam(":password",$password);
         $statement->bindParam(":city_id",$city);
         $statement->bindParam(":photo",$new_deli_profile_img_name);
         $statement->bindParam(":nrc_front",$new_front_nrc_image_name);
         $statement->bindParam(":nrc_back",$new_back_nrc_image_name);
-        $statement->execute();
 
         //3.execute
         if($statement->execute())
@@ -96,6 +95,22 @@ class Delivery{
         $statement=$this->connection->prepare($sql);
 
         $statement->bindParam(":deli_id",$deli_id);
+
+        //3.execute
+        $statement->execute();
+        $result=$statement->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
+    }
+    public function takeDeliveryId($phone){
+        //1.DataBase Connect
+        $this->connection=Database::connect();
+        $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+        //2.sql Statement
+        $sql="SELECT * from delivery where phone=:phone";
+        $statement=$this->connection->prepare($sql);
+
+        $statement->bindParam(":phone",$phone);
 
         //3.execute
         $statement->execute();

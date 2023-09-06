@@ -5,7 +5,7 @@ include_once "../controller/deliveryController.php";
 include_once "../controller/postController.php";
 $deli_controller=new DeliveryController();
 $post_controller=new PostController();
-$deli_id=1;
+$deli_id=33;
 $post_id=$_GET['id'];
 $deli=$deli_controller->get_deli($deli_id);
 $post=$post_controller->get_deli_post($post_id);

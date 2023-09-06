@@ -6,8 +6,6 @@ $delivery_controller=new DeliveryController();
 $status=$_POST['status'];
 $check_post=$_POST['check_post'];
 $delivery=$_POST['delivery'];
-var_dump($check_post);
-echo $delivery;
 if($status == 'waiting'){
     $stats='take_waiting';
 }elseif($status == 'take'){
@@ -17,5 +15,6 @@ foreach ($check_post as $check) {
     $post_controller->deli_command($stats,$check);
     $delivery_controller->deli_order($check,$delivery);
 }
+echo 'success';
 
 ?>
