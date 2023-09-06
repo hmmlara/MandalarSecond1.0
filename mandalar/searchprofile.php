@@ -126,10 +126,10 @@ $getuserpost = $post_controller->getUserList($userid);
             border-radius: 20px;
         }
         
-        a {
+        /* a {
             color: initial !important;
             
-        }
+        } */
     </style>
 
 <!DOCTYPE html>
@@ -386,5 +386,7 @@ $getuserpost = $post_controller->getUserList($userid);
 		});
 	</script>
     <script src="js/follow.js"></script>
+    <?php include_once "./footer.php"; ?>
+    <script src=""></script>
 </body>
 </html>
