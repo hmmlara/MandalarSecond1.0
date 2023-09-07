@@ -85,12 +85,11 @@ function getRelatedProduct(obj) {
               <div class="mt-3">
               <div class=" product-info-box">
               <div>
-                  <i class="far fa-heart mr-2"></i>
+                  <i class="fa-solid fa-thumbs-up"></i>
                   <span class="reaction-count">${val.Post_Reaction}</span>
               </div>
               <div>
-                  <i class="far fa-plus-square ml-3">
-                  </i>
+                  <i class="far fa-heart mr-2"></i>
                   <span class="save-count">
                   ${val.product_fav}
                   </span>

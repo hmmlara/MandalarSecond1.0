@@ -9,12 +9,12 @@ $(document).ready(function() {
         data: { postId: postId, userId: userId },
         success: function(data) {
             if (data == "not have") {
-                $("#product-like").removeClass("btn-secondary");
-                $("#product-like").addClass("btn-primary");
+                $("#product-like").removeClass("bg-secondary");
+                $("#product-like").addClass("bg-primary");
 
             } else if (data == "have") {
-                $("#product-like").removeClass("btn-primary");
-                $("#product-like").addClass("btn-secondary");
+                $("#product-like").removeClass("bg-primary");
+                $("#product-like").addClass("bg-secondary");
             }
         },
     });
@@ -27,12 +27,12 @@ $(document).ready(function() {
             success: function(data) {
                 console.log(data);
                 if (data == "have") {
-                    $("#product-like").removeClass("btn-secondary");
-                    $("#product-like").addClass("btn-primary");
+                    $("#product-like").removeClass("bg-secondary");
+                    $("#product-like").addClass("bg-primary");
 
                 } else if (data == "not have") {
-                    $("#product-like").removeClass("btn-primary");
-                    $("#product-like").addClass("btn-secondary");
+                    $("#product-like").removeClass("bg-primary");
+                    $("#product-like").addClass("bg-secondary");
                 }
             },
 
@@ -67,12 +67,12 @@ $(document).ready(function() {
         data: { postId: postId, userId: userId },
         success: function(data) {
             if (data == "not have") {
-                $("#product-favorite").removeClass("btn-secondary");
-                $("#product-favorite").addClass("btn-primary");
+                $("#product-favorite").removeClass("bg-secondary");
+                $("#product-favorite").addClass("bg-danger");
 
             } else if (data == "have") {
-                $("#product-favorite").removeClass("btn-primary");
-                $("#product-favorite").addClass("btn-secondary");
+                $("#product-favorite").removeClass("bg-danger");
+                $("#product-favorite").addClass("bg-secondary");
             }
         },
     });
@@ -86,12 +86,12 @@ $(document).ready(function() {
             success: function(data) {
                 console.log(data);
                 if (data == "have") {
-                    $("#product-favorite").removeClass("btn-secondary");
-                    $("#product-favorite").addClass("btn-primary");
+                    $("#product-favorite").removeClass("bg-secondary");
+                    $("#product-favorite").addClass("bg-danger");
 
                 } else if (data == "not have") {
-                    $("#product-favorite").removeClass("btn-primary");
-                    $("#product-favorite").addClass("btn-secondary");
+                    $("#product-favorite").removeClass("bg-danger");
+                    $("#product-favorite").addClass("bg-secondary");
                 }
             },
 

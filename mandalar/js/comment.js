@@ -48,6 +48,35 @@ commentBtn.addEventListener("click", (e) => {
 		},
 	});
 });
+// date function
+function timeAgo(timestamp) {
+	const currentDate = new Date();
+	const commentDate = new Date(timestamp);
+	const timeDifferenceInSeconds = Math.floor((currentDate - commentDate) / 1000);
+
+	if (timeDifferenceInSeconds < 60) {
+		return "Just now";
+	} else if (timeDifferenceInSeconds < 3600) {
+		const minutesAgo = Math.floor(timeDifferenceInSeconds / 60);
+		return minutesAgo + " min ago";
+	} else if (timeDifferenceInSeconds < 86400) {
+		const hoursAgo = Math.floor(timeDifferenceInSeconds / 3600);
+		return hoursAgo + " hours ago";
+	} else if (timeDifferenceInSeconds < 604800) {
+		const daysAgo = Math.floor(timeDifferenceInSeconds / 86400);
+		return daysAgo + " days ago";
+	} else if (timeDifferenceInSeconds < 2419200) {
+		const weeksAgo = Math.floor(timeDifferenceInSeconds / 604800);
+		return weeksAgo + " weeks ago";
+	} else {
+		const monthsAgo = Math.floor(timeDifferenceInSeconds / 2419200);
+		return monthsAgo + " months ago";
+	}
+}
+
+
+
+
 
 let commentContainer = document.querySelector(".comments");
 function loadComments() {
@@ -59,17 +88,20 @@ function loadComments() {
 			let CommentList = "";
 			let response = JSON.parse(data);
 			if (response.length !== previousResponse.length) {
+
 				response.forEach((element) => {
 					console.log(element);
+
+					let date = timeAgo(element.date);
 					CommentList += `
 							 <div class ="comment" >
 									<div class="d-flex">
 										<img src="image/user-profile/${element.img}"  class="profile-picture-comment" alt="${element.img}" style="width: 40px;height:40px;object-fit:cover" />
-										<div>
+										<div class="comment-container">
 											<div class="comment-content">
 												<div class="comment-details">
-													<span class="comment-author">${element.name}</span>
-													<span class="comment-date">Posted on ${element.date}</span>
+													<span class="comment-author">${element.name} <span class="comment-date"> - ${date}</span></span>
+													
 												</div>
 												${element.content}
 											</div>
@@ -135,13 +167,19 @@ setInterval(() => {
 function assignParentId(e) {
 	commentInput.value = "";
 	ParentCommentId = e.target.dataset.cmId;
-	let CommentUser =
-		e.target.parentElement.previousElementSibling.children[0].children[0]
-			.innerHTML;
+	let CommentUser = e.target.parentElement.previousElementSibling.children[0].children[0].innerText;
 	console.log(CommentUser);
 	console.log("ParentCommentId : ", ParentCommentId);
-	commentInput.value = CommentUser;
-	appendAlert("Repling to " + CommentUser, "light");
+	var parts = CommentUser.split(' - ');
+
+if (parts.length > 0) {
+  var extractedText = parts[0];
+  console.log(extractedText); // This will print "kaungkhant"
+}
+
+	// commentInput.value = extractedText;
+	commentInput.focus()
+	appendAlert("Repling to " + extractedText, "light");
 }
 
 function normalizeWhitespace(str) {
@@ -160,15 +198,16 @@ function seeReplies(e, parent_comment_id) {
 			let repliesContainer =e.target.parentElement.parentElement.parentElement.nextElementSibling;
 			let replyComments = "";
 			response.forEach((element) => {
+				let date = timeAgo(element.date);
 				replyComments += `
 			<div class ="comment" >
-					<div class="d-flex">
+					<div class="">
 						<img src="image/user-profile/${element.img}"  class="profile-picture-comment" alt="${element.img}" style="width: 40px;height:40px;object-fit:cover" />
-						<div>
+						<div class="comment-container">
 							<div class="comment-content">
 								<div class="comment-details">
 									<span class="comment-author">${element.name}</span>
-									<span class="comment-date">Posted on ${element.date}</span>
+									<span class="comment-date">Posted on ${date}</span>
 								</div>
 								${element.content}
 							</div>

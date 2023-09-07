@@ -117,13 +117,13 @@ $city_list = $city_controller->getCityList();
                                 </p>
                                 <div class="product-buttons">
                                     <?php if (isset($_SESSION["user_id"])) {  ?>
-                                        <button class="btn btn-secondary bg-primary text-white" id="product-like" data-post-id="<?php echo $id; ?>" data-user-id="<?php echo $user_id; ?>">
+                                        <button class="btn bg-secondary text-white" id="product-like" data-post-id="<?php echo $id; ?>" data-user-id="<?php echo $user_id; ?>">
                                             <i class="fas fa-thumbs-up"></i> <span id="post-like-count"></span>
                                         </button>
                                         <button class="btn btn-secondary bg-info  text-white comment-btn">
                                             <i class="fas fa-comment"></i> Comment
                                         </button>
-                                        <button class="btn btn-secondary bg-danger text-white" id="product-favorite" data-post-id="<?php echo $id; ?>" data-user-id="<?php echo $user_id; ?>">
+                                        <button class="btn bg-secondary text-white" id="product-favorite" data-post-id="<?php echo $id; ?>" data-user-id="<?php echo $user_id; ?>">
                                             <i class="fas fa-heart"></i> <span id="post-favorite-count"></span>
                                         </button>
                                         <?php if ($post['status'] == "none") {
@@ -145,7 +145,7 @@ $city_list = $city_controller->getCityList();
                                         <button class="btn btn-secondary bg-primary text-white" id="product-like" data-mdb-toggle="modal" data-mdb-target="#productDetailModal">
                                             <i class="fas fa-thumbs-up"></i><span></span>
                                         </button>
-                                        <button class="btn btn-secondary  bg-info  text-white" data-mdb-toggle="modal" data-mdb-target="#productDetailModal">
+                                        <button class="btn btn-secondary bg-info  text-white comment-btn">
                                             <i class="fas fa-comment"></i> Comment
                                         </button>
                                         <button class="btn btn-secondary bg-danger text-white" id="product-favorite" data-mdb-toggle="modal" data-mdb-target="#productDetailModal">
@@ -174,7 +174,7 @@ $city_list = $city_controller->getCityList();
                         </div>
                     <?php } ?>
                 </div>
-                <div class="comment-section ">
+                <div class="comment-section d-none">
                     <h3>Comments</h3>
                     <div class="comments"></div>
                     <!-- <div class="comments">

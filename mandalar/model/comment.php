@@ -31,7 +31,7 @@ class Comment
 
     function loadCommentByPostId($postId)
     {
-        $sql = 'SELECT FORMAT(date,"MM/dd/yyyy") as date, comment.content,comment.id ,comment.parent_com_id, CONCAT(users.fname,users.lname) As name,users.img , users.user_id FROM `comment` JOIN users WHERE post_id = :post_id and parent_com_id = 0 and comment.user_id = users.user_id;'  ;
+        $sql = 'SELECT comment.date, comment.content,comment.id ,comment.parent_com_id, CONCAT(users.fname,users.lname) As name,users.img , users.user_id FROM `comment` JOIN users WHERE post_id = :post_id and parent_com_id = 0 and comment.user_id = users.user_id;'  ;
         $statement = $this->connection->prepare($sql);
         $statement->bindParam(':post_id', $postId);
 

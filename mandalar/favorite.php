@@ -189,7 +189,9 @@ if (isset($_SESSION['user_id'])) {
 
 
 include_once "controller/postController.php";
+include_once "model/post.php";
 $post_controller = new PostController();
+$post_model = new Post();
 $post_list = $post_controller->favorite_post_list($user_id);
 ?>
 
@@ -208,45 +210,68 @@ $post_list = $post_controller->favorite_post_list($user_id);
         <section id="products" class="">
 
             <form id="sell-form" action="" action="#" method="POST">
-                <div class="row ">
-                    <?php foreach ($post_list as $post) {
-                        # code...
-                    ?>
+            <div class="row ">
+                <?php foreach ($post_list as $post) {
+                # code...
+                ?>
 
-                        <a href="productDetail.php?id=<?php echo $post['id'] ?>" class="col-md-4 col-sm-6  col-lg-3 mb-4 ">
-                            <div class="card product-card-by-nay">
-                                <?php
-                                $images = glob('image/post_img/' . $post['photo_folder'] . '/*.{jpg,png,gif}', GLOB_BRACE);
-                                ?>
-                                <img src="<?php echo $images[0] ?>" class="card-img-top product-image" alt="Product 1" />
-                                <div class="card-body">
-                                    <h5 class="card-title"><?php echo $post['item'] ?></h5>
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <div class="d-flex align-items-center">
-                                            <img src="image/user-profile/<?php echo $post['user_img']  ?>" class="rounded-circle profile-on-card" alt="Seller 1" />
-                                            <span class="ml-2 card-text"><?php echo $post['fname'] . " " . $post['lname'] ?></span>
-                                        </div>
+                <a href="#" data-user-id="<?php echo $user_id ?>"  data-post-id="<?php echo $post['id'] ?>" class="view_btn col-md-4 col-sm-6  col-lg-3 mb-4 " onclick="AddCount(event)">
+                    <div class="card product-card-by-nay">
+                        <?php
+                        $images = glob('image/post_img/' . $post['photo_folder'] . '/*.{jpg,png,gif,jpeg,jiff}', GLOB_BRACE);
+                        ?>
+                            <img src="<?php echo $images[0] ?>" class="card-img-top product-image" alt="Product 1" />
+                            <div class="card-body">
+                                <div class=" product-card-title">
+                                    <h5>
+                                        <?php echo $post['item'] ?>
+
+                                    </h5>
+                                    <h5>
+                                        <?php echo $post['price']  ?> Ks
+                                    </h5>
+                                </div>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="d-flex align-items-center">
+                                        <img src="image/user-profile/<?php echo $post['user_img'] ?>" class="rounded-circle profile-on-card" alt="Seller 1" />
+                                        <span class="ml-2 card-text">
+                                    <?php echo $post['fname'] . " " . $post['lname'] ?>
+                                </span>
                                     </div>
-                                    <div class="mt-3">
-                                        <i class="far fa-heart mr-2"></i>
-                                        <span class="reaction-count">5</span>
-                                        <i class="far fa-plus-square ml-3"></i>
-                                        <span class="save-count">18</span>
+                                </div>
+                                <?php 
+                                $count_react=$post_model->getPostReaction($post['id']);
+                                $count_favorite=$post_model->getPostFavorite($post['id']);
+                                 ?>
+                                <div class=" product-info-box">
+                                    <div>
+                                    <i class="fa-solid fa-thumbs-up"></i>
+                                        
+                                        <span class="reaction-count"><?php echo $count_react['count_react'] ?></span>
+                                    </div>
+                                    <div>
+                                    <i class="far fa-heart mr-2"></i>
+                                        <span class="save-count"><?php echo $count_favorite['count_favorite'] ?></span>
+                                    </div>
+                                    <?php $viewCount =  $post_model->selectViewCount($post['id']) ?>
+                                    <div>
                                         <i class="far fa-eye ml-3"></i>
-                                        <span class="view-count">50</span>
+                                        <span class="view-count"><?php echo $viewCount['view_count'] ?></span>
                                     </div>
                                 </div>
                             </div>
-                        </a>
+                    </div>
+                </a>
 
-                    <?php } ?>
-                </div>
+                <?php } ?>
+            </div>
         </section>
         </form>
         <div id="user_id" data-user_id="<?php echo $user_id; ?>"></div>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="js/seller_info.js"></script>
+    <script src="js/home.js"></script>
 </body>
 
 </html>

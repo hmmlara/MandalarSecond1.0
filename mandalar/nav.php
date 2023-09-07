@@ -197,9 +197,9 @@ if (isset($_SESSION['user_id'])) {
 
         </header>
 
-        <div class="loader-wrapper">
+        <!-- <div class="loader-wrapper">
             <div id="loader"></div>
-        </div>
+        </div> -->
 
 </body>
 <!-- Modernizr JS -->

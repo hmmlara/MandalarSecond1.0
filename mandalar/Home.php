@@ -266,11 +266,12 @@ if ($user[0]['nrc']==null){
                                  ?>
                                 <div class=" product-info-box">
                                     <div>
-                                        <i class="far fa-heart mr-2"></i>
+                                    <i class="fa-solid fa-thumbs-up"></i>
+                                        
                                         <span class="reaction-count"><?php echo $count_react['count_react'] ?></span>
                                     </div>
                                     <div>
-                                        <i class="far fa-plus-square ml-3"></i>
+                                    <i class="far fa-heart mr-2"></i>
                                         <span class="save-count"><?php echo $count_favorite['count_favorite'] ?></span>
                                     </div>
                                     <?php $viewCount =  $post_model->selectViewCount($post['id']) ?>
