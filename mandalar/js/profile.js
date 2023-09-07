@@ -59,6 +59,7 @@ $(document).ready(function(){
     });
 
     $(".fimage-container").click(function() {
+      // console.log("Hello")
       $("#selfrontimg").click();
     });
 
@@ -98,11 +99,17 @@ $(document).ready(function(){
         // if($("#form12").val()=="")
         // {
         //   $(".red").addClass("border border-danger");
-        //   e.preventDefault();
-        // }
-        $("#verify").addClass("d-none")
-        $("#wait").removeClass("d-none")
-       
+        
+        // e.preventDefault();
+        // Add or remove classes as needed
+        $("#verify").addClass("d-none");
+        $("#wait").removeClass("d-none");
+    
+        // Refresh the page
+        
+        //  location.reload();
+        //  location.reload();
+        
     })
 
     $("#canceljs").on("click",function()
