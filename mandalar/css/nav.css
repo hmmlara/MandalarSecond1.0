@@ -65,3 +65,16 @@
 /* .login-text:hover{
     color:#4e9c81;
 } */
+
+.no-noti{
+  color: rgba(89, 87, 87, 0.737);
+  position: absolute;
+  display: flex;
+  width: 100%;
+  font-weight: bold;
+  height: 100%;
+  
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}

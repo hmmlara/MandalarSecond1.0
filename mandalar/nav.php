@@ -127,7 +127,7 @@ if (isset($_SESSION['user_id'])) {
                                                     <i class="fa-regular fa-bell "></i>
                                                     <span class="aa-cart-notify" data-user-id="<?php echo $user_id ?>" style="color: #4e9c81;">0</span>
                                                     <ul class="dropdown-menu force-scroll" id="notiContainer" aria-labelledby="dropdownMenuButton ">
-
+                                                       
                                                     </ul>
                                                 </a>
                                             </div>

@@ -27,10 +27,7 @@
     if (isset($_SESSION['user_id'])) {
         $user_id = $_SESSION['user_id'];
         // echo $user_id;
-    } else {
-        header("Location:Home.php");
-    }
-
+    } 
     $post_controller = new PostController();
     $getuserpost = $post_controller->getUserList($user_id);
     $sold_out_post = $post_controller->get_sold_out_post($user_id);
@@ -60,12 +57,20 @@
     //  var_dump($getNrcUser);
     $wait = null; // Set a default value before the loop
     foreach ($getNrcUser as $key => $wait) {
+        //  echo $wait['to_id']."/////////////";
         if ($wait['to_id'] == $userid) {
             $wait = $wait["status"];
         } else {
             $wait = 2;
         }
     }
+
+     echo $wait;
+    // if($wait==2)
+    // {
+    //     echo $wait,"ssssssssss";
+    //     echo "/";
+    // }
 
     // echo $wait;
     // $wait = null; // Set a default value before the loop
@@ -191,8 +196,8 @@
 
         if ($error == false) {
             $Nrc = $enterNrcimg->enterNrc($userid, $nrcNumber, $frontfilename, $backfilename);
-            echo $nrcNumber;
-            header("Location: " . $_SERVER['PHP_SELF']);
+            // echo $nrcNumber;
+            // header("Location: " . $_SERVER['PHP_SELF']);
         }
     }
 
@@ -437,8 +442,10 @@
                             data-mdb-target="#exampleModal">
                             Launch demo modal
                         </button> -->
-
-                        <button type="button" class="btn btn-danger <?php if ($wait !== 2 || $wait == 0) {
+                        <!-- $wait !== 2 || $wait == 0 || -->
+                        <button type="button" class="btn btn-danger <?php if  ($wait==null  || $wait==2) {
+                                                                        echo ' ';
+                                                                    }else{
                                                                         echo 'd-none';
                                                                     } ?>" id="verify" data-mdb-toggle="modal" data-mdb-target="#vmodal">Verify Your Account</button>
 
@@ -459,19 +466,18 @@
                                             </div>
                                             <div class="row">
                                                 <div class="col-md-12">
-                                                    <label for="" class="mb-2 px-5">Enter Your</label>
-                                                    <div class="fimage-container  px-4">
-
-                                                        <img src="" class="border border-1 rounded-3" width="100%" height="200px">
+                                                    <label for="" class="mb-2 ">Enter Your Front NRC</label>
+                                                    <div class="fimage-container border border-1 rounded-3  " style="height: 300px;">
+                                                        <img src="" class=""  style="width: 100%; height:100%;object-fit:cover;">
                                                     </div>
                                                     <input type="file" name="fimg" class="d-none" id="selfrontimg" required>
                                                     <i class="fa-solid fa-plus plus-signfront" id="fplus"></i>
 
                                                 </div>
                                                 <div class="col-md-12 mt-3">
-                                                    <label for="" class="mb-2 px-5">Enter Your</label>
-                                                    <div class="bimage-container px-4">
-                                                        <img src="" class="border border-1 rounded-3" width="100%" height="200px">
+                                                    <label for="" class="mb-2 ">Enter Your Back NRC</label>
+                                                    <div class="bimage-container border border-1 rounded-3  " style="height: 300px;">
+                                                        <img src="" class="" style="width: 100%; height:100%;object-fit:cover;" >
                                                     </div>
                                                     <input type="file" class="d-none" name="bimg" id="selbackimg" required>
                                                     <i class="fa-solid fa-plus plus-signback" id="bplus"></i>
@@ -492,7 +498,7 @@
                             </div>
                         </form>
 
-                        <button class="btn btn-success <?php if ($wait == 0) {
+                        <button class="btn btn-success <?php if ($wait == 0 && $wait!==null) {
                                                             echo  '';
                                                         } else {
                                                             echo "d-none";

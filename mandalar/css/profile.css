@@ -106,7 +106,7 @@
 
 .plus-signfront {
     position: absolute;
-    top: 35%;
+    top: 32%;
     left: 50%;
     transform: translate(-50%, -50%);
     font-size: 32px;
@@ -114,14 +114,14 @@
     /* color: #000; */
 }
 
-#plus-signback {
+.plus-signback {
     position: absolute;
     top: 78%;
     right: 45%;
     transform: translate(-50%, -50%);
     font-size: 32px;
-    /* font-weight: bold;
-    color: #000; */
+     font-weight: bold;
+    
 }
 
 .fimage-container img{
