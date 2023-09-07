@@ -19,7 +19,7 @@ function PostFliteringData(obj) {
     );
 
     FlitteringReq.onload = () => {
-        if (xhr1.status === 200) {
+        if (FlitteringReq.status === 200) {
             try {
                 console.log(FlitteringReq.response);
                 let dataList = JSON.parse(FlitteringReq.response);
@@ -97,9 +97,9 @@ radioButtons.forEach(function(radio) {
         let postsubcategory = document.getElementById("post_subcategory");
 
         // Clear existing options in the select element
-        while (postsubcategory.firstChild) {
-            postsubcategory.removeChild(postsubcategory.firstChild);
-        }
+        // while (postsubcategory.firstChild) {
+        //     postsubcategory.removeChild(postsubcategory.firstChild);
+        // }
 
         xhr1.open("POST", "php/sub_category.php", true);
         xhr1.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
