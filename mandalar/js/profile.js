@@ -95,22 +95,13 @@ $(document).ready(function(){
     });
     
 
-    $("#NRCbtn").on("click",function(e){
-        // if($("#form12").val()=="")
-        // {
-        //   $(".red").addClass("border border-danger");
-        
-        // e.preventDefault();
-        // Add or remove classes as needed
-        $("#verify").addClass("d-none");
-        $("#wait").removeClass("d-none");
     
-        // Refresh the page
-        
-        //  location.reload();
-        //  location.reload();
-        
-    })
+// if($("#NRCbtn").on('click',function(e){
+//   e.preventDefault();
+// }))
+    // if($("#NRCbtn").on("click",function(e)))){
+       
+    // }
 
     $("#canceljs").on("click",function()
     {
@@ -165,4 +156,52 @@ $(document).ready(function(){
   // $("#money_modal").on("hidden.bs.modal", function() {
   //   alert("Successfully Sand");
   // });
+
+
+  $("#NRCbtn").on("click",function(e){
+  //   let form = document.getElementById('NRC_form');
+  //   console.log(form);
+  // let xhr = new XMLHttpRequest();
+  // xhr.open("POST", "nrc.php", true);
+  // xhr.onload = () => {
+  //   if (xhr.readyState === XMLHttpRequest.DONE) {
+  //     if (xhr.status === 200) {
+  //       let data = xhr.response;
+  //       console.log(data)
+  //       if(data === "success"){
+          
+  //         alert("Posted Successfully");
+  //         // location.reload();
+
+  //       }else{
+  //         alert(data);
+  //       }
+  //     }
+  //   }
+  // };
+  // let formData = new FormData(form);
+  // xhr.send(formData);
+      // if($("#form12").val()=="")
+      // {
+      //   $(".red").addClass("border border-danger");
+      
+      // e.preventDefault();
+      // Add or remove classes as needed
+      $('#vmodal').modal('hide');
+      $("#verify").addClass("d-none");
+      $("#wait").removeClass("d-none");
+      // $("#refresh").val("5");
+  // alert("Hello");
+
+
+      setTimeout(function () {
+        location.reload();
+      }, 5000); 
+      // Refresh the page
+      
+      //  location.reload();
+        // location.refresh();
+        // location.href = location.href;
+      
+  })
 })

@@ -27,7 +27,7 @@
     if (isset($_SESSION['user_id'])) {
         $user_id = $_SESSION['user_id'];
         // echo $user_id;
-    } 
+    }
     $post_controller = new PostController();
     $getuserpost = $post_controller->getUserList($user_id);
     $sold_out_post = $post_controller->get_sold_out_post($user_id);
@@ -65,7 +65,7 @@
         }
     }
 
-     echo $wait;
+    echo $wait;
     // if($wait==2)
     // {
     //     echo $wait,"ssssssssss";
@@ -195,9 +195,22 @@
         }
 
         if ($error == false) {
+
             $Nrc = $enterNrcimg->enterNrc($userid, $nrcNumber, $frontfilename, $backfilename);
+            
             // echo $nrcNumber;
+            //  header("Location: " . $_SERVER['PHP_SELF']);
+            //  exit();
+            // echo '<script>window.location.reload();</script>';
             // header("Location: " . $_SERVER['PHP_SELF']);
+            // Check if a refresh has already been triggered
+            echo '<script>';
+            echo 'if (!localStorage.refreshed) {';
+            echo '  window.location.reload();';
+            echo '  window.location.reload();';
+            echo '  localStorage.refreshed = "true";'; // Set a flag to indicate that the page has been refreshed
+            echo '}';
+            echo '</script>';
         }
     }
 
@@ -276,27 +289,28 @@
             color: black
         }
 
-        .soldOut{
+        .soldOut {
             position: absolute;
             width: 100%;
             height: 100%;
             z-index: 9999999;
-            
+
             color: red;
         }
-        .soldOut h2{
-        width: 260px;
-        text-align: center;
-        margin-top: 75px;
-        margin-left: 20px;
-        padding: 4px;
-        border: 2px dashed red ;
-        background-color: #21252979;
-        transform:rotate(-35deg);
-        font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+
+        .soldOut h2 {
+            width: 260px;
+            text-align: center;
+            margin-top: 75px;
+            margin-left: 20px;
+            padding: 4px;
+            border: 2px dashed red;
+            background-color: #21252979;
+            transform: rotate(-35deg);
+            font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
         }
 
-        
+
 
 
         /* Hide the scrollbar in webkit-based browsers */
@@ -327,6 +341,7 @@
     </style>
 
     <body>
+        <input type="text" value="" name="refresh" id="refresh" >
         <div class="container">
             <div class="row ">
                 <div class="col-md-12 " style="height: 200px; border-top-left-radius:1em; border-top-right-radius:1em; background-color:#627E8B">
@@ -443,15 +458,15 @@
                             Launch demo modal
                         </button> -->
                         <!-- $wait !== 2 || $wait == 0 || -->
-                        <button type="button" class="btn btn-danger <?php if  ($wait==null  || $wait==2) {
+                        <button type="button" class="btn btn-danger <?php if ($wait == null  || $wait == 2) {
                                                                         echo ' ';
-                                                                    }else{
+                                                                    } else {
                                                                         echo 'd-none';
                                                                     } ?>" id="verify" data-mdb-toggle="modal" data-mdb-target="#vmodal">Verify Your Account</button>
 
 
                         <!-- Modal -->
-                        <form action="" method="post" enctype="multipart/form-data">
+                        <form action="" id="NRC_form" method="post" enctype="multipart/form-data">
                             <div class="modal fade" id="vmodal" tabindex="-1" data-mdb-backdrop="static" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
@@ -468,18 +483,18 @@
                                                 <div class="col-md-12">
                                                     <label for="" class="mb-2 ">Enter Your Front NRC</label>
                                                     <div class="fimage-container border border-1 rounded-3  " style="height: 300px;">
-                                                        <img src="" class=""  style="width: 100%; height:100%;object-fit:cover;">
+                                                        <img src="" class="" style="width: 100%; height:100%;object-fit:cover;">
                                                     </div>
-                                                    <input type="file" name="fimg" class="d-none" id="selfrontimg" required>
+                                                    <input type="file" name="fimg" class="" id="selfrontimg" required>
                                                     <i class="fa-solid fa-plus plus-signfront" id="fplus"></i>
 
                                                 </div>
                                                 <div class="col-md-12 mt-3">
                                                     <label for="" class="mb-2 ">Enter Your Back NRC</label>
                                                     <div class="bimage-container border border-1 rounded-3  " style="height: 300px;">
-                                                        <img src="" class="" style="width: 100%; height:100%;object-fit:cover;" >
+                                                        <img src="" class="" style="width: 100%; height:100%;object-fit:cover;">
                                                     </div>
-                                                    <input type="file" class="d-none" name="bimg" id="selbackimg" required>
+                                                    <input type="file" class="" name="bimg" id="selbackimg" required>
                                                     <i class="fa-solid fa-plus plus-signback" id="bplus"></i>
                                                 </div>
                                                 <p class="text-danger"><?php if (!empty($error)) {
@@ -498,7 +513,7 @@
                             </div>
                         </form>
 
-                        <button class="btn btn-success <?php if ($wait == 0 && $wait!==null) {
+                        <button class="btn btn-success <?php if ($wait == 0 && $wait !== null) {
                                                             echo  '';
                                                         } else {
                                                             echo "d-none";
@@ -663,10 +678,10 @@
                                         ?>
 
                                             <a href="#" data-user-id="<?php echo $user_id ?>" data-post-id="<?php echo $post['id'] ?>" class="view_btn col-md-4 col-sm-6  col-lg-3 mb-4 " onclick="AddCount(event)">
-                                            <div class="soldOut">
+                                                <div class="soldOut">
                                                     <h2>Sold Out</h2>
-                                            </div>
-                                            <div class="card product-card-by-nay">
+                                                </div>
+                                                <div class="card product-card-by-nay">
                                                     <?php
                                                     $images = glob('image/post_img/' . $post['photo_folder'] . '/*.{jpg,png,gif,jpeg,jiff}', GLOB_BRACE);
                                                     ?>
