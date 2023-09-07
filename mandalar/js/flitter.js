@@ -8,23 +8,8 @@ const fliteringData = {
 const productContainer = document.querySelector("#products .row");
 let loadCount = 0;
 
-//Post Flittering Data
-function PostFliteringData(obj) {
-	let FlitteringReq = new XMLHttpRequest();
-
-	FlitteringReq.open("POST", "php/flitter.php", true);
-	FlitteringReq.setRequestHeader(
-		"Content-Type",
-		"application/x-www-form-urlencoded"
-	);
-
-	FlitteringReq.onload = () => {
-		if (FlitteringReq.status === 200) {
-			try {
-				console.log(FlitteringReq.response);
-				let dataList = JSON.parse(FlitteringReq.response);
-				console.log(dataList);
-				productContainer.innerHTML = "";
+function ViewProduct(dataList){
+    productContainer.innerHTML = "";
 				dataList.forEach((val, index) => {
 					console.log(val);
 					productContainer.innerHTML += `
@@ -87,6 +72,25 @@ function PostFliteringData(obj) {
                      
                         `;
 				});
+}
+
+//Post Flittering Data
+function PostFliteringData(obj) {
+	let FlitteringReq = new XMLHttpRequest();
+
+	FlitteringReq.open("POST", "php/flitter.php", true);
+	FlitteringReq.setRequestHeader(
+		"Content-Type",
+		"application/x-www-form-urlencoded"
+	);
+
+	FlitteringReq.onload = () => {
+		if (FlitteringReq.status === 200) {
+			try {
+				console.log(FlitteringReq.response);
+				let dataList = JSON.parse(FlitteringReq.response);
+				console.log(dataList);
+				ViewProduct(dataList);
 
 				dataList.forEach((data) => {});
 			} catch (error) {
@@ -110,62 +114,78 @@ const radioButtons = document.querySelectorAll(".category");
 radioButtons.forEach(function (radio) {
 	radio.addEventListener("change", function () {
 		const selectedValue = this.value;
-        if(selectedValue == "All"){
-            console.log("ALL");
-            location.reload()
-            disableSubCategory()
-        }
-		fliteringData.category = selectedValue;
-		let xhr1 = new XMLHttpRequest();
-		let postsubcategory = document.getElementById("post_subcategory");
+		if (selectedValue == "All") {
+			console.log("ALL");
+            // location.reload(true);
+            $.ajax({
+                url:"php/getAllPost.php",
+                type:"post",
+                data:{All:"All"},
+                success:function(data){
+                    console.log(data)
+                   let datalist = JSON.parse(data);
+                    ViewProduct(datalist)
+                }
+            })
+			document.querySelector("#sub-catgory-fliter");
+			disableSubCategory();
+		} else {
+			enableSubCategory();
+			fliteringData.category = selectedValue;
+			let xhr1 = new XMLHttpRequest();
+			let postsubcategory = document.getElementById("post_subcategory");
 
-		// Clear existing options in the select element
-		// while (postsubcategory.firstChild) {
-		//     postsubcategory.removeChild(postsubcategory.firstChild);
-		// }
+			// Clear existing options in the select element
+			// while (postsubcategory.firstChild) {
+			//     postsubcategory.removeChild(postsubcategory.firstChild);
+			// }
 
-		xhr1.open("POST", "php/sub_category.php", true);
-		xhr1.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+			xhr1.open("POST", "php/sub_category.php", true);
+			xhr1.setRequestHeader(
+				"Content-Type",
+				"application/x-www-form-urlencoded"
+			);
 
-		xhr1.onload = () => {
-			if (xhr1.status === 200) {
-				try {
-					let data1 = JSON.parse(xhr1.response);
-					const subCategoryOption = document.querySelector(
-						"#sub-catgory-fliter"
-					);
+			xhr1.onload = () => {
+				if (xhr1.status === 200) {
+					try {
+						let data1 = JSON.parse(xhr1.response);
+						const subCategoryOption = document.querySelector(
+							"#sub-catgory-fliter"
+						);
 
-					subCategoryOption.innerHTML = "";
-					fliteringData.subCategory = data1[0]["id"];
-					console.log(data1[0]["id"]);
-					loadCount = 10;
-					PostFliteringData(fliteringData);
+						subCategoryOption.innerHTML = "";
+						fliteringData.subCategory = data1[0]["id"];
+						console.log(data1[0]["id"]);
+						loadCount = 10;
+						PostFliteringData(fliteringData);
 
-					let sub_category_id = data1[0]["id"];
-					console.log("sub Id", sub_category_id);
-					loadPrice(sub_category_id);
+						let sub_category_id = data1[0]["id"];
+						console.log("sub Id", sub_category_id);
+						loadPrice(sub_category_id);
 
-					data1.forEach((cate) => {
-						subCategoryOption.innerHTML += `
+						data1.forEach((cate) => {
+							subCategoryOption.innerHTML += `
                       <option value= ${cate["id"]}>${cate["name"]}</option>
                       `;
 
-						// option.value = cate.id;
-						// option.textContent = cate.name;
-						// postsubcategory.appendChild(option);
-					});
-				} catch (error) {
-					console.error("Error parsing response as JSON:", error);
-					// Handle the JSON parsing error here, e.g., show an error message to the user
+							// option.value = cate.id;
+							// option.textContent = cate.name;
+							// postsubcategory.appendChild(option);
+						});
+					} catch (error) {
+						console.error("Error parsing response as JSON:", error);
+						// Handle the JSON parsing error here, e.g., show an error message to the user
+					}
+				} else {
+					console.error("Request failed. Status:", xhr1.status);
+					// Handle other error scenarios here, e.g., show an error message to the user
 				}
-			} else {
-				console.error("Request failed. Status:", xhr1.status);
-				// Handle other error scenarios here, e.g., show an error message to the user
-			}
-		};
+				// Send the XMLHttpRequest
+			};
+            xhr1.send("cate_val=" + encodeURIComponent(selectedValue));
 
-		// Send the XMLHttpRequest
-		xhr1.send("cate_val=" + encodeURIComponent(selectedValue));
+		}
 	});
 });
 
@@ -274,9 +294,21 @@ function loadPrice($id) {
 }
 
 function disableSubCategory() {
-
-	document.querySelector("#sub-catgory-fliter").classList.add("disabled-select");
-    console.log("Disble Success")
+	document
+		.querySelector("#sub-catgory-fliter")
+		.classList.add("custom-disabled-select");
+	console.log("Disble Success");
 }
 
-
+function enableSubCategory() {
+	if (
+		document
+			.querySelector("#sub-catgory-fliter")
+			.classList.contains("custom-disabled-select")
+	) {
+		document
+			.querySelector("#sub-catgory-fliter")
+			.classList.remove("custom-disabled-select");
+		console.log("Enable Success");
+	}
+}

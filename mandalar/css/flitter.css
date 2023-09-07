@@ -6,7 +6,27 @@
     padding: 5px;
 }
 
-
+/* Style for a disabled select element */
+.custom-disabled-select {
+    background-color: #f8f9fa; /* Background color */
+    border: 1px solid #ced4da; /* Border color */
+    color: #6c757d; /* Text color */
+    cursor: not-allowed; /* Change cursor to not-allowed */
+    pointer-events: none; /* Disable pointer events */
+    opacity: 0.6; /* Reduce opacity to indicate it's disabled */
+  }
+  
+  /* Style for the options in a disabled select element */
+  .custom-disabled-select option {
+    background-color: #f8f9fa; /* Background color */
+    color: #6c757d; /* Text color */
+  }
+  
+  /* Style for the arrow icon in the select */
+  .custom-disabled-select::after {
+    border-top-color: #6c757d; /* Arrow color */
+  }
+  
 /* Customize the slider background color */
 
 .noUi-target .noUi-connect {
