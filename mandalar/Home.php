@@ -194,7 +194,7 @@ if (isset($_SESSION['user_id'])) {
                     <div class="card custom-card">
                         <div class="card-body">
                             <select class="browser-default custom-select custom-disabled-select" id="sub-catgory-fliter">
-                                <option value="">Disbale On ALL</option>
+                                <option value="All">Disbale On ALL</option>
                                 <option value="1">Brand 1</option>
                                 <option value="2">Brand 2</option>
                                 <option value="3">Brand 3</option>

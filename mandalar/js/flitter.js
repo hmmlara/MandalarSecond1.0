@@ -193,10 +193,17 @@ radioButtons.forEach(function (radio) {
 //Sub category flitter
 function postSubCategoryValue() {
 	const selectElement = document.querySelector("#sub-catgory-fliter");
-	const selectedValue = selectElement.value;
-	fliteringData.subCategory = selectedValue;
+	let selectedValue = selectElement.value;
+    console.log("selected value",selectedValue)
+    if(selectedValue == "null"){
+        fliteringData.subCategory= "All";
+    }else{
+        fliteringData.subCategory = selectedValue;
+
+    }
 	loadPrice(selectedValue);
 	loadCount += 10;
+    console.log(fliteringData)
 	PostFliteringData(fliteringData);
 }
 
