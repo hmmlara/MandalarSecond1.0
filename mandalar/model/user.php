@@ -5,7 +5,7 @@ class User{
 
     private $connection="";
 
-    public function UserDetail($userid,$update_fname,$update_lname,$update_bio,$filename)
+    public function UserDetail($userid, $update_fname, $update_lname, $update_bio, $filename,$fullname)
     {
         //1.DataBase Connect
         $this->connection=Database::connect();
@@ -14,7 +14,7 @@ class User{
         //2.sql Statement
         //2.sql Statement
         $sql="UPDATE users SET fname=:user_fname,lname=:user_lname,
-        img=:image,bio=:bio WHERE user_id=:user_id";
+        img=:image,bio=:bio,full_name=:full_name WHERE user_id=:user_id";
          $statement=$this->connection->prepare($sql);
 
 
@@ -23,6 +23,8 @@ class User{
         $statement->bindParam(":user_id",$userid);
         $statement->bindParam(":bio",$update_bio,);
         $statement->bindParam(":image",$filename,);
+        $statement->bindParam(":full_name",$fullname);
+
 
         //3.execute
         if($statement->execute())

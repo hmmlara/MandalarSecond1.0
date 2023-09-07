@@ -40,6 +40,12 @@
 
     // var_dump($sold_out_post);
 
+    
+
+
+
+
+
     foreach ($getAllUser as $key => $user) {
         if ($user['user_id'] == $_SESSION["user_id"]) {
             $userid = $user['user_id'];
@@ -94,54 +100,7 @@
 
 
     // save change btn
-    if (isset($_POST["save"])) {
-        $error_status = false;
-        if (!empty($_POST["update_fname"])) {
-            $update_fname = $_POST["update_fname"];
-        } else {
-            $error_status = true;
-        }
-
-        if (!empty($_POST["update_lname"])) {
-            $update_lname = $_POST["update_lname"];
-        } else {
-            $error_status = true;
-        }
-
-
-        if (empty($update_bio)) {
-            $update_bio = $getPersonalInfo[0]['bio'];
-        } else {
-            $update_bio = $_POST['update_bio'];
-        }
-
-
-        if (empty($_FILES['image']['name'])) {
-            $filename = $getPersonalInfo[0]["img"];
-        } else {
-            $filename = $_FILES['image']['name'];
-            $filesize = $_FILES['image']['size'];
-            $allowed_files = ['jpg', 'png', 'jpeg', 'svg'];
-            $temp_path = $_FILES['image']['tmp_name'];
-
-            $fileinfo = explode('.', $filename);
-            $filetype = end($fileinfo);
-            $maxsize = 2000000000;
-            if (in_array($filetype, $allowed_files)) {
-                if ($filesize < $maxsize) {
-                    move_uploaded_file($temp_path, 'image/user-profile/' . $filename);
-                } else {
-                    echo "file size exceeds maximum allowed";
-                }
-            }
-        }
-
-
-        if ($error_status == false) {
-            $updateUser = $updateUserDetails->UpdateUser($userid, $update_fname, $update_lname, $update_bio, $filename);
-            header("Location: " . $_SERVER['PHP_SELF']);
-        }
-    }
+    
 
     //update NRCNumber
     if (isset($_POST['enterNRC'])) {
@@ -201,7 +160,80 @@
         }
     }
 
+    // edit
+    if (isset($_POST["save"])) {
+        $error_status = false;
+        if (!empty($_POST["update_fname"])) {
+            $update_fname = $_POST["update_fname"];
+        } else {
+            $error_status = true;
+        }
 
+        if (!empty($_POST["update_lname"])) {
+            $update_lname = $_POST["update_lname"];
+        } else {
+            $error_status = true;
+        }
+
+
+        if (empty($_POST['update_bio'])) {
+            $update_bio = $getPersonalInfo[0]['bio'];
+        } else {
+            $update_bio = $_POST['update_bio'];
+        }
+
+
+        if (empty($_FILES['image']['name'])) {
+            $filename = $getPersonalInfo[0]["img"];
+        } else {
+            $filename = $_FILES['image']['name'];
+            $filesize = $_FILES['image']['size'];
+            $allowed_files = ['jpg', 'png', 'jpeg', 'svg'];
+            $temp_path = $_FILES['image']['tmp_name'];
+
+            $fileinfo = explode('.', $filename);
+            $filetype = end($fileinfo);
+            $maxsize = 2000000000;
+            if (in_array($filetype, $allowed_files)) {
+                if ($filesize < $maxsize) {
+                    move_uploaded_file($temp_path, 'image/user-profile/' . $filename);
+                } else {
+                    echo "file size exceeds maximum allowed";
+                }
+            }
+        }
+
+
+        if ($error_status == false) {
+            $fullname=$update_fname." ".$update_lname;
+            $updateUser = $updateUserDetails->UpdateUser($userid, $update_fname, $update_lname, $update_bio, $filename,$fullname);
+            $getAllUser = $getalluserlist->getUserList();
+            // header("Location: " . $_SERVER['PHP_SELF']);
+            // echo "<script>";
+            // echo "localStorage.refreshed = 'false'";
+            // echo "if(!localStorage.refreshed){";
+            
+            // echo "location.reload();";
+            // echo "localStorage.refreshed = 'true';";
+            // echo "}";
+            // echo "</script>";
+            // exit;
+
+        }
+    }
+    foreach ($getAllUser as $key => $user) {
+        if ($user['user_id'] == $_SESSION["user_id"]) {
+            $userid = $user['user_id'];
+            $userfname = $user["fname"];
+            $userlname = $user["lname"];
+            $userbio = $user['bio'];
+            $useremail = $user['email'];
+            $userimg = $user['img'];
+            // $userbio = $user['bio'];
+            $userwallet = $user["wallet"];
+            // echo $user_id;
+        }
+    }
     //kpay
     if (isset($_POST["sand_money"])) {
         $error_status = false;
@@ -874,3 +906,6 @@
     </body>
 
     </html>
+    <?php
+        
+    ?>

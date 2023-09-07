@@ -25,10 +25,17 @@ main {
 
 .swiper-container {
     width: 100%;
-    height: 200px;
+    height: 420px;
     margin-bottom: 20px;
 }
 
+.swiper-pagination{
+    color :black;
+}
+.swiper-pagination-bullet-active{
+    color: black;
+    background-color: black;
+}
 .related-products .swiper-wrapper{
     height: 460px;
     padding: 20px 10px;

@@ -119,8 +119,6 @@ if (isset($_SESSION['user_id'])) {
                                                     <i class="fa-solid fa-heart"></i>
                                                 </a>
                                             <?php  } ?>
-
-
                                             <div class="dropdown">
                                                 <a class="aa-cart-link bell" style="display:inline-block;width:70px;" class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-mdb-toggle="dropdown" aria-expanded="false" role="button" id="dropdownMenuButton" data-mdb-toggle="dropdown" aria-expanded="false">
 
@@ -132,7 +130,7 @@ if (isset($_SESSION['user_id'])) {
                                                 </a>
                                             </div>
 
-                                            <a class="aa-cart-link message" href="#">
+                                            <a class="aa-cart-link message" href="ChatApp/users.php">
                                                 <i class="fa-regular fa-message "></i>
                                             </a>
 

@@ -205,7 +205,7 @@ $getuserpost = $post_controller->getUserList($userid);
                 <form action="" method="post">
                     <div class="allbtn">
                         <?php if(isset($_SESSION['user_id'])) {?>
-                            <a href="chatapp/chat.php?user_id=<?php echo $to_id ?>" class="messageuser btn btn-info">Message</a>
+                            <a href="ChatApp/chat.php?user_id=<?php echo $to_id ?>" class="messageuser btn btn-info">Message</a>
                             <!-- <button class="messageuser btn btn-info">Message</button> -->
                                            
                             <button class="logout btn btn-primary d-none" id="follow" name="follow">Follow</button>
