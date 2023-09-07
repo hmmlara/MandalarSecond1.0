@@ -85,21 +85,28 @@ class Post
     }
     public function getPostByFlitter($flitteringData)
     {
+        $this->connection = Database::connect();
+        $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
         $flitteringObj = get_object_vars($flitteringData);
-        // $category = ($flitteringData['category'] == null)? "" : $flitteringData['$category'] ;
-        $subCategory = ($flitteringObj['subCategory'] == null) ? '>=0' : "=" . $flitteringObj['subCategory'];
+        if($flitteringObj['subCategory'] == "All"){
+            $sql = "";
+        }else{
+                  // $category = ($flitteringData['category'] == null)? "" : $flitteringData['$category'] ;
+        $subCategory = ($flitteringObj['subCategory'] == "All") ? '>=0' : "=" . $flitteringObj['subCategory'];
         $minPrice = $flitteringObj['min-price'];
         $maxPrice = $flitteringObj['max-price'];
         $newUsed = ($flitteringObj['new-used'] == null) ? '(new_used = "used" or new_used = "new")' : ' new_used = ' . '"' . $flitteringObj['new-used'] . '"';
         //1.DataBase Connect
-        $this->connection = Database::connect();
-        $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+     
 
         //2.sql Statement
         $sql = 'SELECT post.*, users.* FROM `post`
         JOIN users ON post.seller_id = users.user_id
         WHERE sub_category_id ' . $subCategory . ' AND price BETWEEN ' . $minPrice . ' AND ' . $maxPrice . ' AND ' . $newUsed;
 
+        }
+  
         $statement = $this->connection->prepare($sql);
         $statement->execute();
         $result = $statement->fetchAll(PDO::FETCH_ASSOC);

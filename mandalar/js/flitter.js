@@ -8,23 +8,23 @@ const fliteringData = {
 const productContainer = document.querySelector("#products .row");
 let loadCount = 0;
 
-function ViewProduct(dataList){
-    productContainer.innerHTML = "";
-				dataList.forEach((val, index) => {
-					console.log(val);
-					productContainer.innerHTML += `
+function ViewProduct(dataList) {
+	productContainer.innerHTML = "";
+	dataList.forEach((val, index) => {
+		console.log(val);
+		productContainer.innerHTML += `
                     <a href="productDetail.php?id=${
 											val.id
 										}" onclick="addViewCount(${val.buyer_id},${
-						val.id
-					})" class="view_btn col-md-4 col-sm-6  col-lg-3 mb-4 "> 
+			val.id
+		})" class="view_btn col-md-4 col-sm-6  col-lg-3 mb-4 "> 
                     <div >
                     <div class="card product-card-by-nay">
                         <img src="image/${
 													val.product_image
 												}" class="card-img-top product-image" alt="${
-						val.product_image
-					}" />
+			val.product_image
+		}" />
                         <div class="card-body">
                             <div class = "product-card-title">
                             <h5 class="card-title">${val.item}</h5>
@@ -71,7 +71,7 @@ function ViewProduct(dataList){
                     </a>
                      
                         `;
-				});
+	});
 }
 
 //Post Flittering Data
@@ -89,7 +89,7 @@ function PostFliteringData(obj) {
 			try {
 				console.log(FlitteringReq.response);
 				let dataList = JSON.parse(FlitteringReq.response);
-				console.log(dataList);
+				console.log("Data",dataList);
 				ViewProduct(dataList);
 
 				dataList.forEach((data) => {});
@@ -116,17 +116,17 @@ radioButtons.forEach(function (radio) {
 		const selectedValue = this.value;
 		if (selectedValue == "All") {
 			console.log("ALL");
-            // location.reload(true);
-            $.ajax({
-                url:"php/getAllPost.php",
-                type:"post",
-                data:{All:"All"},
-                success:function(data){
-                    console.log(data)
-                   let datalist = JSON.parse(data);
-                    ViewProduct(datalist)
-                }
-            })
+			// location.reload(true);
+			$.ajax({
+				url: "php/getAllPost.php",
+				type: "post",
+				data: { All: "All" },
+				success: function (data) {
+					console.log(data);
+					let datalist = JSON.parse(data);
+					ViewProduct(datalist);
+				},
+			});
 			document.querySelector("#sub-catgory-fliter");
 			disableSubCategory();
 		} else {
@@ -155,14 +155,16 @@ radioButtons.forEach(function (radio) {
 						);
 
 						subCategoryOption.innerHTML = "";
-						fliteringData.subCategory = data1[0]["id"];
-						console.log(data1[0]["id"]);
+						fliteringData.subCategory = "All";
+						// console.log(data1[0]["id"]);
 						loadCount = 10;
 						PostFliteringData(fliteringData);
+                        console.log("sub", fliteringData);
 
 						let sub_category_id = data1[0]["id"];
-						console.log("sub Id", sub_category_id);
+						// console.log("sub Id", sub_category_id);
 						loadPrice(sub_category_id);
+						subCategoryOption.innerHTML += `<option value="null">All</option>`;
 
 						data1.forEach((cate) => {
 							subCategoryOption.innerHTML += `
@@ -183,8 +185,7 @@ radioButtons.forEach(function (radio) {
 				}
 				// Send the XMLHttpRequest
 			};
-            xhr1.send("cate_val=" + encodeURIComponent(selectedValue));
-
+			xhr1.send("cate_val=" + encodeURIComponent(selectedValue));
 		}
 	});
 });
