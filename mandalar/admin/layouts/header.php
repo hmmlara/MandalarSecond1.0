@@ -37,8 +37,8 @@
 					</li>
 
 					<li class="sidebar-item">
-						<a class="sidebar-link" href="index.php">
-              <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Dashboard</span>
+						<a class="sidebar-link" href="post_deli.php">
+              <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Control Order</span>
             </a>
 					</li>
 
@@ -57,8 +57,8 @@
 					</li>
 
 					<li class="sidebar-item">
-						<a class="sidebar-link" href="pages-sign-up.html">
-              <i class="align-middle" data-feather="user-plus"></i> <span class="align-middle">Sign Up</span>
+						<a class="sidebar-link" href="delivery.php">
+              <i class="align-middle" data-feather="user-plus"></i> <span class="align-middle">Delivery</span>
             </a>
 					</li>
 

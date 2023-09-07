@@ -36,7 +36,7 @@ function PostFliteringData(obj) {
                             <div class = "product-card-title">
                             <h5 class="card-title">${val.item}</h5>
                             <h5>
-                                ${val.price}
+                                ${val.price} Ks
                             </h5>
                              </div>
                            
@@ -49,11 +49,11 @@ function PostFliteringData(obj) {
                             </div>
                             <div class="product-info-box">
                                 <div>
-                                    <i class="far fa-heart mr-2"></i>
+                                    <i class="fa-solid fa-thumbs-up"></i>
                                     <span class="reaction-count">${val.Post_Reaction}</span>
                                 </div>
                                 <div>
-                                    <i class="far fa-plus-square ml-3"></i>
+                                <i class="far fa-heart mr-2"></i>
                                     <span class="save-count">${val.product_fav}</span>
                                 </div>
     
@@ -170,7 +170,7 @@ function registerSlide(minPrice,maxPrice) {
     var priceValue = document.getElementById("priceValue");
     
     slider = noUiSlider.create(priceSlider, {
-        start: [0, 100000],
+        start: [0, 999999999999999],
         connect: true,
         range: {
             min: minPrice,

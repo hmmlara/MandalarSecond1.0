@@ -162,7 +162,7 @@ if ($user[0]['nrc']==null){
                             <label class="card radio-image">
                         <input type="radio" class="custom-control-input category" name="category"
                             value="<?php echo $category["id"] ?>" />
-                        <img src="<?php echo $category["img"] ?>" class="p-2 category-image" alt="
+                        <img src="image/category_img/<?php echo $category["img"] ?>" class="p-2 category-image" alt="
                         <?php echo $category["img"] ?>" />
                     </label>
                         </div>
@@ -249,7 +249,7 @@ if ($user[0]['nrc']==null){
 
                                     </h5>
                                     <h5>
-                                        <?php echo $post['price']  ?>
+                                        <?php echo $post['price']  ?> Ks
                                     </h5>
                                 </div>
                                 <div class="d-flex justify-content-between align-items-center">
@@ -360,8 +360,8 @@ if ($user[0]['nrc']==null){
                             <hr>
 
                             <div class="col-md-12 form-outline">
-                                <textarea class="form-control " name="text_area" style="height:100px" id="validationTextarea" placeholder="Required example textarea" required></textarea>
-                                <label for="validationTextarea" class="form-label">Textarea</label>
+                                <textarea class="form-control " name="text_area" style="height:100px" id="validationTextarea" placeholder="Please enter Description" required></textarea>
+                                <label for="validationTextarea" class="form-label">Description</label>
                                 <div class="invalid-feedback">Please enter a message in the textarea.</div>
                             </div>
 

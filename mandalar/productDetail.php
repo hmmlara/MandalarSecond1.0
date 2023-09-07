@@ -109,8 +109,8 @@ $city_list = $city_controller->getCityList();
                                 <p class="product-status" data-status=<?php echo $post['new_used'] ?>>Status:
                                     <?php echo $post['new_used']; ?>
                                 </p>
-                                <h2 id="price" data-price=<?php echo $post['price'] ?>>mmk
-                                    <?php echo $post['price']; ?>
+                                <h2 id="price" data-price=<?php echo $post['price'] ?>>
+                                    <?php echo $post['price']; ?> Ks
                                 </h2>
                                 <p>
                                     <?php echo $post['description']; ?>

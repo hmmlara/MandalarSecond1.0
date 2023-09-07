@@ -8,13 +8,18 @@ $check_post=$_POST['check_post'];
 $delivery=$_POST['delivery'];
 if($status == 'waiting'){
     $stats='take_waiting';
+    foreach ($check_post as $check) {
+        $post_controller->deli_command($stats,$check);
+        $delivery_controller->deli_order($check,$delivery);
+    }
 }elseif($status == 'take'){
     $stats='send_waiting';
+    foreach ($check_post as $check) {
+        $post_controller->deli_command($stats,$check);
+    }
 }
-foreach ($check_post as $check) {
-    $post_controller->deli_command($stats,$check);
-    $delivery_controller->deli_order($check,$delivery);
-}
+
+
 echo 'success';
 
 ?>
