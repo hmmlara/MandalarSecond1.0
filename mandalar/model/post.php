@@ -89,15 +89,25 @@ class Post
         $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
         $flitteringObj = get_object_vars($flitteringData);
-        if($flitteringObj['subCategory'] == "All"){
-            $sql = "";
-        }else{
-                  // $category = ($flitteringData['category'] == null)? "" : $flitteringData['$category'] ;
-        $subCategory = ($flitteringObj['subCategory'] == "All") ? '>=0' : "=" . $flitteringObj['subCategory'];
+        
         $minPrice = $flitteringObj['min-price'];
         $maxPrice = $flitteringObj['max-price'];
         $newUsed = ($flitteringObj['new-used'] == null) ? '(new_used = "used" or new_used = "new")' : ' new_used = ' . '"' . $flitteringObj['new-used'] . '"';
-        //1.DataBase Connect
+        $category = ($flitteringObj['category'] == null)? "" : $flitteringObj['category'] ;
+
+        if($flitteringObj['subCategory'] == "All"){
+            // echo "This loop etner";
+
+            $sql = 'SELECT post.*, users.*
+            FROM post
+            JOIN users ON post.seller_id = users.user_id
+            JOIN sub_category ON post.sub_category_id = sub_category.id
+            JOIN category ON sub_category.category_id = category.id
+            WHERE category.id = ' . $category 
+        ;
+        }else{
+        $subCategory = "=" . $flitteringObj['subCategory'];
+    //1.DataBase Connect
      
 
         //2.sql Statement
