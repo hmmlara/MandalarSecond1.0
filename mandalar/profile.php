@@ -1,7 +1,12 @@
     <?php
+    error_reporting(0);
+
+     session_start();
+if (!isset($_SESSION['user_id'])) {
+    header("location:login.php");
+}
     include_once "nav.php";
 
-    // session_start();
     include_once "controller/profileController.php";
     include_once "controller/userController.php";
     include_once "controller/nrcController.php";
@@ -26,21 +31,24 @@
     $updateUserDetails = new UserController();
     if (isset($_SESSION['user_id'])) {
         $user_id = $_SESSION['user_id'];
-        // echo $user_id;
+        //  echo $user_id;
+        //  echo "//////////";
     }
+
+    
     $post_controller = new PostController();
     $getuserpost = $post_controller->getUserList($user_id);
     $sold_out_post = $post_controller->get_sold_out_post($user_id);
-    if (isset($sold_out_post)) {
-        // var_dump($sold_out_post);
-        foreach ($sold_out_post as $key => $sold_post) {
-            //    var_dump($sold_post) ;
-        }
+    if (isset($getuserpost)) {
+        //  var_dump($getuserpost);
+        // foreach ($sold_out_post as $key => $sold_post) {
+        //     //    var_dump($sold_post) ;
+        // }
     }
 
     // var_dump($sold_out_post);
 
-    
+
 
 
 
@@ -71,7 +79,8 @@
         }
     }
 
-    echo $wait;
+    // echo $wait."/////////////";
+
     // if($wait==2)
     // {
     //     echo $wait,"ssssssssss";
@@ -100,7 +109,7 @@
 
 
     // save change btn
-    
+
 
     //update NRCNumber
     if (isset($_POST['enterNRC'])) {
@@ -156,7 +165,7 @@
         if ($error == false) {
 
             $Nrc = $enterNrcimg->enterNrc($userid, $nrcNumber, $frontfilename, $backfilename);
-            
+
             // echo $nrcNumber;
             //  header("Location: " . $_SERVER['PHP_SELF']);
             //  exit();
@@ -171,7 +180,11 @@
             echo '}';
             echo '</script>';
         }
+
+        $wait = 4;
+        echo $wait;
     }
+
 
     // edit
     if (isset($_POST["save"])) {
@@ -218,14 +231,14 @@
 
 
         if ($error_status == false) {
-            $fullname=$update_fname." ".$update_lname;
-            $updateUser = $updateUserDetails->UpdateUser($userid, $update_fname, $update_lname, $update_bio, $filename,$fullname);
+            $fullname = $update_fname . " " . $update_lname;
+            $updateUser = $updateUserDetails->UpdateUser($userid, $update_fname, $update_lname, $update_bio, $filename, $fullname);
             $getAllUser = $getalluserlist->getUserList();
             // header("Location: " . $_SERVER['PHP_SELF']);
             // echo "<script>";
             // echo "localStorage.refreshed = 'false'";
             // echo "if(!localStorage.refreshed){";
-            
+
             // echo "location.reload();";
             // echo "localStorage.refreshed = 'true';";
             // echo "}";
@@ -298,10 +311,53 @@
 
     $getKpay_history = new kpayController();
     $getKpay = $getKpay_history->getTransfarhistory($user_id);
+    $nottodays=$getKpay_history->getNotToday($user_id);
 
+    // foreach ($getKpay as $key => $gettransfer) {
+                            
+    //     $transferDate = strtotime($gettransfer["date"]); // Convert date to timestamp
+    //     $currentDate = strtotime(date("Y-m-d")); // Get current date timestamp
+    
+    //     // Extract first 5 digits from timestamps
+    //     $transferDateDigits = substr($transferDate, 0, 5);
+    //     $currentDateDigits = substr($currentDate, 0, 5);
 
+    //     if ($transferDateDigits === $currentDateDigits) {
+    //         $dateText = "Today";
+    //     } elseif ($transferDate === strtotime("-1 day", $currentDate)) {
+    //         $dateText = "Yesterday";
+    //     } else {
+    //         $dateText = date("d", $transferDate); // Get day of the month (2-digit)
+    //     }
+    //     if ($transferDateDigits === $currentDateDigits) {
+    //         $todayTransfers[] = $gettransfer; // Add transfers matching "Today" to the array
+    //     } elseif ($transferDate === strtotime("-1 day", $currentDate)) {
+    //         $yesterdayTransfers[] = $gettransfer; // Add transfers matching "Yesterday" to the array
+    //     }
+    //  }
 
-    // var_dump($getKpay);
+    //  foreach($todayTransfers as $today){
+    //     var_dump($today);
+    //  }
+    foreach ($getKpay as $key => $gettransfer) {
+        $transferDate = strtotime($gettransfer["date"]); // Convert date to timestamp
+        $currentDate = strtotime(date("Y-m-d")); // Get current date timestamp
+    
+        // Convert both timestamps to date strings without the time component
+        $transferDateString = date("Y-m-d", $transferDate);
+        $currentDateString = date("Y-m-d", $currentDate);
+    
+        if ($transferDateString === $currentDateString) {
+            $todayTransfers[] = $gettransfer; // Add transfers matching "Today" to the array
+        } elseif ($transferDate === strtotime("-1 day", $currentDate)) {
+            $yesterdayTransfers[] = $gettransfer; // Add transfers matching "Yesterday" to the array
+        }
+    }
+    
+    foreach ($todayTransfers as $today) {
+        var_dump($today);
+    }
+    
     ?>
     <link rel="stylesheet" href="mdbbootstrap/css/mdb.min.css">
 
@@ -373,7 +429,7 @@
     </style>
 
     <body>
-        <input type="text" value="" name="refresh" id="refresh" >
+        <input type="text" value="<?php echo $wait; ?>" name="refresh" id="refresh" class="d-none">
         <div class="container">
             <div class="row ">
                 <div class="col-md-12 " style="height: 200px; border-top-left-radius:1em; border-top-right-radius:1em; background-color:#627E8B">
@@ -389,7 +445,7 @@
 
                     <div id="" class="checkposition d-flex align-items-center justify-content-center">
 
-                        <i class="fa-solid fa-check  <?php if ($wait == 0 || $wait == 2) {
+                        <i class="fa-solid fa-check  <?php if ($wait == 0 || $wait == 2 || $wait==4) {
                                                             echo "d-none";
                                                         } ?>" style="color: #ffffff;"></i>
 
@@ -490,11 +546,11 @@
                             Launch demo modal
                         </button> -->
                         <!-- $wait !== 2 || $wait == 0 || -->
-                        <button type="button" class="btn btn-danger <?php if ($wait == null  || $wait == 2) {
+                        <button type="button" class="btn btn-danger <?php if ($wait == null  || $wait == 2 || $wait == 4) {
                                                                         echo ' ';
                                                                     } else {
                                                                         echo 'd-none';
-                                                                    } ?>" id="verify" data-mdb-toggle="modal" data-mdb-target="#vmodal">Verify Your Account</button>
+                                                                    } ?> Leepal" id="verify" data-mdb-toggle="modal" data-mdb-target="#vmodal">Verify Your Account</button>
 
 
                         <!-- Modal -->
@@ -634,61 +690,64 @@
                     <div class="swiper-wrapper">
                         <div class="swiper-slide border rounded-4 shadow-4">
                             <div class="tab-content ">
-                                <?php if (isset($post_list)) { ?>
+                                <?php if (isset($getuserpost)) { ?>
+                                    <!-- Product Cards -->
                                     <section id="products" class="">
 
                                         <div class="row ">
-                                            <?php foreach ($post_list as $post) {
-                                                // echo $post['seller_id'];
-                                                if ($user_id == $post['seller_id']) {
-                                                    # code...
+                                            <?php foreach ($getuserpost as $post) {
+                                                # code...
                                             ?>
 
-                                                    <a href="productDetail.php?id=<?php echo $post['id'] ?>" class="col-md-4 col-sm-6  col-lg-3 mb-4 ">
-                                                        <div class="card product-card-by-nay">
+                                                <a href="#" data-user-id="<?php echo $user_id ?>" data-post-id="<?php echo $post['id'] ?>" class="view_btn col-md-4 col-sm-6  col-lg-3 mb-4 " onclick="AddCount(event)">
+                                                    <div class="card product-card-by-nay">
+                                                        <?php
+                                                        $images = glob('image/post_img/' . $post['photo_folder'] . '/*.{jpg,png,gif,jpeg,jiff}', GLOB_BRACE);
+                                                        ?>
+                                                        <img src="<?php echo $images[0] ?>" class="card-img-top product-image" alt="Product 1" />
+                                                        <div class="card-body">
+                                                            <div class=" product-card-title">
+                                                                <h5>
+                                                                    <?php echo $post['item'] ?>
+
+                                                                </h5>
+                                                                <h5>
+                                                                    <?php echo $post['price']  ?> Ks
+                                                                </h5>
+                                                            </div>
+                                                            <div class="d-flex justify-content-between align-items-center">
+                                                                <div class="d-flex align-items-center">
+                                                                    <img src="image/user-profile/<?php echo $post['user_img'] ?>" class="rounded-circle profile-on-card" alt="Seller 1" />
+                                                                    <span class="ml-2 card-text">
+                                                                        <?php echo $post['full_name']; ?>
+                                                                    </span>
+                                                                </div>
+                                                            </div>
                                                             <?php
-                                                            $images = glob('image/post_img/' . $post['photo_folder'] . '/*.{jpg,png,gif}', GLOB_BRACE);
+                                                            $count_react = $post_model->getPostReaction($post['id']);
+                                                            $count_favorite = $post_model->getPostFavorite($post['id']);
                                                             ?>
-                                                            <img src="<?php echo $images[0] ?>" class="card-img-top product-image" alt="Product 1" />
-                                                            <div class="card-body">
-                                                                <div class=" product-card-title">
-                                                                    <h5>
-                                                                        <?php echo $post['item'] ?>
+                                                            <div class=" product-info-box">
+                                                                <div>
+                                                                    <i class="fa-solid fa-thumbs-up"></i>
 
-                                                                    </h5>
-                                                                    <h5>
-                                                                        <?php echo $post["price"] ?>
-                                                                    </h5>
+                                                                    <span class="reaction-count"><?php echo $count_react['count_react'] ?></span>
                                                                 </div>
-                                                                <div class="d-flex justify-content-between align-items-center">
-                                                                    <div class="d-flex align-items-center">
-                                                                        <img src="image/user-profile/<?php echo $post['user_img'] ?>" class="rounded-circle profile-on-card" alt="Seller 1" />
-                                                                        <span class="ml-2 card-text">
-                                                                            <?php echo $post['fname'] . " " . $post['lname'] ?>
-                                                                        </span>
-                                                                    </div>
+                                                                <div>
+                                                                    <i class="far fa-heart mr-2"></i>
+                                                                    <span class="save-count"><?php echo $count_favorite['count_favorite'] ?></span>
                                                                 </div>
-                                                                <div class=" product-info-box">
-                                                                    <div>
-                                                                        <i class="far fa-heart mr-2"></i>
-                                                                        <span class="reaction-count">5</span>
-                                                                    </div>
-                                                                    <div>
-                                                                        <i class="far fa-plus-square ml-3"></i>
-                                                                        <span class="save-count">18</span>
-                                                                    </div>
-
-                                                                    <div>
-                                                                        <i class="far fa-eye ml-3"></i>
-                                                                        <span class="view-count">50</span>
-                                                                    </div>
+                                                                <?php $viewCount =  $post_model->selectViewCount($post['id']) ?>
+                                                                <div>
+                                                                    <i class="far fa-eye ml-3"></i>
+                                                                    <span class="view-count"><?php echo $viewCount['view_count'] ?></span>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    </a>
+                                                    </div>
+                                                </a>
 
-                                            <?php }
-                                            } ?>
+                                            <?php } ?>
                                         </div>
                                     </section>
                                 <?php } else { ?>
@@ -702,66 +761,70 @@
                         <!-- sold out post -->
                         <div class="swiper-slide border rounded-4 shadow-4">
                             <div class="tab-content ">
-                                <section id="products" class="">
+                                <?php if (isset($sold_out_post)) { ?>
+                                    <!-- Product Cards -->
+                                    <section id="products" class="">
 
-                                    <div class="row ">
-                                        <?php foreach ($sold_out_post as $post) {
-                                            # code...
-                                        ?>
+                                        <div class="row ">
+                                            <?php foreach ($sold_out_post as $post) {
+                                                # code...
+                                            ?>
 
-                                            <a href="#" data-user-id="<?php echo $user_id ?>" data-post-id="<?php echo $post['id'] ?>" class="view_btn col-md-4 col-sm-6  col-lg-3 mb-4 " onclick="AddCount(event)">
-                                                <div class="soldOut">
-                                                    <h2>Sold Out</h2>
-                                                </div>
-                                                <div class="card product-card-by-nay">
-                                                    <?php
-                                                    $images = glob('image/post_img/' . $post['photo_folder'] . '/*.{jpg,png,gif,jpeg,jiff}', GLOB_BRACE);
-                                                    ?>
-                                                    <img src="<?php echo $images[0] ?>" class="card-img-top product-image" alt="Product 1" />
-                                                    <div class="card-body">
-                                                        <div class=" product-card-title">
-                                                            <h5>
-                                                                <?php echo $post['item'] ?>
-
-                                                            </h5>
-                                                            <h5>
-                                                                <?php echo $post['price']  ?>
-                                                            </h5>
-                                                        </div>
-                                                        <div class="d-flex justify-content-between align-items-center">
-                                                            <div class="d-flex align-items-center">
-                                                                <img src="image/user-profile/<?php echo $post['user_img'] ?>" class="rounded-circle profile-on-card" alt="Seller 1" />
-                                                                <span class="ml-2 card-text">
-                                                                    <?php echo $post['fname'] . " " . $post['lname'] ?>
-                                                                </span>
-                                                            </div>
-                                                        </div>
+                                                <a href="#" data-user-id="<?php echo $user_id ?>" data-post-id="<?php echo $post['id'] ?>" class="view_btn col-md-4 col-sm-6  col-lg-3 mb-4 " onclick="AddCount(event)">
+                                                    <div class="soldOut">
+                                                        <h2>Sold Out</h2>
+                                                    </div>
+                                                    <div class="card product-card-by-nay">
                                                         <?php
-                                                        $count_react = $post_model->getPostReaction($post['id']);
-                                                        $count_favorite = $post_model->getPostFavorite($post['id']);
+                                                        $images = glob('image/post_img/' . $post['photo_folder'] . '/*.{jpg,png,gif,jpeg,jiff}', GLOB_BRACE);
                                                         ?>
-                                                        <div class=" product-info-box">
-                                                            <div>
-                                                                <i class="far fa-heart mr-2"></i>
-                                                                <span class="reaction-count"><?php echo $count_react['count_react'] ?></span>
+                                                        <img src="<?php echo $images[0] ?>" class="card-img-top product-image" alt="Product 1" />
+                                                        <div class="card-body">
+                                                            <div class=" product-card-title">
+                                                                <h5>
+                                                                    <?php echo $post['item'] ?>
+
+                                                                </h5>
+                                                                <h5>
+                                                                    <?php echo $post['price']  ?> Ks
+                                                                </h5>
                                                             </div>
-                                                            <div>
-                                                                <i class="far fa-plus-square ml-3"></i>
-                                                                <span class="save-count"><?php echo $count_favorite['count_favorite'] ?></span>
+                                                            <div class="d-flex justify-content-between align-items-center">
+                                                                <div class="d-flex align-items-center">
+                                                                    <img src="image/user-profile/<?php echo $post['user_img'] ?>" class="rounded-circle profile-on-card" alt="Seller 1" />
+                                                                    <span class="ml-2 card-text">
+                                                                        <?php echo $post['fname'] . " " . $post['lname'] ?>
+                                                                    </span>
+                                                                </div>
                                                             </div>
-                                                            <?php $viewCount =  $post_model->selectViewCount($post['id']) ?>
-                                                            <div>
-                                                                <i class="far fa-eye ml-3"></i>
-                                                                <span class="view-count"><?php echo $viewCount['view_count'] ?></span>
+                                                            <?php
+                                                            $count_react = $post_model->getPostReaction($post['id']);
+                                                            $count_favorite = $post_model->getPostFavorite($post['id']);
+                                                            ?>
+                                                            <div class=" product-info-box">
+                                                                <div>
+                                                                    <i class="fa-solid fa-thumbs-up"></i>
+
+                                                                    <span class="reaction-count"><?php echo $count_react['count_react'] ?></span>
+                                                                </div>
+                                                                <div>
+                                                                    <i class="far fa-heart mr-2"></i>
+                                                                    <span class="save-count"><?php echo $count_favorite['count_favorite'] ?></span>
+                                                                </div>
+                                                                <?php $viewCount =  $post_model->selectViewCount($post['id']) ?>
+                                                                <div>
+                                                                    <i class="far fa-eye ml-3"></i>
+                                                                    <span class="view-count"><?php echo $viewCount['view_count'] ?></span>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                            </a>
+                                                </a>
 
-                                        <?php } ?>
-                                    </div>
-                                </section>
+                                            <?php } ?>
+                                        </div>
+                                    </section>
+                                <?php } ?>
                             </div>
                         </div>
                         <!-- kpay History -->
@@ -769,88 +832,56 @@
                             <div class="tab-content container">
 
                                 <div class="row">
-                                    <?php if (!empty($getKpay)) {  ?>
+                                    <?php if (!empty($getKpay) ) {  ?>
                                         <!-- today -->
-                                        <h4>Today</h4>
-                                        <?php $previousMonth = null; ?>
-                                        <?php foreach ($getKpay as $key => $gettransfer) {
-                                            $transferDate = strtotime($gettransfer["date"]); // Convert date to timestamp
-                                            $currentDate = strtotime(date("Y-m-d")); // Get current date timestamp
-
-                                            // Extract first 5 digits from timestamps
-                                            $transferDateDigits = substr($transferDate, 0, 5);
-                                            $currentDateDigits = substr($currentDate, 0, 5);
-
-                                            // Compare date digits
-                                            if ($transferDateDigits === $currentDateDigits) {
-                                                $dateText = "Today";
-                                            } elseif ($transferDate === strtotime("-1 day", $currentDate)) {
-                                                $dateText = "Yesterday";
-                                            } else {
-                                                $dateText = date("d", $transferDate); // Get day of the month (2-digit)
-                                            }
-
-                                        ?>
-
-                                            <?php if ($dateText == "Today") { ?>
-
-                                                <!-- <i class="fa-solid fa-money-bill-transfer" style="color: #3b71ca;"></i> -->
-                                                <div class="col-md-12  d-flex align-items-center border">
-                                                    <div class="col-md-1 d-flex align-items-center justify-content-center">
-                                                        <i class="fa-solid fa-money-bill-transfer fa-2xl" style="color: #3b71ca;"></i>
-                                                    </div>
-                                                    <div class="col-md-6">
+                                        <?php if(isset($getKpay)){ ?>
+                                            <h2>Today</h2>
+                                            <?php foreach ($getKpay as $key => $kpay) {
+                                                # code...
+                                             ?>
+                                            <div class="col-md-12 d-flex align-items-center border">
+                                                <div  class="col-md-1 d-flex align-items-center justify-content-center">
+                                                    <i class="fa-solid fa-money-bill-transfer fa-2xl" style="color:#3b71ca;"></i>
+                                                </div>
+                                                <div class="col-md-6">
                                                         <p>Transfer To </p>
-                                                        <p><?php echo $dateText; ?></p>
-                                                        <p><?php echo  $gettransfer["date"]; ?></p>
+                                                        <p>Today</p>
+                                                        <p><?php echo  $kpay["date"]; ?></p>
                                                     </div>
                                                     <div class="col-md-4">
-                                                        <h4>+<?php echo  $gettransfer["check_wallet"]; ?></h4>
+                                                        <h4>+<?php echo  $kpay["check_wallet"]; ?></h4>
                                                     </div>
-                                                </div>
+                                            </div>
                                             <?php } ?>
                                         <?php } ?>
-                                        <!-- nottoday -->
 
-                                        <h4>Not today</h4>
-                                        <?php foreach ($getKpay as $key => $gettransfer) {
-                                            $transferDate = strtotime($gettransfer["date"]); // Convert date to timestamp
-                                            $currentDate = strtotime(date("Y-m-d")); // Get current date timestamp
-
-                                            // Extract first 5 digits from timestamps
-                                            $transferDateDigits = substr($transferDate, 0, 5);
-                                            $currentDateDigits = substr($currentDate, 0, 5);
-
-                                            // Compare date digits
-                                            if ($transferDateDigits === $currentDateDigits) {
-                                                $dateText = "Today";
-                                            } elseif ($transferDate === strtotime("-1 day", $currentDate)) {
-                                                $dateText = "Yesterday";
-                                            } else {
-                                                $dateText = date("d", $transferDate); // Get day of the month (2-digit)
-                                            }
-
-                                        ?>
-
-                                            <?php if ($dateText !== "Today") { ?>
-
-                                                <!-- <i class="fa-solid fa-money-bill-transfer" style="color: #3b71ca;"></i> -->
-                                                <div class="col-md-12  d-flex align-items-center border">
-                                                    <div class="col-md-1 d-flex align-items-center justify-content-center">
-                                                        <i class="fa-solid fa-money-bill-transfer fa-2xl" style="color: #3b71ca;"></i>
-                                                    </div>
-                                                    <div class="col-md-6">
+                                        
+                                    <?php } 
+                                     if(!empty($nottodays)){ ?>
+                                        <!-- nott0 -->
+                                        <?php if(isset($nottodays)){ ?>
+                                            <h2>Not Today</h2>
+                                            <?php foreach ($nottodays as $key => $kpay) {
+                                                # code...
+                                             ?>
+                                            <div class="col-md-12 d-flex align-items-center border">
+                                                <div  class="col-md-1 d-flex align-items-center justify-content-center">
+                                                    <i class="fa-solid fa-money-bill-transfer fa-2xl" style="color:#3b71ca;"></i>
+                                                </div>
+                                                <div class="col-md-6">
                                                         <p>Transfer To </p>
-                                                        <p><?php echo $dateText; ?></p>
-                                                        <p><?php echo  $gettransfer["date"]; ?></p>
+                                                        <p>Today</p>
+                                                        <p><?php echo  $kpay["date"]; ?></p>
                                                     </div>
                                                     <div class="col-md-4">
-                                                        <h4>+<?php echo  $gettransfer["check_wallet"]; ?></h4>
+                                                        <h4>+<?php echo  $kpay["check_wallet"]; ?></h4>
                                                     </div>
-                                                </div>
+                                            </div>
                                             <?php } ?>
                                         <?php } ?>
-                                    <?php } else { ?>
+                                        
+                                    <?php }
+                                    if(empty($getKpay) && empty($nottodays)) { ?>
                                         <div class="d-flex align-items-center justify-content-center mt-5">
                                             <img src="./image/some/no-transfer-money.png" alt="">
                                         </div>
@@ -878,8 +909,9 @@
 
         <script src="js/jquery-3.7.0.min.js"></script>
 
-        <script src="js/loader.js"></script>
+        <!-- <script src="js/loader.js"></script> -->
         <script src="js/profile.js"></script>
+        <script src="js/home.js"></script>
 
         <script>
             // Initialize Swiper
@@ -922,5 +954,5 @@
 
     </html>
     <?php
-        
+
     ?>

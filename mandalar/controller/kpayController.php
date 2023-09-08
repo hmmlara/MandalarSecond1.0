@@ -22,6 +22,11 @@ class kpayController extends Kpay
     {
         return $this->gethistory($user_id);
     }
+
+    public function getNotToday($user_id)
+    {
+        return $this->getNottodayhistory($user_id);
+    }
 }
 
 

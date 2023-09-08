@@ -1,4 +1,9 @@
 $(document).ready(function(){
+  if($('#refresh').val()==4){
+    // console.log("|||||||||||||||");
+    $("#verify").addClass("d-none");
+      $("#wait").removeClass("d-none");
+  }
   // console.log("lee")
   // $(".money").on("click",function(){
   //   console.log("Click click")

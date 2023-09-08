@@ -64,8 +64,35 @@ class Kpay{
         $this->connection=Database::connect();
         $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-        $sql="SELECT * FROM money_check
-        WHERE user_id = :user_id AND status = 1 ORDER BY date DESC;";
+        $sql="SELECT *
+        FROM money_check
+        WHERE user_id = :user_id
+          AND status = 1
+          AND DATE(date) = CURDATE()
+        ORDER BY date DESC;";
+        $statement=$this->connection->prepare($sql);
+
+        $statement->bindParam(":user_id",$user_id);
+
+    
+        $statement->execute();
+        $result=$statement->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
+    }
+
+    public function getNottodayhistory($user_id)
+    {
+
+        //1.DataBase Connect
+        $this->connection=Database::connect();
+        $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+        $sql="SELECT *
+        FROM money_check
+        WHERE user_id = :user_id
+          AND status = 1
+          AND DATE(date) < CURDATE()
+        ORDER BY date DESC;";
         $statement=$this->connection->prepare($sql);
 
         $statement->bindParam(":user_id",$user_id);
