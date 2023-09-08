@@ -4,7 +4,7 @@ include_once "layouts/header.php"
 <div>
     <div class="container">
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-12">
                 <h1 class="header">Toal Posts in Each Category</h1>
                 <canvas id="BarChart"></canvas>
 
