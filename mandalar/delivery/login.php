@@ -82,11 +82,10 @@ if(isset($_POST["signin"]))
             <div class="signin-content">
                 <div class="signin-image">
                     <figure><img src="../image/user-profile/mylove.jpg" alt="sing up image"></figure>
-                    <a href="register.php" class="signup-image-link">Create an account</a>
                 </div>
 
                 <div class="signin-form">
-                    <h2 class="form-title">Sign up</h2>
+                    <h2 class="form-title">Log In</h2>
                     <form method="POST" class="register-form" id="login-form">
                             <div class="form-group">
                                 <label for="phone"><i class="fa-solid fa-envelope"></i></label>

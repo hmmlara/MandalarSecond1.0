@@ -133,5 +133,47 @@ class Kpay{
             return false;
         }
     }
+
+    public function todayWithdraw($user_id){
+        //1.DataBase Connect
+        $this->connection=Database::connect();
+        $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+        $sql="SELECT *
+        FROM withdraw
+        WHERE user_id = :user_id
+          AND status = 'success'
+          AND DATE(date) = CURDATE()
+        ORDER BY date DESC;";
+        $statement=$this->connection->prepare($sql);
+
+        $statement->bindParam(":user_id",$user_id);
+
+    
+        $statement->execute();
+        $result=$statement->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
+    }
+
+    public function notTodayWithdraw($user_id){
+        //1.DataBase Connect
+        $this->connection=Database::connect();
+        $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+        $sql="SELECT *
+        FROM withdraw
+        WHERE user_id = :user_id
+          AND status = 'success'
+          AND DATE(date) < CURDATE()
+        ORDER BY date DESC;";
+        $statement=$this->connection->prepare($sql);
+
+        $statement->bindParam(":user_id",$user_id);
+
+    
+        $statement->execute();
+        $result=$statement->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
+    }
 }
 ?>
