@@ -139,7 +139,7 @@ $city_list = $city_controller->getCityList();
                                             <button class="btn btn-warning">Waiting!</button>
                                             <!-- <span class="bg-warning" style="border-radius: 10px;">Waiting!</span> -->
                                         <?php } else if ($post['status'] == 'sold_out') { ?>
-                                            <span>Sold Out</span>
+                                            <button class="btn btn-danger">Sold Out</button>
                                         <?php } ?>
                                     <?php } else { ?>
                                         <button class="btn btn-secondary bg-primary text-white" id="product-like" data-mdb-toggle="modal" data-mdb-target="#productDetailModal">

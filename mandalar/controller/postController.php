@@ -107,5 +107,10 @@ class PostController extends Post{
     public function get_buy_post($user_id){
         return $this->buy_post($user_id);
     }
+
+    public function getSoldOutPost($userid)
+    {
+        return $this->SoldOutPost($userid);
+    }
 }
 ?>

@@ -91,6 +91,8 @@ foreach ($getAllUser as $key => $user) {
 
 $getKpay = $getKpay_history->getTransfarhistory($userid);
 $getuserpost = $post_controller->getUserList($userid);
+$sold_out_post = $post_controller->getSoldOutPost($userid);
+// var_dump($sold_out_post);
 //  var_dump($getuserpost);
 
 // var_dump($getKpay);
@@ -143,6 +145,28 @@ $getuserpost = $post_controller->getUserList($userid);
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 
 </head>
+<style>
+    .soldOut {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        z-index: 9999999;
+
+        color: red;
+    }
+
+    .soldOut h2 {
+        width: 260px;
+        text-align: center;
+        margin-top: 75px;
+        margin-left: 20px;
+        padding: 4px;
+        border: 2px dashed red;
+        background-color: #21252979;
+        transform: rotate(-35deg);
+        font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    }
+</style>
 
 <body>
     <input type="hidden" id="from_id" value="<?php echo $from_id ?>">
@@ -273,8 +297,8 @@ $getuserpost = $post_controller->getUserList($userid);
 
                 <div class="swiper-container">
                     <div class="swiper-wrapper">
-                        <div class="swiper-slide border rounded-4 shadow-4">
-                            <div class="tab-content ">
+                        <div class="swiper-slide ">
+                            <div class="tab-content border rounded-4 shadow-4">
                                 <?php if (isset($getuserpost)) { ?>
                                     <!-- Product Cards -->
                                     <section id="products" class="">
@@ -345,7 +369,78 @@ $getuserpost = $post_controller->getUserList($userid);
                             </div>
                         </div>
                         <div class="swiper-slide">
-                            <div class="tab-content">Content for Tab 2</div>
+                            <div class="tab-content border rounded-4 shadow-4 ">
+                                <?php if (isset($sold_out_post)) { ?>
+                                    <!-- Product Cards -->
+                                    <section id="products" class="">
+
+                                        <div class="row ">
+                                            <?php foreach ($sold_out_post as $post) {
+                                                // var_dump($post);
+                                                # code...
+                                            ?>
+
+                                                <a href="#" data-user-id="<?php echo $user_id ?>" data-post-id="<?php echo $post['id'] ?>" class="view_btn col-md-4 col-sm-6  col-lg-3 mb-4 " onclick="AddCount(event)">
+                                                    <div class="soldOut">
+                                                        <h2>Sold Out</h2>
+                                                    </div>
+                                                    <div class="card product-card-by-nay">
+                                                        <?php
+                                                        $images = glob('image/post_img/' . $post['photo_folder'] . '/*.{jpg,png,gif,jpeg,jiff}', GLOB_BRACE);
+                                                        ?>
+                                                        <img src="<?php echo $images[0] ?>" class="card-img-top product-image" alt="Product 1" />
+                                                        <div class="card-body">
+                                                            <div class=" product-card-title">
+                                                                <h5>
+                                                                    <?php echo $post['item'] ?>
+
+                                                                </h5>
+                                                                <h5>
+                                                                    <?php echo $post['price']  ?> Ks
+                                                                </h5>
+                                                            </div>
+                                                            <div class="d-flex justify-content-between align-items-center">
+                                                                <div class="d-flex align-items-center">
+                                                                    <img src="image/user-profile/<?php echo $post['user_img'] ?>" class="rounded-circle profile-on-card" alt="Seller 1" />
+                                                                    <span class="ml-2 card-text">
+                                                                        <?php echo $post['full_name']; ?>
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                            <?php
+                                                            $count_react = $post_model->getPostReaction($post['id']);
+                                                            $count_favorite = $post_model->getPostFavorite($post['id']);
+                                                            ?>
+                                                            <div class=" product-info-box">
+                                                                <div>
+                                                                    <i class="fa-solid fa-thumbs-up"></i>
+
+                                                                    <span class="reaction-count"><?php echo $count_react['count_react'] ?></span>
+                                                                </div>
+                                                                <div>
+                                                                    <i class="far fa-heart mr-2"></i>
+                                                                    <span class="save-count"><?php echo $count_favorite['count_favorite'] ?></span>
+                                                                </div>
+                                                                <?php $viewCount =  $post_model->selectViewCount($post['id']) ?>
+                                                                <div>
+                                                                    <i class="far fa-eye ml-3"></i>
+                                                                    <span class="view-count"><?php echo $viewCount['view_count'] ?></span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </a>
+
+                                            <?php } ?>
+                                        </div>
+                                    </section>
+                                <?php } else { ?>
+                                    <div class="d-flex align-items-center justify-content-center mt-5">
+                                        <img src="../mandalar/image/some/no sell post.png" alt="">
+                                    </div>
+
+                                <?php } ?>
+                            </div>
                         </div>
                         <!-- kpay History -->
 

@@ -923,7 +923,8 @@ if (!isset($_SESSION['user_id'])) {
 
         <!-- <script src="js/loader.js"></script> -->
         <script src="js/profile.js"></script>
-        <script src="js/withdraw.js"></script>        <script src="js/home.js"></script>
+        <script src="js/withdraw.js"></script>      
+      <script src="js/home.js"></script>
 
         <script>
             // Initialize Swiper
