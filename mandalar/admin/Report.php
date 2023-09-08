@@ -10,7 +10,7 @@ include_once "layouts/header.php"
 
             </div>
             <div class="col-md-6">
-            <h1 class="header">Toal Sold Out Posts in Each Category</h1>
+            <h1 class="header">Toal  Posts in Each Sub Category</h1>
 
             <canvas id="SubChart2"></canvas>
             </div>
@@ -23,7 +23,7 @@ include_once "layouts/header.php"
 
             </div>
             <div class="col-md-6">
-                <h2>Pie chart of sold posts in each category</h2>
+                <h2>Pie chart of sold posts in each Sub category</h2>
             <canvas id="PieChart2"></canvas>
                 
             </div>
