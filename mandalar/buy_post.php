@@ -24,7 +24,7 @@ $buy_post = $post_controller->get_buy_post($user_id);
 
                             </h5>
                             <h5>
-                                <?php echo $post['price'] ?>
+                                <?php echo $post['price'] ?> Ks
                             </h5>
                         </div>
                         <div class="d-flex justify-content-between align-items-center">

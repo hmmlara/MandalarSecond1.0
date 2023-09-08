@@ -1,4 +1,4 @@
-    <?php
+<?php
     error_reporting(0);
 
      session_start();
@@ -686,6 +686,9 @@ if (!isset($_SESSION['user_id'])) {
                             <li class="nav-item" data-tab="3">
                                 buy post
                             </li>
+                            <li class="nav-item" data-tab="4">
+                                Withdraw History
+                            </li>
                             <!-- Add more navigation items as needed -->
                         </ul>
                     </div>
@@ -856,7 +859,7 @@ if (!isset($_SESSION['user_id'])) {
                                                         <p><?php echo  $kpay["date"]; ?></p>
                                                     </div>
                                                     <div class="col-md-4">
-                                                        <h4>+<?php echo  $kpay["check_wallet"]; ?></h4>
+                                                        <h4>+<?php echo  $kpay["check_wallet"]; ?> Ks</h4>
                                                     </div>
                                             </div>
                                             <?php } ?>
@@ -877,11 +880,11 @@ if (!isset($_SESSION['user_id'])) {
                                                 </div>
                                                 <div class="col-md-6">
                                                         <p>Transfer To </p>
-                                                        <p>Today</p>
+                                                        <p>Not Today</p>
                                                         <p><?php echo  $kpay["date"]; ?></p>
                                                     </div>
                                                     <div class="col-md-4">
-                                                        <h4>+<?php echo  $kpay["check_wallet"]; ?></h4>
+                                                        <h4>+<?php echo  $kpay["check_wallet"]; ?> Ks</h4>
                                                     </div>
                                             </div>
                                             <?php } ?>
@@ -903,6 +906,11 @@ if (!isset($_SESSION['user_id'])) {
                         <div class="swiper-slide border rounded-4 shadow-4">
                             <div class="tab-content">
                                 <?php include_once "buy_post.php"; ?>
+                            </div>
+                        </div>
+                        <div class="swiper-slide border rounded-4 shadow-4">
+                            <div class="tab-content">
+                                <?php include_once "withdraw_history.php"; ?>
                             </div>
                         </div>
                     </div>
