@@ -460,10 +460,12 @@ if (!isset($_SESSION['user_id'])) {
                         <a href="" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa-solid fa-ellipsis-vertical fa-xl  text-muted"></i></a>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#editprofilemodel" href="#">Edit Profile</a></li>
+                            <li><a class="dropdown-item" data-mdb-toggle="modal" data-mdb-target="#withdraw" href="#">Withdraw</a></li>
                             <li><a class="dropdown-item text-danger" href="logout.php">Log Out</a></li>
                             <li><a class="dropdown-item" href="#">Something else here</a></li>
                         </ul>
                     </div>
+                    
                     <h3 class="username">
                         <?php echo $userfname . " " . $userlname; ?>
                     </h3>
@@ -491,6 +493,7 @@ if (!isset($_SESSION['user_id'])) {
                                                                                 echo 0;
                                                                             } ?></p>
                     </div>
+                    <?php include_once "withdraw.php"; ?>
                     <!-- Modal -->
                     <div class="modal fade" id="money_modal" tabindex="-1" data-mdb-backdrop="static" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog">
@@ -680,6 +683,9 @@ if (!isset($_SESSION['user_id'])) {
                             <li class="nav-item" data-tab="2">
                                 <i class="fa-solid fa-clock-rotate-left mr-2"></i> History
                             </li>
+                            <li class="nav-item" data-tab="3">
+                                buy post
+                            </li>
                             <!-- Add more navigation items as needed -->
                         </ul>
                     </div>
@@ -826,6 +832,7 @@ if (!isset($_SESSION['user_id'])) {
                                     </section>
                                 <?php } ?>
                             </div>
+                            
                         </div>
                         <!-- kpay History -->
                         <div class="swiper-slide border rounded-4 shadow-4">
@@ -893,6 +900,11 @@ if (!isset($_SESSION['user_id'])) {
                             </div>
                         </div>
                         <!-- Add more swiper slides and tab content as needed -->
+                        <div class="swiper-slide border rounded-4 shadow-4">
+                            <div class="tab-content">
+                                <?php include_once "buy_post.php"; ?>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -911,7 +923,7 @@ if (!isset($_SESSION['user_id'])) {
 
         <!-- <script src="js/loader.js"></script> -->
         <script src="js/profile.js"></script>
-        <script src="js/home.js"></script>
+        <script src="js/withdraw.js"></script>        <script src="js/home.js"></script>
 
         <script>
             // Initialize Swiper

@@ -102,5 +102,36 @@ class Kpay{
         $result=$statement->fetchAll(PDO::FETCH_ASSOC);
         return $result;
     }
+
+    public function get_all_withdraw(){
+        //1.DataBase Connect
+        $this->connection=Database::connect();
+        $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+        $sql="Select withdraw.*,users.full_name as user_name,users.wallet as user_wallet From withdraw join users on users.user_id=withdraw.user_id";
+        $statement=$this->connection->prepare($sql);
+
+        $statement->execute();
+        $result=$statement->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
+    }
+
+    public function update_withdraw_status($withdraw_id,$status){
+        $this->connection=Database::connect();
+        $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+        $sql="UPDATE `withdraw` SET `status`=:status WHERE id=:id";
+        $statement=$this->connection->prepare($sql);
+
+        $statement->bindParam(":id",$withdraw_id);
+        $statement->bindParam(":status",$status);
+
+        if($statement->execute())
+        {
+            return true;
+        }else{
+            return false;
+        }
+    }
 }
 ?>

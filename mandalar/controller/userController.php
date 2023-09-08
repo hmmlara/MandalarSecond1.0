@@ -35,6 +35,14 @@ class UserController extends User{
     public function updateMoney($user_id,$money){
         return $this->updateLatestMoney($user_id,$money);
     }
+
+    public function withdraw_amount($user_id,$kpay_name,$kpay_ph,$kpay_amount,$status){
+        return $this->amount_withdraw($user_id,$kpay_name,$kpay_ph,$kpay_amount,$status);
+    }
+
+    public function get_all_withdraw_list($user_id){
+        return $this->get_all_withdraw_list_by_id($user_id);
+    }
     
 }
 

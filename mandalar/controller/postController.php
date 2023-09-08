@@ -103,5 +103,9 @@ class PostController extends Post{
     {
         return $this->search_Brand_Post($searchinput);
     }
+
+    public function get_buy_post($user_id){
+        return $this->buy_post($user_id);
+    }
 }
 ?>
