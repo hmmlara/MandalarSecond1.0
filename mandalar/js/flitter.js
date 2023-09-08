@@ -9,9 +9,9 @@ const productContainer = document.querySelector("#products .row");
 let loadCount = 0;
 
 function ViewProduct(dataList) {
+	console.log("flittering Data: ",fliteringData)
 	productContainer.innerHTML = "";
 	dataList.forEach((val, index) => {
-		console.log(val);
 		productContainer.innerHTML += `
                     <a href="productDetail.php?id=${
 											val.id
@@ -87,9 +87,7 @@ function PostFliteringData(obj) {
 	FlitteringReq.onload = () => {
 		if (FlitteringReq.status === 200) {
 			try {
-				console.log(FlitteringReq.response);
 				let dataList = JSON.parse(FlitteringReq.response);
-				console.log("Data",dataList);
 				ViewProduct(dataList);
 
 				dataList.forEach((data) => {});
@@ -115,31 +113,20 @@ radioButtons.forEach(function (radio) {
 	radio.addEventListener("change", function () {
 		const selectedValue = this.value;
 		if (selectedValue == "All") {
-			console.log("ALL");
 			// location.reload(true);
 			$.ajax({
 				url: "php/getAllPost.php",
 				type: "post",
 				data: { All: "All" },
 				success: function (data) {
-					console.log(data);
 					let datalist = JSON.parse(data);
 					ViewProduct(datalist);
 				},
 			});
-			document.querySelector("#sub-catgory-fliter");
 			disableSubCategory();
 		} else {
 			enableSubCategory();
 			fliteringData.category = selectedValue;
-			let xhr1 = new XMLHttpRequest();
-			let postsubcategory = document.getElementById("post_subcategory");
-
-			// Clear existing options in the select element
-			// while (postsubcategory.firstChild) {
-			//     postsubcategory.removeChild(postsubcategory.firstChild);
-			// }
-
 			xhr1.open("POST", "php/sub_category.php", true);
 			xhr1.setRequestHeader(
 				"Content-Type",
@@ -156,14 +143,10 @@ radioButtons.forEach(function (radio) {
 
 						subCategoryOption.innerHTML = "";
 						fliteringData.subCategory = "All";
-						// console.log(data1[0]["id"]);
 						loadCount = 10;
 						PostFliteringData(fliteringData);
-                        console.log("sub", fliteringData);
 
-						let sub_category_id = data1[0]["id"];
-						// console.log("sub Id", sub_category_id);
-						loadPrice(sub_category_id);
+						loadPrice(fliteringData.category,"cat");
 						subCategoryOption.innerHTML += `<option value="null">All</option>`;
 
 						data1.forEach((cate) => {
@@ -171,9 +154,7 @@ radioButtons.forEach(function (radio) {
                       <option value= ${cate["id"]}>${cate["name"]}</option>
                       `;
 
-							// option.value = cate.id;
-							// option.textContent = cate.name;
-							// postsubcategory.appendChild(option);
+						
 						});
 					} catch (error) {
 						console.error("Error parsing response as JSON:", error);
@@ -194,16 +175,13 @@ radioButtons.forEach(function (radio) {
 function postSubCategoryValue() {
 	const selectElement = document.querySelector("#sub-catgory-fliter");
 	let selectedValue = selectElement.value;
-    console.log("selected value",selectedValue)
     if(selectedValue == "null"){
-        fliteringData.subCategory= "All";
+        loadPrice(fliteringData.category,"cat")
     }else{
         fliteringData.subCategory = selectedValue;
+        loadPrice(selectedValue);
 
     }
-	loadPrice(selectedValue);
-	loadCount += 10;
-    console.log(fliteringData)
 	PostFliteringData(fliteringData);
 }
 
@@ -258,8 +236,6 @@ function registerSlide(minPrice, maxPrice) {
 		fliteringData["min-price"] = min;
 		fliteringData["max-price"] = max;
 		loadCount += 1;
-		// console.clear()
-		console.log(loadCount);
 		if (loadCount > 6) {
 			PostFliteringData(fliteringData);
 		}
@@ -276,26 +252,21 @@ NewUserradioButtons.forEach(function (radio) {
 	});
 });
 
-function loadPrice($id) {
+function loadPrice($id,type = "sub") {
 	$.ajax({
 		url: "php/loadPrice.php",
 		type: "POST",
-		data: { id: $id },
+		data: { id: $id ,type: type},
 		success: function (data) {
 			slider.destroy();
 			slider.destroy();
-
 			let result = JSON.parse(data);
-
 			let maxPrice = 10000;
 			let minPrice = 0;
-			console.log(result["maxPrice"]);
 			if (result["maxPrice"] !== null) {
 				maxPrice = parseInt(result["maxPrice"]);
-				console.log("max", maxPrice);
 			}
 
-			console.log(minPrice);
 			registerSlide(minPrice, maxPrice);
 		},
 	});
@@ -305,7 +276,6 @@ function disableSubCategory() {
 	document
 		.querySelector("#sub-catgory-fliter")
 		.classList.add("custom-disabled-select");
-	console.log("Disble Success");
 }
 
 function enableSubCategory() {
@@ -317,6 +287,5 @@ function enableSubCategory() {
 		document
 			.querySelector("#sub-catgory-fliter")
 			.classList.remove("custom-disabled-select");
-		console.log("Enable Success");
 	}
 }

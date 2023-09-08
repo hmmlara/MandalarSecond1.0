@@ -103,8 +103,8 @@ class Post
             JOIN users ON post.seller_id = users.user_id
             JOIN sub_category ON post.sub_category_id = sub_category.id
             JOIN category ON sub_category.category_id = category.id
-            WHERE category.id = ' . $category 
-        ;
+            WHERE category.id = ' . $category . ' AND price BETWEEN ' . $minPrice . ' AND ' . $maxPrice ;
+
         }else{
         $subCategory = "=" . $flitteringObj['subCategory'];
     //1.DataBase Connect
@@ -428,6 +428,21 @@ class Post
         $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         $sql = "SELECT MIN(post.price) as minPrice,MAX(post.price) as maxPrice FROM `post` WHERE sub_category_id = :id
         ";
+        $statement = $this->connection->prepare($sql);
+        $statement->bindParam(":id", $id);
+        $statement->execute();
+        $result = $statement->fetch(PDO::FETCH_ASSOC);
+        return $result;
+    }
+
+    public function load_min_max_Price_with_category($id){
+         $this->connection = Database::connect();
+        $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $sql = "
+        SELECT MAX(post.price) as maxPrice FROM post 
+        JOIN sub_category ON post.sub_category_id = sub_category.id 
+        JOIN category ON sub_category.category_id = category.id 
+        WHERE category.id = :id";
         $statement = $this->connection->prepare($sql);
         $statement->bindParam(":id", $id);
         $statement->execute();
