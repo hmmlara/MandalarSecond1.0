@@ -130,6 +130,7 @@ radioButtons.forEach(function (radio) {
 		} else {
 			enableSubCategory();
 			fliteringData.category = selectedValue;
+			let xhr1 = new XMLHttpRequest();
 			xhr1.open("POST", "php/sub_category.php", true);
 			xhr1.setRequestHeader(
 				"Content-Type",
