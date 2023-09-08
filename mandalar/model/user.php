@@ -141,6 +141,50 @@ class User{
         
         return $result;
     }
+
+    public function amount_withdraw($user_id,$kpay_name,$kpay_ph,$kpay_amount,$status)
+    {
+        //1.DataBase Connect
+        $this->connection=Database::connect();
+        $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+        //2.sql Statement
+        $sql="INSERT INTO `withdraw`(`user_id`, `kpay_name`, `kpay_phone`, `amount`,`status`) VALUES 
+        (:user_id,:kpay_name,:kpay_phone,:amount,:status)";
+         $statement=$this->connection->prepare($sql);
+
+         $statement->bindParam(":user_id",$user_id);
+         $statement->bindParam(":kpay_name",$kpay_name);
+         $statement->bindParam(":kpay_phone",$kpay_ph);
+         $statement->bindParam(":amount",$kpay_amount);
+         $statement->bindParam(":status",$status);
+
+
+         //3.execute
+        if($statement->execute())
+        {
+            return true;
+        }else
+        {
+            return false;
+        }
+    }
+
+    public function get_all_withdraw_list_by_id($user_id){
+        $this->connection=Database::connect();
+        $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+        //2.sql Statement
+        $sql="select * from withdraw where user_id=:user_id and status='wait'";
+        
+        $statement=$this->connection->prepare($sql);
+        $statement->bindParam(":user_id",$user_id);
+
+        $statement->execute();
+        $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+        
+        return $result;
+    }
 }
 
 $userModal = new User();

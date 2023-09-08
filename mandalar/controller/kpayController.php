@@ -22,6 +22,14 @@ class kpayController extends Kpay
     {
         return $this->gethistory($user_id);
     }
+
+    public function getAllWithdraw(){
+        return $this->get_all_withdraw();
+    }
+
+    public function UpdateWithdrawStatus($withdraw_id,$status){
+        return $this->update_withdraw_status($withdraw_id,$status);
+    }
 }
 
 

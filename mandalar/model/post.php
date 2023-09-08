@@ -472,6 +472,20 @@ class Post
         return $result;
     }
 
+
+    public function buy_post($user_id){
+        $this->connection = Database::connect();
+        $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+// SELECT post.*,users.fname,users.lname,users.img as user_img FROM `post` join users on post.seller_id=users.user_id ORDER BY post.post_date DESC
+        // $sql = "SELECT * FROM `post` WHERE post.status='sold_out' AND seller_id=:seller_id";
+        $sql="SELECT post.*,users.fname,users.lname,users.img as user_img FROM `post` JOIN users on users.user_id=post.seller_id WHERE post.status!='sold_out' AND post.status !='none' AND post.buyer_id =:buyer_id  ORDER BY post.post_date DESC";
+        $statement = $this->connection->prepare($sql);
+        $statement->bindParam(":buyer_id", $user_id);
+        // 3. Execute
+        $statement->execute();
+        $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
+    }
     // public function postDec($searchinput)
     // {
     //     //1.DataBase Connect
