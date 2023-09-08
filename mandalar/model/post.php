@@ -103,7 +103,7 @@ class Post
             JOIN users ON post.seller_id = users.user_id
             JOIN sub_category ON post.sub_category_id = sub_category.id
             JOIN category ON sub_category.category_id = category.id
-            WHERE category.id = ' . $category . ' AND price BETWEEN ' . $minPrice . ' AND ' . $maxPrice ;
+            WHERE category.id = ' . $category . ' AND price BETWEEN ' . $minPrice . ' AND ' . $maxPrice . ' AND ' . $newUsed ;
 
         }else{
         $subCategory = "=" . $flitteringObj['subCategory'];
