@@ -176,6 +176,8 @@ function postSubCategoryValue() {
 	const selectElement = document.querySelector("#sub-catgory-fliter");
 	let selectedValue = selectElement.value;
     if(selectedValue == "null"){
+		fliteringData.subCategory = "All";
+
         loadPrice(fliteringData.category,"cat")
     }else{
         fliteringData.subCategory = selectedValue;
