@@ -87,6 +87,7 @@ function PostFliteringData(obj) {
 	FlitteringReq.onload = () => {
 		if (FlitteringReq.status === 200) {
 			try {
+				console.log(FlitteringReq.response)
 				let dataList = JSON.parse(FlitteringReq.response);
 				ViewProduct(dataList);
 
@@ -119,6 +120,8 @@ radioButtons.forEach(function (radio) {
 				type: "post",
 				data: { All: "All" },
 				success: function (data) {
+					fliteringData.category = null;
+					loadPrice(0,'all')
 					let datalist = JSON.parse(data);
 					ViewProduct(datalist);
 				},

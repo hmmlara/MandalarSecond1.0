@@ -83,45 +83,64 @@ class Post
         $result = $statement->fetchAll(PDO::FETCH_ASSOC);
         return $result;
     }
-    public function getPostByFlitter($flitteringData)
+    public function getPostByFlitter($filtering_Data)
     {
-        $this->connection = Database::connect();
-        $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-        $flitteringObj = get_object_vars($flitteringData);
-        
-        $minPrice = $flitteringObj['min-price'];
-        $maxPrice = $flitteringObj['max-price'];
-        $newUsed = ($flitteringObj['new-used'] == null) ? '(new_used = "used" or new_used = "new")' : ' new_used = ' . '"' . $flitteringObj['new-used'] . '"';
-        $category = ($flitteringObj['category'] == null)? "" : $flitteringObj['category'] ;
-
-        if($flitteringObj['subCategory'] == "All"){
-            // echo "This loop etner";
-
+        $filteringData = get_object_vars($filtering_Data);
+        try {
+            $this->connection = Database::connect();
+            $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    
+            // Extract values from $filteringData
+            $minPrice = $filteringData['min-price'];
+            $maxPrice = $filteringData['max-price'];
+            $newUsed = $filteringData['new-used'];
+            $category = $filteringData['category'];
+            $subCategory = $filteringData['subCategory'];
+    
+            // Initialize SQL query and parameters
             $sql = 'SELECT post.*, users.*
-            FROM post
-            JOIN users ON post.seller_id = users.user_id
-            JOIN sub_category ON post.sub_category_id = sub_category.id
-            JOIN category ON sub_category.category_id = category.id
-            WHERE category.id = ' . $category . ' AND price BETWEEN ' . $minPrice . ' AND ' . $maxPrice . ' AND ' . $newUsed ;
-
-        }else{
-        $subCategory = "=" . $flitteringObj['subCategory'];
-    //1.DataBase Connect
-     
-
-        //2.sql Statement
-        $sql = 'SELECT post.*, users.* FROM `post`
-        JOIN users ON post.seller_id = users.user_id
-        WHERE sub_category_id ' . $subCategory . ' AND price BETWEEN ' . $minPrice . ' AND ' . $maxPrice . ' AND ' . $newUsed;
-
+                    FROM post
+                    JOIN users ON post.seller_id = users.user_id
+                    JOIN sub_category ON post.sub_category_id = sub_category.id
+                    JOIN category ON sub_category.category_id = category.id
+                    WHERE 1'; // Start with a basic condition
+    
+            $params = array();
+    
+            if ($minPrice !== null && $maxPrice !== null) {
+                $sql .= ' AND price BETWEEN :minPrice AND :maxPrice';
+                $params['minPrice'] = $minPrice;
+                $params['maxPrice'] = $maxPrice;
+            }
+    
+            if ($newUsed !== null) {
+                if ($newUsed == 'All') {
+                    $sql .= ' AND (new_used = "used" OR new_used = "new")';
+                } else {
+                    $sql .= ' AND new_used = :newUsed';
+                    $params['newUsed'] = $newUsed;
+                }
+            }
+    
+            if ($category !== null) {
+                $sql .= ' AND category.id = :category';
+                $params['category'] = $category;
+            }
+            if ($subCategory !== null && $subCategory !== 'All') {
+                $sql .= ' AND sub_category_id = :subCategory';
+                $params['subCategory'] = $subCategory;
+            }
+    
+            $statement = $this->connection->prepare($sql);
+            $statement->execute($params);
+            $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+            return $result;
+        } catch (PDOException $e) {
+            // Handle database errors here
+            return [];
         }
-  
-        $statement = $this->connection->prepare($sql);
-        $statement->execute();
-        $result = $statement->fetchAll(PDO::FETCH_ASSOC);
-        return $result;
     }
+    
     public function getPostById($id)
     {
         //1.DataBase Connect
@@ -421,7 +440,15 @@ class Post
             return false;
         }
     }
-
+    public function load_max_price(){
+        $this->connection = Database::connect();
+        $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $sql = "SELECT MIN(post.price) as minPrice,MAX(post.price) as maxPrice FROM `post` ";
+        $statement = $this->connection->prepare($sql);
+        $statement->execute();
+        $result = $statement->fetch(PDO::FETCH_ASSOC);
+        return $result;
+    }
     public function load_min_max_price($id)
     {
         $this->connection = Database::connect();
