@@ -35,6 +35,14 @@ class kpayController extends Kpay
     {
         return $this->getNottodayhistory($user_id);
     }
+
+    public function today_withdraw($user_id){
+        return $this->todayWithdraw($user_id);
+    }
+
+    public function not_today_withdraw($user_id){
+        return $this->notTodayWithdraw($user_id);
+    }
 }
 
 
