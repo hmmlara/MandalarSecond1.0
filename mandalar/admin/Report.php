@@ -28,6 +28,11 @@ include_once "layouts/header.php"
                 
             </div>
         </div>
+        <div class="row">
+            <h2>line chart in each day</h2>
+            <canvas id="LineChart"></canvas>
+
+        </div>
     </div>
 
 </div>

@@ -19,7 +19,7 @@ class Report
 
         if ($statement->execute()) {
             $result = $statement->fetchAll(PDO::FETCH_ASSOC);
-
+            // var_dump($result);
             $datalist = [];
             $cat_name_list = [];
             foreach ($result as $key => $value) {

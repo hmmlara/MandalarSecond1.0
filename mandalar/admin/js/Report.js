@@ -2,7 +2,7 @@ const ctx = document.getElementById("BarChart");
 const ctx2 = document.getElementById("PieChart");
 const subCategoryChart = document.getElementById("SubChart2");
 const subCategoryPieChart = document.getElementById("PieChart2");
-
+const lineChart = document.getElementById("LineChart");
 function createBarChart(ctx, label, dataList) {
 	let data = dataList[0];
 	let data2 = dataList[1];
@@ -32,6 +32,32 @@ function createBarChart(ctx, label, dataList) {
 		},
 	});
 }
+
+function createLineChart(ctx, label, dataList) {
+	
+	new Chart(ctx, {
+		type: "line",
+		data: {
+			labels: label,
+			datasets: [
+				{
+					label: "total",
+					data: dataList,
+					borderWidth: 1,
+				},
+			
+			],
+		},
+		options: {
+			scales: {
+				y: {
+					beginAtZero: true,
+				},
+			},
+		},
+	});
+}
+
 
 function createPieChart(ctx, dataset) {
     console.log(dataset)
@@ -74,11 +100,24 @@ function fetchAndCreateBarChart(ctx,type) {
         console.error(error);
       });
   }
+
+  function fetchAndCreateLineChart(ctx,type) {
+    fetchData(type)
+      .then(function (result1) {
+        let data1 = result1["data"];
+        let label1 = result1["name"];
+		createLineChart(lineChart,label1,data1);
+      
+      })
+      .catch(function (error) {
+        console.error(error);
+      });
+  }
   
   // Call fetchAndCreateBarChart to fetch data and create the bar chart
   fetchAndCreateBarChart(ctx,['total_by_cat','sold_out_total_by_cat']);
   fetchAndCreateBarChart(subCategoryChart,["total_by_sub_cat","sold_out_total_by_sub_cat"])
-  
+  fetchAndCreateLineChart(lineChart,"post_by_each_day")
   
 
 function fetchData(type) {
@@ -88,9 +127,9 @@ function fetchData(type) {
         type: "GET",
         data: { type: type },
         success: function (dataList) {
-          console.log(dataList);
+          console.log("respove",dataList);
           let result = JSON.parse(dataList);
-          console.log(result);
+          console.log("Fetch Data",result);
           resolve(result);
         },
         error: function (error) {
