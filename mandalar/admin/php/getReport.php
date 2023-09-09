@@ -43,6 +43,20 @@ if (isset($_GET['type'])) {
     ORDER BY
         name DESC");
     }
+    if($_GET['type'] == "sold_out_post_by_each_day"){
+        echo $Report_model->getData("
+        SELECT
+        DATE(post_date) AS name,
+        COUNT(*) AS post_count
+    FROM
+        post
+        where status = 'sold_out'
+    GROUP BY
+        DATE(post_date)
+    ORDER BY
+        name DESC
+        ");
+    }
 
 }
 

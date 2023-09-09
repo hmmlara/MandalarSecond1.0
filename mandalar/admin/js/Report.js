@@ -3,6 +3,9 @@ const ctx2 = document.getElementById("PieChart");
 const subCategoryChart = document.getElementById("SubChart2");
 const subCategoryPieChart = document.getElementById("PieChart2");
 const lineChart = document.getElementById("LineChart");
+const lineChart2 = document.getElementById("LineChart2");
+
+
 function createBarChart(ctx, label, dataList) {
 	let data = dataList[0];
 	let data2 = dataList[1];
@@ -106,7 +109,7 @@ function fetchAndCreateBarChart(ctx,type) {
       .then(function (result1) {
         let data1 = result1["data"];
         let label1 = result1["name"];
-		createLineChart(lineChart,label1,data1);
+		createLineChart(ctx,label1,data1);
       
       })
       .catch(function (error) {
@@ -116,8 +119,10 @@ function fetchAndCreateBarChart(ctx,type) {
   
   // Call fetchAndCreateBarChart to fetch data and create the bar chart
   fetchAndCreateBarChart(ctx,['total_by_cat','sold_out_total_by_cat']);
-  fetchAndCreateBarChart(subCategoryChart,["total_by_sub_cat","sold_out_total_by_sub_cat"])
-  fetchAndCreateLineChart(lineChart,"post_by_each_day")
+  fetchAndCreateBarChart(subCategoryChart,["total_by_sub_cat","sold_out_total_by_sub_cat"]);
+  fetchAndCreateLineChart(lineChart,"post_by_each_day");
+  fetchAndCreateLineChart(lineChart2,"sold_out_post_by_each_day");
+
   
 
 function fetchData(type) {
