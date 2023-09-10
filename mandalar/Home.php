@@ -1,5 +1,5 @@
 <?php
-
+error_reporting(0);
 include_once "./nav.php";
 include_once "./model/category.php";
 include_once "./controller/postController.php";
@@ -20,7 +20,7 @@ $post_model = new Post();
 $categorys = $category_model->getCategory();
 if (isset($_SESSION['user_id'])) {
     $user_id = $_SESSION['user_id'];
-    echo $user_id;
+    // echo $user_id;
     $user = $user_controller->UserInfo($user_id);
     $user_nrc = true;
     if ($user[0]['nrc'] == null) {

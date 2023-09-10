@@ -1,4 +1,5 @@
 <?php 
+error_reporting(0);
 session_start();
 if(!isset($_SESSION['deli_id'])){
     header("Location: login.php");
@@ -7,7 +8,7 @@ include_once "header.php";
 include_once "../controller/deliveryController.php";
 $deli_controller=new DeliveryController();
 $deli_id=$_SESSION['deli_id'];
-echo $deli_id;
+// echo $deli_id;
 $deli=$deli_controller->get_deli($deli_id);
 ?>
 

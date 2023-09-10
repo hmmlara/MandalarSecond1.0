@@ -1,5 +1,5 @@
 <?php
-
+error_reporting(0);
 include_once "../controller/kpayController.php";
 include_once "../controller/userController.php";
 

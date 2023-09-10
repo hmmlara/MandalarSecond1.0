@@ -1,4 +1,6 @@
-<?php include_once "layouts/header.php"; ?>
+<?php 
+error_reporting(0);
+include_once "layouts/header.php"; ?>
 <?php
 
 include_once "../controller/userController.php";

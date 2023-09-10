@@ -1,4 +1,5 @@
 <?php 
+error_reporting(0);
 include_once "layouts/header.php";
 include_once "../controller/kpayController.php";
 $kpay_controller=new kpayController();

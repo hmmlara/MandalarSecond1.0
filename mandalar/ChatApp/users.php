@@ -1,4 +1,5 @@
 <?php 
+error_reporting(0);
   session_start();
   include_once "php/config.php";
   if(!isset($_SESSION['user_id'])){

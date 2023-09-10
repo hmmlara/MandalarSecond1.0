@@ -1,4 +1,5 @@
 <?php
+error_reporting(0);
 include_once "controller/searchController.php";
 include_once "controller/postController.php";
 include_once "model/post.php";
