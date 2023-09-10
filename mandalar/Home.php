@@ -305,7 +305,7 @@ if (isset($_SESSION['user_id'])) {
     </section>
     <!-- Post -->
     <?php if (isset($_SESSION['user_id'])) { ?>
-        <button type="button" class="btn btn-primary " id="PostBtn" >
+        <button type="button" class="btn btn-primary " id="PostBtn" data-mdb-toggle="modal" data-mdb-target="#exampleModal">
             +
         </button>
     <?php } else { ?>
@@ -314,16 +314,16 @@ if (isset($_SESSION['user_id'])) {
             +
         </button>
         <div class="modal fade" id="plusmodel" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
+            <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Please Sign Up and Register</h5>
                         <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <div class="modal-body">...</div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Save changes</button>
+                    <!-- <div class="modal-body">...</div> -->
+                    <div class="modal-footer d-flex align-items-center justify-content-center">
+                        <a href="register.php" class="btn btn-info">Register</a>
+                        <a href="login.php" class="btn btn-primary">Login</a>
                     </div>
                 </div>
             </div>
@@ -425,12 +425,12 @@ if (isset($_SESSION['user_id'])) {
             <?php } ?>
             <?php if ($user_nrc == false) { ?>
                 <div class="modal-content">
-                    <div class="modal-header">
+                    <!-- <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLabel">Verfied your account!!!</h5>
                         <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
-                    </div>
+                    </div> -->
                     <div class="modal_body">
-                        <h3>You need to verified your account!!!</h3>
+                        <h3>You need to verified your account!</h3>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Ok</button>
