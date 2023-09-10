@@ -36,7 +36,7 @@ function createBarChart(ctx, label, dataList) {
 	});
 }
 
-function createLineChart(ctx, label, dataList) {
+function createLineChart(ctx, label, dataList,label2) {
 	
 	new Chart(ctx, {
 		type: "line",
@@ -44,7 +44,7 @@ function createLineChart(ctx, label, dataList) {
 			labels: label,
 			datasets: [
 				{
-					label: "total",
+					label: label2,
 					data: dataList,
 					borderWidth: 1,
 				},
@@ -104,12 +104,12 @@ function fetchAndCreateBarChart(ctx,type) {
       });
   }
 
-  function fetchAndCreateLineChart(ctx,type) {
+  function fetchAndCreateLineChart(ctx,type,label) {
     fetchData(type)
       .then(function (result1) {
         let data1 = result1["data"];
         let label1 = result1["name"];
-		createLineChart(ctx,label1,data1);
+		createLineChart(ctx,label1,data1,label);
       
       })
       .catch(function (error) {
@@ -120,8 +120,8 @@ function fetchAndCreateBarChart(ctx,type) {
   // Call fetchAndCreateBarChart to fetch data and create the bar chart
   fetchAndCreateBarChart(ctx,['total_by_cat','sold_out_total_by_cat']);
   fetchAndCreateBarChart(subCategoryChart,["total_by_sub_cat","sold_out_total_by_sub_cat"]);
-  fetchAndCreateLineChart(lineChart,"post_by_each_day");
-  fetchAndCreateLineChart(lineChart2,"sold_out_post_by_each_day");
+//   fetchAndCreateLineChart(lineChart,"post_by_each_day","Total");
+  fetchAndCreateLineChart(lineChart2,"sold_out_post_by_each_day","sold out");
 
   
 
@@ -160,3 +160,24 @@ fetchDataAndCreateChart("sold_out_total_by_cat", ctx2);
 fetchDataAndCreateChart("sold_out_total_by_sub_cat", subCategoryPieChart);
 
 //Toal Posts By Each Sub Category With Bar Ca
+
+function openTab(tabName) {
+    // Hide all tab content and deactivate all tab buttons
+    const tabContents = document.querySelectorAll(".tab-content");
+    const tabButtons = document.querySelectorAll(".tab-button");
+
+    for (const content of tabContents) {
+        content.classList.remove("active");
+    }
+
+    for (const button of tabButtons) {
+        button.classList.remove("active1");
+    }
+
+    // Show the selected tab content and activate the corresponding tab button
+    document.getElementById(tabName).classList.add("active");
+    document.querySelector(`.tab-button[data-tab="${tabName}"]`).classList.add("active1");
+}
+
+// Initialize the first tab as active
+openTab('tab1');
