@@ -11,9 +11,9 @@ function loadNotiCount() {
     data: { user_id: user_id },
     success: function (data) {
       let notiCount = data;
- 
+      notiContainer.innerHTML = data;
+
       if (notiCount !== previousNotiCount) {
-        notiContainer.innerHTML = data;
         loadNoti();
       } 
       previousNotiCount = data;
@@ -73,6 +73,10 @@ $(document).on("click", ".noti_id", function (event) {
   });
 });
 loadNotiCount();
+
+setInterval(()=>{
+  loadNotiCount(),500
+})
 
 function linkto(link) {
   // $(this).removeClass('')
