@@ -1,5 +1,8 @@
 <?php 
 session_start();
+if(!isset($_SESSION['deli_id'])){
+    header("Location: login.php");
+}
 include_once "header.php"; 
 include_once "../controller/deliveryController.php";
 $deli_controller=new DeliveryController();

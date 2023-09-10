@@ -3,7 +3,7 @@
 
      session_start();
 if (!isset($_SESSION['user_id'])) {
-    header("location:login.php");
+    header("location:home.php");
 }
     include_once "nav.php";
 

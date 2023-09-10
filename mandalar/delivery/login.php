@@ -81,11 +81,11 @@ if(isset($_POST["signin"]))
         <div class="container">
             <div class="signin-content">
                 <div class="signin-image">
-                    <figure><img src="../image/user-profile/mylove.jpg" alt="sing up image"></figure>
+                    <figure><img src="../image/pjimg/1 (1).jpg" alt="sing up image"></figure>
                 </div>
 
                 <div class="signin-form">
-                    <h2 class="form-title">Log In</h2>
+                    <h2 class="form-title">Delivery Log In</h2>
                     <form method="POST" class="register-form" id="login-form">
                             <div class="form-group">
                                 <label for="phone"><i class="fa-solid fa-envelope"></i></label>

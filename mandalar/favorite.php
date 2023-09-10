@@ -1,5 +1,8 @@
 <?php
-// session_start();
+session_start();
+if (!isset($_SESSION['user_id'])) {
+    header("location:home.php");
+}
 include_once "nav.php";
 include_once "controller/profileController.php";
 include_once "controller/userController.php";
