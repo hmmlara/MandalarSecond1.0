@@ -335,7 +335,7 @@ if (isset($_SESSION['user_id'])) {
             <?php if ($user_nrc == true) { ?>
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Post</h5>
                         <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
