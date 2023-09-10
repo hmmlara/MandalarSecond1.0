@@ -150,7 +150,7 @@ if (isset($_POST['register'])) {
 
                                 <i class="fa-solid fa-xmark fa-xl cancel-icon  "></i>
                             </div>
-                            <img src="image/pjimg/1 (1).jpeg" class="img-circle mb-4" id="show_photo" alt="">
+                            <img src="image/pjimg/user_php.jpg" class="img-circle mb-4" id="show_photo" alt="">
 
                             <div class="d-flex  justify-content-center align-items-center cover-icon">
                                 <i class="fa-solid fa-camera fa-xl camera_icon" style="color: #4e9c81;"></i>

@@ -20,7 +20,7 @@ $post_model = new Post();
 $categorys = $category_model->getCategory();
 if (isset($_SESSION['user_id'])) {
     $user_id = $_SESSION['user_id'];
-    // echo $user_id;
+    echo $user_id;
     $user = $user_controller->UserInfo($user_id);
     $user_nrc = true;
     if ($user[0]['nrc'] == null) {
@@ -160,8 +160,7 @@ if (isset($_SESSION['user_id'])) {
             <div class="row category-row">
                 <div class="col-2 mb-1">
                     <label class="card radio-image">
-                        <input type="radio" class="custom-control-input category" name="category"
-                            value="All" />
+                        <input type="radio" class="custom-control-input category" name="category" value="All" />
                         <img src="image/category_img/All.jpg" class="p-2 category-image" alt="ALL
                         " />
                     </label>
@@ -169,16 +168,15 @@ if (isset($_SESSION['user_id'])) {
                 <?php
                 foreach ($categorys as $category) {
 
-                    ?>
+                ?>
                     <div class="col-2 mb-1">
                         <label class="card radio-image">
-                            <input type="radio" class="custom-control-input category" name="category"
-                                value="<?php echo $category["id"] ?>" />
+                            <input type="radio" class="custom-control-input category" name="category" value="<?php echo $category["id"] ?>" />
                             <img src="image/category_img/<?php echo $category["img"] ?>" class="p-2 category-image" alt="
                         <?php echo $category["img"] ?>" />
                         </label>
                     </div>
-                    <?php
+                <?php
                 }
                 ?>
             </div>
@@ -216,13 +214,11 @@ if (isset($_SESSION['user_id'])) {
                     <div class="card custom-card">
                         <div class="card-body">
                             <div class="custom-control custom-radio">
-                                <input type="radio" class="custom-control-input status-radio" value="new"
-                                    id="newCondition" name="condition" />
+                                <input type="radio" class="custom-control-input status-radio" value="new" id="newCondition" name="condition" />
                                 <label class="custom-control-label" for="newCondition">New</label>
                             </div>
                             <div class="custom-control custom-radio">
-                                <input type="radio" class="custom-control-input status-radio" value="used"
-                                    id="usedCondition" name="condition" />
+                                <input type="radio" class="custom-control-input status-radio" value="used" id="usedCondition" name="condition" />
                                 <label class="custom-control-label" for="usedCondition">Used</label>
                             </div>
                         </div>
@@ -248,10 +244,9 @@ if (isset($_SESSION['user_id'])) {
         <div class="row ">
             <?php foreach ($post_list as $post) {
                 # code...
-                ?>
+            ?>
 
-                <a href="#" data-user-id="<?php echo $user_id ?>" data-post-id="<?php echo $post['id'] ?>"
-                    class="view_btn col-md-4 col-sm-6  col-lg-3 mb-4 " onclick="AddCount(event)">
+                <a href="#" data-user-id="<?php echo $user_id ?>" data-post-id="<?php echo $post['id'] ?>" class="view_btn col-md-4 col-sm-6  col-lg-3 mb-4 " onclick="AddCount(event)">
                     <div class="card product-card-by-nay">
                         <?php
                         $images = glob('image/post_img/' . $post['photo_folder'] . '/*.{jpg,png,gif,jpeg,jiff}', GLOB_BRACE);
@@ -269,8 +264,7 @@ if (isset($_SESSION['user_id'])) {
                             </div>
                             <div class="d-flex justify-content-between align-items-center">
                                 <div class="d-flex align-items-center">
-                                    <img src="image/user-profile/<?php echo $post['user_img'] ?>"
-                                        class="rounded-circle profile-on-card" alt="Seller 1" />
+                                    <img src="image/user-profile/<?php echo $post['user_img'] ?>" class="rounded-circle profile-on-card" alt="Seller 1" />
                                     <span class="ml-2 card-text">
                                         <?php echo $post['fname'] . " " . $post['lname'] ?>
                                     </span>
@@ -314,6 +308,26 @@ if (isset($_SESSION['user_id'])) {
         <button type="button" class="btn btn-primary " id="PostBtn" data-mdb-toggle="modal" data-mdb-target="#exampleModal">
             +
         </button>
+    <?php } else { ?>
+        <!-- Modal -->
+        <button type="button" class="btn btn-primary " id="PostBtn" data-mdb-toggle="modal" data-mdb-target="#plusmodel">
+            +
+        </button>
+        <div class="modal fade" id="plusmodel" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Please Sign Up and Register</h5>
+                        <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <!-- <div class="modal-body">...</div> -->
+                    <div class="modal-footer d-flex align-items-center justify-content-center">
+                        <a href="register.php" class="btn btn-info">Register</a>
+                        <a href="login.php" class="btn btn-primary">Login</a>
+                    </div>
+                </div>
+            </div>
+        </div>
     <?php } ?>
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -329,12 +343,10 @@ if (isset($_SESSION['user_id'])) {
                             <div class="col-md-12">
                                 <div class="btn-group" id="">
 
-                                    <input type="radio" class="btn-check" name="options" id="option2" autocomplete="off"
-                                        value="new" />
+                                    <input type="radio" class="btn-check" name="options" id="option2" autocomplete="off" value="new" />
                                     <label class="btn btn-secondary" for="option2">New</label>
 
-                                    <input type="radio" class="btn-check" name="options" id="option3" autocomplete="off"
-                                        value="used" checked />
+                                    <input type="radio" class="btn-check" name="options" id="option3" autocomplete="off" value="used" checked />
                                     <label class="btn btn-secondary" for="option3">Used</label>
                                 </div>
                             </div>
@@ -384,8 +396,7 @@ if (isset($_SESSION['user_id'])) {
                             <hr>
 
                             <div class="col-md-12 form-outline">
-                                <textarea class="form-control " name="text_area" style="height:100px"
-                                    id="validationTextarea" placeholder="Please enter Description" required></textarea>
+                                <textarea class="form-control " name="text_area" style="height:100px" id="validationTextarea" placeholder="Please enter Description" required></textarea>
                                 <label for="validationTextarea" class="form-label">Description</label>
                                 <div class="invalid-feedback">Please enter a message in the textarea.</div>
                             </div>
@@ -397,8 +408,7 @@ if (isset($_SESSION['user_id'])) {
                                 <div id="imagePreviews" class=" image-previews">
                                     <div class="image-selector">
                                         <label for="imageUpload" cl0ass="plus-sign" id="imageLabel">+</label>
-                                        <input type="file" id="imageUpload" name="post_img[]" class="form-control"
-                                            accept="image/*" multiple />
+                                        <input type="file" id="imageUpload" name="post_img[]" class="form-control" accept="image/*" multiple />
                                     </div>
                                 </div>
                                 <span class="text-danger" id="imagePreviews_error" style="display:none;">Need to fill
@@ -415,12 +425,12 @@ if (isset($_SESSION['user_id'])) {
             <?php } ?>
             <?php if ($user_nrc == false) { ?>
                 <div class="modal-content">
-                    <div class="modal-header">
+                    <!-- <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLabel">Verfied your account!!!</h5>
                         <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
-                    </div>
+                    </div> -->
                     <div class="modal_body">
-                        <h3>You need to verified your account!!!</h3>
+                        <h3>You need to verified your account!</h3>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Ok</button>

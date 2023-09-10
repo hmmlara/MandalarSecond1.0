@@ -231,6 +231,7 @@ include_once "nav.php";
                             Post
                         </li>
                         <li class="nav-item" data-tab="2">
+                            <i class="fa-solid fa-box"></i>
                             Brand
                         </li>
                         <!-- Add more navigation items as needed -->
@@ -292,7 +293,7 @@ include_once "nav.php";
 
                                                         </h5>
                                                         <h5>
-                                                            <?php echo $post['price'] ?>
+                                                            <?php echo $post['price'] ?> ks
                                                         </h5>
                                                     </div>
                                                     <div class="d-flex justify-content-between align-items-center">
@@ -360,7 +361,7 @@ include_once "nav.php";
 
                                                         </h5>
                                                         <h5>
-                                                            <?php echo $post['price'] ?>
+                                                            <?php echo $post['price'] ?> ks
                                                         </h5>
                                                     </div>
                                                     <div class="d-flex justify-content-between align-items-center">

@@ -1,6 +1,6 @@
 <?php
-include_once "nav.php";
-//  session_start();
+error_reporting(0);
+session_start();
 include_once "controller/profileController.php";
 include_once "controller/followController.php";
 include_once "controller/kpayController.php";
@@ -11,14 +11,17 @@ $post_controller = new PostController();
 $getKpay_history = new kpayController();
 $post_model = new Post();
 
-
+if ($_SESSION['user_id'] == $_GET['id']) {
+    // echo "SSSSSSSSSSSSSSSSS";
+    header("location:profile.php");
+}
 
 if (isset($_SESSION['user_id'])) {
     $to_id = $_GET['id'];
-    // echo $to_id;
-
+    //  echo $to_id;
+    // echo "///////////";
     $from_id = $_SESSION['user_id'];
-    // echo $from_id;
+    //  echo $from_id;
     $followresult = $followUser->followingUser($from_id, $to_id);
 
     if ($followresult[0]['follow_exists'] == "1") {
@@ -29,11 +32,11 @@ if (isset($_SESSION['user_id'])) {
 
 
 
-    if ($_SESSION['user_id'] == $_GET['id']) {
-        header("location:profile.php");
-    }
+    
+}else{
+    header("location:Home.php");
 }
-
+include_once "nav.php";
 $getAllUser = $getalluserlist->getUserList();
 
 $getAllFollow = $followUser->getAllFollow();
@@ -288,7 +291,7 @@ $sold_out_post = $post_controller->getSoldOutPost($userid);
                                 Post
                             </li>
                             <li class="nav-item" data-tab="1">
-                                Sold Out
+                                Sold Out Post
                             </li>
                         </ul>
                     </div>

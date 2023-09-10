@@ -181,8 +181,8 @@ if (!isset($_SESSION['user_id'])) {
             echo '</script>';
         }
 
-        $wait = 4;
-        echo $wait;
+        // $wait = 4;
+        // echo $wait;
     }
 
 
@@ -354,9 +354,9 @@ if (!isset($_SESSION['user_id'])) {
         }
     }
     
-    foreach ($todayTransfers as $today) {
-        var_dump($today);
-    }
+    // foreach ($todayTransfers as $today) {
+    //     var_dump($today);
+    // }
     
     ?>
     <link rel="stylesheet" href="mdbbootstrap/css/mdb.min.css">
@@ -481,7 +481,7 @@ if (!isset($_SESSION['user_id'])) {
                     <i class="fa-brands fa-square-twitter fa-xl icon" style="color: #1da1f2;"></i>
                     <i class="fa-brands fa-square-google-plus fa-xl icon" style="color: #4285f4;"></i>
                     <div class="money d-flex align-items-center">
-                        <i class="fa-solid fa-circle-plus mx-2" data-mdb-toggle="modal" data-mdb-target="#money_modal"></i>
+                        <i class="fa-solid fa-circle-plus mx-2 text-white"  data-mdb-toggle="modal" data-mdb-target="#money_modal"></i>
                         <!-- <input type="text" disabled class="money_box text-white  move text-right bg-transparent" value="<?php if (isset($userwallet)) {
                                                                                                                                     echo $userwallet;
                                                                                                                                 } else {
@@ -681,7 +681,7 @@ if (!isset($_SESSION['user_id'])) {
                                 Sold Out Post
                             </li>
                             <li class="nav-item" data-tab="2">
-                                <i class="fa-solid fa-clock-rotate-left mr-2"></i> History
+                                Deposit History
                             </li>
                             <li class="nav-item" data-tab="3">
                                 buy post
