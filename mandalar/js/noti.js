@@ -72,7 +72,11 @@ $(document).on("click", ".noti_id", function (event) {
     },
   });
 });
-loadNotiCount();
+
+setInterval(
+  loadNotiCount(),500
+)
+;
 
 function linkto(link) {
   // $(this).removeClass('')
