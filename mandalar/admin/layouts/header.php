@@ -63,8 +63,8 @@
 					</li>
 
 					<li class="sidebar-item">
-						<a class="sidebar-link" href="graph.php">
-              <i class="align-middle" data-feather="book"></i> <span class="align-middle">Graph</span>
+						<a class="sidebar-link" href="Report.php">
+              <i class="align-middle" data-feather="book"></i> <span class="align-middle">Report</span>
             </a>
 					</li>
 
