@@ -199,16 +199,17 @@ function seeReplies(e, parent_comment_id) {
 			let replyComments = "";
 			response.forEach((element) => {
 				let date = timeAgo(element.date);
+				console.log(date);
 				replyComments += `
 			<div class ="comment" >
 					<div class="">
 						<img src="image/user-profile/${element.img}"  class="profile-picture-comment" alt="${element.img}" style="width: 40px;height:40px;object-fit:cover" />
 						<div class="comment-container">
 							<div class="comment-content">
-								<div class="comment-details">
-									<span class="comment-author">${element.name}</span>
-									<span class="comment-date">Posted on ${date}</span>
-								</div>
+							<div class="comment-details">
+							<span class="comment-author">${element.name} <span class="comment-date"> - ${date}</span></span>
+							
+						</div>
 								${element.content}
 							</div>
 							<div class="comment-actions">

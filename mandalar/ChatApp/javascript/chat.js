@@ -41,12 +41,16 @@ icon.onclick = ()=>{
     xhr.send(formData);
   });
 sendBtn.onclick = ()=>{
+    // inputField.value = "";
+
     let xhr = new XMLHttpRequest();
     xhr.open("POST", "php/insert-chat.php", true);
     xhr.onload = ()=>{
       if(xhr.readyState === XMLHttpRequest.DONE){
+        inputField.value = "";
+
           if(xhr.status === 200){
-              inputField.value = "";
+            //   inputField.value = " ";
               scrollToBottom();
           }
       }

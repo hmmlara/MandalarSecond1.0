@@ -576,7 +576,7 @@ if (!isset($_SESSION['user_id'])) {
                                                     <div class="fimage-container border border-1 rounded-3  " style="height: 300px;">
                                                         <img src="" class="" style="width: 100%; height:100%;object-fit:cover;">
                                                     </div>
-                                                    <input type="file" name="fimg" class="" id="selfrontimg" required>
+                                                    <input type="file" name="fimg" class="d-none" id="selfrontimg" required>
                                                     <i class="fa-solid fa-plus plus-signfront" id="fplus"></i>
 
                                                 </div>
@@ -585,7 +585,7 @@ if (!isset($_SESSION['user_id'])) {
                                                     <div class="bimage-container border border-1 rounded-3  " style="height: 300px;">
                                                         <img src="" class="" style="width: 100%; height:100%;object-fit:cover;">
                                                     </div>
-                                                    <input type="file" class="" name="bimg" id="selbackimg" required>
+                                                    <input type="file" class="d-none" name="bimg" id="selbackimg" required>
                                                     <i class="fa-solid fa-plus plus-signback" id="bplus"></i>
                                                 </div>
                                                 <p class="text-danger"><?php if (!empty($error)) {

@@ -33,10 +33,10 @@ if (isset($_SESSION['user_id'])) {
 
 
 
-    
-}else{
-    header("location:Home.php");
 }
+// }else{
+//     header("location:Home.php");
+// }
 include_once "nav.php";
 $getAllUser = $getalluserlist->getUserList();
 

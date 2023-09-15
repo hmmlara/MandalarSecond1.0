@@ -331,7 +331,7 @@ if (isset($_SESSION['user_id'])) {
     <?php } ?>
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-dialog-centered">
             <?php if ($user_nrc == true) { ?>
                 <div class="modal-content">
                     <div class="modal-header">
@@ -424,7 +424,9 @@ if (isset($_SESSION['user_id'])) {
                 </div>
             <?php } ?>
             <?php if ($user_nrc == false) { ?>
-                <div class="modal-content">
+                
+                <!-- <div class="modal-dialog "> -->
+                <div class="modal-content  ">
                     <!-- <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLabel">Verfied your account!!!</h5>
                         <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
@@ -433,9 +435,10 @@ if (isset($_SESSION['user_id'])) {
                         <h3>You need to verified your account!</h3>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Ok</button>
+                        <button type="button" class="btn btn-primary" data-mdb-dismiss="modal">Ok</button>
                     </div>
                 </div>
+            <!-- </div> -->
 
             <?php } ?>
         </div>
